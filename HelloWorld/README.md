@@ -63,10 +63,12 @@ Once the contract is mined and recorded on the blockchain, you should be able to
 **> hello2 = helloContract.at(hello.address)**
 
 **> hello2.sayHello()**
-**"0x"**
+
+**"0x"** (no hash)
 
 **> hello2.updateMessage("hi")**
-**"0x..."**
+
+**"0x..."** (hashed)
 
 The sayHello() method does not change the internal state, so execution of it doesn't have cost. However, updateMessage changes the state and gas fee is required. The account to pay can be specified as a function argument or if not specified, the default account set as: 
 
