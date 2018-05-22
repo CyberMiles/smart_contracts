@@ -1,6 +1,6 @@
 # Hello, World
 
-This example is about deploying a simple samrt contract on Travis Testnet.
+This example is about deploying a simple smart contract on Travis Testnet.
 
 **The source code 'HelloWorld.sol' is also in the directory**.
 
