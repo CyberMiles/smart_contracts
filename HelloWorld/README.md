@@ -85,8 +85,8 @@ module.exports = function(deployer) {
 
 Then update the *truffle.js* file for configuration:
 
-*module.exports = {
- networks: {
+*module.exports = {*
+ *networks: {
    testnet: {
      host: "localhost",
      port: 8545,
@@ -102,7 +102,7 @@ Run *'truffle compile'* for compilation and run *'truffle migrate --network test
 
 The result should be similar to:
 
-*Using network 'testnet'.
+*Using network 'testnet'.*
 
 *Running migration: 1_initial_migration.js
   Replacing Migrations...
