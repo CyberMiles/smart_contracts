@@ -44,7 +44,7 @@ The following commands can be run in the GETH or Travis console attached to the 
 
 **> bytecode = '0x...'**
 
-**> gas = ... *(please notice this is supposed to be a single number rather than a JSON structure)* **
+**> gas = ... (please notice this is supposed to be a single number rather than a JSON structure) **
 
 Then you need to have your own unlocked account with balance to deploy it.
 
@@ -52,7 +52,7 @@ Then you need to have your own unlocked account with balance to deploy it.
 
 **> helloContract = cmt.contract(abi)**
 
-**> hello = helloContract.new("0x...", deploy) *(please notice the first argument is the same as the 'from' argument in 'deploy' is supposed to be simple 'address' type)**
+**> hello = helloContract.new("0x...", deploy) (please notice the first argument is the same as the 'from' argument in 'deploy' is supposed to be simple 'address' type)**
 
 If authentication error is encountered, make sure you unlock the account before deployment.
 
