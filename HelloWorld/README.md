@@ -38,13 +38,15 @@ The IDE compiles and creates the ABI, bytecode, gas fee estimation in a convenie
 
 Now since we have the key information, this contract is ready to be deployed from GETH or Travis and obtain an address on the blockchain for the deployed contract instance. 
 
+If you haven't attached to the Travis network yet, please check out the instruction here: <https://medium.com/cybermiles/running-a-travis-node-ac7447b754d4>
+
 The following commands can be run in the GETH or Travis console attached to the *Travis network*.
 
 **> abi = ...**
 
 **> bytecode = '0x...'**
 
-**> gas = ... (please notice this is supposed to be a single number rather than a JSON structure) **
+**> gas = ... (please notice this is supposed to be a single number rather than a JSON structure)**
 
 Then you need to have your own unlocked account with balance to deploy it.
 
@@ -90,10 +92,10 @@ Then update the *truffle.js* file for configuration:
    testnet: {
      host: "localhost",
      port: 8545,
-     network_id: *,
-     from: "*",
-     gas: *,
-     gasPrice: *
+     network_id: -,
+     from: "-",
+     gas: -,
+     gasPrice: -
    }
  }
 };*
