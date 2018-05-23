@@ -58,9 +58,11 @@ Then you need to have your own unlocked account with balance to deploy it.
 
 If authentication error is encountered, make sure you unlock the account before deployment.
 
-Once the contract is mined and recorded on the blockchain, you should be able to create an instance of it and call its public methods. 
+Once the contract is mined and recorded on the blockchain, you should be able to create an instance of it and call its public methods. Note that for now, the address of 'hello' is 'undefined'. But when we interact with the contract we need to mention the address.
 
 **> hello2 = helloContract.at(hello.address)**
+
+Now we have the instance of the contract, and we are able to call the public methods of the contract.
 
 **> hello2.sayHello()**
 
@@ -78,7 +80,7 @@ The sayHello() method does not change the internal state, so execution of it doe
 
 *Truffle* automates and simplifies the deployment process. 
 
-Seee installation instructions here: <http://truffleframework.com/docs/getting_started/installation>
+See installation instructions here: <http://truffleframework.com/docs/getting_started/installation>
 
 Once the installation is done, we can make a new directory and run *'init truffle'* inside of it. Then create or copy the *HelloWorld.sol* file inside the *'contracts'* directory. Create a *migrations/2_deploy_contracts.js* file with the content:
 
@@ -121,7 +123,7 @@ Running migration: 2_deploy_contracts.js
   HelloWorld: 0x98b43faf1dace04fcc70df235367c456507df0d8
 Saving artifacts...*
 
-Then you can verify and test the methods with the address.
+Then you can verify the address on an explorer or in the Travis console.
 
 
 
