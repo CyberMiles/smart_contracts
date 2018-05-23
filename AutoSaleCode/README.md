@@ -26,4 +26,4 @@ The accounts listed under the "Accounts" button should now have updated balances
 
 Take note that the way in which this smart contract is designed, a sale can only be made once. Attempting to call the buyCar() function a second time will not succeed. 
 
-More instructions of how to deploy smart contract on Travis Testnet, TestRPC and ETH testnet to follow soon.
+More instructions of how to deploy smart contracts on Travis Testnet, TestRPC and ETH testnet to follow soon.
