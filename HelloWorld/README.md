@@ -104,7 +104,7 @@ Then update the *truffle.js* file for configuration:
  }
 };*
 
-Run *'truffle compile'* for compilation and run *'truffle migrate --network testnet'*. Make sure your account in *'from'* is unlocked.
+Run *'truffle compile'* for compilation and run *'truffle migrate --network testnet'*. Make sure your account in *'from'* is unlocked. You can get the compile results (like abi) from *build/contracts/HelloWorld.json*.
 
 The result should be similar to:
 
@@ -123,7 +123,20 @@ Running migration: 2_deploy_contracts.js
   HelloWorld: 0x98b43faf1dace04fcc70df235367c456507df0d8
 Saving artifacts...*
 
-Then you can verify the address on an explorer or in the Travis console.
+Then you can verify the address on an explorer or in the Travis console. 
+
+Now you have the contract address and its abi, you are able to interact with the contract in Travis console. Simply create the contract instance by:
+
+**> helloWorldContract = cmt.contract(abi)**
+
+and 
+
+**> helloWorld = helloWorldContract.at("0x...")**
+
+Then you can go and test the methods in the contract like sayHello() with the instance you just created. Make sure your default account (with sufficient balance for costly methods) is set by
+
+**> cmt.defaultAccount="0x..."**
+
 
 
 
