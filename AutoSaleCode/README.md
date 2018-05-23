@@ -10,7 +10,7 @@ buyCar() sets the buyer field to address of the caller of the function and then 
 
 ## Remix IDE
 
-To test the smart contract on the Remix IDE, first go to [https://remix.ethereum.org/](https://remix.ethereum.org/). 
+To test the smart contract on the Remix IDE, go to [https://remix.ethereum.org/](https://remix.ethereum.org/). 
 
 First, paste the solidity code for the auto sale over the voting smart contract sample code provided by remix. 
 
