@@ -74,13 +74,13 @@ Navigate back to your AutoSale folder and open the "truffle.js" file. Paste the 
         	port: 8545,
         	network_id: "*",
         	from: "0xFROM_ADDRESS",
-        	gas: 4000000,
-        	gasPrice: 20000000000
+        	gas: -,
+        	gasPrice: -
         }
       }
     };
 
-Make sure you replace "0xFROM_ADDRESS" with an actual address you created on the Travis Testnet.
+Make sure you replace "0xFROM_ADDRESS" with an actual address you created on the Travis Testnet and fill in the desired gas and gasPrice.
 
 Go back to your terminal window and enter
 
