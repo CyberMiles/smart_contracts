@@ -145,6 +145,27 @@ Addresses of deployed contracts will be given respectively. Now we have the addr
 
 ### 2.Solidity compiler from terminal and Remix IDE
 
+Although deploment of the whole project can be troublesome with Solidity compiler, it can be the choice if you only want to test one of the contracts in the project. Remix IDE can have 'misleading' error message when inheritance is complicated.
+
+`solc --abi`, `solc --bin` and `solc --gas` plus the `.sol` file name will give you the information for deployment, same as sections under `details` section of each contract in Remix.
+
+If you compile it from command console, the results (abi, bin or gas) will be separated by contracts' name though you put them in one `.sol` file:
+
+```
+...
+======= kitties.sol:ClockAuction =======
+Contract JSON ABI 
+[{…}]
+
+======= kitties.sol:ClockAuctionBase =======
+Contract JSON ABI 
+[{…}]
+
+...
+```
+
+One thing to notice is Solidity takes all functions with loops and undefined-length strcutures as costly, usually `infinity` gas funds. But it may not be the case when you actually interact with them.
+
 ## Interacting with the deployed contracts
 
 Construct the contract by `cmt.contract(THE_ABI)` and create the instance of the contract by `.at(THE_ADRESS)` function:
