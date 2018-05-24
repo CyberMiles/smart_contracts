@@ -1,4 +1,5 @@
 
+
 # AutoSale
 This example is about deploying a decentralized auto sale smart contract on the blockchain.
 
@@ -26,4 +27,77 @@ The accounts listed under the "Accounts" button should now have updated balances
 
 Take note that the way in which this smart contract is designed, a sale can only be made once. Attempting to call the buyCar() function a second time will not succeed. 
 
-More instructions of how to deploy smart contracts on Travis Testnet, TestRPC and ETH testnet to follow soon.
+
+
+## Travis Testnet
+
+To deploy AutoSale on Travis Testnet, we will use Truffle. To install Truffle, go [here](http://truffleframework.com/docs/getting_started/installation). To learn how to run your own Travis node, go [here](https://medium.com/cybermiles/running-a-travis-node-ac7447b754d4).
+
+First, open up your terminal and enter 
+
+`source $HOME/.gvm/scripts/gvm`
+
+Then, start up your travis node with 
+
+`travis node start --home=./.travis`
+
+Open up a new terminal window and create a new folder for the AutoSale Smart Contract anywhere you like. I will refer to this folder as the "AutoSale" folder.
+
+Navigate to that folder in the terminal and enter 
+
+`truffle init`
+
+This will auto-generate template files for you within said folder. 
+
+Now, navigate to your AutoSale folder and within it should reside another folder named "contracts". In the "contracts" folder there should be a file named "Migrations.sol". **Do not** mess with this file.
+
+Create a new Solidity file in the "contracts" folder named "AutoSale.sol". Paste the source code into this file. 
+
+Navigate back to your AutoSale folder and find the directory named "migrations". Go into this directory and you should see a file named "1_initial_migration.js". Again, **do not** mess with this file and instead create a new file called "2_deploy_contracts.js". In this newly created file, paste the code below. 
+
+    var AutoSale = artifacts.require("./AutoSale.sol");
+    module.exports = function(deployer) {
+      deployer.deploy(AutoSale);
+    };
+
+Navigate back to your AutoSale folder and open the "truffle.js" file. Paste the code below into this file.
+
+    module.exports = {
+      networks: {
+        development: {
+          host: "127.0.0.1",
+          port: 7545,
+          network_id: "*" // Match any network id
+        },
+        travis: {
+        	host: "localhost",
+        	port: 8545,
+        	network_id: "*",
+        	from: "0xFROM_ADDRESS",
+        	gas: 4000000,
+        	gasPrice: 20000000000
+        }
+      }
+    };
+
+Make sure you replace "0xFROM_ADDRESS" with an actual address you created on the Travis Testnet.
+
+Go back to your terminal window and enter
+
+    truffle compile
+
+Open a new terminal window and enter
+
+    source $HOME/.gvm/scripts/gvm
+    travis attach http://localhost:8545
+    > personal.unlockAccount("0xFROM_ADDRESS","PASSWORD")
+
+This will unlock your account and allow you to deploy the smart contract with the account. 
+
+Go back to the previous terminal window and enter
+
+    truffle migrate --network travis
+
+Congrats! You have now deployed a smart contract on the Travis Testnet!
+
+More instructions and updates of how to deploy smart contracts on Travis Testnet, TestRPC and ETH testnet to follow soon.
