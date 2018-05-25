@@ -68,10 +68,10 @@ module.exports = {
 		testnet: {
 		host: "localhost",
 		port: 8545,
-		network_id: -,
+		network_id: 3,
 		from: "0x...",
-		gas: -,
-		gasPrice: -
+		gas: 4000000, // gas limit. Needs to be sufficient for deployment but smaller than your account abalance. Exceeding balance amount will be considered bailing
+		gasPrice: 20000000000 // in Wei. 20 GWei
 		}
 	}
 };
@@ -155,11 +155,11 @@ If you compile it from command console, the results (abi, bin or gas) will be se
 ...
 ======= kitties.sol:ClockAuction =======
 Contract JSON ABI 
-[{…}]
+[{...}]
 
 ======= kitties.sol:ClockAuctionBase =======
 Contract JSON ABI 
-[{…}]
+[{...}]
 
 ...
 ```
@@ -171,7 +171,7 @@ One thing to notice is Solidity takes all functions with loops and undefined-len
 Construct the contract by `cmt.contract(THE_ABI)` and create the instance of the contract by `.at(THE_ADRESS)` function:
 
 ```
-> kittyContract=cmt.contract([{…}])
+> kittyContract=cmt.contract([{...}])
 > kitty=kittyContract.at("0x...")
 > personal.unlockAccount("YOUR_DEFAULT_ACCOUNT")
 Unlock account 0x...
