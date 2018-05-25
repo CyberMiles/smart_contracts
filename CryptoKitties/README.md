@@ -182,7 +182,7 @@ true
 Then you can call any public method in the contract, for example in `Ownable` contract:
 
 ```
-> kitty.owner({from:"YOUR_DEFAULT_ADDRESS",gas:-})
+> kitty.owner({from:"YOUR_DEFAULT_ADDRESS",gas:-}) // this method is actually free, but you'll need to pay gas for methods like transferOwnership(NEW_ADDRESS)
 "0x..."
 ```
 If you have set the default account and are sure to use it for gas funds, you can leave the JSON structured parameter empty.
