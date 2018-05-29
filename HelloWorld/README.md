@@ -9,8 +9,7 @@ The contract has two main methods: sayHello() and updateMessage().
 sayHello() returns a greeting message *(type bytes32)* to its caller which is initially set to 'Hello, World' when the Smart Contract is deployed.  
 
 updateMessage() allows the method caller to change the greeting message to another message passed by function argument *(type bytes32)*.  
-
-## Solidity
+## 1.1 Solidity
 
 One option for getting the key information is to compile the .sol file in your command console using Solidity compiler.
 
@@ -26,7 +25,7 @@ Once you have *Solidity* installed, go create the smart contract file **HelloWor
   
 for obtaining the associated ABI definition, compiled EVM bytecode and gas fee estimation of the contract.
 
-## Remix IDE
+## 1.2 Remix IDE
 
 Another option is to compile it from a user-friendly IDE.
 
@@ -34,7 +33,7 @@ Access the IDE here: <http://remix.ethereum.org>
 
 The IDE compiles and creates the ABI, bytecode, gas fee estimation in a convenient manner. The information can be obtained ubder the **compile/details** section, indicated as **'ABI'**, **'BYTECODE'** and **'GASESTIMATES'**. Other info under the section as an auxiliary.
 
-## Deployment on Travis 
+## 2.1 Deployment on Travis 
 
 Now since we have the key information, this contract is ready to be deployed from GETH or Travis and obtain an address on the blockchain for the deployed contract instance. 
 
@@ -76,7 +75,7 @@ The sayHello() method does not change the internal state, so execution of it doe
 
 **> cmt.defaultAccount="0x..."**
 
-## Simplified deployment by Truffle
+## 2.2 Simplified deployment by Truffle
 
 *Truffle* automates and simplifies the deployment process. 
 
@@ -137,6 +136,68 @@ Then you can go and test the methods in the contract like sayHello() with the in
 
 **> cmt.defaultAccount="0x..."**
 
+## 3.1 Deployment on TestRPC with Truffle
 
+First, if you have not installed testRPC, check out: <https://www.npmjs.com/package/truffle-testrpc>
 
+Use the same procedure to get the ABI, bytecode and gas from either local Solidity compiler or the IDE tool.
+
+Then you will need to configure the files in your Truffle folder. You should have *HelloWorld.sol* in the *contracts* directory and *truffle.js* should look like:
+
+*module.exports = {
+        networks: {
+            development: {
+            host: "localhost",
+            port: 8545,
+            network_id: "*" // Match any network id
+            }
+        }
+};*
+
+*2_deploy_contracts.js* should be the same as we configured for Travis.
+
+Then, run `truffle console` in the folder and you will enter the truffle console for the network you specified:
+
+`truffle(development)> `
+
+Create instances to hold the info (or pass them all at once by the end):
+
+`> var abi=[...]
+
+> var bytecode='0x...'
+
+> gas=...`
+
+Then create the contract by:
+
+`> helloContract = web3.eth.contract(abi)`
+
+Make sure you specify the default account before deploy or creating the 'deploy' instance:
+
+`> web3.eth.defaultAccount="0x..." // default account
+
+> deploy={from:"0x...", data: bytecode, gas: gas} // 1st arg is default account`
+
+Now you can use the `.new()` method to deploy.
+
+`> var hello = helloContract.new('0x...', deploy) // 1st arg is default account
+undefined`
+
+Notice that for now the address is not shown. We need to get it from the transaction receipt.
+
+`> var addr=web3.eth.getTransactionReceipt(hello.transactionHash).contractAddress
+undefined
+
+> addr
+'0x...' // this is the address of the deployed contract`
+
+So now we have the address of the deployed contract, we are able to interact with it:
+
+`> hello2=helloContract.at('0x35b36dbe0cec23e2d4c63059c649187e2ef2e166')
+
+> hello2.sayHello.call()
+'0x...00000000000000000000000000000000000000'
+
+> hello2.updateMessage("hi")
+'0x...'`
 
