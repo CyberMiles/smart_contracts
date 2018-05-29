@@ -107,9 +107,8 @@ Run *'truffle compile'* for compilation and run *'truffle migrate --network test
 
 The result should be similar to:
 
-*Using network 'testnet'.*
-
-`Running migration: 1_initial_migration.js
+`Using network 'testnet'.
+Running migration: 1_initial_migration.js
   Replacing Migrations...
   ... 0x55af8b489dbb6b301222f269fd7bd2f38864c938dbc84f0b7df1446046d91300
   Migrations: 0x4fff013cca1c469b6ac07ee2102bb49ed459a363
@@ -162,11 +161,11 @@ Then, run `truffle console` in the folder and you will enter the truffle console
 
 Create instances to hold the info (or pass them all at once by the end):
 
-`> var abi=[...]
+`> var abi=[...]`
 
-> var bytecode='0x...'
+`> var bytecode='0x...'`
 
-> gas=...`
+`> gas=...`
 
 Then create the contract by:
 
@@ -174,9 +173,9 @@ Then create the contract by:
 
 Make sure you specify the default account before deploy or creating the 'deploy' instance:
 
-`> web3.eth.defaultAccount="0x..." // default account
+`> web3.eth.defaultAccount="0x..." // default account`
 
-> deploy={from:"0x...", data: bytecode, gas: gas} // 1st arg is default account`
+`> deploy={from:"0x...", data: bytecode, gas: gas} // 1st arg is default account`
 
 Now you can use the `.new()` method to deploy.
 
@@ -186,18 +185,18 @@ undefined`
 Notice that for now the address is not shown. We need to get it from the transaction receipt.
 
 `> var addr=web3.eth.getTransactionReceipt(hello.transactionHash).contractAddress
-undefined
+undefined`
 
-> addr
+`> addr
 '0x...' // this is the address of the deployed contract`
 
 So now we have the address of the deployed contract, we are able to interact with it:
 
-`> hello2=helloContract.at('0x35b36dbe0cec23e2d4c63059c649187e2ef2e166')
+`> hello2=helloContract.at('0x35b36dbe0cec23e2d4c63059c649187e2ef2e166')`
 
-> hello2.sayHello.call()
-'0x...00000000000000000000000000000000000000'
+`> hello2.sayHello.call()
+'0x...00000000000000000000000000000000000000'`
 
-> hello2.updateMessage("hi")
+`> hello2.updateMessage("hi")
 '0x...'`
 
