@@ -1,5 +1,6 @@
 
 
+
 # AutoSale
 This example is about deploying a decentralized auto sale smart contract on the blockchain.
 
@@ -27,9 +28,62 @@ The accounts listed under the "Accounts" button should now have updated balances
 
 Take note that the way in which this smart contract is designed, a sale can only be made once. Attempting to call the buyCar() function a second time will not succeed. 
 
+## Travis Testnet deployment with Solidity
 
+To deploy AutoSale on Travis Testnet with Solidity, we will need the Solidity compiler. For instructions on how to install the Solidity compiler, go [here](http://solidity.readthedocs.io/en/v0.4.21/installing-solidity.html). 
 
-## Travis Testnet
+First, start up your Travis node with 
+
+    travis node start --home=./.travis
+ 
+ Then, open up a new terminal window and navigate to the "AutoSale.sol" file.
+ 
+ After that, proceed to enter the following commands
+
+    solc --abi AutoSale.sol
+    solc --bin AutoSale.sol
+    solc --gas AutoSale.sol
+
+This will return the ABI, bytecode and the gas fee estimation for the AutoSale smart contract.
+
+Attach to the Travis node with
+
+    travis attach http://localhost:8545
+
+and enter the following with the associated ABI, bytecode and gas fee information
+
+    abi = (enter the output of "solc --abi AutoSale.sol" here)
+    bytecode = "(enter the output of "solc --bin AutoSale.sol" here)"
+    gas = (enter the integer value estimation of the JSON output from "solc --gas Autosale.sol")
+Note: Make sure that you enclose your Bytecode in quotation marks or else the compiler will read your bytecode variable value as infinity.
+
+After this, unlock your Travis account and ensure that it has enough balance to deploy the smart contract.
+
+Unlock your Travis Account by entering
+
+    personal.unlockAccount("0xACCOUNT_NUMBER", "PASSWORD")
+
+Once you have unlocked your account, enter
+
+    deploy = { from: "0xACCOUNT_NUMBER", data: bytecode, gas: gas }
+    autoContract = cmt.contract(abi)
+    auto = autoContract.new("0xACCOUNT_NUMBER", deploy)
+
+Once the contract is mined and recorded on the blockchain, you will be able to interact with it.
+
+To interact with the contract, enter
+
+    auto2 = autoContract.at(auto.address)
+
+This will create an instance of the contract. Once we have this, we will be able to call the public methods of the contract. For example
+
+    auto2.make()
+    auto2.model()
+    auto2.year()
+    
+More instructions on interacting with smart contracts to be added soon!
+
+## Travis Testnet deployment with Truffle
 
 To deploy AutoSale on Travis Testnet, we will use Truffle. To install Truffle, go [here](http://truffleframework.com/docs/getting_started/installation). To learn how to run your own Travis node, go [here](https://medium.com/cybermiles/running-a-travis-node-ac7447b754d4).
 
@@ -70,12 +124,12 @@ Navigate back to your AutoSale folder and open the "truffle.js" file. Paste the 
           network_id: "*" // Match any network id
         },
         travis: {
-        	host: "localhost",
-        	port: 8545,
-        	network_id: "*",
-        	from: "0xFROM_ADDRESS",
-        	gas: -,
-        	gasPrice: -
+          host: "localhost",
+          port: 8545,
+          network_id: "*",
+          from: "0xFROM_ADDRESS",
+          gas: -,
+          gasPrice: -
         }
       }
     };
