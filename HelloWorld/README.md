@@ -1,3 +1,4 @@
+
 # Hello, World
 
 This example is about deploying a simple smart contract on Travis Testnet.
@@ -81,7 +82,7 @@ The sayHello() method does not change the internal state, so execution of it doe
 
 See installation instructions here: <http://truffleframework.com/docs/getting_started/installation>
 
-Once the installation is done, we can make a new directory and run `init truffle` inside of it. Then create or copy the *HelloWorld.sol* file inside the *'contracts'* directory. Create a *migrations/2_deploy_contracts.js* file with the content:
+Once the installation is done, we can make a new directory and run `truffle init` inside of it. Then create or copy the *HelloWorld.sol* file inside the *'contracts'* directory. Create a *migrations/2_deploy_contracts.js* file with the content:
 
 `var HelloWorld = artifacts.require("./HelloWorld.sol");
 module.exports = function(deployer) {
@@ -200,3 +201,53 @@ So now we have the address of the deployed contract, we are able to interact wit
 `> hello2.updateMessage("hi")
 '0x...'`
 
+
+
+## 4.1 Deployment on ETH Testnet
+
+To deploy the HelloWorld smart contract on the ETH testnet, you will need to sync your node to an ethereum testnet. In this tutorial, the Rinkeby testnet was used. To initialize the synchronization on geth, enter
+
+    geth --rinkeby
+
+Open up a new terminal window and create a new directory for your HelloWorld project.
+
+Navgate into the HelloWorld directory and enter
+
+    truffle init
+
+Add the "HelloWorld.sol" file into the "contracts" folder and edit your "truffle.js" file to include the Rinkeby testnet like so
+
+    module.exports = {
+      networks: {
+        development: {
+          host: "127.0.0.1",
+          port: "7545",
+          network_id: "*" // match any network id
+        },
+        rinkeby: {
+          host: "localhost",
+          port: 8545,
+          network_id: 4,
+          gas: - //enter desired gas value here
+        }
+      }
+    };
+
+Create a *migrations/2_deploy_contracts.js* file with the content:
+
+    var HelloWorld = artifacts.require("./HelloWorld.sol");
+    module.exports = function(deployer) {
+      deployer.deploy(HelloWorld);
+    };`
+
+Enter 
+
+    truffle compile
+
+and then
+
+    truffle migrate --network rinkeby
+
+Make sure that you have your default account unlocked or else you will receive an authentication error. Also ensure that you have enough balance in the account to deploy the smart contract. You can receive Rinkeby testnet tokens [here](https://faucet.rinkeby.io/). 
+
+Congrats, you have successfully deployed a smart contract on the Rinkeby Testnet!
