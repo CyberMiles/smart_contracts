@@ -91,7 +91,8 @@ module.exports = function(deployer) {
 
 Then update the *truffle.js* file for configuration:
 
-`module.exports = {
+```
+module.exports = {
  networks: {
    testnet: {
      host: "localhost",
@@ -102,7 +103,8 @@ Then update the *truffle.js* file for configuration:
      gasPrice: - // left empty for customized value
    }
  }
-};`
+};
+```
 
 Run *'truffle compile'* for compilation and run *'truffle migrate --network testnet'*. Make sure your account in *'from'* is unlocked. You can get the compile results (like abi) from *build/contracts/HelloWorld.json*.
 
@@ -142,9 +144,12 @@ First, if you have not installed testRPC, check out: <https://www.npmjs.com/pack
 
 Use the same procedure to get the ABI, bytecode and gas from either local Solidity compiler or the IDE tool.
 
-Then you will need to configure the files in your Truffle folder. You should have *HelloWorld.sol* in the *contracts* directory and *truffle.js* should look like:
+For the JavaScript Console, if you are simulating using localhost:8545, you can either use `geth attach http://localhost:8545` or the *truffle console*.
 
-`module.exports = {
+For the truffle console, you will need to configure the files in your Truffle folder. You should have *HelloWorld.sol* in the *contracts* directory and *truffle.js* should look like:
+
+```
+module.exports = {
         networks: {
             development: {
             host: "localhost",
@@ -152,15 +157,14 @@ Then you will need to configure the files in your Truffle folder. You should hav
             network_id: "*" // Match any network id
             }
         }
-};`
-
-*2_deploy_contracts.js* should be the same as we configured for Travis.
+};
+```
 
 Then, run `truffle console` in the folder and you will enter the truffle console for the network you specified:
 
 `truffle(development)> `
 
-Create instances to hold the info (or pass them all at once by the end):
+Now since you are in the console, create instances to hold the info (or pass them all at once by the end):
 
 `> var abi=[...]`
 
