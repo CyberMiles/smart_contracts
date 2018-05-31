@@ -231,6 +231,7 @@ Add the "HelloWorld.sol" file into the "contracts" folder and edit your "truffle
         rinkeby: {
           host: "localhost",
           port: 8545,
+          from: "0xFROM_ADDRESS",
           network_id: 4,
           gas: - //enter desired gas value here
         }
