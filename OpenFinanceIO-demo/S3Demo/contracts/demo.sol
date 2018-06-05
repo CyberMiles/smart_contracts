@@ -22,7 +22,7 @@ contract demo is RegD506cToken, RestrictedTokenLogic, Ownable {
       address capTables_,
       uint256 index_
     ) public {
-        // Initially assign all tokens to the contract's creator.
+        // Initially assign the restrictor and cap tables.
         isFund = isFund_;
         owner = issuer;
 
@@ -38,14 +38,6 @@ contract demo is RegD506cToken, RestrictedTokenLogic, Ownable {
         uint16 newCount = shareholderCountAfter(msg.sender, _to, _value);
 	if (shareholderCount != newCount)
 	        shareholderCount = newCount;
-	if(isFund){
-		if(shareholderCount>99)
-			return false;
-	}
-	else{
-		if(shareholderCount>2000)
-                        return false;
-	}
         super.transfer(_to, _value);
 
         return true;
@@ -57,21 +49,10 @@ contract demo is RegD506cToken, RestrictedTokenLogic, Ownable {
         public
         returns (bool)
     {
-        //require(_value <= mbalanceOf[_from]);
-        //require(_value <= allowance[_from][msg.sender]);
-
         //=======================================
         uint16 newCount = shareholderCountAfter(_from, _to, _value);
 	if (shareholderCount != newCount)
                 shareholderCount = newCount;
-        if(isFund){
-                if(shareholderCount>99)
-                        return false;
-        }
-        else{
-                if(shareholderCount>2000)
-                        return false;
-        }
 
         super.transferFrom(_from, _to, _value);
 

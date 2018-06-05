@@ -30,7 +30,7 @@ contract ARegD506cToken is RegD506cToken, RestrictedTokenLogic, Ownable {
   )
     public
   {
-    totalSupply_ = ICapTables(capTables).totalSupply(index_); 
+    //totalSupply_ = ICapTables(capTables).totalSupply(index_); 
     isFund = isFund_;
     owner = issuer;
 
