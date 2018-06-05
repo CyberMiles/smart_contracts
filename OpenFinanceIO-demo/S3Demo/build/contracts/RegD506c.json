@@ -83,19 +83,19 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.10;\n\n\nimport './TransferRestrictor.sol';\n\n\n///\n/// @title Functions that tokens will need to call to configure themselves \ncontract RegD506c is TransferRestrictor {\n  function startHoldingPeriod() public;\n  function registerAmlKycChecker(address _checker, address _token) public;\n  function registerAccreditationChecker(address _checker, address _token) public;\n}\n",
-  "sourcePath": "/home/ubuntu/tokenDemo2/contracts/RegD506c.sol",
+  "sourcePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegD506c.sol",
   "ast": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/RegD506c.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegD506c.sol",
     "exportedSymbols": {
       "RegD506c": [
-        110
+        755
       ]
     },
-    "id": 111,
+    "id": 756,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 89,
+        "id": 734,
         "literals": [
           "solidity",
           "^",
@@ -103,16 +103,16 @@
           ".10"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:6"
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/TransferRestrictor.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/TransferRestrictor.sol",
         "file": "./TransferRestrictor.sol",
-        "id": 90,
+        "id": 735,
         "nodeType": "ImportDirective",
-        "scope": 111,
-        "sourceUnit": 497,
-        "src": "27:34:1",
+        "scope": 756,
+        "sourceUnit": 1764,
+        "src": "27:34:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -122,31 +122,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 91,
+              "id": 736,
               "name": "TransferRestrictor",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 496,
-              "src": "165:18:1",
+              "referencedDeclaration": 1763,
+              "src": "165:18:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TransferRestrictor_$496",
+                "typeIdentifier": "t_contract$_TransferRestrictor_$1763",
                 "typeString": "contract TransferRestrictor"
               }
             },
-            "id": 92,
+            "id": 737,
             "nodeType": "InheritanceSpecifier",
-            "src": "165:18:1"
+            "src": "165:18:6"
           }
         ],
         "contractDependencies": [
-          496
+          1763
         ],
         "contractKind": "contract",
         "documentation": "\n @title Functions that tokens will need to call to configure themselves ",
         "fullyImplemented": false,
-        "id": 110,
+        "id": 755,
         "linearizedBaseContracts": [
-          110,
-          496
+          755,
+          1763
         ],
         "name": "RegD506c",
         "nodeType": "ContractDefinition",
@@ -154,7 +154,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 95,
+            "id": 740,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -162,20 +162,20 @@
             "name": "startHoldingPeriod",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 93,
+              "id": 738,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "215:2:1"
+              "src": "215:2:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 94,
+              "id": 739,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "224:0:1"
+              "src": "224:0:6"
             },
-            "scope": 110,
-            "src": "188:37:1",
+            "scope": 755,
+            "src": "188:37:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
@@ -183,7 +183,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 102,
+            "id": 747,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -191,16 +191,16 @@
             "name": "registerAmlKycChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 100,
+              "id": 745,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 97,
+                  "id": 742,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 102,
-                  "src": "259:16:1",
+                  "scope": 747,
+                  "src": "259:16:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -208,10 +208,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 96,
+                    "id": 741,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "259:7:1",
+                    "src": "259:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -222,11 +222,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 99,
+                  "id": 744,
                   "name": "_token",
                   "nodeType": "VariableDeclaration",
-                  "scope": 102,
-                  "src": "277:14:1",
+                  "scope": 747,
+                  "src": "277:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -234,10 +234,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 98,
+                    "id": 743,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "277:7:1",
+                    "src": "277:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -247,17 +247,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "258:34:1"
+              "src": "258:34:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 101,
+              "id": 746,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "299:0:1"
+              "src": "299:0:6"
             },
-            "scope": 110,
-            "src": "228:72:1",
+            "scope": 755,
+            "src": "228:72:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
@@ -265,7 +265,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 109,
+            "id": 754,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -273,16 +273,16 @@
             "name": "registerAccreditationChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 107,
+              "id": 752,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 104,
+                  "id": 749,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 109,
-                  "src": "341:16:1",
+                  "scope": 754,
+                  "src": "341:16:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -290,10 +290,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 103,
+                    "id": 748,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "341:7:1",
+                    "src": "341:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -304,11 +304,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 106,
+                  "id": 751,
                   "name": "_token",
                   "nodeType": "VariableDeclaration",
-                  "scope": 109,
-                  "src": "359:14:1",
+                  "scope": 754,
+                  "src": "359:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -316,10 +316,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 105,
+                    "id": 750,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "359:7:1",
+                    "src": "359:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -329,40 +329,40 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "340:34:1"
+              "src": "340:34:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 108,
+              "id": 753,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "381:0:1"
+              "src": "381:0:6"
             },
-            "scope": 110,
-            "src": "303:79:1",
+            "scope": 755,
+            "src": "303:79:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 111,
-        "src": "144:240:1"
+        "scope": 756,
+        "src": "144:240:6"
       }
     ],
-    "src": "0:385:1"
+    "src": "0:385:6"
   },
   "legacyAST": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/RegD506c.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegD506c.sol",
     "exportedSymbols": {
       "RegD506c": [
-        110
+        755
       ]
     },
-    "id": 111,
+    "id": 756,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 89,
+        "id": 734,
         "literals": [
           "solidity",
           "^",
@@ -370,16 +370,16 @@
           ".10"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:6"
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/TransferRestrictor.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/TransferRestrictor.sol",
         "file": "./TransferRestrictor.sol",
-        "id": 90,
+        "id": 735,
         "nodeType": "ImportDirective",
-        "scope": 111,
-        "sourceUnit": 497,
-        "src": "27:34:1",
+        "scope": 756,
+        "sourceUnit": 1764,
+        "src": "27:34:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -389,31 +389,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 91,
+              "id": 736,
               "name": "TransferRestrictor",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 496,
-              "src": "165:18:1",
+              "referencedDeclaration": 1763,
+              "src": "165:18:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TransferRestrictor_$496",
+                "typeIdentifier": "t_contract$_TransferRestrictor_$1763",
                 "typeString": "contract TransferRestrictor"
               }
             },
-            "id": 92,
+            "id": 737,
             "nodeType": "InheritanceSpecifier",
-            "src": "165:18:1"
+            "src": "165:18:6"
           }
         ],
         "contractDependencies": [
-          496
+          1763
         ],
         "contractKind": "contract",
         "documentation": "\n @title Functions that tokens will need to call to configure themselves ",
         "fullyImplemented": false,
-        "id": 110,
+        "id": 755,
         "linearizedBaseContracts": [
-          110,
-          496
+          755,
+          1763
         ],
         "name": "RegD506c",
         "nodeType": "ContractDefinition",
@@ -421,7 +421,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 95,
+            "id": 740,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -429,20 +429,20 @@
             "name": "startHoldingPeriod",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 93,
+              "id": 738,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "215:2:1"
+              "src": "215:2:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 94,
+              "id": 739,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "224:0:1"
+              "src": "224:0:6"
             },
-            "scope": 110,
-            "src": "188:37:1",
+            "scope": 755,
+            "src": "188:37:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
@@ -450,7 +450,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 102,
+            "id": 747,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -458,16 +458,16 @@
             "name": "registerAmlKycChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 100,
+              "id": 745,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 97,
+                  "id": 742,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 102,
-                  "src": "259:16:1",
+                  "scope": 747,
+                  "src": "259:16:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -475,10 +475,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 96,
+                    "id": 741,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "259:7:1",
+                    "src": "259:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -489,11 +489,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 99,
+                  "id": 744,
                   "name": "_token",
                   "nodeType": "VariableDeclaration",
-                  "scope": 102,
-                  "src": "277:14:1",
+                  "scope": 747,
+                  "src": "277:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -501,10 +501,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 98,
+                    "id": 743,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "277:7:1",
+                    "src": "277:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -514,17 +514,17 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "258:34:1"
+              "src": "258:34:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 101,
+              "id": 746,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "299:0:1"
+              "src": "299:0:6"
             },
-            "scope": 110,
-            "src": "228:72:1",
+            "scope": 755,
+            "src": "228:72:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
@@ -532,7 +532,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 109,
+            "id": 754,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -540,16 +540,16 @@
             "name": "registerAccreditationChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 107,
+              "id": 752,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 104,
+                  "id": 749,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 109,
-                  "src": "341:16:1",
+                  "scope": 754,
+                  "src": "341:16:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -557,10 +557,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 103,
+                    "id": 748,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "341:7:1",
+                    "src": "341:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -571,11 +571,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 106,
+                  "id": 751,
                   "name": "_token",
                   "nodeType": "VariableDeclaration",
-                  "scope": 109,
-                  "src": "359:14:1",
+                  "scope": 754,
+                  "src": "359:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -583,10 +583,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 105,
+                    "id": 750,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "359:7:1",
+                    "src": "359:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -596,27 +596,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "340:34:1"
+              "src": "340:34:6"
             },
             "payable": false,
             "returnParameters": {
-              "id": 108,
+              "id": 753,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "381:0:1"
+              "src": "381:0:6"
             },
-            "scope": 110,
-            "src": "303:79:1",
+            "scope": 755,
+            "src": "303:79:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 111,
-        "src": "144:240:1"
+        "scope": 756,
+        "src": "144:240:6"
       }
     ],
-    "src": "0:385:1"
+    "src": "0:385:6"
   },
   "compiler": {
     "name": "solc",
@@ -624,5 +624,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-04T21:43:00.687Z"
+  "updatedAt": "2018-06-05T19:48:54.756Z"
 }

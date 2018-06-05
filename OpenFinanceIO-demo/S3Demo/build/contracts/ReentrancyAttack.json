@@ -16,24 +16,24 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b50610144806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630a2df1ed14610046575b600080fd5b34801561005257600080fd5b5061009060048036038101908080357bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19169060200190929190505050610092565b005b3373ffffffffffffffffffffffffffffffffffffffff16817c010000000000000000000000000000000000000000000000000000000090046040518163ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303816000875af192505050151561011557600080fd5b505600a165627a7a72305820f2df5a5950e84507e4de07ca551c0ba5a84fd5131104f067e28229f655c4c01a0029",
-  "deployedBytecode": "0x608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630a2df1ed14610046575b600080fd5b34801561005257600080fd5b5061009060048036038101908080357bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19169060200190929190505050610092565b005b3373ffffffffffffffffffffffffffffffffffffffff16817c010000000000000000000000000000000000000000000000000000000090046040518163ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303816000875af192505050151561011557600080fd5b505600a165627a7a72305820f2df5a5950e84507e4de07ca551c0ba5a84fd5131104f067e28229f655c4c01a0029",
+  "bytecode": "0x608060405234801561001057600080fd5b50610144806100206000396000f300608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630a2df1ed14610046575b600080fd5b34801561005257600080fd5b5061009060048036038101908080357bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19169060200190929190505050610092565b005b3373ffffffffffffffffffffffffffffffffffffffff16817c010000000000000000000000000000000000000000000000000000000090046040518163ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303816000875af192505050151561011557600080fd5b505600a165627a7a72305820bc974fd37de8264ed3d63466fc2cb6299905124d569450a5f36777dc089877320029",
+  "deployedBytecode": "0x608060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630a2df1ed14610046575b600080fd5b34801561005257600080fd5b5061009060048036038101908080357bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19169060200190929190505050610092565b005b3373ffffffffffffffffffffffffffffffffffffffff16817c010000000000000000000000000000000000000000000000000000000090046040518163ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303816000875af192505050151561011557600080fd5b505600a165627a7a72305820bc974fd37de8264ed3d63466fc2cb6299905124d569450a5f36777dc089877320029",
   "sourceMap": "27:175:74:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;27:175:74;;;;;;;",
   "deployedSourceMap": "27:175:74:-;;;;;;;;;;;;;;;;;;;;;;;;58:141;;8:9:-1;5:2;;;30:1;27;20:12;5:2;58:141:74;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;172:10;:15;;188:4;172:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;164:30;;;;;;;;58:141;:::o",
   "source": "pragma solidity ^0.4.23;\n\n\ncontract ReentrancyAttack {\n\n  function callSender(bytes4 data) public {\n    // solium-disable-next-line security/no-low-level-calls\n    require(msg.sender.call(data));\n  }\n\n}\n",
-  "sourcePath": "/home/ubuntu/tokenDemo2/contracts/zeppelin-solidity/contracts/mocks/ReentrancyAttack.sol",
+  "sourcePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/mocks/ReentrancyAttack.sol",
   "ast": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/zeppelin-solidity/contracts/mocks/ReentrancyAttack.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/mocks/ReentrancyAttack.sol",
     "exportedSymbols": {
       "ReentrancyAttack": [
-        5483
+        5249
       ]
     },
-    "id": 5484,
+    "id": 5250,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 5468,
+        "id": 5234,
         "literals": [
           "solidity",
           "^",
@@ -49,16 +49,16 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 5483,
+        "id": 5249,
         "linearizedBaseContracts": [
-          5483
+          5249
         ],
         "name": "ReentrancyAttack",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 5481,
+              "id": 5247,
               "nodeType": "Block",
               "src": "98:101:74",
               "statements": [
@@ -71,11 +71,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 5477,
+                            "id": 5243,
                             "name": "data",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 5470,
+                            "referencedDeclaration": 5236,
                             "src": "188:4:74",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes4",
@@ -94,18 +94,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 5474,
+                              "id": 5240,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 10045,
+                              "referencedDeclaration": 9811,
                               "src": "172:3:74",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 5475,
+                            "id": 5241,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -119,7 +119,7 @@
                               "typeString": "address"
                             }
                           },
-                          "id": 5476,
+                          "id": 5242,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -133,7 +133,7 @@
                             "typeString": "function () payable returns (bool)"
                           }
                         },
-                        "id": 5478,
+                        "id": 5244,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -155,21 +155,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 5473,
+                      "id": 5239,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "164:7:74",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 5479,
+                    "id": 5245,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -183,14 +183,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 5480,
+                  "id": 5246,
                   "nodeType": "ExpressionStatement",
                   "src": "164:30:74"
                 }
               ]
             },
             "documentation": null,
-            "id": 5482,
+            "id": 5248,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -198,15 +198,15 @@
             "name": "callSender",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5471,
+              "id": 5237,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5470,
+                  "id": 5236,
                   "name": "data",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5482,
+                  "scope": 5248,
                   "src": "78:11:74",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -215,7 +215,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 5469,
+                    "id": 5235,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "78:6:74",
@@ -232,36 +232,36 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 5472,
+              "id": 5238,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "98:0:74"
             },
-            "scope": 5483,
+            "scope": 5249,
             "src": "58:141:74",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 5484,
+        "scope": 5250,
         "src": "27:175:74"
       }
     ],
     "src": "0:203:74"
   },
   "legacyAST": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/zeppelin-solidity/contracts/mocks/ReentrancyAttack.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/mocks/ReentrancyAttack.sol",
     "exportedSymbols": {
       "ReentrancyAttack": [
-        5483
+        5249
       ]
     },
-    "id": 5484,
+    "id": 5250,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 5468,
+        "id": 5234,
         "literals": [
           "solidity",
           "^",
@@ -277,16 +277,16 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 5483,
+        "id": 5249,
         "linearizedBaseContracts": [
-          5483
+          5249
         ],
         "name": "ReentrancyAttack",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 5481,
+              "id": 5247,
               "nodeType": "Block",
               "src": "98:101:74",
               "statements": [
@@ -299,11 +299,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 5477,
+                            "id": 5243,
                             "name": "data",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 5470,
+                            "referencedDeclaration": 5236,
                             "src": "188:4:74",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes4",
@@ -322,18 +322,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 5474,
+                              "id": 5240,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 10045,
+                              "referencedDeclaration": 9811,
                               "src": "172:3:74",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 5475,
+                            "id": 5241,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -347,7 +347,7 @@
                               "typeString": "address"
                             }
                           },
-                          "id": 5476,
+                          "id": 5242,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -361,7 +361,7 @@
                             "typeString": "function () payable returns (bool)"
                           }
                         },
-                        "id": 5478,
+                        "id": 5244,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -383,21 +383,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 5473,
+                      "id": 5239,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "164:7:74",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 5479,
+                    "id": 5245,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -411,14 +411,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 5480,
+                  "id": 5246,
                   "nodeType": "ExpressionStatement",
                   "src": "164:30:74"
                 }
               ]
             },
             "documentation": null,
-            "id": 5482,
+            "id": 5248,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -426,15 +426,15 @@
             "name": "callSender",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 5471,
+              "id": 5237,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5470,
+                  "id": 5236,
                   "name": "data",
                   "nodeType": "VariableDeclaration",
-                  "scope": 5482,
+                  "scope": 5248,
                   "src": "78:11:74",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -443,7 +443,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 5469,
+                    "id": 5235,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "78:6:74",
@@ -460,19 +460,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 5472,
+              "id": 5238,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "98:0:74"
             },
-            "scope": 5483,
+            "scope": 5249,
             "src": "58:141:74",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 5484,
+        "scope": 5250,
         "src": "27:175:74"
       }
     ],
@@ -484,5 +484,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-04T18:46:36.330Z"
+  "updatedAt": "2018-06-05T19:48:54.759Z"
 }

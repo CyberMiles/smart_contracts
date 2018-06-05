@@ -101,9 +101,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.18;\n\nimport './RegS.sol';\nimport './RegSToken.sol';\nimport './UserChecker.sol';\nimport './zeppelin-solidity/contracts/ownership/Ownable.sol';\n\n/// @title Implementation of RegS\ncontract TheRegS is RegS {\n\n  /// Table of AML-KYC checking contracts\n  mapping(address => address) amlkycChecker;\n\n  ///\n  /// Table of accredited investor status checking contracts\n  mapping(address => address) accreditationChecker;\n\n  ///\n  /// Issuance dates for securities restricted by this contract\n  mapping(address => uint256) issuanceDate;\n\n  /// Table of residency status checking contracts\n  mapping(address => address) residencyChecker;\n  \n  ///\n  /// Error codes\n  enum ErrorCode {\n    Ok,\n    BuyerAMLKYC,\n    BuyerResidency,\n    SellerAMLKYC,\n    SellerResidency,\n    Accreditation\n  }\n\n  ///\n  /// Register a contract to confirm AML-KYC status\n  function registerAmlKycChecker(address _checker, address _token)\n    public\n  {\n    require(Ownable(_token).owner() == msg.sender);\n    amlkycChecker[_token] = _checker;\n  }\n\n  ///\n  /// Register a contract to confirm accreditation status\n  function registerAccreditationChecker(address _checker, address _token)\n    public\n  {\n    require(Ownable(_token).owner() == msg.sender);\n    accreditationChecker[_token] = _checker;\n  }\n\n  /// Register residency checker\n  function registerResidencyChecker(address _checker, address _token)\n    public\n  {\n    require(Ownable(_token).owner() == msg.sender);\n    residencyChecker[_token] = _checker;\n  }\n  \n  ///\n  /// Verify rules\n  function test(address _from, address _to, uint256 _value, address _token)\n    external\n    returns (uint16)\n  {\n\n    // The seller must have supplied AMLKYC information  \n    if (!amlkyc(_from, _token))\n      return uint16(ErrorCode.SellerAMLKYC);\n    \n    // The buyer must have supplied AMLKYC information\n    if (!amlkyc(_to, _token))\n      return uint16(ErrorCode.BuyerAMLKYC);\n\n    // The buyer must be an accredited investor\n    if (!accreditation(_to, _token))\n      return uint16(ErrorCode.Accreditation);\n\n    // The seller must be a non-USA investor\n    if (!residency(_from, _token))\n      return uint16(ErrorCode.SellerResidency);\n\n    // The buyer must be a non-USA investor\n    if (!residency(_to, _token))\n      return uint16(ErrorCode.BuyerResidency);\n\n    return uint16(ErrorCode.Ok);\n\n  }\n  \n  ///\n  /// Confirm AML-KYC status with the registered checker\n  function amlkyc(address _user, address _token)\n    internal\n    returns (bool)\n  {\n    return UserChecker(amlkycChecker[_token]).confirm(_user);\n  }\n\n  ///\n  /// Confirm accredited investor status with the associated checker\n  function accreditation(address _user, address _token)\n    internal\n    returns (bool)\n  {\n    return UserChecker(accreditationChecker[_token]).confirm(_user);\n  }\n  \n  ///\n  /// Confirm international status\n  function residency(address _user, address _token)\n    internal\n    returns (bool)\n  {\n    return UserChecker(residencyChecker[_token]).confirm(_user);\n  }\n\n}\n",
-  "sourcePath": "/home/ubuntu/tokenDemo2/contracts/TheRegS.sol",
+  "sourcePath": "/home/ubuntu/S3Demo/S3Demo/contracts/TheRegS.sol",
   "ast": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/TheRegS.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/TheRegS.sol",
     "exportedSymbols": {
       "TheRegS": [
         1747
@@ -124,7 +124,7 @@
         "src": "0:24:14"
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/RegS.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegS.sol",
         "file": "./RegS.sol",
         "id": 1512,
         "nodeType": "ImportDirective",
@@ -135,7 +135,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/RegSToken.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegSToken.sol",
         "file": "./RegSToken.sol",
         "id": 1513,
         "nodeType": "ImportDirective",
@@ -146,7 +146,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/UserChecker.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/UserChecker.sol",
         "file": "./UserChecker.sol",
         "id": 1514,
         "nodeType": "ImportDirective",
@@ -157,12 +157,12 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/zeppelin-solidity/contracts/ownership/Ownable.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "./zeppelin-solidity/contracts/ownership/Ownable.sol",
         "id": 1515,
         "nodeType": "ImportDirective",
         "scope": 1748,
-        "sourceUnit": 6664,
+        "sourceUnit": 6430,
         "src": "101:61:14",
         "symbolAliases": [],
         "unitAlias": ""
@@ -483,10 +483,10 @@
                                 "name": "Ownable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 6663,
+                                "referencedDeclaration": 6429,
                                 "src": "953:7:14",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6663_$",
+                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6429_$",
                                   "typeString": "type(contract Ownable)"
                                 }
                               },
@@ -500,7 +500,7 @@
                               "nodeType": "FunctionCall",
                               "src": "953:15:14",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Ownable_$6663",
+                                "typeIdentifier": "t_contract$_Ownable_$6429",
                                 "typeString": "contract Ownable"
                               }
                             },
@@ -511,7 +511,7 @@
                             "lValueRequested": false,
                             "memberName": "owner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 6591,
+                            "referencedDeclaration": 6357,
                             "src": "953:21:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -542,7 +542,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10045,
+                            "referencedDeclaration": 9811,
                             "src": "980:3:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -581,10 +581,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "945:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -818,10 +818,10 @@
                                 "name": "Ownable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 6663,
+                                "referencedDeclaration": 6429,
                                 "src": "1201:7:14",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6663_$",
+                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6429_$",
                                   "typeString": "type(contract Ownable)"
                                 }
                               },
@@ -835,7 +835,7 @@
                               "nodeType": "FunctionCall",
                               "src": "1201:15:14",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Ownable_$6663",
+                                "typeIdentifier": "t_contract$_Ownable_$6429",
                                 "typeString": "contract Ownable"
                               }
                             },
@@ -846,7 +846,7 @@
                             "lValueRequested": false,
                             "memberName": "owner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 6591,
+                            "referencedDeclaration": 6357,
                             "src": "1201:21:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -877,7 +877,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10045,
+                            "referencedDeclaration": 9811,
                             "src": "1228:3:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -916,10 +916,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "1193:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1153,10 +1153,10 @@
                                 "name": "Ownable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 6663,
+                                "referencedDeclaration": 6429,
                                 "src": "1421:7:14",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6663_$",
+                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6429_$",
                                   "typeString": "type(contract Ownable)"
                                 }
                               },
@@ -1170,7 +1170,7 @@
                               "nodeType": "FunctionCall",
                               "src": "1421:15:14",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Ownable_$6663",
+                                "typeIdentifier": "t_contract$_Ownable_$6429",
                                 "typeString": "contract Ownable"
                               }
                             },
@@ -1181,7 +1181,7 @@
                             "lValueRequested": false,
                             "memberName": "owner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 6591,
+                            "referencedDeclaration": 6357,
                             "src": "1421:21:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -1212,7 +1212,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10045,
+                            "referencedDeclaration": 9811,
                             "src": "1448:3:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -1251,10 +1251,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "1413:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -3234,7 +3234,7 @@
     "src": "0:3005:14"
   },
   "legacyAST": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/TheRegS.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/TheRegS.sol",
     "exportedSymbols": {
       "TheRegS": [
         1747
@@ -3255,7 +3255,7 @@
         "src": "0:24:14"
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/RegS.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegS.sol",
         "file": "./RegS.sol",
         "id": 1512,
         "nodeType": "ImportDirective",
@@ -3266,7 +3266,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/RegSToken.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/RegSToken.sol",
         "file": "./RegSToken.sol",
         "id": 1513,
         "nodeType": "ImportDirective",
@@ -3277,7 +3277,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/UserChecker.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/UserChecker.sol",
         "file": "./UserChecker.sol",
         "id": 1514,
         "nodeType": "ImportDirective",
@@ -3288,12 +3288,12 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/home/ubuntu/tokenDemo2/contracts/zeppelin-solidity/contracts/ownership/Ownable.sol",
+        "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "./zeppelin-solidity/contracts/ownership/Ownable.sol",
         "id": 1515,
         "nodeType": "ImportDirective",
         "scope": 1748,
-        "sourceUnit": 6664,
+        "sourceUnit": 6430,
         "src": "101:61:14",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3614,10 +3614,10 @@
                                 "name": "Ownable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 6663,
+                                "referencedDeclaration": 6429,
                                 "src": "953:7:14",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6663_$",
+                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6429_$",
                                   "typeString": "type(contract Ownable)"
                                 }
                               },
@@ -3631,7 +3631,7 @@
                               "nodeType": "FunctionCall",
                               "src": "953:15:14",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Ownable_$6663",
+                                "typeIdentifier": "t_contract$_Ownable_$6429",
                                 "typeString": "contract Ownable"
                               }
                             },
@@ -3642,7 +3642,7 @@
                             "lValueRequested": false,
                             "memberName": "owner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 6591,
+                            "referencedDeclaration": 6357,
                             "src": "953:21:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -3673,7 +3673,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10045,
+                            "referencedDeclaration": 9811,
                             "src": "980:3:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -3712,10 +3712,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "945:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -3949,10 +3949,10 @@
                                 "name": "Ownable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 6663,
+                                "referencedDeclaration": 6429,
                                 "src": "1201:7:14",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6663_$",
+                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6429_$",
                                   "typeString": "type(contract Ownable)"
                                 }
                               },
@@ -3966,7 +3966,7 @@
                               "nodeType": "FunctionCall",
                               "src": "1201:15:14",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Ownable_$6663",
+                                "typeIdentifier": "t_contract$_Ownable_$6429",
                                 "typeString": "contract Ownable"
                               }
                             },
@@ -3977,7 +3977,7 @@
                             "lValueRequested": false,
                             "memberName": "owner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 6591,
+                            "referencedDeclaration": 6357,
                             "src": "1201:21:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -4008,7 +4008,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10045,
+                            "referencedDeclaration": 9811,
                             "src": "1228:3:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -4047,10 +4047,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "1193:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -4284,10 +4284,10 @@
                                 "name": "Ownable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 6663,
+                                "referencedDeclaration": 6429,
                                 "src": "1421:7:14",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6663_$",
+                                  "typeIdentifier": "t_type$_t_contract$_Ownable_$6429_$",
                                   "typeString": "type(contract Ownable)"
                                 }
                               },
@@ -4301,7 +4301,7 @@
                               "nodeType": "FunctionCall",
                               "src": "1421:15:14",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_Ownable_$6663",
+                                "typeIdentifier": "t_contract$_Ownable_$6429",
                                 "typeString": "contract Ownable"
                               }
                             },
@@ -4312,7 +4312,7 @@
                             "lValueRequested": false,
                             "memberName": "owner",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 6591,
+                            "referencedDeclaration": 6357,
                             "src": "1421:21:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
@@ -4343,7 +4343,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10045,
+                            "referencedDeclaration": 9811,
                             "src": "1448:3:14",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -4382,10 +4382,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        10048,
-                        10049
+                        9814,
+                        9815
                       ],
-                      "referencedDeclaration": 10048,
+                      "referencedDeclaration": 9814,
                       "src": "1413:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -6370,5 +6370,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-04T18:46:36.300Z"
+  "updatedAt": "2018-06-05T19:48:54.923Z"
 }

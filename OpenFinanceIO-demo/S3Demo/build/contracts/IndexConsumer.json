@@ -1,14 +1,14 @@
 {
   "contractName": "IndexConsumer",
   "abi": [],
-  "bytecode": "0x608060405260008055348015601357600080fd5b5060358060216000396000f3006080604052600080fd00a165627a7a72305820f06cb800bb5a04cd6a63933aba284f9a322edb5685d3ba7f9883b5f7eb1357160029",
-  "deployedBytecode": "0x6080604052600080fd00a165627a7a72305820f06cb800bb5a04cd6a63933aba284f9a322edb5685d3ba7f9883b5f7eb1357160029",
+  "bytecode": "0x608060405260008055348015601357600080fd5b5060358060216000396000f3006080604052600080fd00a165627a7a7230582010ac8fea264b132f11c69cb8f40741aa1f8bd821727e1867b1efb5549c5bd6c80029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a7230582010ac8fea264b132f11c69cb8f40741aa1f8bd821727e1867b1efb5549c5bd6c80029",
   "sourceMap": "127:254:4:-;;;202:1;173:30;;127:254;8:9:-1;5:2;;;30:1;27;20:12;5:2;127:254:4;;;;;;;",
   "deployedSourceMap": "127:254:4:-;;;;;",
   "source": "pragma solidity ^0.4.18;\n\n/** \n * @title IndexConsumer\n * @dev This contract adds an autoincrementing index to contracts. \n */\ncontract IndexConsumer {\n  /** The index */\n  uint256 private freshIndex = 0;\n  /** Fetch the next index */\n  function nextIndex() internal returns (uint256) {\n    uint256 theIndex = freshIndex;\n    freshIndex = freshIndex + 1;\n    return theIndex;\n  }\n}\n",
-  "sourcePath": "/home/ubuntu/tokenDemo2/contracts/IndexConsumer.sol",
+  "sourcePath": "/home/ubuntu/S3Demo/S3Demo/contracts/IndexConsumer.sol",
   "ast": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/IndexConsumer.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/IndexConsumer.sol",
     "exportedSymbols": {
       "IndexConsumer": [
         675
@@ -305,7 +305,7 @@
     "src": "0:382:4"
   },
   "legacyAST": {
-    "absolutePath": "/home/ubuntu/tokenDemo2/contracts/IndexConsumer.sol",
+    "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/IndexConsumer.sol",
     "exportedSymbols": {
       "IndexConsumer": [
         675
@@ -607,5 +607,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-04T18:46:36.296Z"
+  "updatedAt": "2018-06-05T19:48:54.755Z"
 }

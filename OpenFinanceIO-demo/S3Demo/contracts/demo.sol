@@ -36,11 +36,17 @@ contract demo is RegD506cToken, RestrictedTokenLogic, Ownable {
     function transfer(address _to, uint256 _value) public returns (bool) {
         //=======================================
         uint16 newCount = shareholderCountAfter(msg.sender, _to, _value);
-
+	if (shareholderCount != newCount)
+	        shareholderCount = newCount;
+	if(isFund){
+		if(shareholderCount>99)
+			return false;
+	}
+	else{
+		if(shareholderCount>2000)
+                        return false;
+	}
         super.transfer(_to, _value);
-
-        if (shareholderCount != newCount)
-        shareholderCount = newCount;
 
         return true;
     }
@@ -56,11 +62,19 @@ contract demo is RegD506cToken, RestrictedTokenLogic, Ownable {
 
         //=======================================
         uint16 newCount = shareholderCountAfter(_from, _to, _value);
+	if (shareholderCount != newCount)
+                shareholderCount = newCount;
+        if(isFund){
+                if(shareholderCount>99)
+                        return false;
+        }
+        else{
+                if(shareholderCount>2000)
+                        return false;
+        }
 
         super.transferFrom(_from, _to, _value);
 
-        if (shareholderCount != newCount)
-          shareholderCount = newCount;
         //=======================================
 
         return true;
