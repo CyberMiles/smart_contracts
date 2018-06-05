@@ -38,6 +38,6 @@ Then the demo contract is ready to go. You can initialize the security by `demo.
 
 Once you call `demo.issue()`, the holding period of the security will start. Reg D 506 (c) requires an initial shareholder to make transactions after a 12 month holding period. The specific holding period is passed in the restrictor's constructor.
 
-Also, the regulation requires both buyer and seller to conform AML-KYC, and the buyer must be accredited. These two requirements are declared in `UserChecker`, implemented by `SimpleUserChecker`. 
+Also, the regulation requires both buyer and seller to conform AML-KYC, and the buyer must be accredited. These two requirements are declared in `UserChecker`, implemented by `SimpleUserChecker`. `RestrictedTokenLogic` is the super class of `demo` and when a `.transfer()`/`.transferFrom()` is called, methods in the super class are called so as to do the qualification check. `TransferRestrictor` is the interface containing rules about whether to approve a transfer or not. Its concrete implementation is in `TheRegD506c` and used by `RestrictedTokenLogic`. `.test()` method in `TheRegD506c` contains AML-KYC check and accreditation, implemented in `SimpleUserChecker`.
 
-The number of shareholders restricted depends on whether a security is issued by a fund or not.
+The number of shareholders restricted depends on whether a security is issued by a fund or not. If it is issued by a fund, #shareholders <= 99 ; otherwise #shareholders <= 2000. Whenever a `.transfer()`/`.transferFrom()` is called, the shareholder number changes until the upper limit is exceeded.
