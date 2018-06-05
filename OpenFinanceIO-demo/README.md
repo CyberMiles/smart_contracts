@@ -1,4 +1,4 @@
-# A demo of OpenFinanceIO S3 (Smart Securities Standard) token on Travis
+# A demo of OpenFinance S3 (Smart Securities Standard) token on Travis
 
 OpenFinance Network is a trading platform for trading, clearing & settlement process that is designed to be "efficiency, transparency, and interoperability". Its framework contains a uniform protocol providing standardizations and regulations for assets/data. 
 
@@ -32,8 +32,12 @@ After deployment, go to Travis console and initialize the total supply in `CapTa
 > cap.initialize(1000000) // whatever amount...
 "0x..." //transaction hash
 ```
-Then the demo contract is ready to go. You can call `demo.migrate` to transfer control over the cap table to the token contract.
+Then the demo contract is ready to go. You can initialize the security by `demo.issue` and call `demo.migrate` to transfer control over the cap table to the token contract.
 
 ## Some elaborations on token & regulation logic
 
+Once you call `demo.issue()`, the holding period of the security will start. Reg D 506 (c) requires an initial shareholder to make transactions after a 12 month holding period. The specific holding period is passed in the restrictor's constructor.
 
+Also, the regulation requires both buyer and seller to conform AML-KYC, and the buyer must be accredited. These two requirements are declared in `UserChecker`, implemented by `SimpleUserChecker`. 
+
+The number of shareholders restricted depends on whether a security is issued by a fund or not.
