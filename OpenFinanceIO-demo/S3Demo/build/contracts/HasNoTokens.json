@@ -114,14 +114,14 @@
     "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/HasNoTokens.sol",
     "exportedSymbols": {
       "HasNoTokens": [
-        6119
+        6120
       ]
     },
-    "id": 6120,
+    "id": 6121,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6096,
+        "id": 6097,
         "literals": [
           "solidity",
           "^",
@@ -134,10 +134,10 @@
       {
         "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/CanReclaimToken.sol",
         "file": "./CanReclaimToken.sol",
-        "id": 6097,
+        "id": 6098,
         "nodeType": "ImportDirective",
-        "scope": 6120,
-        "sourceUnit": 5888,
+        "scope": 6121,
+        "sourceUnit": 5889,
         "src": "26:31:91",
         "symbolAliases": [],
         "unitAlias": ""
@@ -148,94 +148,94 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 6098,
+              "id": 6099,
               "name": "CanReclaimToken",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 5887,
+              "referencedDeclaration": 5888,
               "src": "376:15:91",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CanReclaimToken_$5887",
+                "typeIdentifier": "t_contract$_CanReclaimToken_$5888",
                 "typeString": "contract CanReclaimToken"
               }
             },
-            "id": 6099,
+            "id": 6100,
             "nodeType": "InheritanceSpecifier",
             "src": "376:15:91"
           }
         ],
         "contractDependencies": [
-          5887,
-          6429
+          5888,
+          6430
         ],
         "contractKind": "contract",
         "documentation": "@title Contracts that should not own Tokens\n@author Remco Bloemen <remco@2π.com>\n@dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.\nShould tokens (any ERC20Basic compatible) end up in the contract, it allows the\nowner to reclaim the tokens.",
         "fullyImplemented": true,
-        "id": 6119,
+        "id": 6120,
         "linearizedBaseContracts": [
-          6119,
-          5887,
-          6429
+          6120,
+          5888,
+          6430
         ],
         "name": "HasNoTokens",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 6117,
+              "id": 6118,
               "nodeType": "Block",
               "src": "713:53:91",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6108,
+                    "id": 6109,
                     "name": "from_",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6101,
+                    "referencedDeclaration": 6102,
                     "src": "719:5:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 6109,
+                  "id": 6110,
                   "nodeType": "ExpressionStatement",
                   "src": "719:5:91"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6110,
+                    "id": 6111,
                     "name": "value_",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6103,
+                    "referencedDeclaration": 6104,
                     "src": "730:6:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 6111,
+                  "id": 6112,
                   "nodeType": "ExpressionStatement",
                   "src": "730:6:91"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6112,
+                    "id": 6113,
                     "name": "data_",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6105,
+                    "referencedDeclaration": 6106,
                     "src": "742:5:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_calldata_ptr",
                       "typeString": "bytes calldata"
                     }
                   },
-                  "id": 6113,
+                  "id": 6114,
                   "nodeType": "ExpressionStatement",
                   "src": "742:5:91"
                 },
@@ -245,21 +245,21 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 6114,
+                      "id": 6115,
                       "name": "revert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        9816,
-                        9817
+                        9817,
+                        9818
                       ],
-                      "referencedDeclaration": 9816,
+                      "referencedDeclaration": 9817,
                       "src": "753:6:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_revert_pure$__$returns$__$",
                         "typeString": "function () pure"
                       }
                     },
-                    "id": 6115,
+                    "id": 6116,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -273,14 +273,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6116,
+                  "id": 6117,
                   "nodeType": "ExpressionStatement",
                   "src": "753:8:91"
                 }
               ]
             },
             "documentation": "@dev Reject all ERC223 compatible tokens\n@param from_ address The address that is transferring the tokens\n@param value_ uint256 the amount of the specified token\n@param data_ Bytes The data passed from the caller.",
-            "id": 6118,
+            "id": 6119,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -288,15 +288,15 @@
             "name": "tokenFallback",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6106,
+              "id": 6107,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6101,
+                  "id": 6102,
                   "name": "from_",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6118,
+                  "scope": 6119,
                   "src": "660:13:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -305,7 +305,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6100,
+                    "id": 6101,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "660:7:91",
@@ -319,10 +319,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6103,
+                  "id": 6104,
                   "name": "value_",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6118,
+                  "scope": 6119,
                   "src": "675:14:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -331,7 +331,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6102,
+                    "id": 6103,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "675:7:91",
@@ -345,10 +345,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6105,
+                  "id": 6106,
                   "name": "data_",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6118,
+                  "scope": 6119,
                   "src": "691:11:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -357,7 +357,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 6104,
+                    "id": 6105,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "691:5:91",
@@ -374,19 +374,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 6107,
+              "id": 6108,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "713:0:91"
             },
-            "scope": 6119,
+            "scope": 6120,
             "src": "637:129:91",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 6120,
+        "scope": 6121,
         "src": "352:417:91"
       }
     ],
@@ -396,14 +396,14 @@
     "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/HasNoTokens.sol",
     "exportedSymbols": {
       "HasNoTokens": [
-        6119
+        6120
       ]
     },
-    "id": 6120,
+    "id": 6121,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6096,
+        "id": 6097,
         "literals": [
           "solidity",
           "^",
@@ -416,10 +416,10 @@
       {
         "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/CanReclaimToken.sol",
         "file": "./CanReclaimToken.sol",
-        "id": 6097,
+        "id": 6098,
         "nodeType": "ImportDirective",
-        "scope": 6120,
-        "sourceUnit": 5888,
+        "scope": 6121,
+        "sourceUnit": 5889,
         "src": "26:31:91",
         "symbolAliases": [],
         "unitAlias": ""
@@ -430,94 +430,94 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 6098,
+              "id": 6099,
               "name": "CanReclaimToken",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 5887,
+              "referencedDeclaration": 5888,
               "src": "376:15:91",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CanReclaimToken_$5887",
+                "typeIdentifier": "t_contract$_CanReclaimToken_$5888",
                 "typeString": "contract CanReclaimToken"
               }
             },
-            "id": 6099,
+            "id": 6100,
             "nodeType": "InheritanceSpecifier",
             "src": "376:15:91"
           }
         ],
         "contractDependencies": [
-          5887,
-          6429
+          5888,
+          6430
         ],
         "contractKind": "contract",
         "documentation": "@title Contracts that should not own Tokens\n@author Remco Bloemen <remco@2π.com>\n@dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.\nShould tokens (any ERC20Basic compatible) end up in the contract, it allows the\nowner to reclaim the tokens.",
         "fullyImplemented": true,
-        "id": 6119,
+        "id": 6120,
         "linearizedBaseContracts": [
-          6119,
-          5887,
-          6429
+          6120,
+          5888,
+          6430
         ],
         "name": "HasNoTokens",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 6117,
+              "id": 6118,
               "nodeType": "Block",
               "src": "713:53:91",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6108,
+                    "id": 6109,
                     "name": "from_",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6101,
+                    "referencedDeclaration": 6102,
                     "src": "719:5:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 6109,
+                  "id": 6110,
                   "nodeType": "ExpressionStatement",
                   "src": "719:5:91"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6110,
+                    "id": 6111,
                     "name": "value_",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6103,
+                    "referencedDeclaration": 6104,
                     "src": "730:6:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 6111,
+                  "id": 6112,
                   "nodeType": "ExpressionStatement",
                   "src": "730:6:91"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6112,
+                    "id": 6113,
                     "name": "data_",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6105,
+                    "referencedDeclaration": 6106,
                     "src": "742:5:91",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_calldata_ptr",
                       "typeString": "bytes calldata"
                     }
                   },
-                  "id": 6113,
+                  "id": 6114,
                   "nodeType": "ExpressionStatement",
                   "src": "742:5:91"
                 },
@@ -527,21 +527,21 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 6114,
+                      "id": 6115,
                       "name": "revert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        9816,
-                        9817
+                        9817,
+                        9818
                       ],
-                      "referencedDeclaration": 9816,
+                      "referencedDeclaration": 9817,
                       "src": "753:6:91",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_revert_pure$__$returns$__$",
                         "typeString": "function () pure"
                       }
                     },
-                    "id": 6115,
+                    "id": 6116,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -555,14 +555,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6116,
+                  "id": 6117,
                   "nodeType": "ExpressionStatement",
                   "src": "753:8:91"
                 }
               ]
             },
             "documentation": "@dev Reject all ERC223 compatible tokens\n@param from_ address The address that is transferring the tokens\n@param value_ uint256 the amount of the specified token\n@param data_ Bytes The data passed from the caller.",
-            "id": 6118,
+            "id": 6119,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -570,15 +570,15 @@
             "name": "tokenFallback",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6106,
+              "id": 6107,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6101,
+                  "id": 6102,
                   "name": "from_",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6118,
+                  "scope": 6119,
                   "src": "660:13:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -587,7 +587,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6100,
+                    "id": 6101,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "660:7:91",
@@ -601,10 +601,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6103,
+                  "id": 6104,
                   "name": "value_",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6118,
+                  "scope": 6119,
                   "src": "675:14:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -613,7 +613,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6102,
+                    "id": 6103,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "675:7:91",
@@ -627,10 +627,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6105,
+                  "id": 6106,
                   "name": "data_",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6118,
+                  "scope": 6119,
                   "src": "691:11:91",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -639,7 +639,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 6104,
+                    "id": 6105,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "691:5:91",
@@ -656,19 +656,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 6107,
+              "id": 6108,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "713:0:91"
             },
-            "scope": 6119,
+            "scope": 6120,
             "src": "637:129:91",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 6120,
+        "scope": 6121,
         "src": "352:417:91"
       }
     ],
@@ -680,5 +680,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-05T19:48:54.768Z"
+  "updatedAt": "2018-06-05T21:36:41.485Z"
 }

@@ -2,6 +2,7 @@ pragma solidity ^0.4.18;
 
 import "./IndexConsumer.sol";
 import "./zeppelin-solidity/contracts/math/SafeMath.sol";
+import "./interfaces/ICapTables.sol";
 
 /**
  * @title CapTables
@@ -12,7 +13,7 @@ import "./zeppelin-solidity/contracts/math/SafeMath.sol";
  * preserve this invariant by allowing no other cap table updates beside
  * transfers.
  */
-contract CapTables is IndexConsumer {
+contract CapTables is IndexConsumer{
   using SafeMath for uint256;
 
   /** Address of security */

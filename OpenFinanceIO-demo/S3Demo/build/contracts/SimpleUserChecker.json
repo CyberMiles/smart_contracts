@@ -204,14 +204,14 @@
     "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/SimpleUserChecker.sol",
     "exportedSymbols": {
       "SimpleUserChecker": [
-        1022
+        1023
       ]
     },
-    "id": 1023,
+    "id": 1024,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 931,
+        "id": 932,
         "literals": [
           "solidity",
           "^",
@@ -224,10 +224,10 @@
       {
         "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/UserChecker.sol",
         "file": "./UserChecker.sol",
-        "id": 932,
+        "id": 933,
         "nodeType": "ImportDirective",
-        "scope": 1023,
-        "sourceUnit": 1774,
+        "scope": 1024,
+        "sourceUnit": 1775,
         "src": "27:27:11",
         "symbolAliases": [],
         "unitAlias": ""
@@ -235,10 +235,10 @@
       {
         "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "./zeppelin-solidity/contracts/ownership/Ownable.sol",
-        "id": 933,
+        "id": 934,
         "nodeType": "ImportDirective",
-        "scope": 1023,
-        "sourceUnit": 6430,
+        "scope": 1024,
+        "sourceUnit": 6431,
         "src": "55:61:11",
         "symbolAliases": [],
         "unitAlias": ""
@@ -249,17 +249,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 934,
+              "id": 935,
               "name": "UserChecker",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1773,
+              "referencedDeclaration": 1774,
               "src": "149:11:11",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UserChecker_$1773",
+                "typeIdentifier": "t_contract$_UserChecker_$1774",
                 "typeString": "contract UserChecker"
               }
             },
-            "id": 935,
+            "id": 936,
             "nodeType": "InheritanceSpecifier",
             "src": "149:11:11"
           },
@@ -267,43 +267,43 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 936,
+              "id": 937,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 6429,
+              "referencedDeclaration": 6430,
               "src": "162:7:11",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$6429",
+                "typeIdentifier": "t_contract$_Ownable_$6430",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 937,
+            "id": 938,
             "nodeType": "InheritanceSpecifier",
             "src": "162:7:11"
           }
         ],
         "contractDependencies": [
-          1773,
-          6429
+          1774,
+          6430
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1022,
+        "id": 1023,
         "linearizedBaseContracts": [
-          1022,
-          6429,
-          1773
+          1023,
+          6430,
+          1774
         ],
         "name": "SimpleUserChecker",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 941,
+            "id": 942,
             "name": "checkers",
             "nodeType": "VariableDeclaration",
-            "scope": 1022,
+            "scope": 1023,
             "src": "175:40:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -312,9 +312,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 940,
+              "id": 941,
               "keyType": {
-                "id": 938,
+                "id": 939,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "183:7:11",
@@ -330,7 +330,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 939,
+                "id": 940,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "194:4:11",
@@ -345,10 +345,10 @@
           },
           {
             "constant": false,
-            "id": 947,
+            "id": 948,
             "name": "commitments",
             "nodeType": "VariableDeclaration",
-            "scope": 1022,
+            "scope": 1023,
             "src": "220:66:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -357,9 +357,9 @@
               "typeString": "mapping(address => mapping(address => bytes32))"
             },
             "typeName": {
-              "id": 946,
+              "id": 947,
               "keyType": {
-                "id": 942,
+                "id": 943,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "228:7:11",
@@ -375,9 +375,9 @@
                 "typeString": "mapping(address => mapping(address => bytes32))"
               },
               "valueType": {
-                "id": 945,
+                "id": 946,
                 "keyType": {
-                  "id": 943,
+                  "id": 944,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "247:7:11",
@@ -393,7 +393,7 @@
                   "typeString": "mapping(address => bytes32)"
                 },
                 "valueType": {
-                  "id": 944,
+                  "id": 945,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "258:7:11",
@@ -409,10 +409,10 @@
           },
           {
             "constant": false,
-            "id": 951,
+            "id": 952,
             "name": "confirmations",
             "nodeType": "VariableDeclaration",
-            "scope": 1022,
+            "scope": 1023,
             "src": "290:45:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -421,9 +421,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 950,
+              "id": 951,
               "keyType": {
-                "id": 948,
+                "id": 949,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "298:7:11",
@@ -439,7 +439,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 949,
+                "id": 950,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "309:4:11",
@@ -454,7 +454,7 @@
           },
           {
             "body": {
-              "id": 962,
+              "id": 963,
               "nodeType": "Block",
               "src": "434:38:11",
               "statements": [
@@ -463,25 +463,25 @@
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 958,
+                      "id": 959,
                       "name": "confirmations",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 951,
+                      "referencedDeclaration": 952,
                       "src": "447:13:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                         "typeString": "mapping(address => bool)"
                       }
                     },
-                    "id": 960,
+                    "id": 961,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 959,
+                      "id": 960,
                       "name": "_user",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 953,
+                      "referencedDeclaration": 954,
                       "src": "461:5:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -499,15 +499,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 957,
-                  "id": 961,
+                  "functionReturnParameters": 958,
+                  "id": 962,
                   "nodeType": "Return",
                   "src": "440:27:11"
                 }
               ]
             },
             "documentation": "\n Confirm a user",
-            "id": 963,
+            "id": 964,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -515,15 +515,15 @@
             "name": "confirm",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 954,
+              "id": 955,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 953,
+                  "id": 954,
                   "name": "_user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 964,
                   "src": "384:13:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -532,7 +532,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 952,
+                    "id": 953,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "384:7:11",
@@ -549,15 +549,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 957,
+              "id": 958,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 956,
+                  "id": 957,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 964,
                   "src": "426:4:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -566,7 +566,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 955,
+                    "id": 956,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "426:4:11",
@@ -581,22 +581,22 @@
               ],
               "src": "425:6:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "367:105:11",
             "stateMutability": "nonpayable",
-            "superFunction": 1772,
+            "superFunction": 1773,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 976,
+              "id": 977,
               "nodeType": "Block",
               "src": "567:36:11",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 974,
+                    "id": 975,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -605,25 +605,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 970,
+                        "id": 971,
                         "name": "checkers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 941,
+                        "referencedDeclaration": 942,
                         "src": "573:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 972,
+                      "id": 973,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 971,
+                        "id": 972,
                         "name": "_checker",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 965,
+                        "referencedDeclaration": 966,
                         "src": "582:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -646,7 +646,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 973,
+                      "id": 974,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -667,28 +667,28 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 975,
+                  "id": 976,
                   "nodeType": "ExpressionStatement",
                   "src": "573:25:11"
                 }
               ]
             },
             "documentation": "\n Add a checker",
-            "id": 977,
+            "id": 978,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 968,
+                "id": 969,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 967,
+                  "id": 968,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 6387,
+                  "referencedDeclaration": 6388,
                   "src": "555:9:11",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -702,15 +702,15 @@
             "name": "addChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 966,
+              "id": 967,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 965,
+                  "id": 966,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 977,
+                  "scope": 978,
                   "src": "522:16:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -719,7 +719,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 964,
+                    "id": 965,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "522:7:11",
@@ -736,12 +736,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 969,
+              "id": 970,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "567:0:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "502:101:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -749,14 +749,14 @@
           },
           {
             "body": {
-              "id": 990,
+              "id": 991,
               "nodeType": "Block",
               "src": "704:37:11",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 988,
+                    "id": 989,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -765,25 +765,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 984,
+                        "id": 985,
                         "name": "checkers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 941,
+                        "referencedDeclaration": 942,
                         "src": "710:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 986,
+                      "id": 987,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 985,
+                        "id": 986,
                         "name": "_checker",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 979,
+                        "referencedDeclaration": 980,
                         "src": "719:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -806,7 +806,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "66616c7365",
-                      "id": 987,
+                      "id": 988,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -827,28 +827,28 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 989,
+                  "id": 990,
                   "nodeType": "ExpressionStatement",
                   "src": "710:26:11"
                 }
               ]
             },
             "documentation": "\n Remove a checker",
-            "id": 991,
+            "id": 992,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 982,
+                "id": 983,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 981,
+                  "id": 982,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 6387,
+                  "referencedDeclaration": 6388,
                   "src": "692:9:11",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -862,15 +862,15 @@
             "name": "removeChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 980,
+              "id": 981,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 979,
+                  "id": 980,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 991,
+                  "scope": 992,
                   "src": "659:16:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -879,7 +879,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 978,
+                    "id": 979,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "659:7:11",
@@ -896,12 +896,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 983,
+              "id": 984,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "704:0:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "636:105:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -909,7 +909,7 @@
           },
           {
             "body": {
-              "id": 1020,
+              "id": 1021,
               "nodeType": "Block",
               "src": "887:123:11",
               "statements": [
@@ -921,34 +921,34 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 999,
+                          "id": 1000,
                           "name": "checkers",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 941,
+                          "referencedDeclaration": 942,
                           "src": "901:8:11",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                             "typeString": "mapping(address => bool)"
                           }
                         },
-                        "id": 1002,
+                        "id": 1003,
                         "indexExpression": {
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1000,
+                            "id": 1001,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 9811,
+                            "referencedDeclaration": 9812,
                             "src": "910:3:11",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 1001,
+                          "id": 1002,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -981,21 +981,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 998,
+                      "id": 999,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        9814,
-                        9815
+                        9815,
+                        9816
                       ],
-                      "referencedDeclaration": 9814,
+                      "referencedDeclaration": 9815,
                       "src": "893:7:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 1003,
+                    "id": 1004,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1009,14 +1009,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1004,
+                  "id": 1005,
                   "nodeType": "ExpressionStatement",
                   "src": "893:29:11"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1012,
+                    "id": 1013,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1027,34 +1027,34 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1005,
+                          "id": 1006,
                           "name": "commitments",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 947,
+                          "referencedDeclaration": 948,
                           "src": "928:11:11",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_bytes32_$_$",
                             "typeString": "mapping(address => mapping(address => bytes32))"
                           }
                         },
-                        "id": 1009,
+                        "id": 1010,
                         "indexExpression": {
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1006,
+                            "id": 1007,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 9811,
+                            "referencedDeclaration": 9812,
                             "src": "940:3:11",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 1007,
+                          "id": 1008,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1079,14 +1079,14 @@
                           "typeString": "mapping(address => bytes32)"
                         }
                       },
-                      "id": 1010,
+                      "id": 1011,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1008,
+                        "id": 1009,
                         "name": "_user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 993,
+                        "referencedDeclaration": 994,
                         "src": "952:5:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1108,11 +1108,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 1011,
+                      "id": 1012,
                       "name": "_commitment",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 995,
+                      "referencedDeclaration": 996,
                       "src": "961:11:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -1125,14 +1125,14 @@
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 1013,
+                  "id": 1014,
                   "nodeType": "ExpressionStatement",
                   "src": "928:44:11"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1018,
+                    "id": 1019,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1141,25 +1141,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1014,
+                        "id": 1015,
                         "name": "confirmations",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 951,
+                        "referencedDeclaration": 952,
                         "src": "978:13:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 1016,
+                      "id": 1017,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1015,
+                        "id": 1016,
                         "name": "_user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 993,
+                        "referencedDeclaration": 994,
                         "src": "992:5:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1182,7 +1182,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 1017,
+                      "id": 1018,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -1203,14 +1203,14 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 1019,
+                  "id": 1020,
                   "nodeType": "ExpressionStatement",
                   "src": "978:27:11"
                 }
               ]
             },
             "documentation": "\n Confirm entity and attach a commitment to their information",
-            "id": 1021,
+            "id": 1022,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1218,15 +1218,15 @@
             "name": "confirmUser",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 996,
+              "id": 997,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 993,
+                  "id": 994,
                   "name": "_user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1021,
+                  "scope": 1022,
                   "src": "838:13:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1235,7 +1235,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 992,
+                    "id": 993,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "838:7:11",
@@ -1249,10 +1249,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 995,
+                  "id": 996,
                   "name": "_commitment",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1021,
+                  "scope": 1022,
                   "src": "853:19:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1261,7 +1261,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 994,
+                    "id": 995,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "853:7:11",
@@ -1278,19 +1278,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 997,
+              "id": 998,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "887:0:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "817:193:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1023,
+        "scope": 1024,
         "src": "119:894:11"
       }
     ],
@@ -1300,14 +1300,14 @@
     "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/SimpleUserChecker.sol",
     "exportedSymbols": {
       "SimpleUserChecker": [
-        1022
+        1023
       ]
     },
-    "id": 1023,
+    "id": 1024,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 931,
+        "id": 932,
         "literals": [
           "solidity",
           "^",
@@ -1320,10 +1320,10 @@
       {
         "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/UserChecker.sol",
         "file": "./UserChecker.sol",
-        "id": 932,
+        "id": 933,
         "nodeType": "ImportDirective",
-        "scope": 1023,
-        "sourceUnit": 1774,
+        "scope": 1024,
+        "sourceUnit": 1775,
         "src": "27:27:11",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1331,10 +1331,10 @@
       {
         "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/zeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "./zeppelin-solidity/contracts/ownership/Ownable.sol",
-        "id": 933,
+        "id": 934,
         "nodeType": "ImportDirective",
-        "scope": 1023,
-        "sourceUnit": 6430,
+        "scope": 1024,
+        "sourceUnit": 6431,
         "src": "55:61:11",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1345,17 +1345,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 934,
+              "id": 935,
               "name": "UserChecker",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1773,
+              "referencedDeclaration": 1774,
               "src": "149:11:11",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UserChecker_$1773",
+                "typeIdentifier": "t_contract$_UserChecker_$1774",
                 "typeString": "contract UserChecker"
               }
             },
-            "id": 935,
+            "id": 936,
             "nodeType": "InheritanceSpecifier",
             "src": "149:11:11"
           },
@@ -1363,43 +1363,43 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 936,
+              "id": 937,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 6429,
+              "referencedDeclaration": 6430,
               "src": "162:7:11",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$6429",
+                "typeIdentifier": "t_contract$_Ownable_$6430",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 937,
+            "id": 938,
             "nodeType": "InheritanceSpecifier",
             "src": "162:7:11"
           }
         ],
         "contractDependencies": [
-          1773,
-          6429
+          1774,
+          6430
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1022,
+        "id": 1023,
         "linearizedBaseContracts": [
-          1022,
-          6429,
-          1773
+          1023,
+          6430,
+          1774
         ],
         "name": "SimpleUserChecker",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 941,
+            "id": 942,
             "name": "checkers",
             "nodeType": "VariableDeclaration",
-            "scope": 1022,
+            "scope": 1023,
             "src": "175:40:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1408,9 +1408,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 940,
+              "id": 941,
               "keyType": {
-                "id": 938,
+                "id": 939,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "183:7:11",
@@ -1426,7 +1426,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 939,
+                "id": 940,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "194:4:11",
@@ -1441,10 +1441,10 @@
           },
           {
             "constant": false,
-            "id": 947,
+            "id": 948,
             "name": "commitments",
             "nodeType": "VariableDeclaration",
-            "scope": 1022,
+            "scope": 1023,
             "src": "220:66:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1453,9 +1453,9 @@
               "typeString": "mapping(address => mapping(address => bytes32))"
             },
             "typeName": {
-              "id": 946,
+              "id": 947,
               "keyType": {
-                "id": 942,
+                "id": 943,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "228:7:11",
@@ -1471,9 +1471,9 @@
                 "typeString": "mapping(address => mapping(address => bytes32))"
               },
               "valueType": {
-                "id": 945,
+                "id": 946,
                 "keyType": {
-                  "id": 943,
+                  "id": 944,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "247:7:11",
@@ -1489,7 +1489,7 @@
                   "typeString": "mapping(address => bytes32)"
                 },
                 "valueType": {
-                  "id": 944,
+                  "id": 945,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "258:7:11",
@@ -1505,10 +1505,10 @@
           },
           {
             "constant": false,
-            "id": 951,
+            "id": 952,
             "name": "confirmations",
             "nodeType": "VariableDeclaration",
-            "scope": 1022,
+            "scope": 1023,
             "src": "290:45:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1517,9 +1517,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 950,
+              "id": 951,
               "keyType": {
-                "id": 948,
+                "id": 949,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "298:7:11",
@@ -1535,7 +1535,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 949,
+                "id": 950,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "309:4:11",
@@ -1550,7 +1550,7 @@
           },
           {
             "body": {
-              "id": 962,
+              "id": 963,
               "nodeType": "Block",
               "src": "434:38:11",
               "statements": [
@@ -1559,25 +1559,25 @@
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 958,
+                      "id": 959,
                       "name": "confirmations",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 951,
+                      "referencedDeclaration": 952,
                       "src": "447:13:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                         "typeString": "mapping(address => bool)"
                       }
                     },
-                    "id": 960,
+                    "id": 961,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 959,
+                      "id": 960,
                       "name": "_user",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 953,
+                      "referencedDeclaration": 954,
                       "src": "461:5:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1595,15 +1595,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 957,
-                  "id": 961,
+                  "functionReturnParameters": 958,
+                  "id": 962,
                   "nodeType": "Return",
                   "src": "440:27:11"
                 }
               ]
             },
             "documentation": "\n Confirm a user",
-            "id": 963,
+            "id": 964,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1611,15 +1611,15 @@
             "name": "confirm",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 954,
+              "id": 955,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 953,
+                  "id": 954,
                   "name": "_user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 964,
                   "src": "384:13:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1628,7 +1628,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 952,
+                    "id": 953,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "384:7:11",
@@ -1645,15 +1645,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 957,
+              "id": 958,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 956,
+                  "id": 957,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 964,
                   "src": "426:4:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1662,7 +1662,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 955,
+                    "id": 956,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "426:4:11",
@@ -1677,22 +1677,22 @@
               ],
               "src": "425:6:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "367:105:11",
             "stateMutability": "nonpayable",
-            "superFunction": 1772,
+            "superFunction": 1773,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 976,
+              "id": 977,
               "nodeType": "Block",
               "src": "567:36:11",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 974,
+                    "id": 975,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1701,25 +1701,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 970,
+                        "id": 971,
                         "name": "checkers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 941,
+                        "referencedDeclaration": 942,
                         "src": "573:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 972,
+                      "id": 973,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 971,
+                        "id": 972,
                         "name": "_checker",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 965,
+                        "referencedDeclaration": 966,
                         "src": "582:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1742,7 +1742,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 973,
+                      "id": 974,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -1763,28 +1763,28 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 975,
+                  "id": 976,
                   "nodeType": "ExpressionStatement",
                   "src": "573:25:11"
                 }
               ]
             },
             "documentation": "\n Add a checker",
-            "id": 977,
+            "id": 978,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 968,
+                "id": 969,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 967,
+                  "id": 968,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 6387,
+                  "referencedDeclaration": 6388,
                   "src": "555:9:11",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1798,15 +1798,15 @@
             "name": "addChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 966,
+              "id": 967,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 965,
+                  "id": 966,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 977,
+                  "scope": 978,
                   "src": "522:16:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1815,7 +1815,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 964,
+                    "id": 965,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "522:7:11",
@@ -1832,12 +1832,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 969,
+              "id": 970,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "567:0:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "502:101:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1845,14 +1845,14 @@
           },
           {
             "body": {
-              "id": 990,
+              "id": 991,
               "nodeType": "Block",
               "src": "704:37:11",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 988,
+                    "id": 989,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1861,25 +1861,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 984,
+                        "id": 985,
                         "name": "checkers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 941,
+                        "referencedDeclaration": 942,
                         "src": "710:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 986,
+                      "id": 987,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 985,
+                        "id": 986,
                         "name": "_checker",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 979,
+                        "referencedDeclaration": 980,
                         "src": "719:8:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1902,7 +1902,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "66616c7365",
-                      "id": 987,
+                      "id": 988,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -1923,28 +1923,28 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 989,
+                  "id": 990,
                   "nodeType": "ExpressionStatement",
                   "src": "710:26:11"
                 }
               ]
             },
             "documentation": "\n Remove a checker",
-            "id": 991,
+            "id": 992,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [
               {
                 "arguments": null,
-                "id": 982,
+                "id": 983,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 981,
+                  "id": 982,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 6387,
+                  "referencedDeclaration": 6388,
                   "src": "692:9:11",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1958,15 +1958,15 @@
             "name": "removeChecker",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 980,
+              "id": 981,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 979,
+                  "id": 980,
                   "name": "_checker",
                   "nodeType": "VariableDeclaration",
-                  "scope": 991,
+                  "scope": 992,
                   "src": "659:16:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1975,7 +1975,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 978,
+                    "id": 979,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "659:7:11",
@@ -1992,12 +1992,12 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 983,
+              "id": 984,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "704:0:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "636:105:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2005,7 +2005,7 @@
           },
           {
             "body": {
-              "id": 1020,
+              "id": 1021,
               "nodeType": "Block",
               "src": "887:123:11",
               "statements": [
@@ -2017,34 +2017,34 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 999,
+                          "id": 1000,
                           "name": "checkers",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 941,
+                          "referencedDeclaration": 942,
                           "src": "901:8:11",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                             "typeString": "mapping(address => bool)"
                           }
                         },
-                        "id": 1002,
+                        "id": 1003,
                         "indexExpression": {
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1000,
+                            "id": 1001,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 9811,
+                            "referencedDeclaration": 9812,
                             "src": "910:3:11",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 1001,
+                          "id": 1002,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2077,21 +2077,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 998,
+                      "id": 999,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        9814,
-                        9815
+                        9815,
+                        9816
                       ],
-                      "referencedDeclaration": 9814,
+                      "referencedDeclaration": 9815,
                       "src": "893:7:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 1003,
+                    "id": 1004,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2105,14 +2105,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1004,
+                  "id": 1005,
                   "nodeType": "ExpressionStatement",
                   "src": "893:29:11"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1012,
+                    "id": 1013,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2123,34 +2123,34 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1005,
+                          "id": 1006,
                           "name": "commitments",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 947,
+                          "referencedDeclaration": 948,
                           "src": "928:11:11",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_bytes32_$_$",
                             "typeString": "mapping(address => mapping(address => bytes32))"
                           }
                         },
-                        "id": 1009,
+                        "id": 1010,
                         "indexExpression": {
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1006,
+                            "id": 1007,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 9811,
+                            "referencedDeclaration": 9812,
                             "src": "940:3:11",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 1007,
+                          "id": 1008,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2175,14 +2175,14 @@
                           "typeString": "mapping(address => bytes32)"
                         }
                       },
-                      "id": 1010,
+                      "id": 1011,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1008,
+                        "id": 1009,
                         "name": "_user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 993,
+                        "referencedDeclaration": 994,
                         "src": "952:5:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2204,11 +2204,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 1011,
+                      "id": 1012,
                       "name": "_commitment",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 995,
+                      "referencedDeclaration": 996,
                       "src": "961:11:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -2221,14 +2221,14 @@
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 1013,
+                  "id": 1014,
                   "nodeType": "ExpressionStatement",
                   "src": "928:44:11"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1018,
+                    "id": 1019,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2237,25 +2237,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1014,
+                        "id": 1015,
                         "name": "confirmations",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 951,
+                        "referencedDeclaration": 952,
                         "src": "978:13:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 1016,
+                      "id": 1017,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1015,
+                        "id": 1016,
                         "name": "_user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 993,
+                        "referencedDeclaration": 994,
                         "src": "992:5:11",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2278,7 +2278,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 1017,
+                      "id": 1018,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -2299,14 +2299,14 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 1019,
+                  "id": 1020,
                   "nodeType": "ExpressionStatement",
                   "src": "978:27:11"
                 }
               ]
             },
             "documentation": "\n Confirm entity and attach a commitment to their information",
-            "id": 1021,
+            "id": 1022,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -2314,15 +2314,15 @@
             "name": "confirmUser",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 996,
+              "id": 997,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 993,
+                  "id": 994,
                   "name": "_user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1021,
+                  "scope": 1022,
                   "src": "838:13:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2331,7 +2331,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 992,
+                    "id": 993,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "838:7:11",
@@ -2345,10 +2345,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 995,
+                  "id": 996,
                   "name": "_commitment",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1021,
+                  "scope": 1022,
                   "src": "853:19:11",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2357,7 +2357,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 994,
+                    "id": 995,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "853:7:11",
@@ -2374,19 +2374,19 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 997,
+              "id": 998,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "887:0:11"
             },
-            "scope": 1022,
+            "scope": 1023,
             "src": "817:193:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1023,
+        "scope": 1024,
         "src": "119:894:11"
       }
     ],
@@ -2396,7 +2396,14 @@
     "name": "solc",
     "version": "0.4.23+commit.124ca40d.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "111": {
+      "events": {},
+      "links": {},
+      "address": "0x8a0efbee93f21d03455462dff021f2f5ef9cf2f8",
+      "transactionHash": "0x3220879de4618316ae5f150c146ef6c562a8908e2ea6a6291813fcaca046a142"
+    }
+  },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-05T19:48:54.852Z"
+  "updatedAt": "2018-06-05T21:44:40.480Z"
 }

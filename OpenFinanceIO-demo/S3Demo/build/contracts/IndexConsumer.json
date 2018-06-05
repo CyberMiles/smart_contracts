@@ -11,14 +11,14 @@
     "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/IndexConsumer.sol",
     "exportedSymbols": {
       "IndexConsumer": [
-        675
+        676
       ]
     },
-    "id": 676,
+    "id": 677,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 653,
+        "id": 654,
         "literals": [
           "solidity",
           "^",
@@ -34,19 +34,19 @@
         "contractKind": "contract",
         "documentation": "@title IndexConsumer\n@dev This contract adds an autoincrementing index to contracts. ",
         "fullyImplemented": true,
-        "id": 675,
+        "id": 676,
         "linearizedBaseContracts": [
-          675
+          676
         ],
         "name": "IndexConsumer",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 656,
+            "id": 657,
             "name": "freshIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 675,
+            "scope": 676,
             "src": "173:30:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -55,7 +55,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 654,
+              "id": 655,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "173:7:4",
@@ -67,7 +67,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30",
-              "id": 655,
+              "id": 656,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -86,21 +86,21 @@
           },
           {
             "body": {
-              "id": 673,
+              "id": 674,
               "nodeType": "Block",
               "src": "285:94:4",
               "statements": [
                 {
                   "assignments": [
-                    662
+                    663
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 662,
+                      "id": 663,
                       "name": "theIndex",
                       "nodeType": "VariableDeclaration",
-                      "scope": 674,
+                      "scope": 675,
                       "src": "291:16:4",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -109,7 +109,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 661,
+                        "id": 662,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "291:7:4",
@@ -122,14 +122,14 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 664,
+                  "id": 665,
                   "initialValue": {
                     "argumentTypes": null,
-                    "id": 663,
+                    "id": 664,
                     "name": "freshIndex",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 656,
+                    "referencedDeclaration": 657,
                     "src": "310:10:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
@@ -142,18 +142,18 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 669,
+                    "id": 670,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 665,
+                      "id": 666,
                       "name": "freshIndex",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 656,
+                      "referencedDeclaration": 657,
                       "src": "326:10:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -168,18 +168,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 668,
+                      "id": 669,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 666,
+                        "id": 667,
                         "name": "freshIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 656,
+                        "referencedDeclaration": 657,
                         "src": "339:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -191,7 +191,7 @@
                       "rightExpression": {
                         "argumentTypes": null,
                         "hexValue": "31",
-                        "id": 667,
+                        "id": 668,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -218,33 +218,33 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 670,
+                  "id": 671,
                   "nodeType": "ExpressionStatement",
                   "src": "326:27:4"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 671,
+                    "id": 672,
                     "name": "theIndex",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 662,
+                    "referencedDeclaration": 663,
                     "src": "366:8:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 660,
-                  "id": 672,
+                  "functionReturnParameters": 661,
+                  "id": 673,
                   "nodeType": "Return",
                   "src": "359:15:4"
                 }
               ]
             },
             "documentation": "Fetch the next index ",
-            "id": 674,
+            "id": 675,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -252,22 +252,22 @@
             "name": "nextIndex",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 657,
+              "id": 658,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "255:2:4"
             },
             "payable": false,
             "returnParameters": {
-              "id": 660,
+              "id": 661,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 659,
+                  "id": 660,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 674,
+                  "scope": 675,
                   "src": "276:7:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -276,7 +276,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 658,
+                    "id": 659,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "276:7:4",
@@ -291,14 +291,14 @@
               ],
               "src": "275:9:4"
             },
-            "scope": 675,
+            "scope": 676,
             "src": "237:142:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 676,
+        "scope": 677,
         "src": "127:254:4"
       }
     ],
@@ -308,14 +308,14 @@
     "absolutePath": "/home/ubuntu/S3Demo/S3Demo/contracts/IndexConsumer.sol",
     "exportedSymbols": {
       "IndexConsumer": [
-        675
+        676
       ]
     },
-    "id": 676,
+    "id": 677,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 653,
+        "id": 654,
         "literals": [
           "solidity",
           "^",
@@ -331,19 +331,19 @@
         "contractKind": "contract",
         "documentation": "@title IndexConsumer\n@dev This contract adds an autoincrementing index to contracts. ",
         "fullyImplemented": true,
-        "id": 675,
+        "id": 676,
         "linearizedBaseContracts": [
-          675
+          676
         ],
         "name": "IndexConsumer",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 656,
+            "id": 657,
             "name": "freshIndex",
             "nodeType": "VariableDeclaration",
-            "scope": 675,
+            "scope": 676,
             "src": "173:30:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -352,7 +352,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 654,
+              "id": 655,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "173:7:4",
@@ -364,7 +364,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30",
-              "id": 655,
+              "id": 656,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -383,21 +383,21 @@
           },
           {
             "body": {
-              "id": 673,
+              "id": 674,
               "nodeType": "Block",
               "src": "285:94:4",
               "statements": [
                 {
                   "assignments": [
-                    662
+                    663
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 662,
+                      "id": 663,
                       "name": "theIndex",
                       "nodeType": "VariableDeclaration",
-                      "scope": 674,
+                      "scope": 675,
                       "src": "291:16:4",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -406,7 +406,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 661,
+                        "id": 662,
                         "name": "uint256",
                         "nodeType": "ElementaryTypeName",
                         "src": "291:7:4",
@@ -419,14 +419,14 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 664,
+                  "id": 665,
                   "initialValue": {
                     "argumentTypes": null,
-                    "id": 663,
+                    "id": 664,
                     "name": "freshIndex",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 656,
+                    "referencedDeclaration": 657,
                     "src": "310:10:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
@@ -439,18 +439,18 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 669,
+                    "id": 670,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 665,
+                      "id": 666,
                       "name": "freshIndex",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 656,
+                      "referencedDeclaration": 657,
                       "src": "326:10:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -465,18 +465,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 668,
+                      "id": 669,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 666,
+                        "id": 667,
                         "name": "freshIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 656,
+                        "referencedDeclaration": 657,
                         "src": "339:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -488,7 +488,7 @@
                       "rightExpression": {
                         "argumentTypes": null,
                         "hexValue": "31",
-                        "id": 667,
+                        "id": 668,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -515,33 +515,33 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 670,
+                  "id": 671,
                   "nodeType": "ExpressionStatement",
                   "src": "326:27:4"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 671,
+                    "id": 672,
                     "name": "theIndex",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 662,
+                    "referencedDeclaration": 663,
                     "src": "366:8:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 660,
-                  "id": 672,
+                  "functionReturnParameters": 661,
+                  "id": 673,
                   "nodeType": "Return",
                   "src": "359:15:4"
                 }
               ]
             },
             "documentation": "Fetch the next index ",
-            "id": 674,
+            "id": 675,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -549,22 +549,22 @@
             "name": "nextIndex",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 657,
+              "id": 658,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "255:2:4"
             },
             "payable": false,
             "returnParameters": {
-              "id": 660,
+              "id": 661,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 659,
+                  "id": 660,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 674,
+                  "scope": 675,
                   "src": "276:7:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -573,7 +573,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 658,
+                    "id": 659,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "276:7:4",
@@ -588,14 +588,14 @@
               ],
               "src": "275:9:4"
             },
-            "scope": 675,
+            "scope": 676,
             "src": "237:142:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 676,
+        "scope": 677,
         "src": "127:254:4"
       }
     ],
@@ -607,5 +607,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-06-05T19:48:54.755Z"
+  "updatedAt": "2018-06-05T21:36:41.445Z"
 }
