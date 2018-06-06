@@ -14,6 +14,10 @@ Either the RegD 506(c) or the Reg S implemented by S3 will work as the token reg
 
 `demo.sol` is the demo token using RegD 506(c) as regulation and `ARegD506cToken.sol` as base (just slightly modified for space efficiency and avoiding deployment errors).
 
+`demo2.sol` is the demo token for Reg S. Similarly, it is based on `ARegSToken.sol` in the source code. 
+
+Note that the original source contracts differ from some contracts in this repo. If you are using the `master` branch of *github.com/OpenFinanceIO*, make sure you modified those contracts (I would suggest pull the *S3Demo* folder directly).
+
 ## 2. Deployment with Truffle 
 
 The config files are all included in the `S3Demo` folder for reference.
@@ -42,6 +46,8 @@ Then the demo contract is ready to go. You can initialize the security by `demo.
 
 ### 2.2 Reg S -- demo2
 
+`demo2` requires the same 4 arguments for issuer, cap table address, restrictor address and security index. The deploy procedure is similar to `demo`. The issuer and cap table address are the same as `demo`'s, but the restrictor should be `TheRegS`. Note that `TheRegS` does not have a constructor.
+
 ## 3. Some elaborations on token & regulation logic
 
 ### 3.1 Reg D 506 (c) -- demo
@@ -57,3 +63,7 @@ Registration of the accreditation and AML-KYC checkers needs to be done before h
 The number of shareholders restricted depends on whether a security is issued by a fund or not. If it is issued by a fund, #shareholders <= 99 ; otherwise #shareholders <= 2000. Whenever a `.transfer()`/`.transferFrom()` is called, the shareholder number changes until the upper limit is exceeded. The concrete implementation of getting the new #shareholder is implemented in `demo` with `public` and `view` modifier, but actual updating of the number is only done in transfer which needs to meet the requirements implemented by the super class' transfer methods that checked by the restrictor `TheRegD506c`.
 
 ### 3.2 Reg S -- demo2
+
+Since Reg S also requires AML-KYC and user accreditation, the basic accreditation and AML-KYC is the same as implemented for the Reg D token. 
+
+In addition, Reg S requires both the seller and buyer "reside in a non-US jursidiction". This is of course included in the `.test()` of the restrictor. Still registration of the checkers need to be done in the restrictor before hand and the actual validations of users should be called in `SimpleUserChecker`.
