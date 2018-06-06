@@ -5,6 +5,7 @@ import './RegD506cToken.sol';
 import './RestrictedTokenLogic.sol';
 import './zeppelin-solidity/contracts/ownership/Ownable.sol';
 
+// A demo token restricted by Reg D 506 (c).
 contract demo is RegD506cToken, RestrictedTokenLogic, Ownable {
 	/// Is the token being used to raise capital for a fund?
   	bool public isFund = false;

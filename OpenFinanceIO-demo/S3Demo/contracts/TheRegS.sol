@@ -6,7 +6,7 @@ import './UserChecker.sol';
 import './zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 /// @title Implementation of RegS
-contract TheRegS is RegS {
+contract TheRegS is RegS, Ownable {
 
   /// Table of AML-KYC checking contracts
   mapping(address => address) amlkycChecker;
@@ -32,6 +32,11 @@ contract TheRegS is RegS {
     SellerResidency,
     Accreditation
   }
+
+	function startTrading() public {
+		//TODO: what should I do?
+		return;
+	}
 
   ///
   /// Register a contract to confirm AML-KYC status

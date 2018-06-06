@@ -6,8 +6,8 @@ import './RestrictedTokenLogic.sol';
 import './zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 ///
-/// @title A token that tracks data relevant for Reg S status;
-contract ARegSToken is RegSToken, RestrictedTokenLogic, Ownable {
+/// @title A demo token that tracks data relevant for Reg S status;
+contract demo2 is RegSToken, RestrictedTokenLogic, Ownable {
 
 
   ///
@@ -23,7 +23,6 @@ contract ARegSToken is RegSToken, RestrictedTokenLogic, Ownable {
   )
     public
   {
-    //totalSupply_ = ICapTables(capTables_).totalSupply(index_);
     restrictor = restrictor_;
     owner = issuer;
 
@@ -95,3 +94,4 @@ contract ARegSToken is RegSToken, RestrictedTokenLogic, Ownable {
   }
 
 }
+
