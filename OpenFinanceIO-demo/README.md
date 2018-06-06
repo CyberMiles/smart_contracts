@@ -8,11 +8,13 @@ Or check out their GitHub repo to see source code: <https://github.com/OpenFinan
 
 This repo shows the process of deploying a token that meets the OpenFinance S3 standard and how each requirement is implemented under the hood.
 
-## The demo tokens
+## 1. The demo tokens
 
-Either the RegD 506(c) or the Reg S will work as the token regulation. `demo.sol` is the demo token using RegD 506(c) as regulation and `ARegD506cToken.sol` as base (just slightly modified for space efficiency and avoiding deployment errors).
+Either the RegD 506(c) or the Reg S implemented by S3 will work as the token regulation. 
 
-## Deployment with Truffle 
+`demo.sol` is the demo token using RegD 506(c) as regulation and `ARegD506cToken.sol` as base (just slightly modified for space efficiency and avoiding deployment errors).
+
+## 2. Deployment with Truffle 
 
 The config files are all included in the `S3Demo` folder for reference.
 
@@ -21,6 +23,8 @@ In the `truffle.js` you need to set the network to Travis (you can ignore the ga
 One way to deploy it is to deploy the needed contracts one by one in Solidity. This is recommended if you want to fully implement a functional token with the framework, because the token contract contruction is based on the creation and setup of other contracts. 
 
 However, here since it's a demo and we don't have a DApp for front end, we do it in a compressed way: deploy the needed contracts in Truffle all at once.
+
+### 2.1  Reg D 506 (c) -- demo.sol
 
 Except for `demo`, `CapTables` and `TheRegD506c` are deployed because their addresses are needed for `demo`'s constructor. `SimpleUserChecker` is deployed because the AML-KYC checkers and accreditation checkers need to be validated in it externally and used in `TheRegD506c` after registration.
 
@@ -36,7 +40,11 @@ After deployment, go to Travis console and initialize the total supply in `CapTa
 ```
 Then the demo contract is ready to go. You can initialize the security by `demo.issue` and call `demo.migrate` to transfer control over the cap table to the token contract.
 
-## Some elaborations on token & regulation logic
+### 2.2 Reg S -- demo2
+
+## 3. Some elaborations on token & regulation logic
+
+### 3.1 Reg D 506 (c) -- demo
 
 Once you call `demo.issue()`, the holding period of the security will start. Reg D 506 (c) requires an initial shareholder to make transactions after a 12 month holding period (31536000 in `uint`). The specific holding period is passed in the restrictor's constructor.
 
@@ -44,6 +52,8 @@ Also, the regulation requires both buyer and seller to conform AML-KYC, and the 
 
 `RestrictedTokenLogic` is the super class of `demo` and when a `.transfer()`/`.transferFrom()` is called, methods in the super class are called so as to do the qualification check. `TransferRestrictor` is the interface containing rules about whether to approve a transfer or not. Its concrete implementation is in `TheRegD506c` and used by `RestrictedTokenLogic`. `.test()` method in `TheRegD506c` contains AML-KYC check and accreditation, implemented in `SimpleUserChecker`.
 
-Registration of the accreditation and AML-KYC checkers need to be done before hand. Only the owner of `SimpleUserChecker` can validate/remove the checkers. And then a validated checker (any one in public can call this function, but only validated checkers are able to confirm themselves) can confirm itself through `.confirmUser()`. `TheRegD506c` then uses the confirmation results to `.test()` if a transaction is valid.
+Registration of the accreditation and AML-KYC checkers needs to be done before hand in `TheRegD506c`. Only the owner of `SimpleUserChecker` can validate/remove the checkers. And then a validated checker (any one in public can call this function, but only validated checkers are able to confirm themselves) can confirm itself through `.confirmUser()`. `TheRegD506c` then uses the confirmation results to `.test()` if a transaction is valid.
 
-The number of shareholders restricted depends on whether a security is issued by a fund or not. If it is issued by a fund, #shareholders <= 99 ; otherwise #shareholders <= 2000. Whenever a `.transfer()`/`.transferFrom()` is called, the shareholder number changes until the upper limit is exceeded.
+The number of shareholders restricted depends on whether a security is issued by a fund or not. If it is issued by a fund, #shareholders <= 99 ; otherwise #shareholders <= 2000. Whenever a `.transfer()`/`.transferFrom()` is called, the shareholder number changes until the upper limit is exceeded. The concrete implementation of getting the new #shareholder is implemented in `demo` with `public` and `view` modifier, but actual updating of the number is only done in transfer which needs to meet the requirements implemented by the super class' transfer methods that checked by the restrictor `TheRegD506c`.
+
+### 3.2 Reg S -- demo2
