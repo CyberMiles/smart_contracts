@@ -8,6 +8,18 @@ Or check out their GitHub repo to see source code: <https://github.com/OpenFinan
 
 This repo shows the process of deploying a token that meets the OpenFinance S3 standard and how each requirement is implemented under the hood.
 
+The source code and demo token logic are based on OpenFinance S3 v 0.1.1.
+
+## 0. A little bit on S3 token vs. ERC20
+
+The demo token that embodies S3 will maintain the basic functionalities (approve, transfer/transferFrom, etc.) of a ERC20 token while incorperating the standard into the token logic. 
+
+There are two parallel regulations implemented by the S3: [Reg D 506 (c)](https://www.sec.gov/fast-answers/answers-rule506htm.html) and [Reg S](https://www.sec.gov/rules/final/33-7505.htm) established by SEC. Therefore, the standard separate on the two regs.
+
+The restricted token logic restricts the standard token to check the users' validity. AML-KYC and accrediation status will be confirmed upon transfer. Both seller and buyer need to pass AML-KYC. The buyer must be an accredited investor.
+
+Also, transfers are restricted by holding period and share holder number. A security can only be transferred after its holding period. The share holder upper bound is limited depending on whether the security is for a fund or not.
+
 ## 1. The demo tokens
 
 Either the RegD 506(c) or the Reg S implemented by S3 will work as the token regulation. 
