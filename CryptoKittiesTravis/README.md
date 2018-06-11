@@ -2,15 +2,15 @@
 
   
 
-In this example, we will be deploying a style game that is originally on Ethereum onto Travis.
+In this example, we will be deploying a game originally designed for Ethereum onto the Travis Testnet.
 
   
 
-CryptoKitties is a game for buying (through auction), selling (also through auction), and breeding digital cats. Although each cat is represented by `uint256` as genetic code in Solidity, there is a CryptoKitty’s web server visualizing the cats. But now we are only focusing on the smart contracts that functionally consist the game.
+CryptoKitties is a game for buying (through auction), selling (also through auction), and breeding digital cats. Although each cat is represented by `uint256` as genetic code in Solidity, there is a CryptoKitty’s web server visualizing the cats. For now let's just focus on the smart contracts that outline the functionality of the game.
 
   
 
-More detailed description can be found: <[https://medium.com/loom-network/how-to-code-your-own-cryptokitties-style-game-on-ethereum-7c8ac86a4eb3](https://medium.com/loom-network/how-to-code-your-own-cryptokitties-style-game-on-ethereum-7c8ac86a4eb3)>
+A more detailed description can be found: <[here](https://medium.com/loom-network/how-to-code-your-own-cryptokitties-style-game-on-ethereum-7c8ac86a4eb3)>
 
   
 
@@ -18,7 +18,7 @@ Or you can check out (try and play) the game directly from here: <[https://www.c
 
   
 
-The open source code the game can be found: <[https://ethfiddle.com/09YbyJRfiI](https://ethfiddle.com/09YbyJRfiI)>
+The open source code for the game can be found: <[https://ethfiddle.com/09YbyJRfiI](https://ethfiddle.com/09YbyJRfiI)>
 
   
 
@@ -34,7 +34,7 @@ or in the `/kitties/contracts` subdirectory (this `kitties.sol` file is slightly
 
   
 
-Using Solidity compiler for getting the information to deploy in the Travis console is the 'classic' way of deployment, as we tried for simple contracts like 'HelloWorld' in the other subdirectory. But for a more complicated project like this, Truffle is highly recommended to simplify the process.
+Using the Solidity compiler for getting the information to deploy in the Travis console is the 'classic' way of deployment, as we tried for simple contracts like 'HelloWorld' in the other subdirectory; however, for more complicated projects like this, Truffle is highly recommended to simplify the process.
 
   
 
@@ -105,7 +105,7 @@ module.exports = {
     testnet: {
     host: "localhost",
     port: 8545,
-    network_id: 3,
+    network_id: 3,    //Doesn't matter, any network id works          
     from: "0xINSERT_ACCOUNT_HERE",
     gas: 8000000,
         gasPrice: 10000000000
