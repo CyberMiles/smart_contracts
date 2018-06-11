@@ -1,0 +1,33 @@
+var ClockAuction = artifacts.require("ClockAuction");
+var ClockAuctionBase = artifacts.require("ClockAuctionBase");
+var ERC721Metadata = artifacts.require("ERC721Metadata");
+var geneScience = artifacts.require("geneScience");
+var KittyAccessControl = artifacts.require("KittyAccessControl");
+var KittyAuction = artifacts.require("KittyAuction");
+var KittyBase = artifacts.require("KittyBase");
+var KittyBreeding = artifacts.require("KittyBreeding");
+var KittyCore = artifacts.require("KittyCore");
+var KittyMinting = artifacts.require("KittyMinting");
+var KittyOwnership = artifacts.require("KittyOwnership");
+var Ownable = artifacts.require("Ownable");
+var Pausable = artifacts.require("Pausable");
+var SaleClockAuction = artifacts.require("SaleClockAuction");
+var SiringClockAuction = artifacts.require("SiringClockAuction");
+
+module.exports = function(deployer) {
+	deployer.deploy(Ownable);
+	deployer.deploy(KittyAccessControl);
+	deployer.deploy(KittyBase);
+	deployer.deploy(ERC721Metadata);
+	deployer.deploy(KittyOwnership);
+	deployer.deploy(geneScience);
+	deployer.deploy(KittyBreeding);
+	deployer.deploy(ClockAuctionBase);
+	deployer.deploy(Pausable);
+	deployer.deploy(ClockAuction, "0xfefcc6adf8b95facc7f05396770cc56ea1fa028c", 100);
+	deployer.deploy(SiringClockAuction, "0xfefcc6adf8b95facc7f05396770cc56ea1fa028c", 100);
+	deployer.deploy(SaleClockAuction, "0xfefcc6adf8b95facc7f05396770cc56ea1fa028c", 100);
+    deployer.deploy(KittyAuction);
+	deployer.deploy(KittyMinting);
+	deployer.deploy(KittyCore);
+};
