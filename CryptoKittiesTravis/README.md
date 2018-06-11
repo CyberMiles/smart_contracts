@@ -77,7 +77,7 @@ module.exports = function(deployer) {
   deployer.deploy(ClockAuction, "0xINSERT_ACCOUNT_HERE", 100);
   deployer.deploy(SiringClockAuction, "0xINSERT_ACCOUNT_HERE", 100);
   deployer.deploy(SaleClockAuction, "0xINSERT_ACCOUNT_HERE", 100);
-    deployer.deploy(KittyAuction);
+  deployer.deploy(KittyAuction);
   deployer.deploy(KittyMinting);
   deployer.deploy(KittyCore);
 };
