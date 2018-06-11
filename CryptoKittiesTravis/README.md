@@ -108,7 +108,7 @@ module.exports = {
     network_id: 3,    //Doesn't matter, any network id works          
     from: "0xINSERT_ACCOUNT_HERE",
     gas: 8000000,
-        gasPrice: 10000000000
+    gasPrice: 10000000000
     }
   }
 };
