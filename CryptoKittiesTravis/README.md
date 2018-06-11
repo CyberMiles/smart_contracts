@@ -8,7 +8,7 @@ In this example, we will be deploying a game originally designed for Ethereum on
 
 CryptoKitties is a game for buying (through auction), selling (also through auction), and breeding digital cats. Although each cat is represented by `uint256` as genetic code in Solidity, there is a CryptoKitty’s web server visualizing the cats. For now let's just focus on the smart contracts that outline the functionality of the game.
 
-  
+
 
 A more detailed description can be found: <[here](https://medium.com/loom-network/how-to-code-your-own-cryptokitties-style-game-on-ethereum-7c8ac86a4eb3)>
 
@@ -120,7 +120,7 @@ Make sure the amount of gas is sufficient and the address of `from` section is t
 
   
 
-Run `truffle compile` from the initialized directory and then`truffle migrate --network testnet` to deploy. Make sure you have attached to Travis network  with `travis attach http://localhost:8545`and unlocked your default account before deployment with `personal.unlockAccount(cmt.accounts[0])` (normally unlocking is needed before every `migrate`).
+Run `truffle compile` from the initialized directory and then`truffle migrate --network testnet` to deploy. Make sure you have a running synced up Travis node, attached to Travis network with `travis attach http://localhost:8545`and unlocked your default account with `personal.unlockAccount(cmt.accounts[0])` before deployment (normally unlocking is needed before every `migrate`).
 
   
 
