@@ -58,3 +58,4 @@ contract DappToken {
 
         return true;
     }
+}
