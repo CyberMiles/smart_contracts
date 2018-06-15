@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-contract DappToken {
+contract ericoin {
     string  public name = "eriCoin";
     string  public symbol = "ECT";
     string  public standard = "eriCoin v1.0";
