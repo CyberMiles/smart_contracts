@@ -27,6 +27,10 @@ contract ericoin {
         totalSupply = _initialSupply;
     }
 
+    function balance(address acct) public returns (uint256) {
+        return balanceOf[acct];
+    }
+
     function transfer(address _to, uint256 _value) public returns (bool success) {
         require(balanceOf[msg.sender] >= _value);
 
