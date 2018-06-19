@@ -1,4 +1,4 @@
-# CryptoKitties -- an open source smart contract based game on blockchain
+# Demo Token
 
   
 
@@ -8,7 +8,7 @@ In this example, we will be deploying a demo token called "eriCoin" onto the Tra
 
 The open source code for the token can be found in the `/demoToken/contracts` subdirectory.
 
-  
+
 
 ## Deployment
 

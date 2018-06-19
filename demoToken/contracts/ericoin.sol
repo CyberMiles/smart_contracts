@@ -260,13 +260,13 @@ contract PausableToken is StandardToken, Pausable {
   }
 }
 
-contract DemoToken is PausableToken {
-    string public name = "Demo Token";
-    string public symbol = "D";
+contract eriCoin is PausableToken {
+    string public name = "eriCoin";
+    string public symbol = "ERT";
     uint public decimals = 18;
     uint public INITIAL_SUPPLY = 2100000000000000000000000000;
 
-    function DemoToken() public {
+    function eriCoin() public {
         totalSupply = INITIAL_SUPPLY;
         balances[msg.sender] = INITIAL_SUPPLY;
     }
