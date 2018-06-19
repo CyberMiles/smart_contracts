@@ -106,7 +106,7 @@ To interact with the smart contracts we will use abstraction from the truffle co
 
 Start the truffle console by entering `truffle console --network testnet`
 
-To call a function, use
+To call a function that doesn't change data, use
 
     ericoin.deployed().then(instance => instance.INSERT_FUNCTIONNAME_HERE.call(PARAMS)).then(result => storeData = result)
 
@@ -116,10 +116,10 @@ For example, to find the balance, we would enter
 
 To transfer tokens, we would enter
 
-    ericoin.deployed().then(instance => instance.transfer.call("0xACCOUNT_NUM", 1)).then(result => storeData = result)
+    ericoin.deployed().then(instance => instance.transfer.sendTransaction("0xACCOUNT_NUM", 1)).then(result => storeData = result)
 
-In general, when interacting with deployed smart contracts, use
+In general, when interacting with deployed smart contracts to change data, use
 
-    CONTRACT_NAME.deployed().then(instance => instance.FUNCTION_NAME.call(PARAMS)).then(result => storeData = result)
+    CONTRACT_NAME.deployed().then(instance => instance.FUNCTION_NAME.sendTransaction(PARAMS)).then(result => storeData = result)
 
 

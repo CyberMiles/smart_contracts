@@ -262,16 +262,22 @@ For example, to find the CEO address, we would enter
 
     KittyCore.deployed().then(instance => instance.ceoAddress.call()).then(result => storeData = result)
 
-To call a function with parameters, use
+To call a function that changes data, use
 
-    KittyCore.deployed().then(instance => instance.FUNCTION_NAME.call(PARAMETERS)).then(result => newStoreData = result)
+    KittyCore.deployed().then(instance => instance.FUNCTION_NAME.sendTransaction(PARAMETERS)).then(result => newStoreData = result)
 
 For example, to set the CFO address, we would enter
 
-    KittyCore.deployed().then(instance => instance.setCFO.call("0xfc60d1d90b112c2e4fa629ac484d40a0c8194e5f")).then(result => newStoreData = result)
+    KittyCore.deployed().then(instance => instance.setCFO.sendTransaction("0xfc60d1d90b112c2e4fa629ac484d40a0c8194e5f")).then(result => newStoreData = result)
 
 In general, when interacting with deployed smart contracts, use
 
+  To read data:
     CONTRACT_NAME.deployed().then(instance => instance.FUNCTION_NAME.call(PARAMS)).then(result => storeData = result)
+
+  To write data:
+    CONTRACT_NAME.deployed().then(instance => instance.FUNCTION_NAME.sendTransaction(PARAMS)).then(result => storeData = result)
+
+
 
 
