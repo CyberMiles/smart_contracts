@@ -65,7 +65,7 @@ module.exports = {
     network_id: 3,
     from: "0xFROM_ADDRESS",
     gas: 2000000,
-        gasPrice: 10000000000
+    gasPrice: 10000000000
     }
   }
 };
@@ -114,6 +114,22 @@ To interact with the smart contracts we will use abstraction from the truffle co
 
 Start the truffle console by entering `truffle console --network testnet`
 
-To be continued soon...
+To call a function that doesn't change data, use
+
+    Dice2Win.deployed().then(instance => instance.INSERT_FUNCTIONNAME_HERE.call(PARAMS)).then(result => storeData = result)
+
+For example, to find the jackpot size, we would enter
+
+    Dice2Win.deployed().then(instance => instance.jackpotSize.call("0xACCOUNT_NUM")).then(result => storeData = result)
+
+To place a bet, we would enter
+
+    Dice2Win.deployed().then(instance => instance.placeBet.sendTransaction(1, 100, {value: 100})).then(result => storeData = result)
+
+In general, when interacting with deployed smart contracts to change data, use
+
+    CONTRACT_NAME.deployed().then(instance => instance.FUNCTION_NAME.sendTransaction(PARAMS)).then(result => storeData = result)
+
+
 
 
