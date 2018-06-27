@@ -32,9 +32,7 @@ or in the `/kitties/contracts` subdirectory (this `kitties.sol` file is slightly
 
 ### 1.Truffle framework
 
-  
-
-Using the Solidity compiler for getting the information to deploy in the Travis console is the 'classic' way of deployment, as we tried for simple contracts like 'HelloWorld' in the other subdirectory; however, for more complicated projects like this, Truffle is highly recommended to simplify the process.
+Although it is possible for you to deploy cryptokitties on the Remix IDE, it is not recommended because of the large multicontract makeup of the cryptokitties code. The Truffle framework makes the process of deploying complicated contracts with multiple different contracts within it that rely on one another much easier and more practical. For this reason, it is recommended to use Truffle over Remix IDE for the deployment of this contract.
 
   
 
