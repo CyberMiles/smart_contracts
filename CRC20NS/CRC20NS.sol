@@ -15,7 +15,7 @@ contract CRC20NS {
     }
     
     mapping(string => Entry) entries;
-    mapping(string => Entry) forbiddenSymbols;
+    mapping(string => bool) forbiddenSymbols;
 
     address public owner;
     constructor () public {
@@ -33,7 +33,7 @@ contract CRC20NS {
 
     function register (address _contractAddr, string _desc, uint256 _exitPrice) public payable returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
-        string symbol = crc.symbol();
+        string memory symbol = crc.symbol();
         require (bytes(symbol).length >= 2);
         require (forbiddenSymbols[symbol] != true);
         require (msg.sender == crc.owner());
@@ -62,9 +62,9 @@ contract CRC20NS {
         return true;
     }
 
-    function update (address _contractAddr, string _desc, uint256 _exitPrice) public returns (bool) {
+    function updateRegistration (address _contractAddr, string _desc, uint256 _exitPrice) public returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
-        string symbol = crc.symbol();
+        string memory symbol = crc.symbol();
         require (msg.sender == crc.owner());
 
         Entry storage entry = entries[symbol];
