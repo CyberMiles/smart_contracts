@@ -23,7 +23,8 @@ If the symbol is not registered, all those above fields will return 0.
 
 Here is an example of the `lookup` function call in remix. 
 
-Xxx
+![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/lookup01.png)
+![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/lookup02.png)
 
 ## Token creators
 
@@ -42,7 +43,9 @@ The register function takes the following parameters, in addition to the above r
 
 You must be the current owner of this contract in order to call the `register` function. Here is how it works in remix. 
 
-Xxx
+![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/register01.png)
+![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/register02.png)
+![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/register03.png)
 
 Once registered, the current owner of the contract can also call the `updateRegistration` function to update the description and exit price. 
 
