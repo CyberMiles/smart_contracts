@@ -10,7 +10,7 @@ https://testnet.cmttracking.io/token/0x85f30253218fcaaa8e0c8f32ae7909d217eb1256
 
 For applications / wallets / explorer web site that need to verify the “official” status of a CRC20 token symbol, they should use the `isRegistered` function. This function takes the symbol and contract address as input parameters, and returns a boolean value indicating whether the pair is registered. There is no gas fee for this function call. Here is how it works on Remix. 
 
-Xxx
+xxx
 
 Applications could also use the `lookup` function on the contract to get more information. The function takes a single parameter, the symbol, and returns the official contract address for this symbol. This function call requires no gas. The function's return values are as follows. 
 
@@ -20,7 +20,7 @@ Applications could also use the `lookup` function on the contract to get more in
 
 If the symbol is not registered, all those above fields will return 0.
 
-Here is an example of the lookup call in remix. 
+Here is an example of the `lookup` function call in remix. 
 
 Xxx
 
