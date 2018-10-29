@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma lity ^1.2.4;
 
 contract CRC20 {
     function symbol() public view returns (string);
@@ -10,12 +10,13 @@ contract CRC20NS {
     struct Entry {
         address contractAddr;
         string desc;
-        uint256 exitPrice;
+        safeuint exitPrice;
         bool initialized;
     }
     
     mapping(string => Entry) entries;
     mapping(string => bool) forbiddenSymbols;
+    mapping(uint => safeuint) fees;
 
     address public owner;
     constructor () public {
@@ -25,34 +26,37 @@ contract CRC20NS {
         forbiddenSymbols["ETH"] = true;
         forbiddenSymbols["SEX"] = true;
         forbiddenSymbols["FUCK"] = true;
+
+        fees[0] = 1000000000000000000; // 1 CMT This is the default
+        fees[1] = -1; // not allowed
+        fees[2] = 1000000000000000000000; // 1000 CMT
+        fees[3] = 100000000000000000000;  // 100 CMT
+        fees[4] = 10000000000000000000;   // 10 CMT
     }
     modifier onlyOwner() {
         assert(msg.sender == owner);
         _;
     }
 
-    function register (address _contractAddr, string _desc, uint256 _exitPrice) public payable returns (bool) {
+    function register (address _contractAddr, string _desc, safeuint _exitPrice) public payable returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
         string memory symbol = crc.symbol();
         require (bytes(symbol).length >= 2);
         require (forbiddenSymbols[symbol] != true);
         require (msg.sender == crc.owner());
 
-        uint256 payment = msg.value;
-        uint256 fee = 1000000000000000000; // 1 CMT
-        if (bytes(symbol).length <= 2) {
-            fee = 1000000000000000000000; // 1000 CMT
-        } else if (bytes(symbol).length <= 3) {
-            fee = 100000000000000000000; // 100 CMT
-        } else if (bytes(symbol).length <= 4) {
-            fee = 10000000000000000000; // 10 CMT
+        safeuint payment = msg.value;
+        safeuint fee = fees[bytes(symbol).length];
+        require (fee >= 0);
+        if (fee == 0) {
+            fee = fees[0];
         }
 
         Entry memory entry = entries[symbol];
         if (entry.initialized) {
             require (payment >= entry.exitPrice + fee);
             // pay the previous owner exit price
-            CRC20(entry.contractAddr).owner().transfer(entry.exitPrice);
+            CRC20(entry.contractAddr).owner().transfer(uint256(entry.exitPrice));
             payment = payment - entry.exitPrice;
         }
 
@@ -62,7 +66,7 @@ contract CRC20NS {
         return true;
     }
 
-    function updateRegistration (address _contractAddr, string _desc, uint256 _exitPrice) public returns (bool) {
+    function updateRegistration (address _contractAddr, string _desc, safeuint _exitPrice) public returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
         string memory symbol = crc.symbol();
         require (msg.sender == crc.owner());
@@ -75,7 +79,14 @@ contract CRC20NS {
         return true;
     }
 
-    function lookup (string _symbol) public view returns (address, string, uint256) {
+    function forceRemove (string _symbol) external onlyOwner returns (bool) {
+        Entry memory entry = entries[_symbol];
+        require (entry.initialized);
+        delete entries[_symbol];
+        return true;
+    }
+
+    function lookup (string _symbol) public view returns (address, string, safeuint) {
         Entry memory entry = entries[_symbol];
         return (entry.contractAddr, entry.desc, entry.exitPrice);
     }
@@ -85,13 +96,22 @@ contract CRC20NS {
         return (entry.contractAddr == _contractAddr);
     }
 
-    function getBalance () external onlyOwner view returns (uint256) {
+    function updateFee (uint _symbol_length, safeuint fee) external onlyOwner returns (bool) {
+        fees[_symbol_length] = fee;
+        return true;
+    }
+
+    function findFee (uint _symbol_length) external onlyOwner returns (safeuint) {
+        return fees[_symbol_length];
+    }
+
+    function getBalance () external onlyOwner view returns (safeuint) {
         return address(this).balance;
     }
     
-    function withdraw (uint256 _amount) external onlyOwner returns (bool) {
+    function withdraw (safeuint _amount) external onlyOwner returns (bool) {
         require (address(this).balance >= _amount);
-        owner.transfer(_amount);
+        owner.transfer(uint256(_amount));
     }
 
     function terminate() external onlyOwner {
