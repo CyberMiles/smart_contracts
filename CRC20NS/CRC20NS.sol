@@ -28,7 +28,7 @@ contract CRC20NS {
         forbiddenSymbols["FUCK"] = true;
 
         fees[0] = 1000000000000000000; // 1 CMT This is the default
-        fees[1] = -1; // not allowed
+        fees[1] = 1; // 1 wei to signal that this is not allowed
         fees[2] = 1000000000000000000000; // 1000 CMT
         fees[3] = 100000000000000000000;  // 100 CMT
         fees[4] = 10000000000000000000;   // 10 CMT
@@ -47,7 +47,7 @@ contract CRC20NS {
 
         safeuint payment = msg.value;
         safeuint fee = fees[bytes(symbol).length];
-        require (fee >= 0);
+        require (fee > 1); // exit if the fee is 1 wei
         if (fee == 0) {
             fee = fees[0];
         }
@@ -101,7 +101,7 @@ contract CRC20NS {
         return true;
     }
 
-    function findFee (uint _symbol_length) external onlyOwner returns (safeuint) {
+    function findFee (uint _symbol_length) public view returns (safeuint) {
         return fees[_symbol_length];
     }
 
