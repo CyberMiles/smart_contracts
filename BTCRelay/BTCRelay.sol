@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma lity ^1.2.4;
 
 contract BTCRelay {
 
