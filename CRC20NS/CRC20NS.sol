@@ -9,7 +9,6 @@ contract CRC20NS {
 
     struct Entry {
         address contractAddr;
-        string desc;
         safeuint exitPrice;
         bool initialized;
     }
@@ -37,8 +36,12 @@ contract CRC20NS {
         assert(msg.sender == owner);
         _;
     }
+    modifier ValidatorOnly() {
+        require(isValidator(msg.sender));
+        _;
+    }
 
-    function register (address _contractAddr, string _desc, safeuint _exitPrice) public payable returns (bool) {
+    function register (address _contractAddr, safeuint _exitPrice) public payable returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
         string memory symbol = crc.symbol();
         require (bytes(symbol).length >= 2);
@@ -56,17 +59,22 @@ contract CRC20NS {
         if (entry.initialized) {
             require (payment >= entry.exitPrice + fee);
             // pay the previous owner exit price
-            CRC20(entry.contractAddr).owner().transfer(uint256(entry.exitPrice));
             payment = payment - entry.exitPrice;
+            // This will be done at the end to prevent re-entry
+            // CRC20(entry.contractAddr).owner().transfer(uint256(entry.exitPrice));
         }
 
         require (payment >= fee);
-        Entry memory newEntry = Entry(_contractAddr, _desc, _exitPrice, true);
+        Entry memory newEntry = Entry(_contractAddr, _exitPrice, true);
         entries[symbol] = newEntry;
+
+        if (entry.initialized) {
+            CRC20(entry.contractAddr).owner().transfer(uint256(entry.exitPrice));
+        }
         return true;
     }
 
-    function updateRegistration (address _contractAddr, string _desc, safeuint _exitPrice) public returns (bool) {
+    function updateRegistration (address _contractAddr, safeuint _exitPrice) public returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
         string memory symbol = crc.symbol();
         require (msg.sender == crc.owner());
@@ -74,21 +82,20 @@ contract CRC20NS {
         Entry storage entry = entries[symbol];
         require (entry.contractAddr == _contractAddr);
 
-        entry.desc = _desc;
         entry.exitPrice = _exitPrice;
         return true;
     }
 
     function forceRemove (string _symbol) external onlyOwner returns (bool) {
-        Entry memory entry = entries[_symbol];
-        require (entry.initialized);
-        delete entries[_symbol];
-        return true;
+         Entry memory entry = entries[_symbol];
+         require (entry.initialized);
+         delete entries[_symbol];
+         return true;
     }
 
-    function lookup (string _symbol) public view returns (address, string, safeuint) {
+    function lookup (string _symbol) public view returns (address, safeuint) {
         Entry memory entry = entries[_symbol];
-        return (entry.contractAddr, entry.desc, entry.exitPrice);
+        return (entry.contractAddr, entry.exitPrice);
     }
 
     function isRegistered (string _symbol, address _contractAddr) public view returns (bool) {
@@ -103,6 +110,22 @@ contract CRC20NS {
 
     function findFee (uint _symbol_length) public view returns (safeuint) {
         return fees[_symbol_length];
+    }
+
+    function addForbiddenSymbol (string _symbol) external ValidatorOnly returns (bool) {
+        require (forbiddenSymbols[_symbol] != true);
+        forbiddenSymbols[_symbol] = true;
+        return true;
+    }
+
+    function deleteForbiddenSymbol (string _symbol) external ValidatorOnly returns (bool) {
+        require (forbiddenSymbols[_symbol] == true);
+        delete forbiddenSymbols[_symbol];
+        return true;
+    }
+
+    function isForbiddenSymbol (string _symbol) public view returns (bool) {
+        return forbiddenSymbols[_symbol];
     }
 
     function getBalance () external onlyOwner view returns (safeuint) {

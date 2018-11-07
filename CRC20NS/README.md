@@ -16,7 +16,6 @@ For applications / wallets / explorer web site that need to verify the “offici
 Applications could also use the `lookup` function on the contract to get more information. The function takes a single parameter, the symbol, and returns the official contract address for this symbol. This function call requires no gas. The function's return values are as follows. 
 
 * The contract address of this symbol.
-* The description of this symbol. 
 * The exit price for the symbol (how much a new person has to pay to replace the CRC20 contract associated with this symbol). 
 
 If the symbol is not registered, all those above fields will return 0.
@@ -38,18 +37,17 @@ If you are a token creator, you can call the register function on this contract 
 The register function takes the following parameters, in addition to the above registration fee in the TX value and gas fee. 
 
 * The CRC20 contract address to be registered.
-* The description of this symbol. 
 * The exit price for the symbol (how much a new person has to pay to replace the CRC20 contract associated with this symbol). 
 
-You must be the current owner of this contract in order to call the `register` function. Here is how it works in remix. 
+You must be the current owner of the CRC20 token contract in order to call the `register` function. Here is how it works in remix. 
 
 ![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/register01.png)
 ![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/register02.png)
 ![](https://github.com/CyberMiles/smart_contracts/raw/master/CRC20NS/images/register03.png)
 
-Once registered, the current owner of the contract can also call the `updateRegistration` function to update the description and exit price. 
+Once registered, the current owner of the contract can also call the `updateRegistration` function to update the exit price. 
 
-If another token owner wishes to make “official” another contract address for the same symbol and hence replacing the current registration for this symbol, she can call the `register` function again and pay enough fee in the TX value. The fee should be equal to the previous owner's exit price plus the registration fee. The previous contract owner will be paid the exit price and the symbol will be registered for the new owner. 
+If another token owner wishes to make "official" another contract address for the same symbol and hence replacing the current registration for this symbol, she can call the `register` function again and pay enough fee in the TX value. The fee should be equal to the previous owner's exit price plus the registration fee. The previous contract owner will be paid the exit price and the symbol will be registered for the new owner. 
 
 
 
