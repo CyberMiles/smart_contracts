@@ -36,10 +36,6 @@ contract CRC20NS {
         assert(msg.sender == owner);
         _;
     }
-    modifier ValidatorOnly() {
-        require(isValidator(msg.sender));
-        _;
-    }
 
     function register (address _contractAddr, safeuint _exitPrice) public payable returns (bool) {
         CRC20 crc = CRC20(_contractAddr);
@@ -112,13 +108,13 @@ contract CRC20NS {
         return fees[_symbol_length];
     }
 
-    function addForbiddenSymbol (string _symbol) external ValidatorOnly returns (bool) {
+    function addForbiddenSymbol (string _symbol) external onlyOwner returns (bool) {
         require (forbiddenSymbols[_symbol] != true);
         forbiddenSymbols[_symbol] = true;
         return true;
     }
 
-    function deleteForbiddenSymbol (string _symbol) external ValidatorOnly returns (bool) {
+    function deleteForbiddenSymbol (string _symbol) external onlyOwner returns (bool) {
         require (forbiddenSymbols[_symbol] == true);
         delete forbiddenSymbols[_symbol];
         return true;
