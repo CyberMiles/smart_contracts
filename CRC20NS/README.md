@@ -9,6 +9,7 @@ The DEMO token used in the example below is from the `CRC20Demo.sol` file.
 For applications / wallets / explorer web site that need to verify the "official" status of a CRC20 token symbol, they should use the `isRegistered` function. This function takes the symbol and contract address as input parameters, and returns a boolean value indicating whether the pair is registered. There is no gas fee for this function call. In web3-cmt.js and the Travis client console, we will first construct a contract instance from its deployed address. 
 
 ```
+// unlock or inject from account: 0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1
 abi = [{...}]
 contract = web3.cmt.contract(abi, "0xcc549613436838f03946d29749ba2ed1fbd5618f")
 ```
@@ -16,10 +17,10 @@ contract = web3.cmt.contract(abi, "0xcc549613436838f03946d29749ba2ed1fbd5618f")
 Then we can call the `isRegistered` function without gas.
 
 ```
-contract.isRegistered.call("DEMO", "0x85F30253218fCAaa8e0c8f32ae7909D217eB1256", {from:"0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1"})
+contract.isRegistered("DEMO", "0x85F30253218fCAaa8e0c8f32ae7909D217eB1256")
 true
 
-contract.isRegistered.call("DEMO123", "0x85F30253218fCAaa8e0c8f32ae7909D217eB1256", {from:"0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1"})
+contract.isRegistered("DEMO123", "0x85F30253218fCAaa8e0c8f32ae7909D217eB1256")
 false
 ```
 
@@ -33,7 +34,7 @@ If the symbol is not registered, all those above fields will return 0.
 Here is an example of the `lookup` function call in web3-cmt.js or Travis client console. 
 
 ```
-contract.lookup.call("DEMO123", {from:"0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1"})
+contract.lookup("DEMO")
 
 {
 	"string _symbol": "DEMO",
@@ -50,7 +51,7 @@ If you are a token creator, you can call the register function on this contract 
 * For symbols that are four chars, you will pay 10 CMTs. 
 * For symbols that are five or more chars, you will pay 1 CMT. 
 
-The register function takes the following parameters, in addition to the above registration fee in the TX value and gas fee. 
+The `register` function takes the following parameters, in addition to the above registration fee in the TX value and gas fee. 
 
 * The CRC20 contract address to be registered.
 * The exit price for the symbol (how much a new person has to pay to replace the CRC20 contract associated with this symbol). 
@@ -59,7 +60,10 @@ You must be the current owner of the CRC20 token contract in order to call the `
 
 
 ```
-contract.register.call("0x85F30253218fCAaa8e0c8f32ae7909D217eB1256", "100000000000000000000", {from:"0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1"})
+contract.register("0x85F30253218fCAaa8e0c8f32ae7909D217eB1256", "100000000000000000000", {
+    from: '0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1',
+    gas: 1500000
+})
 ```
 
 Once registered, the current owner of the contract can also call the `updateRegistration` function to update the exit price. 
