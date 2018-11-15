@@ -50,7 +50,9 @@ c09cca6400000000
 00000000
 ```
 
-We need to calculate hashes of its siblings on merkle tree:
+(you could get your raw transaction from `https://blockchain.info/rawtx/<your_tx_hash>?format=hex`)
+
+We need to calculate hashes of its siblings on merkle tree (merkle proof):
 
 ```
 60925f1948b71f429d514ead7ae7391e0edf965bf5a60331398dae24c6964774
@@ -58,6 +60,8 @@ We need to calculate hashes of its siblings on merkle tree:
 3043cbb019f2b2f1384c6f5e38f27cb8da3d400cc3beb86ac29da2654298388b
 bdbdf03d7f2bf6da00b62c371c25fa22b4027ea1f7d035aed53916a92bb228ce
 ```
+
+(you could check [merkle_proof.py](script/merkle_proof.py) for more details about generating merkle proof.
 
 Then we could use `verifyTx` function to verify this transaction:
 
