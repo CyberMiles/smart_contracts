@@ -62,6 +62,7 @@ You must be the current owner of the CRC20 token contract in order to call the `
 ```
 contract.register("0x85F30253218fCAaa8e0c8f32ae7909D217eB1256", "100000000000000000000", {
     from: '0x9ee2dfa53038b4d2bbcefcd3517f21384490cbb1',
+    value: 10000000000000000000,
     gas: 1500000
 })
 ```
