@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Hello CRC20</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <td colspan="3">
+                <h1>
+                    contract address
+                </h1>
+                contractAddress：<input id="contractAddress" size="100"><br><br>
+                testCoinContractAddress：<input id="testCoinContractAddress" size="100"
+                                               value="0xfbe11642baf1de6e5b9fd6a1c6eb0695494b8de2">
+            </td>
+        </tr>
+
+        <!-- owner -->
+        <tr>
+            <td>
+                <h3>==========owner==========</h3>
+                <button id='owner' type="button" data-id="0" data-loading-text="Loading...">
+                    owner
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="ownerResult"></div>
+            </td>
+        </tr>
+
+        <!-- lookup -->
+        <tr>
+            <td>
+                <h3>==========lookup==========</h3>
+                Symbol name：<input id="lookupSymbol" placeholder="DEMO"><br>
+                <button onclick="lookup()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    lookup
+                </button>
+            <td>RESULT:</td>
+            <td>
+                <div id="lookupResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- terminate -->
+        <tr>
+            <td>
+                <h3>==========terminate==========</h3>
+                <button onclick="terminate()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    terminate
+                </button>
+            <td>RESULT:</td>
+            <td>
+                <div id="terminateResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- getBalance -->
+        <tr>
+            <td>
+                <h3>==========getBalance==========</h3>
+                <button onclick="getBalance()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    getBalance
+                </button>
+            <td>RESULT:</td>
+            <td>
+                <div id="getBalanceResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- isForbiddenSymbol -->
+        <tr>
+            <td>
+                <h3>==========isForbiddenSymbol==========</h3>
+                Symbol name：<input id="isForbiddenSymbol" placeholder="CMT"><br>
+                <button onclick="isForbiddenSymbol()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    isForbiddenSymbol
+                </button>
+            <td>RESULT:</td>
+            <td>
+                <div id="isForbiddenSymbolResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- addForbiddenSymbol -->
+        <tr>
+            <td>
+                <h3>==========addForbiddenSymbol==========</h3>
+                Symbol name：<input id="addForbiddenSymbol" placeholder="CMT"><br>
+                <button onclick="addForbiddenSymbol()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    addForbiddenSymbol
+                </button>
+            <td>RESULT:</td>
+            <td>
+                <div id="addForbiddenSymbolResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- deleteForbiddenSymbol -->
+        <tr>
+            <td>
+                <h3>==========deleteForbiddenSymbol==========</h3>
+                Symbol name：<input id="deleteForbiddenSymbol" placeholder="CMT"><br>
+                <button onclick="deleteForbiddenSymbol()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    deleteForbiddenSymbol
+                </button>
+            <td>RESULT:</td>
+            <td>
+                <div id="deleteForbiddenSymbolResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- withdraw -->
+        <tr>
+            <td>
+                <h3>==========withdraw==========</h3>
+                <button onclick="withdraw()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    withdraw
+                </button>
+                <input id="withdrawAmount" value="10">
+            <td>RESULT:</td>
+            <td>
+                <div id="withdrawResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- isRegistered -->
+        <tr>
+
+            <td>
+                <h3>==========isRegistered==========</h3>
+                <br>
+                symbol：<input id="isRegisteredSymbol" placeholder="symbol"><br>
+                contractAddr：<input id="isRegisteredContractAddress"
+                                    placeholder="0x31aeaf8d378e10ea4206920830ffe074f933b8fa"
+                                    size="50"><br>
+                <button onclick="isRegistered()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    isRegistered
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="isRegisteredResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- forceRemove -->
+        <tr>
+
+            <td>
+                <h3>==========forceRemove==========</h3>
+                <br>
+                symbol：<input id="forceRemoveSymbol" placeholder="symbol"><br>
+                <button onclick="forceRemove()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    forceRemove
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="forceRemoveResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- register -->
+        <tr>
+            <td>
+                <h3>==========register==========</h3>
+                <br>
+                contractAddr：<input id="registerContractAddr" placeholder="0xfbe11642baf1de6e5b9fd6a1c6eb0695494b8de2"
+                                    size="50"><br>
+                desc：<input id="registerDesc" placeholder="description"><br>
+                exitPrice：<input id="registerExitPrice" placeholder="exitPrice"><br>
+                <button onclick="register()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    register
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="registerResult"></div>
+            </td>
+            </td>
+        </tr>
+
+        <!-- updateRegistration -->
+        <tr>
+            <td>
+                <h3>==========updateRegistration==========</h3>
+                <br>
+                contractAddr：<input id="contractAddr" placeholder="0xfbe11642baf1de6e5b9fd6a1c6eb0695494b8de2"
+                                    size="50"><br>
+                desc：<input id="updateRegisterDesc" placeholder="description"><br>
+                exitPrice：<input id="exitPrice" placeholder="exitPrice"><br>
+                <button onclick="updateRegistration()" class="btn btn-default" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    updateRegistration
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="updateRegistrationResult"></div>
+            </td>
+            </td>
+        </tr>
+
+
+    </table>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="js/jquery.min.js"></script>-->
+<script src="https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!--<script src="js/web3.min.js"></script>-->
+<!--<script src="js/truffle-contract.js"></script>-->
+<!--<script src="js/app.js"></script>-->
+<script>
+    $('#contractAddress').val("0x31aeaf8d378e10ea4206920830ffe074f933b8fa");
+    var contract_addr = "0x31aeaf8d378e10ea4206920830ffe074f933b8fa";
+    const crc20abi = [
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "terminate",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getBalance",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_symbol_length",
+                    "type": "uint256"
+                },
+                {
+                    "name": "fee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateFee",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_symbol",
+                    "type": "string"
+                }
+            ],
+            "name": "deleteForbiddenSymbol",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdraw",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_symbol",
+                    "type": "string"
+                }
+            ],
+            "name": "isForbiddenSymbol",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_contractAddr",
+                    "type": "address"
+                },
+                {
+                    "name": "_exitPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "register",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": true,
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_symbol_length",
+                    "type": "uint256"
+                }
+            ],
+            "name": "findFee",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_symbol",
+                    "type": "string"
+                }
+            ],
+            "name": "forceRemove",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_symbol",
+                    "type": "string"
+                }
+            ],
+            "name": "addForbiddenSymbol",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_symbol",
+                    "type": "string"
+                },
+                {
+                    "name": "_contractAddr",
+                    "type": "address"
+                }
+            ],
+            "name": "isRegistered",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_contractAddr",
+                    "type": "address"
+                },
+                {
+                    "name": "_exitPrice",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateRegistration",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_symbol",
+                    "type": "string"
+                }
+            ],
+            "name": "lookup",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        }
+    ];
+    const contract = web3.cmt.contract(crc20abi, contract_addr);
+    const instance = contract.at(contract_addr);
+    document.getElementById("owner").addEventListener("click", owner);
+
+
+    function owner() {
+        instance.owner(function (e, result) {
+            if (e) {
+                document.getElementById("ownerResult").innerHTML = e;
+            } else {
+                document.getElementById("ownerResult").innerHTML = result;
+            }
+        });
+    };
+
+    function lookup() {
+        var symbol = $('#lookupSymbol').val();
+        instance.lookup(symbol, function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("lookupResult").innerHTML = result;
+            } else {
+                document.getElementById("lookupResult").innerHTML = "no result";
+            }
+        });
+    };
+
+    function terminate() {
+        instance.terminate(function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("terminateResult").innerHTML = rest;
+        });
+    };
+
+    function getBalance() {
+        instance.getBalance(function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("getBalanceResult").innerHTML = rest / 1000000000000000000;
+        });
+    };
+
+    function isForbiddenSymbol() {
+        var isForbiddenSymbol = $('#isForbiddenSymbol').val();
+        instance.isForbiddenSymbol(isForbiddenSymbol, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("isForbiddenSymbolResult").innerHTML = rest;
+        });
+    };
+
+    function addForbiddenSymbol() {
+        var addForbiddenSymbol = $('#addForbiddenSymbol').val();
+        instance.addForbiddenSymbol(addForbiddenSymbol, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("addForbiddenSymbolResult").innerHTML = rest;
+        });
+    };
+
+    function deleteForbiddenSymbol() {
+        var deleteForbiddenSymbol = $('#deleteForbiddenSymbol').val();
+        instance.deleteForbiddenSymbol(deleteForbiddenSymbol, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("deleteForbiddenSymbolResult").innerHTML = rest;
+        });
+    };
+
+    function withdraw() {
+        var amount = $('#withdrawAmount').val();
+        instance.withdraw(amount, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("withdrawResult").innerHTML = rest;
+        });
+    };
+
+    function isRegistered() {
+        var isRegisteredSymbol = $('#isRegisteredSymbol').val();
+        var contractAddr = $('#isRegisteredContractAddress').val();
+        instance.isRegistered(isRegisteredSymbol, contractAddr, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("isRegisteredResult").innerHTML = rest;
+        });
+    };
+
+    function forceRemove() {
+        var forceRemoveSymbol = $('#forceRemoveSymbol').val();
+        instance.forceRemove(forceRemoveSymbol, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("forceRemoveResult").innerHTML = rest;
+        });
+    };
+
+    function register() {
+        var contractAddr = $('#registerContractAddr').val();
+        var desc = $('#registerDesc').val();
+        var exitPrice = $('#registerExitPrice').val();
+        var payment = Number(exitPrice) + Number(100 * 1000000000000000000);
+        instance.register(contractAddr, desc, exitPrice, {value: payment}, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("registerResult").innerHTML = rest;
+        });
+    };
+
+    function isRegistered() {
+        var isRegisteredSymbol = $('#isRegisteredSymbol').val();
+        var contractAddr = $('#isRegisteredContractAddress').val();
+        instance.isRegistered(isRegisteredSymbol, contractAddr, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("isRegisteredResult").innerHTML = rest;
+        });
+    };
+
+    function updateRegistration() {
+        var contractAddr = $('#contractAddr').val();
+        var desc = $('#updateRegisterDesc').val();
+        var exitPrice = $('#exitPrice').val();
+        instance.updateRegistration(contractAddr, desc, exitPrice, function (e, result) {
+            console.log(result);
+            var rest = "no result";
+            if (result != null) {
+                rest = result;
+            }
+            document.getElementById("updateRegistrationResult").innerHTML = rest;
+        });
+    };
+
+</script>
+</body>
+</html>
+
