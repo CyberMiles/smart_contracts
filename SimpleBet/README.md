@@ -49,6 +49,7 @@ Having won the bet, User B can now call the `payMe` function and get paid 200 CM
 ![Pay B](images/payB01.png)
 ![Pay B](images/payB02.png)
 ![Pay B](images/payB03.png)
+![Pay B](images/payB04.png)
 
 If User A calls the `payMe` function, the transaction would fail since User A did not win.
 
