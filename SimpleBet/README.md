@@ -11,14 +11,16 @@ You will need to install Metamask for CyberMiles: https://www.cybermiles.io/meta
 First, let's use the Admin Account to deploy the BettingGame contract. It will cost some gas.
 Once it is successfully deployed, the contract will have an address on the blockchain.
 
-XXXX
+![Deploy](images/deploy01.png?raw=true)
+![Deploy](images/deploy02.png?raw=true)
+![Deploy](images/deploy03.png?raw=true)
 
 Once the contract is created, the Admin Account can initiate the betting game by calling the 
-`createGame` function on the contract. You should pass in the description of the bet and
+`startGame` function on the contract. You should pass in the description of the bet and
 the number of potential choices in this function call. In this case, our bet is whether the
 CMT price can reach $1 in 2018. There are two betting choices, 0 is for NO and 1 is for YES.
 
-XXXX
+
 
 Next, let's switch to account User A and bet on the NO choice. He will call the `placeBet` function
 and pass in the choice as a parameter, and then pass in the bet amount (100 CMTs) 
