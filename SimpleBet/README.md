@@ -1,10 +1,12 @@
 # The Betting Game
 
-## Basics
+The betting game allows multiple parties to bet on several potential outcomes through a smart contract. The contract creator
+sets up the choices, and specifies the "correct" choice to end the game. The participants who betted on the correct choice
+will divide the entire betting pool proprotional to their bets.
 
+## Example in Remix
 
-
-## Example
+You will need to install Metamask for CyberMiles: https://www.cybermiles.io/metamask/ and then use Remix for CyberMiles to compile, deploy, and interact with the contract: http://remix.cybermiles.io/
 
 First, let's use the Admin Account to deploy the BettingGame contract. It will cost some gas.
 Once it is successfully deployed, the contract will have an address on the blockchain.
