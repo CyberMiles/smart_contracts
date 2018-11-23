@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Betting Admin</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <td colspan="3">
+                <h1>
+                    contract address
+                </h1>
+                contractAddress：<input id="contractAddress" size="100"><br><br>
+            </td>
+        </tr>
+
+
+        <!-- owner -->
+        <tr>
+            <td>
+                <h3>==========owner==========</h3>
+                <button id='owner' type="button" data-id="0" data-loading-text="Loading...">
+                    owner
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="ownerResult"></div>
+            </td>
+        </tr>
+
+        <!-- get answer -->
+        <tr>
+            <td>
+                <h3>========== get answer ==========</h3>
+                <br>
+                <button id='getAnswer' onclick="getAnswer()" type="button" data-id="0" data-loading-text="Loading...">
+                    get answer
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="getAnswerResult"></div>
+            </td>
+        </tr>
+
+        <!-- start game -->
+        <tr>
+            <td>
+                <h3>========== start game ==========</h3>
+                game description ：<input id="gameDescription" placeholder="game description" size="100"><br>
+                game choices ：<input id="gameChoices" placeholder="game choices, default 2"><br>
+                <br>
+                <button id='startGame' onclick="startGame()" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    start game
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="startGameResult"></div>
+            </td>
+        </tr>
+
+        <!-- stop game -->
+        <tr>
+            <td>
+                <h3>========== stop game ==========</h3>
+                <br>
+                <button id='stopGame' onclick="stopGame()" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    stop game
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="stopGameResult"></div>
+            </td>
+        </tr>
+
+        <!-- resume game -->
+        <tr>
+            <td>
+                <h3>========== resume game ==========</h3>
+                <br>
+                <button id='resumeGame' onclick="resumeGame()" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    resume game
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="resumeGameResult"></div>
+            </td>
+        </tr>
+
+        <!-- end game -->
+        <tr>
+            <td>
+                <h3>========== end game ==========</h3>
+                end game choices result：<input id="correctChoice" placeholder="game choices result, 0 is No or 1 is Yes"
+                                               size="40"><br>
+                end game description ：<input id="correctChoiceDescription" placeholder="game description"
+                                             size="100"><br>
+                <button id='endGame' onclick="endGame()" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    end game
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="endGameResult"></div>
+            </td>
+        </tr>
+
+        <!-- check status -->
+        <tr>
+            <td>
+                <h3>========== check status ==========</h3>
+                bet amount：<input id="betUserAddress" placeholder="use address"><br>
+                <br>
+                <button id='checkStatus' onclick="checkStatus()" type="button" data-id="0"
+                        data-loading-text="Loading...">
+                    check status
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="checkStatusResult"></div>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+
+<script>
+    $('#contractAddress').val("0x01f7802ff4820a7ca8770de4ed4645d75a8a1509");
+    var contract_addr = "0x01f7802ff4820a7ca8770de4ed4645d75a8a1509";
+    const betAbi = [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_correct_choice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_correct_choice_txt",
+                    "type": "string"
+                }
+            ],
+            "name": "endGame",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_correct_choice",
+                    "type": "uint256"
+                },
+                {
+                    "name": "_correct_choice_txt",
+                    "type": "string"
+                }
+            ],
+            "name": "endGameByValidator",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "resumeGame",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_game_desc",
+                    "type": "string"
+                },
+                {
+                    "name": "_number_of_choices",
+                    "type": "uint256"
+                }
+            ],
+            "name": "startGame",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "stopGame",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "terminate",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_addr",
+                    "type": "address"
+                }
+            ],
+            "name": "checkStatus",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getAnswer",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+    const contract = web3.cmt.contract(betAbi, contract_addr);
+    const instance = contract.at(contract_addr);
+    document.getElementById("owner").addEventListener("click", owner);
+
+
+    function owner() {
+        instance.owner(function (e, result) {
+            if (e) {
+                document.getElementById("ownerResult").innerHTML = e;
+            } else {
+                document.getElementById("ownerResult").innerHTML = result;
+            }
+        });
+    };
+
+    function startGame() {
+        var gameChoices = $('#gameChoices').val();
+        var gameDescription = $('#gameDescription').val();
+        var choicesNum = Number(gameChoices);
+        if (choicesNum <= 0) {
+            choicesNum = 2;
+        }
+        instance.startGame(gameDescription, choicesNum, function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("startGameResult").innerHTML = result;
+            } else {
+                document.getElementById("startGameResult").innerHTML = e;
+            }
+        });
+    };
+
+    function stopGame() {
+        instance.stopGame(function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("stopGameResult").innerHTML = result;
+            } else {
+                document.getElementById("stopGameResult").innerHTML = e;
+            }
+        });
+    };
+
+    function resumeGame() {
+        instance.resumeGame(function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("resumeGameResult").innerHTML = result;
+            } else {
+                document.getElementById("resumeGameResult").innerHTML = e;
+            }
+        });
+    };
+
+    function endGame() {
+        var correctChoice = $('#correctChoice').val();
+        var correctChoiceDescription = $('#correctChoiceDescription').val();
+        instance.endGame(correctChoice, correctChoiceDescription, function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("endGameResult").innerHTML = result;
+            } else {
+                document.getElementById("endGameResult").innerHTML = e;
+            }
+        });
+    };
+
+    function checkStatus() {
+        var betUserAddress = $('#betUserAddress').val();
+        instance.checkStatus(betUserAddress, function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("checkStatusResult").innerHTML = result;
+            } else {
+                document.getElementById("checkStatusResult").innerHTML = e;
+            }
+        });
+    };
+
+    function getAnswer() {
+        instance.getAnswer(function (e, result) {
+            console.log(result);
+            if (result != null) {
+                var rest = 'No';
+                if (result[0] == 1) {
+                    rest = 'Yes';
+                }
+                document.getElementById("getAnswerResult").innerHTML = "before last one,the result is : " + rest;
+            } else {
+                document.getElementById("getAnswerResult").innerHTML = e;
+            }
+        });
+    };
+
+
+</script>
+</body>
+</html>
+
