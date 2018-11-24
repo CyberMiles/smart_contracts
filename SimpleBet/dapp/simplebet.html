@@ -19,21 +19,6 @@
             </td>
         </tr>
 
-
-        <!-- owner -->
-        <tr>
-            <td>
-                <h3>==========owner==========</h3>
-                <button id='owner' type="button" data-id="0" data-loading-text="Loading...">
-                    owner
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="ownerResult"></div>
-            </td>
-        </tr>
-
         <!-- place bet -->
         <tr>
             <td>
@@ -279,6 +264,7 @@
             alert("The bet desc is not properly encoded");
         } else {
             var descs = result.split(";");
+	    document.getElementById("placeBetDesc").innerHTML = descs[0];
             var selectList = document.getElementById("placeBetSelect");
             for (var i = 1; i < descs.length; i++) {
                 var option = document.createElement("option");
@@ -288,16 +274,6 @@
             }
         }
     });
-
-    function owner() {
-        instance.owner(function (e, result) {
-            if (e) {
-                document.getElementById("ownerResult").innerHTML = e;
-            } else {
-                document.getElementById("ownerResult").innerHTML = result;
-            }
-        });
-    };
 
     function placeBet() {
         var placeBetAmount = $('#placeBetAmount').val();
