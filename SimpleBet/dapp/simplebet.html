@@ -16,43 +16,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-    <div class="container">
-      <br/><br/>
-      
-      <form class="form-inline">
-        <fieldset disabled>
-          <div class="form-group">
-            <label for="contractAddress" class="my-1 mr-2">Contract address</label>
-            <input type="text" id="contractAddress" class="form-control" placeholder="">
-          </div>
-        </fieldset>
-      </form>
-      <br/><br/>
-
-      <h2 id="placeBetDesc"></h2>
-      <form class="form-inline" id="betForm">
-	<div class="form-group">
-            <label for="placeBetAmount" class="my-1 mr-2">I bet</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount">
-            <label class="my-1 mr-2" for="placeBetSelect">CMTs on</label>
-            <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
-            </select>
-            <button id='placeBet' onclick="return placeBet();" class="btn btn-primary my-1" type="button">Bet</button>
-            <small id="placeBetResult" class="text-muted"></small>
-	</div>
-      </form>
-      <br/><br/>
-
-      <form class="form-inline" id="payForm">
-	<div class="form-group">
-            <label id="checkStatusResult" for="payMe" class="my-1 mr-2"></label>
-            <button id='payMe' onclick="return payMe();" class="btn btn-primary my-1" type="button">Pay me</button>
-            <small id="payMeResult" class="text-muted"></small>
-	</div>
-      </form>
-    </div>
-
 <script>
     var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
     $('#contractAddress').val(contract_addr);
@@ -254,12 +217,14 @@
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     const userAddress = instance._eth.accounts[0];
+    var descs = [];
 
+$(function() {
     instance.game_desc(function (e, result) {
         if (e) {
             alert("The bet desc is not properly encoded");
         } else {
-            var descs = result.split(";");
+            descs = result.split(";");
 	    document.getElementById("placeBetDesc").innerHTML = descs[0];
             var selectList = document.getElementById("placeBetSelect");
             for (var i = 1; i < descs.length; i++) {
@@ -296,7 +261,7 @@
                 if (paid) {
                     document.getElementById("checkStatusResult").innerHTML = "You have already been paid:" + payout + " CMTs.";
                 } else {
-                    document.getElementById("checkStatusResult").innerHTML = "You bet " + amount + " CMTs on choice " + choice + ". The antipated payout is :" + payout + " CMTs";
+                    document.getElementById("checkStatusResult").innerHTML = "You bet " + amount + " CMTs on " + descs[choice+1] + ". The antipated payout is :" + payout + " CMTs";
                 }
             } else {
                 document.getElementById("betForm").visibility = "visible";
@@ -308,6 +273,7 @@
             document.getElementById("payForm").visibility = "hidden";
         }
     });
+});
 
     function placeBet() {
         var placeBetAmount = $('#placeBetAmount').val();
@@ -332,7 +298,7 @@
                 document.getElementById("placeBetResult").innerHTML = "bet failed!";
             }
         });
-	return false;
+	return true;
     }
 
     function payMe() {
@@ -365,8 +331,45 @@
                 document.getElementById("payMeResult").innerHTML = e;
             }
         });
-	return false;
+	return true;
     }
 </script>
+
+    <div class="container">
+      <br/><br/>
+      <h1 id="placeBetDesc"></h1>
+      
+      <form class="form-inline">
+        <fieldset disabled>
+          <div class="form-group">
+            <label for="contractAddress" class="my-1 mr-2">Contract address</label>
+            <input type="text" id="contractAddress" class="form-control" placeholder="">
+          </div>
+        </fieldset>
+      </form>
+      <br/><br/>
+
+      <form class="form-inline" id="betForm">
+	<div class="form-group">
+            <label for="placeBetAmount" class="my-1 mr-2">I bet</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount">
+            <label class="my-1 mr-2" for="placeBetSelect">CMTs on</label>
+            <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
+            </select>
+            <button id='placeBet' onclick="return placeBet();" class="btn btn-primary my-1" type="button">Bet</button>
+            <small id="placeBetResult" class="text-muted"></small>
+	</div>
+      </form>
+      <br/><br/>
+
+      <form class="form-inline" id="payForm">
+	<div class="form-group">
+            <label id="checkStatusResult" for="payMe" class="my-1 mr-2"></label>
+            <button id='payMe' onclick="return payMe();" class="btn btn-primary my-1" type="button">Pay me</button>
+            <small id="payMeResult" class="text-muted"></small>
+	</div>
+      </form>
+    </div>
+    
   </body>
 </html>
