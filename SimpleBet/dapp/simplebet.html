@@ -21,21 +21,24 @@
       <form class="form-inline">
         <fieldset disabled>
           <div class="form-group">
-            <label for="contractAddress">Contract Address</label>
+            <label for="contractAddress">Contract address </label>
             <input type="text" id="contractAddress" class="form-control" placeholder="">
           </div>
         </fieldset>
+        <br/><br/>
       </form>
 
       <form class="form-inline" id="betForm">
         <h2 id="placeBetDesc"></h2>
+        <br/><br/>
         <label for="placeBetAmount">I bet</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount" placeholder="CMTs">
-        <label class="my-1 mr-2" for="placeBetSelect">on</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount">
+        <label class="my-1 mr-2" for="placeBetSelect">CMTs on</label>
         <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
         </select>
         <button id='placeBet' onclick="placeBet()" class="btn btn-primary my-1">Bet</button>
         <small id="placeBetResult" class="text-muted"></small>
+        <br/><br/>
       </form>
 
       <form class="form-inline" id="payForm">
@@ -263,16 +266,15 @@
         }
     });
 
-
     instance.checkStatus(userAddress, function (e, result) {
         console.log(result);
-        var choices = " ";
-        var amount = " ";
-        var payout = " ";
+        var choice = 0;
+        var amount = 0;
+        var payout = 0;
         var paid = " ";
         if (result != null) {
             if (result[0] != null) {
-                choices = result[0]
+                choice = result[0]
             }
             if (result[1] != null) {
                 amount = result[1] / 1000000000000000000;
@@ -283,11 +285,20 @@
             if (result[3] != null) {
                 paid = Boolean(result[3]);
             }
-            document.getElementById("checkStatusResult").innerHTML = "you choices is : " + choices + "，choices bet amount is : " + amount + ", the payout is :" + payout + " and is paid :" + paid;
-            document.getElementById("betForm").visibility = "hidden";
-            document.getElementById("payForm").visibility = "visible";
+            if (amount > 0) {
+                document.getElementById("betForm").visibility = "hidden";
+                document.getElementById("payForm").visibility = "visible";
+                if (paid) {
+                    document.getElementById("checkStatusResult").innerHTML = "You have already been paid:" + payout + " CMTs.";
+                } else {
+                    document.getElementById("checkStatusResult").innerHTML = "You bet " + amount + " CMTs on choice " + choice + ". The antipated payout is :" + payout + " CMTs";
+                }
+            } else {
+                document.getElementById("betForm").visibility = "visible";
+                document.getElementById("payForm").visibility = "hidden";
+            }
         } else {
-            document.getElementById("checkStatusResult").innerHTML = e;
+            // document.getElementById("checkStatusResult").innerHTML = e;
             document.getElementById("betForm").visibility = "visible";
             document.getElementById("payForm").visibility = "hidden";
         }
