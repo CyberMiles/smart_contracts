@@ -274,19 +274,20 @@
     const userAddress = instance._eth.accounts[0];
     document.getElementById("owner").addEventListener("click", owner);
 
-    var desc = instance.game_desc();
-    var descs = desc.split(";");
-    if (descs.length != instance.number_of_choices() + 1) {
-        alert("The bet desc is not properly encoded");
-    }
-    document.getElementById("placeBetDesc").innerHTML = descs[0];
-    var selectList = document.getElementById("placeBetSelect");
-    for (var i = 1; i < descs.length; i++) {
-        var option = document.createElement("option");
-        option.value = i - 1;
-        option.text = descs[i];
-        selectList.appendChild(option);
-    }
+    instance.game_desc(function (e, result) {
+        if (e) {
+            alert("The bet desc is not properly encoded");
+        } else {
+            var descs = result.split(";");
+            var selectList = document.getElementById("placeBetSelect");
+            for (var i = 1; i < descs.length; i++) {
+                var option = document.createElement("option");
+                option.value = i - 1;
+                option.text = descs[i];
+                selectList.appendChild(option);
+            }
+        }
+    });
 
     function owner() {
         instance.owner(function (e, result) {
