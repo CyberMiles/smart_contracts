@@ -1,61 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
     <title>Bet</title>
-</head>
-<body>
-<div>
-    <table>
-        <tr>
-            <td colspan="3">
-                <h1>
-                    contract address
-                </h1>
-                contractAddress：<input id="contractAddress" readonly="readonly" size="100"><br><br>
-            </td>
-        </tr>
+  </head>
+  <body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-        <!-- place bet -->
-        <tr>
-            <td>
-                <div id="placeBetDesc"></div>
-                I bet <input id="placeBetAmount" placeholder="betting amount"> for
-                <br>
-                <select id="placeBetSelect">
-                </select>
-                <br>
-                <br>
-                <button id='placeBet' onclick="placeBet()" type="button" data-id="0" data-loading-text="Loading...">
-                    Bet
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="placeBetResult"></div>
-            </td>
-        </tr>
+    <div class="container">
+      <form class="form-inline">
+        <fieldset disabled>
+          <div class="form-group">
+            <label for="contractAddress">Contract Address</label>
+            <input type="text" id="contractAddress" class="form-control" placeholder="">
+          </div>
+        </fieldset>
+      </form>
 
-        <!-- pay me -->
-        <tr>
-            <td>
-                <h3>========== pay me ==========</h3>
-                <br>
-                <button id='payMe' onclick="payMe()" type="button" data-id="0" data-loading-text="Loading...">
-                    payMe
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="payMeResult"></div>
-            </td>
-        </tr>
-    </table>
-</div>
-<script src="https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+      <form class="form-inline" id="betForm">
+        <h2 id="placeBetDesc"></h2>
+        <label for="placeBetAmount">I bet</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount" placeholder="CMTs">
+        <label class="my-1 mr-2" for="placeBetSelect">on</label>
+        <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
+        </select>
+        <button id='placeBet' onclick="placeBet()" class="btn btn-primary my-1">Bet</button>
+        <small id="placeBetResult" class="text-muted"></small>
+      </form>
+
+      <form class="form-inline" id="payForm">
+        <label id="checkStatusResult" for="payMe"></label>
+        <button id='payMe' onclick="payMe()" class="btn btn-primary my-1">Pay me</button>
+        <small id="payMeResult" class="text-muted"></small>
+      </form>
+    </div>
+
 <script>
     var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
     $('#contractAddress').val(contract_addr);
@@ -257,7 +246,6 @@
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     const userAddress = instance._eth.accounts[0];
-    document.getElementById("owner").addEventListener("click", owner);
 
     instance.game_desc(function (e, result) {
         if (e) {
@@ -272,6 +260,36 @@
                 option.text = descs[i];
                 selectList.appendChild(option);
             }
+        }
+    });
+
+
+    instance.checkStatus(userAddress, function (e, result) {
+        console.log(result);
+        var choices = " ";
+        var amount = " ";
+        var payout = " ";
+        var paid = " ";
+        if (result != null) {
+            if (result[0] != null) {
+                choices = result[0]
+            }
+            if (result[1] != null) {
+                amount = result[1] / 1000000000000000000;
+            }
+            if (result[2] != null) {
+                payout = result[2] / 1000000000000000000;
+            }
+            if (result[3] != null) {
+                paid = Boolean(result[3]);
+            }
+            document.getElementById("checkStatusResult").innerHTML = "you choices is : " + choices + "，choices bet amount is : " + amount + ", the payout is :" + payout + " and is paid :" + paid;
+            document.getElementById("betForm").visibility = "hidden";
+            document.getElementById("payForm").visibility = "visible";
+        } else {
+            document.getElementById("checkStatusResult").innerHTML = e;
+            document.getElementById("betForm").visibility = "visible";
+            document.getElementById("payForm").visibility = "hidden";
         }
     });
 
@@ -300,37 +318,6 @@
         });
     };
 
-    function checkStatus(self) {
-        var address = userAddress;
-        if (self == 'other') {
-            address = $('#address').val();
-        }
-        instance.checkStatus(address, function (e, result) {
-            console.log(result);
-            var choices = " ";
-            var amount = " ";
-            var payout = " ";
-            var paid = " ";
-            if (result != null) {
-                if (result[0] != null) {
-                    choices = result[0]
-                }
-                if (result[1] != null) {
-                    amount = result[1] / 1000000000000000000;
-                }
-                if (result[2] != null) {
-                    payout = result[2] / 1000000000000000000;
-                }
-                if (result[3] != null) {
-                    paid = Boolean(result[3]);
-                }
-                document.getElementById("checkStatusResult").innerHTML = "you choices is : " + choices + "，choices bet amount is : " + amount + ", the payout is :" + payout + " and is paid :" + paid;
-            } else {
-                document.getElementById("checkStatusResult").innerHTML = e;
-            }
-        });
-    };
-
     function payMe() {
         var address = $('#address').val();
         var checkResult = "";
@@ -351,7 +338,7 @@
         console.log(checkResult);
 
         if (paid == true) {
-            document.getElementById("payMeResult").innerHTML = "this choices had paid for you ,the amount is  :" + payout;
+            document.getElementById("payMeResult").innerHTML = "You had already been paid for amount:" + payout;
             return;
         }
         instance.payMe(function (e, result) {
@@ -363,6 +350,5 @@
         });
     };
 </script>
-</body>
+  </body>
 </html>
-
