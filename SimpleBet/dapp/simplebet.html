@@ -278,7 +278,6 @@
     var descs = desc.split(";");
     if (descs.length != instance.number_of_choices() + 1) {
         alert("The bet desc is not properly encoded");
-        return;
     }
     document.getElementById("placeBetDesc").innerHTML = descs[0];
     var selectList = document.getElementById("placeBetSelect");
