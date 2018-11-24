@@ -18,7 +18,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
     var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
-    $('#contractAddress').val(contract_addr);
     const betAbi = [
 	{
 		"constant": false,
@@ -236,7 +235,7 @@ $(function() {
         }
     });
 
-    instance.checkStatus(userAddress, function (e, result) {
+    instance.checkStatus(function (e, result) {
         console.log(result);
         var choice = 0;
         var amount = 0;
@@ -302,11 +301,10 @@ $(function() {
     }
 
     function payMe() {
-        var address = $('#address').val();
         var checkResult = "";
         var payout = " ";
         var paid = " ";
-        instance.checkStatus(address, function (e, result) {
+        instance.checkStatus(function (e, result) {
             console.log(result);
             if (result != null) {
                 if (result[2] != null) {
