@@ -42,6 +42,20 @@
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "correct_choice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "_addr",
@@ -72,21 +86,31 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "resumeGame",
-		"outputs": [],
+		"name": "correct_choice_txt",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "stopGame",
-		"outputs": [],
+		"name": "number_of_choices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -140,21 +164,17 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "game_desc",
+		"outputs": [
 			{
-				"name": "_correct_choice",
-				"type": "uint256"
-			},
-			{
-				"name": "_correct_choice_txt",
+				"name": "",
 				"type": "string"
 			}
 		],
-		"name": "endGameByValidator",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bet</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <td colspan="3">
+                <h1>
+                    contract address
+                </h1>
+                contractAddress：<input id="contractAddress" readonly="readonly" size="100"><br><br>
+            </td>
+        </tr>
+
+
+        <!-- owner -->
+        <tr>
+            <td>
+                <h3>==========owner==========</h3>
+                <button id='owner' type="button" data-id="0" data-loading-text="Loading...">
+                    owner
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="ownerResult"></div>
+            </td>
+        </tr>
+
+        <!-- place bet -->
+        <tr>
+            <td>
+                <div id="placeBetDesc"></div>
+                I bet <input id="placeBetAmount" placeholder="betting amount"> for
+                <br>
+                <select id="placeBetSelect">
+                </select>
+                <br>
+                <br>
+                <button id='placeBet' onclick="placeBet()" type="button" data-id="0" data-loading-text="Loading...">
+                    Bet
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="placeBetResult"></div>
+            </td>
+        </tr>
+
+        <!-- pay me -->
+        <tr>
+            <td>
+                <h3>========== pay me ==========</h3>
+                <br>
+                <button id='payMe' onclick="payMe()" type="button" data-id="0" data-loading-text="Loading...">
+                    payMe
+                </button>
+            </td>
+            <td>RESULT:</td>
+            <td>
+                <div id="payMeResult"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+<script>
+    var contract_addr = "0x01f7802ff4820a7ca8770de4ed4645d75a8a1509";
+    $('#contractAddress').val(contract_addr);
+    const betAbi = [
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "terminate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
+				"type": "uint256"
+			}
+		],
+		"name": "startGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "uint256"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "correct_choice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "checkStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "correct_choice_txt",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "number_of_choices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_correct_choice",
+				"type": "uint256"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
+			}
+		],
+		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAnswer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "game_desc",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "payMe",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	}
+    ];
+    const contract = web3.cmt.contract(betAbi, contract_addr);
+    const instance = contract.at(contract_addr);
+    const userAddress = instance._eth.accounts[0];
+    document.getElementById("owner").addEventListener("click", owner);
+
+    var desc = instance.game_desc();
+    var descs = desc.split(";");
+    if (descs.length != instance.number_of_choices() + 1) {
+        alert("The bet desc is not properly encoded");
+        return;
+    }
+    document.getElementById("placeBetDesc").innerHTML = descs[0];
+    var selectList = document.getElementById("placeBetSelect");
+    for (var i = 1; i < descs.length; i++) {
+        var option = document.createElement("option");
+        option.value = i - 1;
+        option.text = descs[i];
+        selectList.appendChild(option);
+    }
+
+    function owner() {
+        instance.owner(function (e, result) {
+            if (e) {
+                document.getElementById("ownerResult").innerHTML = e;
+            } else {
+                document.getElementById("ownerResult").innerHTML = result;
+            }
+        });
+    };
+
+    function placeBet() {
+        var placeBetAmount = $('#placeBetAmount').val();
+        var placeBetSelect = $('#placeBetSelect').val();
+        var amount = Number(placeBetAmount);
+        if (amount <= 0) {
+            alert("The placeBet should bigger than 0");
+            return;
+        }
+        console.log(amount);
+        console.log(placeBetSelect);
+        console.log(web3.toWei(amount, "cmt"));
+        instance.placeBet(placeBetSelect, {
+            value: web3.toWei(amount, "cmt"),
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
+            console.log(result);
+            if (result != null) {
+                document.getElementById("placeBetResult").innerHTML = result;
+            } else {
+                document.getElementById("placeBetResult").innerHTML = "bet failed!";
+            }
+        });
+    };
+
+    function checkStatus(self) {
+        var address = userAddress;
+        if (self == 'other') {
+            address = $('#address').val();
+        }
+        instance.checkStatus(address, function (e, result) {
+            console.log(result);
+            var choices = " ";
+            var amount = " ";
+            var payout = " ";
+            var paid = " ";
+            if (result != null) {
+                if (result[0] != null) {
+                    choices = result[0]
+                }
+                if (result[1] != null) {
+                    amount = result[1] / 1000000000000000000;
+                }
+                if (result[2] != null) {
+                    payout = result[2] / 1000000000000000000;
+                }
+                if (result[3] != null) {
+                    paid = Boolean(result[3]);
+                }
+                document.getElementById("checkStatusResult").innerHTML = "you choices is : " + choices + "，choices bet amount is : " + amount + ", the payout is :" + payout + " and is paid :" + paid;
+            } else {
+                document.getElementById("checkStatusResult").innerHTML = e;
+            }
+        });
+    };
+
+    function payMe() {
+        var address = $('#address').val();
+        var checkResult = "";
+        var payout = " ";
+        var paid = " ";
+        instance.checkStatus(address, function (e, result) {
+            console.log(result);
+            if (result != null) {
+                if (result[2] != null) {
+                    payout = result[2] / 1000000000000000000;
+                }
+                if (result[3] != null) {
+                    paid = Boolean(result[3]);
+                }
+                checkResult = result;
+            }
+        });
+        console.log(checkResult);
+
+        if (paid == true) {
+            document.getElementById("payMeResult").innerHTML = "this choices had paid for you ,the amount is  :" + payout;
+            return;
+        }
+        instance.payMe(function (e, result) {
+            if (result != null) {
+                document.getElementById("payMeResult").innerHTML = result;
+            } else {
+                document.getElementById("payMeResult").innerHTML = e;
+            }
+        });
+    };
+</script>
+</body>
+</html>
+

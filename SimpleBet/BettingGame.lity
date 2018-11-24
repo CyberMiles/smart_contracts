@@ -12,16 +12,16 @@ contract BettingGame {
     }
     mapping(address => Bet) bets;
     
-    string game_desc;
-    safeuint number_of_choices;
+    string public game_desc;
+    safeuint public number_of_choices;
     
     safeuint total_bet_amount;
     mapping(safeuint => safeuint) choice_bet_amounts;
     
-    safeuint correct_choice;
-    string correct_choice_txt;
+    safeuint public correct_choice;
+    string public correct_choice_txt;
     
-    safeuint game_status; // 0 not started; 1 running; 2 stopped; 3 ended
+    safeuint game_status; // 0 not started; 1 running; 2 ended
     
     modifier onlyOwner() {
         assert(msg.sender == owner);
@@ -58,30 +58,14 @@ contract BettingGame {
         total_bet_amount = total_bet_amount + msg.value;
     }
     
-    function stopGame() external onlyOwner {
-        require (game_status == 1);
-        game_status = 2;
-    }
-    
-    function resumeGame() external onlyOwner {
-        require (game_status == 2);
-        game_status = 1;
-    }
-    
     function endGame(safeuint _correct_choice, string _correct_choice_txt) external onlyOwner {
         correct_choice = _correct_choice;
         correct_choice_txt = _correct_choice_txt;
-        game_status = 3;
-    }
-
-    function endGameByValidator(safeuint _correct_choice, string _correct_choice_txt) external onlyValidator {
-        correct_choice = _correct_choice;
-        correct_choice_txt = _correct_choice_txt;
-        game_status = 3;
+        game_status = 2;
     }
     
     function payMe () public {
-        require (game_status == 3); // game is done
+        require (game_status == 2); // game is done
         require (bets[msg.sender].initialized); // Must have a bet
         require (bets[msg.sender].amount > 0); // More than zero
         require (bets[msg.sender].choice == correct_choice); // chose correctly
@@ -95,7 +79,7 @@ contract BettingGame {
     }
     
     function checkStatus (address _addr) public view returns (safeuint, safeuint, safeuint, bool) {
-        require (game_status == 3); // game is done
+        require (game_status == 2); // game is done
         require (bets[_addr].initialized); // Must have a bet
         
         safeuint payout = 0;
