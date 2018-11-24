@@ -31,20 +31,24 @@
       <form class="form-inline" id="betForm">
         <h2 id="placeBetDesc"></h2>
         <br/><br/>
-        <label for="placeBetAmount">I bet</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount">
-        <label class="my-1 mr-2" for="placeBetSelect">CMTs on</label>
-        <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
-        </select>
-        <button id='placeBet' onclick="placeBet()" class="btn btn-primary my-1">Bet</button>
-        <small id="placeBetResult" class="text-muted"></small>
+	<div class="form-group">
+            <label for="placeBetAmount">I bet</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount">
+            <label class="my-1 mr-2" for="placeBetSelect">CMTs on</label>
+            <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
+            </select>
+            <button id='placeBet' onclick="placeBet()" class="btn btn-primary my-1">Bet</button>
+            <small id="placeBetResult" class="text-muted"></small>
+	</div>
         <br/><br/>
       </form>
 
       <form class="form-inline" id="payForm">
-        <label id="checkStatusResult" for="payMe"></label>
-        <button id='payMe' onclick="payMe()" class="btn btn-primary my-1">Pay me</button>
-        <small id="payMeResult" class="text-muted"></small>
+	<div class="form-group">
+            <label id="checkStatusResult" for="payMe"></label>
+            <button id='payMe' onclick="payMe()" class="btn btn-primary my-1">Pay me</button>
+            <small id="payMeResult" class="text-muted"></small>
+	</div>
       </form>
     </div>
 
