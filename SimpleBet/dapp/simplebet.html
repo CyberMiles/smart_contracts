@@ -217,6 +217,7 @@
     const instance = contract.at(contract_addr);
     const userAddress = instance._eth.accounts[0];
     var descs = [];
+    var game_status = -1;
 
 $(function() {
     instance.game_desc(function (e, result) {
@@ -235,7 +236,7 @@ $(function() {
         }
     });
 
-    instance.checkStatus(function (e, result) {
+    instance.checkStatus(userAddress, function (e, result) {
         console.log(result);
         var choice = 0;
         var amount = 0;
