@@ -13,15 +13,15 @@ contract BettingGame {
     mapping(address => Bet) bets;
     
     string public game_desc;
-    safeuint public number_of_choices;
+    uint8 public number_of_choices;
     
     safeuint total_bet_amount;
-    mapping(safeuint => safeuint) choice_bet_amounts;
+    mapping(uint8 => safeuint) choice_bet_amounts;
     
-    safeuint public correct_choice;
+    uint8 public correct_choice;
     string public correct_choice_txt;
     
-    safeuint game_status; // 0 not started; 1 running; 2 ended
+    uint8 public game_status; // 0 not started; 1 running; 2 stopped; 3 ended
     
     modifier onlyOwner() {
         assert(msg.sender == owner);
@@ -37,7 +37,7 @@ contract BettingGame {
         game_status = 0;
     }
     
-    function startGame(string _game_desc, safeuint _number_of_choices) external onlyOwner {
+    function startGame(string _game_desc, uint8 _number_of_choices) external onlyOwner {
         game_desc = _game_desc;
         number_of_choices = _number_of_choices;
         
@@ -45,7 +45,7 @@ contract BettingGame {
         game_status = 1;
     }
     
-    function placeBet (safeuint _choice) public payable {
+    function placeBet (uint8 _choice) public payable {
         require (game_status == 1); // game is running
         require (_choice < number_of_choices); // Must be valid choice
         require (msg.value > 0); // Must have bet amount
@@ -58,14 +58,29 @@ contract BettingGame {
         total_bet_amount = total_bet_amount + msg.value;
     }
     
-    function endGame(safeuint _correct_choice, string _correct_choice_txt) external onlyOwner {
-        correct_choice = _correct_choice;
-        correct_choice_txt = _correct_choice_txt;
+    function stopGame() external onlyOwner {
+        require (game_status == 1);
         game_status = 2;
     }
     
+    function resumeGame() external onlyOwner {
+        require (game_status == 2);
+        game_status = 1;
+    }
+    
+    function endGame(uint8 _correct_choice, string _correct_choice_txt) external onlyOwner {
+        correct_choice = _correct_choice;
+        correct_choice_txt = _correct_choice_txt;
+        game_status = 3;
+    }
+     function endGameByValidator(uint8 _correct_choice, string _correct_choice_txt) external onlyValidator {
+        correct_choice = _correct_choice;
+        correct_choice_txt = _correct_choice_txt;
+        game_status = 3;
+    }
+    
     function payMe () public {
-        require (game_status == 2); // game is done
+        require (game_status == 3); // game is done
         require (bets[msg.sender].initialized); // Must have a bet
         require (bets[msg.sender].amount > 0); // More than zero
         require (bets[msg.sender].choice == correct_choice); // chose correctly
@@ -78,8 +93,8 @@ contract BettingGame {
         }
     }
     
-    function checkStatus (address _addr) public view returns (safeuint, safeuint, safeuint, bool) {
-        require (game_status == 2); // game is done
+    function checkStatus (address _addr) public view returns (uint8, uint256, uint256, bool) {
+        require (game_status == 3); // game is done
         require (bets[_addr].initialized); // Must have a bet
         
         safeuint payout = 0;
@@ -87,10 +102,10 @@ contract BettingGame {
             payout = bets[_addr].amount * total_bet_amount / choice_bet_amounts[correct_choice];
         }
         
-        return (bets[_addr].choice, bets[_addr].amount, payout, bets[_addr].paid);
+        return (bets[_addr].choice, (uint256) bets[_addr].amount, (uint256) payout, bets[_addr].paid);
     }
     
-    function getAnswer() public view returns (safeuint, string) {
+    function getAnswer() public view returns (uint8, string) {
         return (correct_choice, correct_choice_txt);
     }
     

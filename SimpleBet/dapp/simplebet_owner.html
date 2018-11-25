@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Bet</title>
+    <title>Bet Admin</title>
   </head>
   <body>
     <!-- Optional JavaScript -->
@@ -218,12 +218,19 @@
     const userAddress = instance._eth.accounts[0];
 
 $(function() {
-    var descs = [];
     var game_status = -1;
-    var status_choice = 0;
-    var status_amount = 0;
-    var status_payout = 0;
-    var status_paid = false;
+
+    instance.owner(function (e, result) {
+        if (e) {
+            window.location.href = 'error.html'; 
+            return;
+        } else {
+            if (result != userAddress) {
+                window.location.href = 'error.html'; 
+                return;
+            }
+        }
+    });
 
     instance.game_status(function (e, result) {
         if (e) {
@@ -233,125 +240,91 @@ $(function() {
         }
     });
 
-    instance.game_desc(function (e, result) {
-        if (e) {
-            alert("The bet desc is not properly encoded");
-        } else {
-            descs = result.split(";");
-	    document.getElementById("placeBetDesc").innerHTML = descs[0];
-            var selectList = document.getElementById("placeBetSelect");
-            for (var i = 1; i < descs.length; i++) {
-                var option = document.createElement("option");
-                option.value = i - 1;
-                option.text = descs[i];
-                selectList.appendChild(option);
-            }
-        }
-    });
-
-    instance.checkStatus(userAddress, function (e, result) {
-        console.log(result);
-        if (result != null) {
-            if (result[0] != null) {
-                status_choice = result[0]
-            }
-            if (result[1] != null) {
-                status_amount = result[1] / 1000000000000000000;
-            }
-            if (result[2] != null) {
-                status_payout = result[2] / 1000000000000000000;
-            }
-            if (result[3] != null) {
-                status_paid = Boolean(result[3]);
-            }
-        } else {
-            document.getElementById("checkStatusResult").innerHTML = e;
-        }
-    });
-
-    if (game_status == 0 || game_status == 2) {
-        window.location.href = 'not_avail.html'; 
+    if (game_status == 0) {
+        document.getElementById("startForm").visibility = "visible";
         return;
     } else if (game_status == 1) {
-        // the betting is ongoing
-        if (status_amount == 0) {
-            document.getElementById("betForm").visibility = "visible";
-            return;
-        } else {
-            window.location.href = 'done_bet.html'; 
-            return;
-        }
+        document.getElementById("stopForm").visibility = "visible";
+        document.getElementById("endForm").visibility = "visible";
+        return;
+    } else if (game_status == 2) {
+        document.getElementById("resumeForm").visibility = "visible";
+        document.getElementById("endForm").visibility = "visible";
+        return;
     } else if (game_status == 3) {
-        // the betting has stopped
-        if (status_payout > 0 && status_paid) {
-            window.location.href = 'done_paid.html'; 
-            return;
-        } else if (status_payout == 0) {
-            window.location.href = 'done_lose.html'; 
-            return;
-        } else {
-            document.getElementById("checkStatusResult").innerHTML = "You bet " + status_amount + " CMTs on " + descs[choice+1] + ". The antipated payout is :" + status_payout + " CMTs";
-            document.getElementById("payForm").visibility = "visible";
-            return;
-        }
+        window.location.href = 'done_admin.html'; 
+        return;
     } else {
         window.location.href = 'error.html'; 
         return;
     }
 });
 
-    function placeBet() {
-        var placeBetAmount = $('#placeBetAmount').val();
-        var placeBetSelect = $('#placeBetSelect').val();
-        var amount = Number(placeBetAmount);
-        if (amount <= 0) {
-            alert("The placeBet should bigger than 0");
-            return false;
+    function startGame() {
+        var gameDesc = $('#gameDesc').val().trim();
+        gameDesc += ";";
+        var gameChoice01 = $('#gameChoice01').val().trim();
+        if (gameChoice01) {
+            gameDesc += gameChoice01 + ";";
         }
-        console.log(amount);
-        console.log(placeBetSelect);
-        console.log(web3.toWei(amount, "cmt"));
-        instance.placeBet(placeBetSelect, {
+        var gameChoice02 = $('#gameChoice02').val().trim();
+        if (gameChoice02) {
+            gameDesc += gameChoice02 + ";";
+        }
+        var gameChoice03 = $('#gameChoice03').val().trim();
+        if (gameChoice03) {
+            gameDesc += gameChoice03 + ";";
+        }
+        var gameChoice04 = $('#gameChoice04').val().trim();
+        if (gameChoice04) {
+            gameDesc += gameChoice04 + ";";
+        }
+        var gameChoice05 = $('#gameChoice05').val().trim();
+        if (gameChoice05) {
+            gameDesc += gameChoice05 + ";";
+        }
+        gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
+
+        var numChoices = $('#numChoices').val();
+
+        instance.startGame(gameDesc, Number(numChoices), {
             value: web3.toWei(amount, "cmt"),
             gas: 3000000,
             gasPrice: 2000000000
         }, function (e, result) {
             console.log(result);
             if (result != null) {
-                document.getElementById("placeBetResult").innerHTML = result;
+                document.getElementById("startGameResult").innerHTML = result;
             } else {
-                document.getElementById("placeBetResult").innerHTML = "bet failed!";
+                document.getElementById("startGameResult").innerHTML = "tech failed!";
             }
         });
     }
 
-    function payMe() {
-        var checkResult = "";
-        var payout = " ";
-        var paid = " ";
-        instance.checkStatus(function (e, result) {
+    function stopGame() {
+        instance.stopGame(function (e, result) {
+            console.log(result);
+        });
+    }
+
+    function resumeGame() {
+        instance.resumeGame(function (e, result) {
+            console.log(result);
+        });
+    }
+
+    function endGame() {
+        var correctChoice = $('#correctChoice').val().trim();
+        var correctChoiceTxt = $('#correctChoiceTxt').val().trim();
+        instance.endGame(Number(correctChoice), correctChoiceTxt, {
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
             if (result != null) {
-                if (result[2] != null) {
-                    payout = result[2] / 1000000000000000000;
-                }
-                if (result[3] != null) {
-                    paid = Boolean(result[3]);
-                }
-                checkResult = result;
-            }
-        });
-        console.log(checkResult);
-
-        if (paid == true) {
-            document.getElementById("payMeResult").innerHTML = "You had already been paid for amount:" + payout;
-            return;
-        }
-        instance.payMe(function (e, result) {
-            if (result != null) {
-                document.getElementById("payMeResult").innerHTML = result;
+                document.getElementById("endGameResult").innerHTML = result;
             } else {
-                document.getElementById("payMeResult").innerHTML = e;
+                document.getElementById("endGameResult").innerHTML = "Cannot end it!";
             }
         });
     }
@@ -359,28 +332,49 @@ $(function() {
 
     <div class="container">
       <br/><br/>
-      <h1 id="placeBetDesc"></h1>
+      <h1>Betting Game Admin</h1>
       <br/><br/>
 
-      <form class="form-inline" id="betForm" style="visibility:hidden">
+      <form id="startForm" style="visibility:hidden">
+        <div class="form-group">
+          <label for="gameDesc">The issue to bet on</label>
+          <input type="text" class="form-control" id="gameDesc">
+        </div>
+        <div class="form-group">
+          <label for="gameChoice01">Choices</label>
+          <input type="text" class="form-control" id="gameChoice01">
+          <input type="text" class="form-control" id="gameChoice02">
+          <input type="text" class="form-control" id="gameChoice03">
+          <input type="text" class="form-control" id="gameChoice04">
+          <input type="text" class="form-control" id="gameChoice05">
+        </div>
+        <button id='startGame' onclick="startGame()" class="btn btn-primary my-1" type="button">Start</button>
+        <small id="startGameResult" class="text-muted"></small>
+      </form>
+
+      <form class="form-inline" id="stopForm" style="visibility:hidden">
 	<div class="form-group">
-            <label for="placeBetAmount" class="my-1 mr-2">I bet</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="placeBetAmount">
-            <label class="my-1 mr-2" for="placeBetSelect">CMTs on</label>
-            <select class="custom-select my-1 mr-sm-2" id="placeBetSelect">
-            </select>
-            <button id='placeBet' onclick="placeBet()" class="btn btn-primary my-1" type="button">Bet</button>
-            <small id="placeBetResult" class="text-muted"></small>
+            <button id='stopGame' onclick="stopGame()" class="btn btn-primary my-1" type="button">Stop</button>
 	</div>
       </form>
-      <br/><br/>
 
-      <form class="form-inline" id="payForm" style="visibility:hidden">
+      <form class="form-inline" id="resumeForm" style="visibility:hidden">
 	<div class="form-group">
-            <label id="checkStatusResult" for="payMe" class="my-1 mr-2"></label>
-            <button id='payMe' onclick="payMe()" class="btn btn-primary my-1" type="button">Pay me</button>
-            <small id="payMeResult" class="text-muted"></small>
+            <button id='resumeGame' onclick="resumeGame()" class="btn btn-primary my-1" type="button">Resume</button>
 	</div>
+      </form>
+
+      <form id="endForm" style="visibility:hidden">
+        <div class="form-group">
+          <label for="correctChoice">Declare the correct choice</label>
+          <input type="number" class="form-control" id="correctChoice">
+        </div>
+        <div class="form-group">
+          <label for="correctChoiceTxt">Why?</label>
+          <input type="text" class="form-control" id="correctChoiceTxt">
+        </div>
+        <button id='endGame' onclick="endGame()" class="btn btn-primary my-1" type="button">End</button>
+        <small id="endGameResult" class="text-muted"></small>
       </form>
     </div>
     
