@@ -9,35 +9,17 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "game_status",
+		"outputs": [
 			{
-				"name": "_game_desc",
-				"type": "string"
-			},
-			{
-				"name": "_number_of_choices",
-				"type": "uint256"
+				"name": "",
+				"type": "int8"
 			}
 		],
-		"name": "startGame",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_choice",
-				"type": "uint256"
-			}
-		],
-		"name": "placeBet",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -47,7 +29,7 @@
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "int8"
 			}
 		],
 		"payable": false,
@@ -66,7 +48,15 @@
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "int8"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "int8"
 			},
 			{
 				"name": "",
@@ -83,6 +73,15 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "resumeGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -106,7 +105,7 @@
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "int8"
 			}
 		],
 		"payable": false,
@@ -118,14 +117,23 @@
 		"inputs": [
 			{
 				"name": "_correct_choice",
-				"type": "uint256"
+				"type": "int8"
 			},
 			{
 				"name": "_correct_choice_txt",
 				"type": "string"
 			}
 		],
-		"name": "endGame",
+		"name": "endGameByValidator",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "stopGame",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -152,7 +160,7 @@
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "int8"
 			},
 			{
 				"name": "",
@@ -179,11 +187,61 @@
 	},
 	{
 		"constant": false,
+		"inputs": [
+			{
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
+				"type": "int8"
+			}
+		],
+		"name": "startGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_correct_choice",
+				"type": "int8"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
+			}
+		],
+		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [],
 		"name": "payMe",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "int8"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
