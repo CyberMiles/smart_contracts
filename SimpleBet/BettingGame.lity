@@ -5,7 +5,7 @@ contract BettingGame {
     address public owner;
     
     struct Bet {
-        uint8 choice;
+        int8 choice;
         safeuint amount;
         bool paid;
         bool initialized;
@@ -13,15 +13,15 @@ contract BettingGame {
     mapping(address => Bet) bets;
     
     string public game_desc;
-    uint8 public number_of_choices;
+    int8 public number_of_choices;
     
     safeuint total_bet_amount;
-    mapping(uint8 => safeuint) choice_bet_amounts;
+    mapping(int8 => safeuint) choice_bet_amounts;
     
-    uint8 public correct_choice;
+    int8 public correct_choice;
     string public correct_choice_txt;
     
-    uint8 public game_status; // 0 not started; 1 running; 2 stopped; 3 ended
+    int8 public game_status; // 0 not started; 1 running; 2 stopped; 3 ended
     
     modifier onlyOwner() {
         assert(msg.sender == owner);
@@ -37,7 +37,7 @@ contract BettingGame {
         game_status = 0;
     }
     
-    function startGame(string _game_desc, uint8 _number_of_choices) external onlyOwner {
+    function startGame(string _game_desc, int8 _number_of_choices) external onlyOwner {
         game_desc = _game_desc;
         number_of_choices = _number_of_choices;
         
@@ -49,7 +49,7 @@ contract BettingGame {
         game_status = 1;
     }
     
-    function placeBet (uint8 _choice) public payable {
+    function placeBet (int8 _choice) public payable {
         require (game_status == 1); // game is running
         require (_choice < number_of_choices); // Must be valid choice
         require (msg.value > 0); // Must have bet amount
@@ -72,12 +72,13 @@ contract BettingGame {
         game_status = 1;
     }
     
-    function endGame(uint8 _correct_choice, string _correct_choice_txt) external onlyOwner {
+    function endGame(int8 _correct_choice, string _correct_choice_txt) external onlyOwner {
         correct_choice = _correct_choice;
         correct_choice_txt = _correct_choice_txt;
         game_status = 3;
     }
-     function endGameByValidator(uint8 _correct_choice, string _correct_choice_txt) external onlyValidator {
+    
+    function endGameByValidator(int8 _correct_choice, string _correct_choice_txt) external onlyValidator {
         correct_choice = _correct_choice;
         correct_choice_txt = _correct_choice_txt;
         game_status = 3;
@@ -97,7 +98,7 @@ contract BettingGame {
         }
     }
     
-    function checkStatus (address _addr) public view returns (uint8, string, uint8, uint256, uint256, bool) {
+    function checkStatus (address _addr) public view returns (int8, string, int8, uint256, uint256, bool) {
         // require (game_status == 3); // game is done
         // require (bets[_addr].initialized); // Must have a bet
         
@@ -109,7 +110,7 @@ contract BettingGame {
         return (game_status, game_desc, bets[_addr].choice, uint256(bets[_addr].amount), uint256(payout), bets[_addr].paid);
     }
     
-    function getAnswer() public view returns (uint8, string) {
+    function getAnswer() public view returns (int8, string) {
         return (correct_choice, correct_choice_txt);
     }
     
