@@ -299,7 +299,7 @@ $(function() {
                 game_status = result[0]
             }
 	    if (result[1] != null) {
-                descs = result.split(";");
+                descs = result[1].split(";");
 		document.getElementById("placeBetDesc").innerHTML = descs[0];
                 var selectList = document.getElementById("placeBetSelect");
                 for (var i = 1; i < descs.length; i++) {
