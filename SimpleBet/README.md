@@ -56,5 +56,50 @@ If User A calls the `payMe` function, the transaction would fail since User A di
 
 ![Pay A](images/payA.png)
 
+## Example in the HTML DApp and Metamask
+
+### Deploying the contract
+
+Please use Remix or the Travis client deploy the contract. Note the address of the deployed contract.
+
+### Starting the game
+
+Load the URL below in Chrome to load the admin UI of the contract. Your current active Metamask
+account must be the same account where you deployed the contract (i.e., it is the contract owner).
+
+https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet_owner.html?contract=0xContract_Addr
+
+Next, you can fill in the question and choices to bet on! Use the contract's owner account in Metamask
+to pay for the gas.
+
+![Start](images/dapp_start.png)
+
+### Placing bets
+
+Users who wish to bet can load the following web page.
+
+https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=0xContract_Addr
+
+Each user can now bet. Each user can only bet once.
+
+![Bet](images/dapp_betB.png)
+
+### Declaring winners
+
+Now back to the owner's UI page, the contract owner can stop the betting at any time. And he or she
+can declare winners by declaring the correct answer.
+
+![End](images/dapp_end.png)
+
+### Getting paid
+
+Having won the bet, User B can now go back to the betting page and get paid CMTs.
+
+![Pay B](images/dapp_payB.png)
+
+The payment option is not available to user A if the metamask account is set to A when the betting page is loaded.
+
+![Pay A](images/dapp_payA.png)
+
 
 
