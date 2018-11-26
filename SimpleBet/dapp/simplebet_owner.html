@@ -302,15 +302,15 @@ $(function() {
                 }
 		
 		if (game_status == 0) {
-                    document.getElementById("startGame").visibility = "visible";
+                    document.getElementById("startGame").style.visibility = "visible";
                     document.getElementById("startGameResult").innerHTML = "";
                 } else if (game_status == 1) {
-                    document.getElementById("stopGame").visibility = "visible";
-                    document.getElementById("endGame").visibility = "visible";
+                    document.getElementById("stopGame").style.visibility = "visible";
+                    document.getElementById("endGame").style.visibility = "visible";
                     document.getElementById("endGameResult").innerHTML = "";
                 } else if (game_status == 2) {
-                    document.getElementById("resumeGame").visibility = "visible";
-                    document.getElementById("endGame").visibility = "visible";
+                    document.getElementById("resumeGame").style.visibility = "visible";
+                    document.getElementById("endGame").style.visibility = "visible";
                     document.getElementById("endGameResult").innerHTML = "";
                 } else if (game_status == 3) {
                     document.getElementById("alertTxt").innerHTML = "This game has concluded.";
