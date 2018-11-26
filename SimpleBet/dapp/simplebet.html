@@ -321,6 +321,10 @@ $(function() {
             if (result[5] != null) {
                 status_paid = Boolean(result[5]);
             }
+	
+	    console.log(descs);
+	    console.log(status_choice);
+	    console.log(descs[status_choice+1]);
 		
 	    if (game_status == 0) {
 		document.getElementById("alertTxt").style.visibility = "visible";
