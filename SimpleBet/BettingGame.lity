@@ -5,7 +5,7 @@ contract BettingGame {
     address public owner;
     
     struct Bet {
-        safeuint choice;
+        uint8 choice;
         safeuint amount;
         bool paid;
         bool initialized;

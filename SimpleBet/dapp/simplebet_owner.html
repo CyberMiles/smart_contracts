@@ -38,35 +38,35 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "game_status",
+		"outputs": [
 			{
-				"name": "_game_desc",
-				"type": "string"
-			},
-			{
-				"name": "_number_of_choices",
-				"type": "uint256"
+				"name": "",
+				"type": "uint8"
 			}
 		],
-		"name": "startGame",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_choice",
-				"type": "uint256"
+				"name": "_correct_choice",
+				"type": "uint8"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
 			}
 		],
-		"name": "placeBet",
+		"name": "endGameByValidator",
 		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -76,7 +76,7 @@ function getUrlParameter(name) {
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -95,7 +95,7 @@ function getUrlParameter(name) {
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			},
 			{
 				"name": "",
@@ -115,6 +115,15 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "resumeGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "correct_choice_txt",
@@ -129,13 +138,27 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "uint8"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "number_of_choices",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -147,7 +170,7 @@ function getUrlParameter(name) {
 		"inputs": [
 			{
 				"name": "_correct_choice",
-				"type": "uint256"
+				"type": "uint8"
 			},
 			{
 				"name": "_correct_choice_txt",
@@ -155,6 +178,15 @@ function getUrlParameter(name) {
 			}
 		],
 		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "stopGame",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -181,7 +213,7 @@ function getUrlParameter(name) {
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			},
 			{
 				"name": "",
@@ -190,6 +222,24 @@ function getUrlParameter(name) {
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
+				"type": "uint8"
+			}
+		],
+		"name": "startGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -221,7 +271,7 @@ function getUrlParameter(name) {
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	}
-    ];
+];
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     const userAddress = instance._eth.accounts[0];
@@ -234,38 +284,42 @@ $(function() {
 
     instance.owner(function (e, result) {
         if (e) {
-            document.getElementById("alertTxt").innerHTML = "An error has occurred";
+            document.getElementById("alertTxt").innerHTML = "owner: " + e;
+	    return;
         } else {
             if (result != userAddress) {
+		alert (result + " - " + userAddress);
                 document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
+		return;
             }
+	    
+	    instance.game_status(function (e2, result2) {
+                if (e2) {
+                    document.getElementById("alertTxt").innerHTML = "game_status: " + e2;
+		    return;
+                } else {
+                    game_status = result2;
+                }
+		
+		if (game_status == 0) {
+                    document.getElementById("startGameButton").style.visibility = "visible";
+                    document.getElementById("startGameResult").innerHTML = "";
+                } else if (game_status == 1) {
+                    document.getElementById("stopGameButton").style.visibility = "visible";
+                    document.getElementById("endGameButton").style.visibility = "visible";
+                    document.getElementById("endGameResult").innerHTML = "";
+                } else if (game_status == 2) {
+                    document.getElementById("resumeGameButton").style.visibility = "visible";
+                    document.getElementById("endGameButton").style.visibility = "visible";
+                    document.getElementById("endGameResult").innerHTML = "";
+                } else if (game_status == 3) {
+                    document.getElementById("alertTxt").innerHTML = "This game has concluded.";
+                } else {
+                    document.getElementById("alertTxt").innerHTML = "game_status = " + game_status;
+                }
+            });
         }
     });
-
-    instance.game_status(function (e, result) {
-        if (e) {
-            document.getElementById("alertTxt").innerHTML = "An error has occurred";
-        } else {
-            game_status = result;
-        }
-    });
-
-    if (game_status == 0) {
-        document.getElementById("startGame").visibility = "visible";
-        document.getElementById("startGameResult").innerHTML = "";
-    } else if (game_status == 1) {
-        document.getElementById("stopGame").visibility = "visible";
-        document.getElementById("endGame").visibility = "visible";
-        document.getElementById("endGameResult").innerHTML = "";
-    } else if (game_status == 2) {
-        document.getElementById("resumeGame").visibility = "visible";
-        document.getElementById("endGame").visibility = "visible";
-        document.getElementById("endGameResult").innerHTML = "";
-    } else if (game_status == 3) {
-        document.getElementById("alertTxt").innerHTML = "This game has concluded.";
-    } else {
-        document.getElementById("alertTxt").innerHTML = "An error has occured!";
-    }
 });
 
     function startGame() {
@@ -296,13 +350,12 @@ $(function() {
         var numChoices = $('#numChoices').val();
 
         instance.startGame(gameDesc, Number(numChoices), {
-            value: web3.toWei(amount, "cmt"),
             gas: 3000000,
             gasPrice: 2000000000
         }, function (e, result) {
             console.log(result);
             if (result != null) {
-                document.getElementById("startGameResult").innerHTML = result;
+                document.getElementById("startGameResult").innerHTML = "Success hash : " + result;
             } else {
                 document.getElementById("startGameResult").innerHTML = "tech failed!";
             }
@@ -310,13 +363,19 @@ $(function() {
     }
 
     function stopGame() {
-        instance.stopGame(function (e, result) {
+        instance.stopGame({
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
         });
     }
 
     function resumeGame() {
-        instance.resumeGame(function (e, result) {
+        instance.resumeGame({
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
         });
     }
@@ -363,14 +422,14 @@ $(function() {
           <input type="text" class="form-control" id="gameChoice04">
           <input type="text" class="form-control" id="gameChoice05">
         </div>
-        <button id='startGame' onclick="startGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Start</button>
+        <button id='startGameButton' onclick="startGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Start</button>
         <small id="startGameResult" class="text-muted">This action is not available right now</small>
       </form>
 
       <form class="form-inline" id="stopForm">
 	<div class="form-group">
-            <button id='stopGame' onclick="stopGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Stop</button>
-            <button id='resumeGame' onclick="resumeGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Resume</button>
+            <button id='stopGameButton' onclick="stopGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Stop</button>
+            <button id='resumeGameButton' onclick="resumeGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Resume</button>
 	</div>
       </form>
 
@@ -383,7 +442,7 @@ $(function() {
           <label for="correctChoiceTxt">Why?</label>
           <input type="text" class="form-control" id="correctChoiceTxt">
         </div>
-        <button id='endGame' onclick="endGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">End</button>
+        <button id='endGameButton' onclick="endGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">End</button>
         <small id="endGameResult" class="text-muted">This action is not available right now</small>
       </form>
     </div>
