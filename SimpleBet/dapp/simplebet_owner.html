@@ -284,7 +284,7 @@ $(function() {
 
     instance.owner(function (e, result) {
         if (e) {
-            document.getElementById("alertTxt").innerHTML = "An error has occurred";
+            document.getElementById("alertTxt").innerHTML = "owner: " + e;
         } else {
             if (result != userAddress) {
                 document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
@@ -294,7 +294,7 @@ $(function() {
 
     instance.game_status(function (e, result) {
         if (e) {
-            document.getElementById("alertTxt").innerHTML = "An error has occurred";
+            document.getElementById("alertTxt").innerHTML = "game_status: " + e;
         } else {
             game_status = result;
         }
@@ -314,7 +314,7 @@ $(function() {
     } else if (game_status == 3) {
         document.getElementById("alertTxt").innerHTML = "This game has concluded.";
     } else {
-        document.getElementById("alertTxt").innerHTML = "An error has occured!";
+        document.getElementById("alertTxt").innerHTML = "game_status = " + game_status;
     }
 });
 
