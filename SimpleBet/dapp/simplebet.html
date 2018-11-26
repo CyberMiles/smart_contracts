@@ -388,27 +388,6 @@ $(function() {
     }
 
     function payMe() {
-        var checkResult = "";
-        var payout = " ";
-        var paid = " ";
-        instance.checkStatus(function (e, result) {
-            console.log(result);
-            if (result != null) {
-                if (result[2] != null) {
-                    payout = result[2] / 1000000000000000000;
-                }
-                if (result[3] != null) {
-                    paid = Boolean(result[3]);
-                }
-                checkResult = result;
-            }
-        });
-        console.log(checkResult);
-
-        if (paid == true) {
-            document.getElementById("payMeResult").innerHTML = "You had already been paid for amount:" + payout;
-            return;
-        }
         instance.payMe(function (e, result) {
             if (result != null) {
 		document.getElementById("payMeButton").style.visibility = "hidden";
