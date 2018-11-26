@@ -302,15 +302,15 @@ $(function() {
                 }
 		
 		if (game_status == 0) {
-                    document.getElementById("startGame").style.visibility = "visible";
+                    document.getElementById("startGameButton").style.visibility = "visible";
                     document.getElementById("startGameResult").innerHTML = "";
                 } else if (game_status == 1) {
-                    document.getElementById("stopGame").style.visibility = "visible";
-                    document.getElementById("endGame").style.visibility = "visible";
+                    document.getElementById("stopGameButton").style.visibility = "visible";
+                    document.getElementById("endGameButton").style.visibility = "visible";
                     document.getElementById("endGameResult").innerHTML = "";
                 } else if (game_status == 2) {
-                    document.getElementById("resumeGame").style.visibility = "visible";
-                    document.getElementById("endGame").style.visibility = "visible";
+                    document.getElementById("resumeGameButton").style.visibility = "visible";
+                    document.getElementById("endGameButton").style.visibility = "visible";
                     document.getElementById("endGameResult").innerHTML = "";
                 } else if (game_status == 3) {
                     document.getElementById("alertTxt").innerHTML = "This game has concluded.";
@@ -355,7 +355,7 @@ $(function() {
         }, function (e, result) {
             console.log(result);
             if (result != null) {
-                document.getElementById("startGameResult").innerHTML = result;
+                document.getElementById("startGameResult").innerHTML = "Success hash : " + result;
             } else {
                 document.getElementById("startGameResult").innerHTML = "tech failed!";
             }
@@ -422,14 +422,14 @@ $(function() {
           <input type="text" class="form-control" id="gameChoice04">
           <input type="text" class="form-control" id="gameChoice05">
         </div>
-        <button id='startGame' onclick="startGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Start</button>
+        <button id='startGameButton' onclick="startGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Start</button>
         <small id="startGameResult" class="text-muted">This action is not available right now</small>
       </form>
 
       <form class="form-inline" id="stopForm">
 	<div class="form-group">
-            <button id='stopGame' onclick="stopGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Stop</button>
-            <button id='resumeGame' onclick="resumeGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Resume</button>
+            <button id='stopGameButton' onclick="stopGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Stop</button>
+            <button id='resumeGameButton' onclick="resumeGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Resume</button>
 	</div>
       </form>
 
@@ -442,7 +442,7 @@ $(function() {
           <label for="correctChoiceTxt">Why?</label>
           <input type="text" class="form-control" id="correctChoiceTxt">
         </div>
-        <button id='endGame' onclick="endGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">End</button>
+        <button id='endGameButton' onclick="endGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">End</button>
         <small id="endGameResult" class="text-muted">This action is not available right now</small>
       </form>
     </div>
