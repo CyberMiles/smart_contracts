@@ -288,7 +288,7 @@ $(function() {
 	    return;
         } else {
             if (result != userAddress) {
-		alert (result);
+		alert (result + " - " + userAddress);
                 document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
 		return;
             }
@@ -350,7 +350,6 @@ $(function() {
         var numChoices = $('#numChoices').val();
 
         instance.startGame(gameDesc, Number(numChoices), {
-            value: web3.toWei(amount, "cmt"),
             gas: 3000000,
             gasPrice: 2000000000
         }, function (e, result) {
@@ -364,13 +363,19 @@ $(function() {
     }
 
     function stopGame() {
-        instance.stopGame(function (e, result) {
+        instance.stopGame({
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
         });
     }
 
     function resumeGame() {
-        instance.resumeGame(function (e, result) {
+        instance.resumeGame({
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
         });
     }
