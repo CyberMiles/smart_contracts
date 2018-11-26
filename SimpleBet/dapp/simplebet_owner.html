@@ -286,17 +286,19 @@ function getUrlParameter(name) {
 
 $(function() {
     document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "</a>";
-    document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "</a>;
+    document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "</a>";
 
     var game_status = -1;
 
     instance.owner(function (e, result) {
         if (e) {
+            document.getElementById("alertTxt").style.visibility = "visible";
             document.getElementById("alertTxt").innerHTML = "owner: " + e;
 	    return;
         } else {
             if (result != userAddress) {
 		alert (result + " - " + userAddress);
+		document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
 		return;
             }
@@ -321,8 +323,10 @@ $(function() {
                     document.getElementById("endGameButton").style.visibility = "visible";
                     document.getElementById("endGameResult").innerHTML = "";
                 } else if (game_status == 3) {
+		    document.getElementById("alertTxt").style.visibility = "visible";
                     document.getElementById("alertTxt").innerHTML = "This game has concluded.";
                 } else {
+		    document.getElementById("alertTxt").style.visibility = "visible";
                     document.getElementById("alertTxt").innerHTML = "game_status = " + game_status;
                 }
             });
@@ -414,7 +418,7 @@ $(function() {
 
     <div class="container">
       <br/><br/>
-      <div id="alertTxt" class="alert alert-danger" role="alert"></div>
+      <div id="alertTxt" class="alert alert-danger" role="alert" style="visibility:hidden"></div>
       <h1>Betting Game Admin</h1>
       <br/><br/>
 
