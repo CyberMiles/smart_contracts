@@ -331,33 +331,38 @@ $(function() {
 });
 
     function startGame() {
+	var numChoices = 0;
+	
         var gameDesc = $('#gameDesc').val().trim();
         gameDesc += ";";
         var gameChoice01 = $('#gameChoice01').val().trim();
         if (gameChoice01) {
             gameDesc += gameChoice01 + ";";
+            numChoices++;
         }
         var gameChoice02 = $('#gameChoice02').val().trim();
         if (gameChoice02) {
             gameDesc += gameChoice02 + ";";
+	    numChoices++;
         }
         var gameChoice03 = $('#gameChoice03').val().trim();
         if (gameChoice03) {
             gameDesc += gameChoice03 + ";";
+	    numChoices++;
         }
         var gameChoice04 = $('#gameChoice04').val().trim();
         if (gameChoice04) {
             gameDesc += gameChoice04 + ";";
+	    numChoices++;
         }
         var gameChoice05 = $('#gameChoice05').val().trim();
         if (gameChoice05) {
             gameDesc += gameChoice05 + ";";
+	    numChoices++;
         }
         gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
 
-        var numChoices = $('#numChoices').val();
-
-        instance.startGame(gameDesc, Number(numChoices), {
+        instance.startGame(gameDesc, numChoices, {
             gas: 3000000,
             gasPrice: 2000000000
         }, function (e, result) {
