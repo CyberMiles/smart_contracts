@@ -288,15 +288,15 @@ $(function() {
         } else {
             if (result != userAddress) {
                 document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
+		return;
             }
-        }
-    });
-
-    instance.game_status(function (e, result) {
-        if (e) {
-            document.getElementById("alertTxt").innerHTML = "game_status: " + e;
-        } else {
-            game_status = result;
+	    instance.game_status(function (e, result) {
+                if (e) {
+                    document.getElementById("alertTxt").innerHTML = "game_status: " + e;
+                } else {
+                    game_status = result;
+                }
+            });
         }
     });
 
