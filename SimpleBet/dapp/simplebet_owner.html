@@ -17,7 +17,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script>
-    var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+</script>
+<script>
+    // var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
+    var contract_addr = getUrlParameter('contract');
     const betAbi = [
 	{
 		"constant": false,
@@ -218,45 +227,44 @@
     const userAddress = instance._eth.accounts[0];
 
 $(function() {
+    document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr;
+    document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr;
+
     var game_status = -1;
 
     instance.owner(function (e, result) {
         if (e) {
-            window.location.href = 'error.html'; 
-            return;
+            document.getElementById("alertTxt").innerHTML = "An error has occurred";
         } else {
             if (result != userAddress) {
-                window.location.href = 'error.html'; 
-                return;
+                document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
             }
         }
     });
 
     instance.game_status(function (e, result) {
         if (e) {
-            window.location.href = 'not_avail.html'; 
+            document.getElementById("alertTxt").innerHTML = "An error has occurred";
         } else {
             game_status = result;
         }
     });
 
     if (game_status == 0) {
-        document.getElementById("startForm").visibility = "visible";
-        return;
+        document.getElementById("startGame").visibility = "visible";
+        document.getElementById("startGameResult").innerHTML = "";
     } else if (game_status == 1) {
-        document.getElementById("stopForm").visibility = "visible";
-        document.getElementById("endForm").visibility = "visible";
-        return;
+        document.getElementById("stopGame").visibility = "visible";
+        document.getElementById("endGame").visibility = "visible";
+        document.getElementById("endGameResult").innerHTML = "";
     } else if (game_status == 2) {
-        document.getElementById("resumeForm").visibility = "visible";
-        document.getElementById("endForm").visibility = "visible";
-        return;
+        document.getElementById("resumeGame").visibility = "visible";
+        document.getElementById("endGame").visibility = "visible";
+        document.getElementById("endGameResult").innerHTML = "";
     } else if (game_status == 3) {
-        window.location.href = 'done_admin.html'; 
-        return;
+        document.getElementById("alertTxt").innerHTML = "This game has concluded.";
     } else {
-        window.location.href = 'error.html'; 
-        return;
+        document.getElementById("alertTxt").innerHTML = "An error has occured!";
     }
 });
 
@@ -332,10 +340,17 @@ $(function() {
 
     <div class="container">
       <br/><br/>
+      <div id="alertTxt" class="alert alert-danger" role="alert"></div>
       <h1>Betting Game Admin</h1>
       <br/><br/>
 
-      <form id="startForm" style="visibility:hidden">
+      <p>Please send the following links to participants who'd like to bet in this contract.</p>
+      <ul>
+          <li id="urlMetamask"></li>
+          <li id="urlCMTWallet"></li>
+      </ul>
+
+      <form id="startForm">
         <div class="form-group">
           <label for="gameDesc">The issue to bet on</label>
           <input type="text" class="form-control" id="gameDesc">
@@ -348,23 +363,18 @@ $(function() {
           <input type="text" class="form-control" id="gameChoice04">
           <input type="text" class="form-control" id="gameChoice05">
         </div>
-        <button id='startGame' onclick="startGame()" class="btn btn-primary my-1" type="button">Start</button>
-        <small id="startGameResult" class="text-muted"></small>
+        <button id='startGame' onclick="startGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Start</button>
+        <small id="startGameResult" class="text-muted">This action is not available right now</small>
       </form>
 
-      <form class="form-inline" id="stopForm" style="visibility:hidden">
+      <form class="form-inline" id="stopForm">
 	<div class="form-group">
-            <button id='stopGame' onclick="stopGame()" class="btn btn-primary my-1" type="button">Stop</button>
+            <button id='stopGame' onclick="stopGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Stop</button>
+            <button id='resumeGame' onclick="resumeGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Resume</button>
 	</div>
       </form>
 
-      <form class="form-inline" id="resumeForm" style="visibility:hidden">
-	<div class="form-group">
-            <button id='resumeGame' onclick="resumeGame()" class="btn btn-primary my-1" type="button">Resume</button>
-	</div>
-      </form>
-
-      <form id="endForm" style="visibility:hidden">
+      <form id="endForm">
         <div class="form-group">
           <label for="correctChoice">Declare the correct choice</label>
           <input type="number" class="form-control" id="correctChoice">
@@ -373,8 +383,8 @@ $(function() {
           <label for="correctChoiceTxt">Why?</label>
           <input type="text" class="form-control" id="correctChoiceTxt">
         </div>
-        <button id='endGame' onclick="endGame()" class="btn btn-primary my-1" type="button">End</button>
-        <small id="endGameResult" class="text-muted"></small>
+        <button id='endGame' onclick="endGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">End</button>
+        <small id="endGameResult" class="text-muted">This action is not available right now</small>
       </form>
     </div>
     
