@@ -287,14 +287,15 @@ $(function() {
             document.getElementById("alertTxt").innerHTML = "owner: " + e;
         } else {
             if (result != userAddress) {
+		alert (result);
                 document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
 		return;
             }
-	    instance.game_status(function (e, result) {
-                if (e) {
-                    document.getElementById("alertTxt").innerHTML = "game_status: " + e;
+	    instance.game_status(function (e2, result2) {
+                if (e2) {
+                    document.getElementById("alertTxt").innerHTML = "game_status: " + e2;
                 } else {
-                    game_status = result;
+                    game_status = result2;
                 }
             });
         }
