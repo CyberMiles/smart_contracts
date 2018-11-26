@@ -285,8 +285,8 @@ function getUrlParameter(name) {
     const userAddress = instance._eth.accounts[0];
 
 $(function() {
-    document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr;
-    document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr;
+    document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "</a>";
+    document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "</a>;
 
     var game_status = -1;
 
@@ -438,8 +438,8 @@ $(function() {
 	    
       <p>Step 2: Please share the following links to participants who'd like to bet in this contract.</p>
       <ul>
-          <li id="urlMetamask"></li>
-          <li id="urlCMTWallet"></li>
+	      <li id="urlMetamask"></li>
+              <li id="urlCMTWallet"></li>
       </ul>
       <hr/>
 
