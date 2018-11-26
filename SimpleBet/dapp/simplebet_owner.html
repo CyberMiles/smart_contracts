@@ -38,35 +38,35 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "game_status",
+		"outputs": [
 			{
-				"name": "_game_desc",
-				"type": "string"
-			},
-			{
-				"name": "_number_of_choices",
-				"type": "uint256"
+				"name": "",
+				"type": "uint8"
 			}
 		],
-		"name": "startGame",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_choice",
-				"type": "uint256"
+				"name": "_correct_choice",
+				"type": "uint8"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
 			}
 		],
-		"name": "placeBet",
+		"name": "endGameByValidator",
 		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -76,7 +76,7 @@ function getUrlParameter(name) {
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -95,7 +95,7 @@ function getUrlParameter(name) {
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			},
 			{
 				"name": "",
@@ -115,6 +115,15 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "resumeGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "correct_choice_txt",
@@ -129,13 +138,27 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "uint8"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "number_of_choices",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -147,7 +170,7 @@ function getUrlParameter(name) {
 		"inputs": [
 			{
 				"name": "_correct_choice",
-				"type": "uint256"
+				"type": "uint8"
 			},
 			{
 				"name": "_correct_choice_txt",
@@ -155,6 +178,15 @@ function getUrlParameter(name) {
 			}
 		],
 		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "stopGame",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -181,7 +213,7 @@ function getUrlParameter(name) {
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "uint8"
 			},
 			{
 				"name": "",
@@ -190,6 +222,24 @@ function getUrlParameter(name) {
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
+				"type": "uint8"
+			}
+		],
+		"name": "startGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -221,7 +271,7 @@ function getUrlParameter(name) {
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	}
-    ];
+];
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     const userAddress = instance._eth.accounts[0];
