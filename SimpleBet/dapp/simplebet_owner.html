@@ -368,6 +368,7 @@ $(function() {
         }, function (e, result) {
             console.log(result);
             if (result != null) {
+		document.getElementById("startGameButton").style.visibility = "hidden";
                 document.getElementById("startGameResult").innerHTML = "Success hash : " + result;
             } else {
                 document.getElementById("startGameResult").innerHTML = "tech failed!";
@@ -402,6 +403,7 @@ $(function() {
         }, function (e, result) {
             console.log(result);
             if (result != null) {
+		document.getElementById("endGameButton").style.visibility = "hidden";
                 document.getElementById("endGameResult").innerHTML = result;
             } else {
                 document.getElementById("endGameResult").innerHTML = "Cannot end it!";
