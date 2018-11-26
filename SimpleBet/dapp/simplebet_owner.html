@@ -292,6 +292,7 @@ $(function() {
 		return;
             }
 	    instance.game_status(function (e2, result2) {
+		alert (result2);
                 if (e2) {
                     document.getElementById("alertTxt").innerHTML = "game_status: " + e2;
                 } else {
