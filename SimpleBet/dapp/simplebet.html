@@ -296,7 +296,7 @@ $(function() {
         console.log(result);
         if (result != null) {
 	    if (result[0] != null) {
-                game_status = result[0]
+                game_status = result[0];
             }
 	    if (result[1] != null) {
                 descs = result[1].split(";");
@@ -310,7 +310,7 @@ $(function() {
                 }
             }
             if (result[2] != null) {
-                status_choice = result[2]
+                status_choice = result[2];
             }
             if (result[3] != null) {
                 status_amount = result[3] / 1000000000000000000;
@@ -321,7 +321,7 @@ $(function() {
             if (result[5] != null) {
                 status_paid = Boolean(result[5]);
             }
-	    
+		
 	    if (game_status == 0) {
 		document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "Betting has not started.";
