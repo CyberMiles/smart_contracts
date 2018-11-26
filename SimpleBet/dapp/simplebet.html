@@ -323,8 +323,10 @@ $(function() {
             }
 	    
 	    if (game_status == 0) {
+		document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "Betting has not started.";
             } else if (game_status == 2) {
+		document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "Betting is paused.";
             } else if (game_status == 1) {
                 // the betting is ongoing
@@ -345,9 +347,11 @@ $(function() {
                     document.getElementById("payMeResult").innerHTML = "You bet " + status_amount + " CMTs on " + descs[status_choice+1] + ". The antipated payout is :" + status_payout + " CMTs";
                 }
             } else {
+		document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "There is an error!";
             }
         } else {
+	    document.getElementById("alertTxt").style.visibility = "visible";
             document.getElementById("alertTxt").innerHTML = "There is an error!";
         }
     });
@@ -414,7 +418,7 @@ $(function() {
 
     <div class="container">
       <br/><br/>
-      <div id="alertTxt" class="alert alert-danger" role="alert"></div>
+      <div id="alertTxt" class="alert alert-danger" role="alert" style="visibility:hidden"></div>
       <h1 id="placeBetDesc"></h1>
       <br/><br/>
 
