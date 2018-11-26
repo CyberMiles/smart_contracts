@@ -102,7 +102,7 @@ contract BettingGame {
             payout = bets[_addr].amount * total_bet_amount / choice_bet_amounts[correct_choice];
         }
         
-        return (game_status, game_desc, bets[_addr].choice, (uint256) bets[_addr].amount, (uint256) payout, bets[_addr].paid);
+        return (game_status, game_desc, bets[_addr].choice, uint256(bets[_addr].amount), uint256(payout), bets[_addr].paid);
     }
     
     function getAnswer() public view returns (uint8, string) {
