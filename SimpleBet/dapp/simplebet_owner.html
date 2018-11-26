@@ -369,7 +369,7 @@ $(function() {
             console.log(result);
             if (result != null) {
 		document.getElementById("startGameButton").style.visibility = "hidden";
-                document.getElementById("startGameResult").innerHTML = "Success hash : " + result;
+                document.getElementById("startGameResult").innerHTML = "Success hash : " + result + ". You can stop / resume it as people vote.";
             } else {
                 document.getElementById("startGameResult").innerHTML = "tech failed!";
             }
@@ -404,7 +404,7 @@ $(function() {
             console.log(result);
             if (result != null) {
 		document.getElementById("endGameButton").style.visibility = "hidden";
-                document.getElementById("endGameResult").innerHTML = result;
+                document.getElementById("endGameResult").innerHTML = "You can now ask participants to claim their awards. " + result;
             } else {
                 document.getElementById("endGameResult").innerHTML = "Cannot end it!";
             }
@@ -418,15 +418,9 @@ $(function() {
       <h1>Betting Game Admin</h1>
       <br/><br/>
 
-      <p>Please send the following links to participants who'd like to bet in this contract.</p>
-      <ul>
-          <li id="urlMetamask"></li>
-          <li id="urlCMTWallet"></li>
-      </ul>
-
       <form id="startForm">
         <div class="form-group">
-          <label for="gameDesc">The issue to bet on</label>
+          <label for="gameDesc">Step 1: The issue to bet on</label>
           <input type="text" class="form-control" id="gameDesc">
         </div>
         <div class="form-group">
@@ -438,19 +432,30 @@ $(function() {
           <input type="text" class="form-control" id="gameChoice05">
         </div>
         <button id='startGameButton' onclick="startGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Start</button>
-        <small id="startGameResult" class="text-muted">This action is not available right now</small>
+        <small id="startGameResult" class="text-muted">This action is not available right now. The game must be currently running.</small>
       </form>
+      <hr/>
+	    
+      <p>Step 2: Please share the following links to participants who'd like to bet in this contract.</p>
+      <ul>
+          <li id="urlMetamask"></li>
+          <li id="urlCMTWallet"></li>
+      </ul>
+      <hr/>
 
       <form class="form-inline" id="stopForm">
 	<div class="form-group">
+	    <label for="stopGameButton" class="my-1 mr-2">Step 3: Stop or resume the game</label>
             <button id='stopGameButton' onclick="stopGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Stop</button>
             <button id='resumeGameButton' onclick="resumeGame()" class="btn btn-primary my-1" type="button" style="visibility:hidden">Resume</button>
+	    <small id="stopGameResult" class="text-muted">These buttons are available depending on the game state.</small>
 	</div>
       </form>
-
+      <hr/>
+      
       <form id="endForm">
         <div class="form-group">
-          <label for="correctChoice">Declare the correct choice</label>
+          <label for="correctChoice">Step 4: Declare the correct choice</label>
           <input type="number" class="form-control" id="correctChoice">
         </div>
         <div class="form-group">
