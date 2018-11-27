@@ -94,7 +94,7 @@ contract BettingGame {
         safeuint payout = bets[msg.sender].amount * total_bet_amount / choice_bet_amounts[correct_choice];
         if (payout > 0) {
             msg.sender.transfer(uint256(payout));
-            bets[msg.sender].paid == true; // cannot claim twice
+            bets[msg.sender].paid = true; // cannot claim twice
         }
     }
     
