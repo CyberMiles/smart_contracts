@@ -32,7 +32,7 @@
     };
 </script>
 <script>
-    //var contract_addr = "0x3da6e427fa14f34181e5a59490f7cfe07084bde1";
+    //var contract_addr = "0x584e41c719b12571066eaaa72c891dcafa24fb2c";
     var contract_addr = getUrlParameter('contract');
     const betAbi = [
         {
@@ -403,17 +403,32 @@
     function endGame() {
         var correctChoice = $('#correctChoice').val().trim();
         var correctChoiceTxt = $('#correctChoiceTxt').val().trim();
-        instance.endGame(Number(correctChoice), correctChoiceTxt, {
-            gas: 3000000,
-            gasPrice: 2000000000
-        }, function (e, result) {
-            console.log(result);
-            if (result != null) {
-                document.getElementById("endGameButton").style.visibility = "hidden";
-                document.getElementById("endGameResult").innerHTML = "You can now ask participants to claim their awards. " + result;
+
+        var feeData = instance.endGame.getData(correctChoice, correctChoiceTxt);
+        web3.cmt.estimateGas({
+            data: feeData,
+            to: contract_addr
+        }, function (error, gas) {
+            var virtualGas = '20000000';
+            if (error) {
+                console.log("error for get gas");
             } else {
-                document.getElementById("endGameResult").innerHTML = "Cannot end it!";
+                virtualGas = gas;
             }
+            console.log("placeBet gas is : " + virtualGas);
+            return;
+            instance.endGame(Number(correctChoice), correctChoiceTxt, {
+                gas: virtualGas,
+                gasPrice: 2000000000
+            }, function (e, result) {
+                console.log(result);
+                if (result != null) {
+                    document.getElementById("endGameButton").style.visibility = "hidden";
+                    document.getElementById("endGameResult").innerHTML = "You can now ask participants to claim their awards. " + result;
+                } else {
+                    document.getElementById("endGameResult").innerHTML = "Cannot end it!";
+                }
+            });
         });
     }
 </script>
