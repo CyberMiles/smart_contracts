@@ -63,12 +63,71 @@
 <script>
     // var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
     //var contract_addr = getUrlParameter('contract');
-    var contract_addr = "0x3da6e427fa14f34181e5a59490f7cfe07084bde1";
+    var contract_addr = "0x584e41c719b12571066eaaa72c891dcafa24fb2c";
     const betAbi = [
         {
             "constant": false,
+            "inputs": [
+                {
+                    "name": "_correct_choice",
+                    "type": "int8"
+                },
+                {
+                    "name": "_correct_choice_txt",
+                    "type": "string"
+                }
+            ],
+            "name": "endGame",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_correct_choice",
+                    "type": "int8"
+                },
+                {
+                    "name": "_correct_choice_txt",
+                    "type": "string"
+                }
+            ],
+            "name": "endGameByValidator",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
             "inputs": [],
-            "name": "terminate",
+            "name": "payMe",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_choice",
+                    "type": "int8"
+                }
+            ],
+            "name": "placeBet",
+            "outputs": [],
+            "payable": true,
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "resumeGame",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
@@ -83,7 +142,7 @@
                 },
                 {
                     "name": "_number_of_choices",
-                    "type": "uint256"
+                    "type": "int8"
                 }
             ],
             "name": "startGame",
@@ -94,31 +153,27 @@
         },
         {
             "constant": false,
-            "inputs": [
-                {
-                    "name": "_choice",
-                    "type": "uint256"
-                }
-            ],
-            "name": "placeBet",
+            "inputs": [],
+            "name": "stopGame",
             "outputs": [],
-            "payable": true,
-            "stateMutability": "payable",
+            "payable": false,
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "constant": true,
+            "constant": false,
             "inputs": [],
-            "name": "correct_choice",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
+            "name": "terminate",
+            "outputs": [],
             "payable": false,
-            "stateMutability": "view",
+            "stateMutability": "nonpayable",
             "type": "function"
+        },
+        {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
         },
         {
             "constant": true,
@@ -162,72 +217,22 @@
         {
             "constant": true,
             "inputs": [],
+            "name": "correct_choice",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int8"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
             "name": "correct_choice_txt",
             "outputs": [
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "number_of_choices",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_correct_choice",
-                    "type": "uint256"
-                },
-                {
-                    "name": "_correct_choice_txt",
-                    "type": "string"
-                }
-            ],
-            "name": "endGame",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "owner",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getAnswer",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                },
                 {
                     "name": "",
                     "type": "string"
@@ -258,7 +263,7 @@
             "outputs": [
                 {
                     "name": "",
-                    "type": "uint256"
+                    "type": "int8"
                 }
             ],
             "payable": false,
@@ -266,19 +271,50 @@
             "type": "function"
         },
         {
-            "constant": false,
+            "constant": true,
             "inputs": [],
-            "name": "payMe",
-            "outputs": [],
+            "name": "getAnswer",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int8"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
             "payable": false,
-            "stateMutability": "nonpayable",
+            "stateMutability": "view",
             "type": "function"
         },
         {
+            "constant": true,
             "inputs": [],
+            "name": "number_of_choices",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int8"
+                }
+            ],
             "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
         }
     ];
     const contract = web3.cmt.contract(betAbi, contract_addr);
@@ -334,11 +370,6 @@
         }
 
         // the betting is ongoing
-        console.log(game_status);
-        console.log(status_amount);
-        console.log(status_amount == 0);
-
-
         if (game_status == 1) {
             var placeBetResult = "You have already placed your bet of " + status_amount + " CMTs on " + descs[selected] + "."
             if (status_amount == 0) {
@@ -367,22 +398,37 @@
             alert("The placeBet should bigger than 0");
             return false;
         }
-        console.log(amount);
-        console.log(placeBetSelect);
-        console.log(web3.toWei(amount, "cmt"));
-        instance.placeBet(placeBetSelect, {
-            value: web3.toWei(amount, "cmt"),
-            gas: 3000000,
-            gasPrice: 2000000000
-        }, function (e, result) {
-            console.log(result);
-            if (result != null) {
-                document.getElementById("placeBetResult").innerHTML = result;
+
+
+        var feeData = instance.placeBet.getData(placeBetSelect + "");
+        var amountStr = String(web3.toWei(amount, "cmt"));
+        web3.cmt.estimateGas({
+            data: feeData,
+            to: contract_addr,
+            value: amountStr
+        }, function (error, gas) {
+            var virtualGas = '20000000';
+            if (error) {
+                console.log("error for get gas");
             } else {
-                document.getElementById("placeBetResult").innerHTML = "bet failed!";
+                virtualGas = gas;
             }
+            console.log("placeBet gas is : " + virtualGas);
+            instance.placeBet(placeBetSelect, {
+                value: web3.toWei(amount, "cmt"),
+                gas: virtualGas,
+                gasPrice: 2000000000
+            }, function (e, result) {
+                console.log(result);
+                if (result != null) {
+                    document.getElementById("placeBetResult").innerHTML = result;
+                } else {
+                    document.getElementById("placeBetResult").innerHTML = "bet failed!";
+                }
+            });
         });
     }
+
 
     function payMe() {
         var checkResult = "";
