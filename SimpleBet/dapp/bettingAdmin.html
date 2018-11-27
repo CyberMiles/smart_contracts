@@ -1,154 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Betting Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Bet Admin</title>
 </head>
 <body>
-<div>
-    <table>
-        <tr>
-            <td colspan="3">
-                <h1>
-                    contract address
-                </h1>
-                contractAddress：<input id="contractAddress" size="100"><br><br>
-            </td>
-        </tr>
-
-
-        <!-- owner -->
-        <tr>
-            <td>
-                <h3>==========owner==========</h3>
-                <button id='owner' type="button" data-id="0" data-loading-text="Loading...">
-                    owner
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="ownerResult"></div>
-            </td>
-        </tr>
-
-        <!-- get answer -->
-        <tr>
-            <td>
-                <h3>========== get answer ==========</h3>
-                <br>
-                <button id='getAnswer' onclick="getAnswer()" type="button" data-id="0" data-loading-text="Loading...">
-                    get answer
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="getAnswerResult"></div>
-            </td>
-        </tr>
-
-        <!-- start game -->
-        <tr>
-            <td>
-                <h3>========== start game ==========</h3>
-                game description ：<input id="gameDescription" placeholder="game description" size="100"><br>
-                game choices ：<input id="gameChoices" placeholder="game choices, default 2"><br>
-                <br>
-                <button id='startGame' onclick="startGame()" type="button" data-id="0"
-                        data-loading-text="Loading...">
-                    start game
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="startGameResult"></div>
-            </td>
-        </tr>
-
-        <!-- stop game -->
-        <tr>
-            <td>
-                <h3>========== stop game ==========</h3>
-                <br>
-                <button id='stopGame' onclick="stopGame()" type="button" data-id="0"
-                        data-loading-text="Loading...">
-                    stop game
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="stopGameResult"></div>
-            </td>
-        </tr>
-
-        <!-- resume game -->
-        <tr>
-            <td>
-                <h3>========== resume game ==========</h3>
-                <br>
-                <button id='resumeGame' onclick="resumeGame()" type="button" data-id="0"
-                        data-loading-text="Loading...">
-                    resume game
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="resumeGameResult"></div>
-            </td>
-        </tr>
-
-        <!-- end game -->
-        <tr>
-            <td>
-                <h3>========== end game ==========</h3>
-                end game choices result：<input id="correctChoice" placeholder="game choices result, 0 is No or 1 is Yes"
-                                               size="40"><br>
-                end game description ：<input id="correctChoiceDescription" placeholder="game description"
-                                             size="100"><br>
-                <button id='endGame' onclick="endGame()" type="button" data-id="0"
-                        data-loading-text="Loading...">
-                    end game
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="endGameResult"></div>
-            </td>
-        </tr>
-
-        <!-- check status -->
-        <tr>
-            <td>
-                <h3>========== check status ==========</h3>
-                bet amount：<input id="betUserAddress" placeholder="use address"><br>
-                <br>
-                <button id='checkStatus' onclick="checkStatus()" type="button" data-id="0"
-                        data-loading-text="Loading...">
-                    check status
-                </button>
-            </td>
-            <td>RESULT:</td>
-            <td>
-                <div id="checkStatusResult"></div>
-            </td>
-        </tr>
-
-    </table>
-</div>
-<script src="https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
-
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 <script>
-    $('#contractAddress').val("0x01f7802ff4820a7ca8770de4ed4645d75a8a1509");
-    var contract_addr = "0x01f7802ff4820a7ca8770de4ed4645d75a8a1509";
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+</script>
+<script>
+    //var contract_addr = "0x3da6e427fa14f34181e5a59490f7cfe07084bde1";
+    var contract_addr = getUrlParameter('contract');
     const betAbi = [
         {
             "constant": false,
             "inputs": [
                 {
                     "name": "_correct_choice",
-                    "type": "uint256"
+                    "type": "int8"
                 },
                 {
                     "name": "_correct_choice_txt",
@@ -166,7 +58,7 @@
             "inputs": [
                 {
                     "name": "_correct_choice",
-                    "type": "uint256"
+                    "type": "int8"
                 },
                 {
                     "name": "_correct_choice_txt",
@@ -177,6 +69,29 @@
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "payMe",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_choice",
+                    "type": "int8"
+                }
+            ],
+            "name": "placeBet",
+            "outputs": [],
+            "payable": true,
+            "stateMutability": "payable",
             "type": "function"
         },
         {
@@ -197,7 +112,7 @@
                 },
                 {
                     "name": "_number_of_choices",
-                    "type": "uint256"
+                    "type": "int8"
                 }
             ],
             "name": "startGame",
@@ -242,7 +157,15 @@
             "outputs": [
                 {
                     "name": "",
-                    "type": "uint256"
+                    "type": "int8"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "name": "",
+                    "type": "int8"
                 },
                 {
                     "name": "",
@@ -264,15 +187,85 @@
         {
             "constant": true,
             "inputs": [],
+            "name": "correct_choice",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int8"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "correct_choice_txt",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "game_desc",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "game_status",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int8"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
             "name": "getAnswer",
             "outputs": [
                 {
                     "name": "",
-                    "type": "uint256"
+                    "type": "int8"
                 },
                 {
                     "name": "",
                     "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "number_of_choices",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "int8"
                 }
             ],
             "payable": false,
@@ -296,100 +289,200 @@
     ];
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
-    document.getElementById("owner").addEventListener("click", owner);
-
-
-    function owner() {
-        instance.owner(function (e, result) {
+    $(function () {
+        document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "</a>";
+        document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "</a>";
+        var game_status = -1;
+        instance.owner(function (e, owner) {
             if (e) {
-                document.getElementById("ownerResult").innerHTML = e;
+                document.getElementById("alertTxt").style.visibility = "visible";
+                document.getElementById("alertTxt").innerHTML = "owner: " + e;
+                return;
             } else {
-                document.getElementById("ownerResult").innerHTML = result;
+                web3.cmt.getAccounts(function (e, result) {
+                    if (result != owner) {
+                        alert(result + " - " + owner);
+                        document.getElementById("alertTxt").style.visibility = "visible";
+                        document.getElementById("alertTxt").innerHTML = "You must be the owner of this contract";
+                        return;
+                    }
+                    instance.game_status(function (e2, result2) {
+                        if (e2) {
+                            document.getElementById("alertTxt").innerHTML = "game_status: " + e2;
+                            return;
+                        } else {
+                            game_status = result2;
+                        }
+                        if (game_status == 0) {
+                            document.getElementById("startGameButton").style.visibility = "visible";
+                            document.getElementById("startGameResult").innerHTML = "";
+                        } else if (game_status == 1) {
+                            document.getElementById("stopGameButton").style.visibility = "visible";
+                            document.getElementById("endGameButton").style.visibility = "visible";
+                            document.getElementById("endGameResult").innerHTML = "";
+                        } else if (game_status == 2) {
+                            document.getElementById("resumeGameButton").style.visibility = "visible";
+                            document.getElementById("endGameButton").style.visibility = "visible";
+                            document.getElementById("endGameResult").innerHTML = "";
+                        } else if (game_status == 3) {
+                            document.getElementById("alertTxt").style.visibility = "visible";
+                            document.getElementById("alertTxt").innerHTML = "This game has concluded.";
+                        } else {
+                            document.getElementById("alertTxt").style.visibility = "visible";
+                            document.getElementById("alertTxt").innerHTML = "game_status = " + game_status;
+                        }
+                    });
+                });
             }
         });
-    };
+    });
 
     function startGame() {
-        var gameChoices = $('#gameChoices').val();
-        var gameDescription = $('#gameDescription').val();
-        var choicesNum = Number(gameChoices);
-        if (choicesNum <= 0) {
-            choicesNum = 2;
+        var numChoices = 0;
+
+        var gameDesc = $('#gameDesc').val().trim();
+        gameDesc += ";";
+        var gameChoice01 = $('#gameChoice01').val().trim();
+        if (gameChoice01) {
+            gameDesc += gameChoice01 + ";";
+            numChoices++;
         }
-        instance.startGame(gameDescription, choicesNum, function (e, result) {
+        var gameChoice02 = $('#gameChoice02').val().trim();
+        if (gameChoice02) {
+            gameDesc += gameChoice02 + ";";
+            numChoices++;
+        }
+        var gameChoice03 = $('#gameChoice03').val().trim();
+        if (gameChoice03) {
+            gameDesc += gameChoice03 + ";";
+            numChoices++;
+        }
+        var gameChoice04 = $('#gameChoice04').val().trim();
+        if (gameChoice04) {
+            gameDesc += gameChoice04 + ";";
+            numChoices++;
+        }
+        var gameChoice05 = $('#gameChoice05').val().trim();
+        if (gameChoice05) {
+            gameDesc += gameChoice05 + ";";
+            numChoices++;
+        }
+        gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
+        instance.startGame(gameDesc, numChoices, {
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
             if (result != null) {
-                document.getElementById("startGameResult").innerHTML = result;
+                document.getElementById("startGameButton").style.visibility = "hidden";
+                document.getElementById("startGameResult").innerHTML = "Success hash : " + result + ". You can stop / resume it as people vote.";
             } else {
-                document.getElementById("startGameResult").innerHTML = e;
+                document.getElementById("startGameResult").innerHTML = "tech failed!";
             }
         });
-    };
+    }
 
     function stopGame() {
-        instance.stopGame(function (e, result) {
+        instance.stopGame({
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
-            if (result != null) {
-                document.getElementById("stopGameResult").innerHTML = result;
-            } else {
-                document.getElementById("stopGameResult").innerHTML = e;
-            }
         });
-    };
+    }
 
     function resumeGame() {
-        instance.resumeGame(function (e, result) {
+        instance.resumeGame({
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
-            if (result != null) {
-                document.getElementById("resumeGameResult").innerHTML = result;
-            } else {
-                document.getElementById("resumeGameResult").innerHTML = e;
-            }
         });
-    };
+    }
 
     function endGame() {
-        var correctChoice = $('#correctChoice').val();
-        var correctChoiceDescription = $('#correctChoiceDescription').val();
-        instance.endGame(correctChoice, correctChoiceDescription, function (e, result) {
+        var correctChoice = $('#correctChoice').val().trim();
+        var correctChoiceTxt = $('#correctChoiceTxt').val().trim();
+        instance.endGame(Number(correctChoice), correctChoiceTxt, {
+            gas: 3000000,
+            gasPrice: 2000000000
+        }, function (e, result) {
             console.log(result);
             if (result != null) {
-                document.getElementById("endGameResult").innerHTML = result;
+                document.getElementById("endGameButton").style.visibility = "hidden";
+                document.getElementById("endGameResult").innerHTML = "You can now ask participants to claim their awards. " + result;
             } else {
-                document.getElementById("endGameResult").innerHTML = e;
+                document.getElementById("endGameResult").innerHTML = "Cannot end it!";
             }
         });
-    };
-
-    function checkStatus() {
-        var betUserAddress = $('#betUserAddress').val();
-        instance.checkStatus(betUserAddress, function (e, result) {
-            console.log(result);
-            if (result != null) {
-                document.getElementById("checkStatusResult").innerHTML = result;
-            } else {
-                document.getElementById("checkStatusResult").innerHTML = e;
-            }
-        });
-    };
-
-    function getAnswer() {
-        instance.getAnswer(function (e, result) {
-            console.log(result);
-            if (result != null) {
-                var rest = 'No';
-                if (result[0] == 1) {
-                    rest = 'Yes';
-                }
-                document.getElementById("getAnswerResult").innerHTML = "before last one,the result is : " + rest;
-            } else {
-                document.getElementById("getAnswerResult").innerHTML = e;
-            }
-        });
-    };
-
-
+    }
 </script>
+
+<div class="container">
+    <br/><br/>
+    <div id="alertTxt" class="alert alert-danger" role="alert" style="visibility:hidden"></div>
+    <h1>Betting Game Admin</h1>
+    <br/><br/>
+
+    <form id="startForm">
+        <div class="form-group">
+            <label for="gameDesc">Step 1: The issue to bet on</label>
+            <input type="text" class="form-control" id="gameDesc">
+        </div>
+        <div class="form-group">
+            <label for="gameChoice01">Choices</label>
+            <input type="text" class="form-control" id="gameChoice01">
+            <input type="text" class="form-control" id="gameChoice02">
+            <input type="text" class="form-control" id="gameChoice03">
+            <input type="text" class="form-control" id="gameChoice04">
+            <input type="text" class="form-control" id="gameChoice05">
+        </div>
+        <button id='startGameButton' onclick="startGame()" class="btn btn-primary my-1" type="button"
+                style="visibility:hidden">Start
+        </button>
+        <small id="startGameResult" class="text-muted">This action is not available right now. The game must be
+            currently running.
+        </small>
+    </form>
+    <hr/>
+
+    <p>Step 2: Please share the following links to participants who'd like to bet in this contract.</p>
+    <ul>
+        <li id="urlMetamask"></li>
+        <li id="urlCMTWallet"></li>
+    </ul>
+    <hr/>
+
+    <form class="form-inline" id="stopForm">
+        <div class="form-group">
+            <label for="stopGameButton" class="my-1 mr-2">Step 3: Stop or resume the game</label>
+            <button id='stopGameButton' onclick="stopGame()" class="btn btn-primary my-1" type="button"
+                    style="visibility:hidden">Stop
+            </button>
+            <button id='resumeGameButton' onclick="resumeGame()" class="btn btn-primary my-1" type="button"
+                    style="visibility:hidden">Resume
+            </button>
+            <small id="stopGameResult" class="text-muted">These buttons are available depending on the game state.
+            </small>
+        </div>
+    </form>
+    <hr/>
+
+    <form id="endForm">
+        <div class="form-group">
+            <label for="correctChoice">Step 4: Declare the correct choice</label>
+            <input type="number" class="form-control" id="correctChoice">
+        </div>
+        <div class="form-group">
+            <label for="correctChoiceTxt">Why?</label>
+            <input type="text" class="form-control" id="correctChoiceTxt">
+        </div>
+        <button id='endGameButton' onclick="endGame()" class="btn btn-primary my-1" type="button"
+                style="visibility:hidden">End
+        </button>
+        <small id="endGameResult" class="text-muted">This action is not available right now</small>
+    </form>
+</div>
+
 </body>
 </html>
-
