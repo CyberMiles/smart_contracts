@@ -25,7 +25,7 @@
         crossorigin="anonymous"></script>
 <div class="container">
     <br/><br/>
-    <div id="alertTxt" class="alert alert-danger" role="alert">Welcome</div>
+    <div id="alertTxt" class="alert alert-danger" role="alert" style="visibility:hidden"></div>
     <h1 id="placeBetDesc"></h1>
     <br/><br/>
 
@@ -46,7 +46,7 @@
     <form class="form-inline" id="payForm">
         <div class="form-group">
             <div style="visibility:hidden" id="payMe" onclick="payMe()" class="btn btn-primary my-1">Pay me</div>
-            <small id="payMeResult" class="text-muted">You will get paid after the game concludes and only if you win.
+            <small id="payMeResult" class="text-muted"> You will get paid after the game concludes and only if you win.
             </small>
         </div>
     </form>
@@ -62,8 +62,8 @@
 </script>
 <script>
     // var contract_addr = "0xfdf481e32b8162e7fd468cdc33a777d90715f087";
-    var contract_addr = getUrlParameter('contract');
-    //var contract_addr = "0x584e41c719b12571066eaaa72c891dcafa24fb2c";
+    //var contract_addr = getUrlParameter('contract');
+    var contract_addr = "0x0c0f6472e1bfef17beb208cca715fd248c7467b2";
     const betAbi = [
         {
             "constant": false,
@@ -328,6 +328,7 @@
                 // check game status and other info
                 instance.checkStatus(accountAddress, function (e, result) {
                     if (e) {
+                        document.getElementById("alertTxt").style.visibility = "visible";
                         document.getElementById("alertTxt").innerHTML = "There is an error with this game status !";
                     } else {
                         // check the game status
@@ -339,13 +340,16 @@
                         var status_payout = Number(result[4] / 1000000000000000000);
                         var status_paid = Boolean(result[5]);
                         if (game_status == 0) {
+                            document.getElementById("alertTxt").style.visibility = "visible";
                             document.getElementById("alertTxt").innerHTML = "Betting has not started.";
                         } else if (game_status == 2) {
+                            document.getElementById("alertTxt").style.visibility = "visible";
                             document.getElementById("alertTxt").innerHTML = "Betting is paused.";
                         } else if (game_status == 1 || game_status == 3) {
                             // the game is running or stopped
                             checkGameStatusAndShow(gameDesc, game_status, choice, status_amount, status_payout, status_paid);
                         } else {
+                            document.getElementById("alertTxt").style.visibility = "visible";
                             document.getElementById("alertTxt").innerHTML = "There is an error for the game status !";
                         }
                     }
@@ -368,7 +372,9 @@
             option.text = descs[i];
             selectList.appendChild(option);
         }
-
+        console.log(game_status)
+        console.log(status_payout)
+        console.log(status_paid)
         // the betting is ongoing
         if (game_status == 1) {
             var placeBetResult = "You have already placed your bet of " + status_amount + " CMTs on " + descs[selected] + "."
@@ -379,12 +385,13 @@
             document.getElementById("placeBetResult").innerHTML = placeBetResult;
         } else {
             // the betting has stopped
-            var payMeResult = "You bet " + status_amount + " CMTs on " + descs[selected] + ". You have no anticipated payout.";
+            var payMeResult = "You bet " + status_amount + " CMTs on " + descs[selected] + ". The antipated payout is :" + status_payout + " CMTs";
             if (status_payout > 0 && status_paid) {
                 payMeResult = "You bet " + status_amount + " CMTs on " + descs[selected] + ". You already received your payout of: " + status_payout + " CMTs";
-            } else if (status_payout < 0) {
+            } else if (status_payout == 0) {
+                payMeResult = "You bet " + status_amount + " CMTs on " + descs[status_choice + 1] + ". You have no anticipated payout.";
+            } else {
                 document.getElementById("payMe").style.visibility = "visible";
-                payMeResult = "You bet " + status_amount + " CMTs on " + descs[selected] + ". The antipated payout is :" + status_payout + " CMTs";
             }
             document.getElementById("payMeResult").innerHTML = payMeResult;
         }
@@ -431,31 +438,37 @@
 
 
     function payMe() {
-        var checkResult = "";
-        var payout = " ";
-        var paid = " ";
-        instance.checkStatus(function (e, result) {
-            console.log(result);
-            if (result != null) {
-                if (result[2] != null) {
-                    payout = result[2] / 1000000000000000000;
-                }
-                if (result[3] != null) {
-                    paid = Boolean(result[3]);
-                }
-                checkResult = result;
-            }
-        });
-        console.log(checkResult);
-        if (paid == true) {
-            document.getElementById("payMeResult").innerHTML = "You had already been paid for amount:" + payout;
-            return;
-        }
-        instance.payMe(function (e, result) {
-            if (result != null) {
-                document.getElementById("payMeResult").innerHTML = result;
+        var payout = "";
+        var paid = "";
+        // game_status, game_desc, bets[_addr].choice, uint256(bets[_addr].amount), uint256(payout), bets[_addr].paid
+        web3.cmt.getAccounts(function (e, accountAddress) {
+            if (e) {
+                document.getElementById("alertTxt").innerHTML = "There is an error for get account info !";
             } else {
-                document.getElementById("payMeResult").innerHTML = e;
+                instance.checkStatus(accountAddress, function (e, result) {
+                    if (result != null) {
+                        if (result[4] != null) {
+                            payout = result[4] / 1000000000000000000;
+                        }
+                        if (result[5] != null) {
+                            paid = Boolean(result[5]);
+                        }
+                        console.log(payout);
+                        console.log(paid);
+
+                        if (paid == true) {
+                            document.getElementById("payMeResult").innerHTML = "You had already been paid for amount:" + payout;
+                            return;
+                        }
+                        instance.payMe(function (e, result) {
+                            if (result != null) {
+                                document.getElementById("payMeResult").innerHTML = result;
+                            } else {
+                                document.getElementById("payMeResult").innerHTML = e;
+                            }
+                        });
+                    }
+                });
             }
         });
     }
