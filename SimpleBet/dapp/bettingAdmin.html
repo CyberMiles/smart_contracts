@@ -290,8 +290,8 @@
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     $(function () {
-        document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=" + contract_addr + "</a>";
-        document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "</a>";
+        document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html?contract=" + contract_addr + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html?contract=" + contract_addr + "</a>";
+        document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html%3Fcontract%3D" + contract_addr + "</a>";
         var game_status = -1;
         instance.owner(function (e, owner) {
             if (e) {
