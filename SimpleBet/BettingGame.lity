@@ -27,10 +27,6 @@ contract BettingGame {
         assert(msg.sender == owner);
         _;
     }
-    modifier onlyValidator() {
-        require(isValidator(msg.sender));
-        _;
-    }
     
     constructor () public {
         owner = msg.sender;
@@ -73,12 +69,6 @@ contract BettingGame {
     }
     
     function endGame(int8 _correct_choice, string _correct_choice_txt) external onlyOwner {
-        correct_choice = _correct_choice;
-        correct_choice_txt = _correct_choice_txt;
-        game_status = 3;
-    }
-    
-    function endGameByValidator(int8 _correct_choice, string _correct_choice_txt) external onlyValidator {
         correct_choice = _correct_choice;
         correct_choice_txt = _correct_choice_txt;
         game_status = 3;
