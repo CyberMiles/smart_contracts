@@ -35,6 +35,10 @@
         </div>
     </form>
     <br/><br/>
+    <div>
+        <img src="//qr.api.cli.im/qr?data=https%253A%252F%252Fcybermiles.github.io%252Fsmart_contracts%252FSimpleBet%252Fdapp%252Fbetting_deploy.html&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=260&kid=cliim&key=0af1c04ea1e7d7939aadc746a84cacef">
+        <br><br>
+    </div>
     <small id="deployResult" class="text-muted" style="visibility: hidden;">
         The betting contract is pending,please wait for a moment........!
     </small>
@@ -313,6 +317,7 @@
     var contract = web3.cmt.contract(betAbi);
 
     // deploy the contract
+    // deploy the contract
     function deploy() {
         document.getElementById("deployResult").style.visibility = "visible";
         web3.cmt.getAccounts(function (e, address) {
@@ -326,14 +331,19 @@
                     if (!e) {
                         gas = estimategas;
                     }
-                    contract.new({from: address.toString(), data: feeDate, gas: gas}, function (e, instance) {
+                    contract.new({
+                        from: address.toString(),
+                        data: feeDate,
+                        gas: gas,
+                        gasPrice: '2000000000'
+                    }, function (e, instance) {
                         if (typeof instance.address !== 'undefined') {
                             var contract_address = instance.address;
                             document.getElementById("shutDown").textContent = "stop";
                             document.getElementById("bettingOwner").style.visibility = "visible";
                             document.getElementById("deployResult").style.visibility = "hidden";
-                            document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/bettingAdmin.html?contract=" + contract_address + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet_owner.html?contract=" + contract_address + "</a>";
-                            document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/bettingAdmin.html%3Fcontract%3D" + contract_address + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet_owner.html%3Fcontract%3D" + contract_address + "</a>";
+                            document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href='https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting_admin.html?contract=" + contract_address + "'>https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting_admin.html?contract=" + contract_address + "</a>";
+                            document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting_admin.html%3Fcontract%3D" + contract_address + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting_admin.html%3Fcontract%3D" + contract_address + "</a>";
                             console.log('Contract mined! address: ' + contract_address + ' transactionHash: ' + instance.transactionHash);
                         }
                     });
