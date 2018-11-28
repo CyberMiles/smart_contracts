@@ -276,9 +276,9 @@
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     $(function () {
-        var url = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=' + contract_addr;
+        var url = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html?contract=' + contract_addr;
         document.getElementById("urlMetamask").innerHTML = "Chrome browser with Metamask for CMT: <a href=" + url + " >" + url + "</a>";
-        document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html%3Fcontract%3D" + contract_addr + "</a>";
+        document.getElementById("urlCMTWallet").innerHTML = "Mobile devices with CMT Wallet: <a href='cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html%3Fcontract%3D" + contract_addr + "'>cmtwallet://dapp?url=https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html%3Fcontract%3D" + contract_addr + "</a>";
         var game_status = -1;
         $("#qrcode").qrcode({width: 150, height: 150, text: url});
         instance.owner(function (e, owner) {
