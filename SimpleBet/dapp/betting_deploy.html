@@ -56,258 +56,240 @@
 <script>
 
     const betAbi = [
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_correct_choice",
-                    "type": "int8"
-                },
-                {
-                    "name": "_correct_choice_txt",
-                    "type": "string"
-                }
-            ],
-            "name": "endGame",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_correct_choice",
-                    "type": "int8"
-                },
-                {
-                    "name": "_correct_choice_txt",
-                    "type": "string"
-                }
-            ],
-            "name": "endGameByValidator",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "payMe",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_choice",
-                    "type": "int8"
-                }
-            ],
-            "name": "placeBet",
-            "outputs": [],
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "resumeGame",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_game_desc",
-                    "type": "string"
-                },
-                {
-                    "name": "_number_of_choices",
-                    "type": "int8"
-                }
-            ],
-            "name": "startGame",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "stopGame",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "terminate",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "_addr",
-                    "type": "address"
-                }
-            ],
-            "name": "checkStatus",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "int8"
-                },
-                {
-                    "name": "",
-                    "type": "string"
-                },
-                {
-                    "name": "",
-                    "type": "int8"
-                },
-                {
-                    "name": "",
-                    "type": "uint256"
-                },
-                {
-                    "name": "",
-                    "type": "uint256"
-                },
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "correct_choice",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "int8"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "correct_choice_txt",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "game_desc",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "game_status",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "int8"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getAnswer",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "int8"
-                },
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "number_of_choices",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "int8"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "owner",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ];
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "terminate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "game_status",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "correct_choice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "checkStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "int8"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "resumeGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "correct_choice_txt",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "number_of_choices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "stopGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAnswer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "game_desc",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
+				"type": "int8"
+			}
+		],
+		"name": "startGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_correct_choice",
+				"type": "int8"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
+			}
+		],
+		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "payMe",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "int8"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	}
+];
     const betByteCode = {
         "linkReferences": {},
         "object": "608060405234801561001057600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000600860006101000a81548160ff021916908360000b60ff1602179055506117ba8061007f6000396000f3006080604052600436106100e6576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630c08bf88146100eb57806319c19b341461010257806325e58aa114610133578063340190ec146101645780633cc4c6ce1461025e5780633dfda65514610275578063504e020b14610305578063606dbe2b1461033657806383bd72ba1461037e5780638da5cb5b146103955780639c16667c146103ec578063b8053a7014610489578063b9a1df8a14610519578063cc4b45bd14610561578063d997ccb3146105a9578063de2fd8ab146105c0575b600080fd5b3480156100f757600080fd5b506101006105e3565b005b34801561010e57600080fd5b50610117610675565b604051808260000b60000b815260200191505060405180910390f35b34801561013f57600080fd5b50610148610688565b604051808260000b60000b815260200191505060405180910390f35b34801561017057600080fd5b506101a5600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061069b565b604051808860000b60000b8152602001806020018760000b60000b81526020018681526020018581526020018415151515815260200183151515158152602001828103825288818151815260200191508051906020019080838360005b8381101561021d578082015181840152602081019050610202565b50505050905090810190601f16801561024a5780820d805160018360200d6101000a0d1916815260200191505b509850505050505050505060405180910390f35b34801561026a57600080fd5b506102736109c4565b005b34801561028157600080fd5b5061028a610a5e565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156102ca5780820151818401526020810190506102af565b50505050905090810190601f1680156102f75780820d805160018360200d6101000a0d1916815260200191505b509250505060405180910390f35b34801561031157600080fd5b5061031a610afc565b604051808260000b60000b815260200191505060405180910390f35b34801561034257600080fd5b5061037c600480360381019080803560000b9060200190929190803590602001908201803590602001919091929391929390505050610b0f565b005b34801561038a57600080fd5b50610393610b86565b005b3480156103a157600080fd5b506103aa610c20565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156103f857600080fd5b50610401610c45565b604051808360000b60000b815260200180602001828103825283818151815260200191508051906020019080838360005b8381101561044d578082015181840152602081019050610432565b50505050905090810190601f16801561047a5780820d805160018360200d6101000a0d1916815260200191505b50935050505060405180910390f35b34801561049557600080fd5b5061049e610cff565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156104de5780820151818401526020810190506104c3565b50505050905090810190601f16801561050b5780820d805160018360200d6101000a0d1916815260200191505b509250505060405180910390f35b34801561052557600080fd5b5061055f600480360381019080803590602001908201803590602001919091929391929390803560000b9060200190929190505050610d9d565b005b34801561056d57600080fd5b506105a7600480360381019080803560000b9060200190929190803590602001908201803590602001919091929391929390505050610eb6565b005b3480156105b557600080fd5b506105be610f62565b005b6105e1600480360381019080803560000b906020019092919050505061125b565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561063b57fe5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b600860009054906101000a900460000b81565b600660009054906101000a900460000b81565b6000606060008060008060008060009050600660009054906101000a900460000b60000b600160008b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060000160009054906101000a900460000b60000b14156107c85760056000600660009054906101000a900460000b60000b60000b815260200190815260200160002054600454600160008c73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206001015480156107ba5781817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0410156107b957fe5b5b028115156107c457fe5b0490505b600860009054906101000a900460000b6002600160008c73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060000160009054906101000a900460000b600160008d73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206001015484600160008f73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060020160009054906101000a900460ff16600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060020160009054906101000a900460ff1685805460018160011615610100020d166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020d166002900480156109a35780601f10610978576101008083540402835291602001916109a3565b820191906000526020600020905b8154815290600101906020018083116109865782900d601f168201915b50505050509550975097509750975097509750975050919395979092949650565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610a1c57fe5b6002600860009054906101000a900460000b60000b141515610a3d57600080fd5b6001600860006101000a81548160ff021916908360000b60ff160217905550565b6007805460018160011615610100020d166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020d16600290048015610af45780601f10610ac957610100808354040283529160200191610af4565b820191906000526020600020905b815481529060010190602001808311610ad75782900d601f168201915b505050505081565b600360009054906101000a900460000b81565b3373ffffffffffffffffffffffffffffffffffffffff16f61515610b3257600080fd5b82600660006101000a81548160ff021916908360000b60ff160217905550818160079190610b6192919061163a565b506003600860006101000a81548160ff021916908360000b60ff160217905550505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610bde57fe5b6001600860009054906101000a900460000b60000b141515610bff57600080fd5b6002600860006101000a81548160ff021916908360000b60ff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60006060600660009054906101000a900460000b600780805460018160011615610100020d166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020d16600290048015610cf05780601f10610cc557610100808354040283529160200191610cf0565b820191906000526020600020905b815481529060010190602001808311610cd35782900d601f168201915b50505050509050915091509091565b6002805460018160011615610100020d166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020d16600290048015610d955780601f10610d6a57610100808354040283529160200191610d95565b820191906000526020600020905b815481529060010190602001808311610d785782900d601f168201915b505050505081565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610df557fe5b828260029190610e0692919061163a565b5080600360006101000a81548160ff021916908360000b60ff16021790555060006004819055507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff600660006101000a81548160ff021916908360000b60ff160217905550602060405190810160405280600081525060079080519060200190610e919291906116ba565b506001600860006101000a81548160ff021916908360000b60ff160217905550505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610f0e57fe5b82600660006101000a81548160ff021916908360000b60ff160217905550818160079190610f3d92919061163a565b506003600860006101000a81548160ff021916908360000b60ff160217905550505050565b60006003600860009054906101000a900460000b60000b141515610f8557600080fd5b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060020160019054906101000a900460ff161515610fe057600080fd5b6000600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206001015411151561103157600080fd5b600660009054906101000a900460000b60000b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060000160009054906101000a900460000b60000b1415156110a357600080fd5b60001515600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060020160009054906101000a900460ff16151514151561110557600080fd5b60056000600660009054906101000a900460000b60000b60000b815260200190815260200160002054600454600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206001015480156111a75781817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0410156111a657fe5b5b028115156111b157fe5b0490506000811115611258573373ffffffffffffffffffffffffffffffffffffffff166108fc829081150290604051600060405180830381858888f19350505050158015611203573d6000803e3d6000fd5b5060011515600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060020160009054906101000a905050505b50565b61126361173a565b6001600860009054906101000a900460000b60000b1415156112ed576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252600f8152602001807f67616d652069732072756e6e696e67000000000000000000000000000000000081525060200191505060405180910390fd5b600360009054906101000a900460000b60000b8260000b121515611379576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f4d7573742062652076616c69642063686f69636500000000000000000000000081525060200191505060405180910390fd5b6000341115156113f1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260148152602001807f4d7573742062652076616c69642063686f69636500000000000000000000000081525060200191505060405180910390fd5b60001515600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060020160019054906101000a900460ff1615151415156114bc576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260108152602001807f43616e6e6f74206265742074776963650000000000000000000000000000000081525060200191505060405180910390fd5b6080604051908101604052808360000b815260200134815260200160001515815260200160011515815250905080600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008201518160000160006101000a81548160ff021916908360000b60ff1602179055506020820151816001015560408201518160020160006101000a81548160ff02191690831515021790555060608201518160020160016101000a81548160ff02191690831515021790555090505034600560008460000b60000b81526020019081526020016000205481817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0310156115e157fe5b01600560008460000b60000b8152602001908152602001600020819055503460045481817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03101561162f57fe5b016004819055505050565b82805460018160011615610100020d166002900490600052602060002090601f016020900481019282601f1061167b57803560ff19168380011785556116a9565b828001600101855582156116a9579182015b828111156116a857823582559160200191906001019061168d565b5b5090506116b69190611769565b5090565b82805460018160011615610100020d166002900490600052602060002090601f016020900481019282601f106116fb57805160ff1916838001178555611729565b82800160010185558215611729579182015b8281111561172857825182559160200191906001019061170d565b5b5090506117369190611769565b5090565b6080604051908101604052806000800b8152602001600081526020016000151581526020016000151581525090565b61178b91905b8082111561178757600081600090555060010161176f565b5090565b905600a165627a7a72305820373e59602431e89e7f09f74551d9dee4a33a98b4087a57a3d939042e7a2b820f0029",
