@@ -30,101 +30,6 @@ function getUrlParameter(name) {
     const betAbi = [
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "_correct_choice",
-				"type": "int8"
-			},
-			{
-				"name": "_correct_choice_txt",
-				"type": "string"
-			}
-		],
-		"name": "endGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_correct_choice",
-				"type": "int8"
-			},
-			{
-				"name": "_correct_choice_txt",
-				"type": "string"
-			}
-		],
-		"name": "endGameByValidator",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "payMe",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_choice",
-				"type": "int8"
-			}
-		],
-		"name": "placeBet",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "resumeGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_game_desc",
-				"type": "string"
-			},
-			{
-				"name": "_number_of_choices",
-				"type": "int8"
-			}
-		],
-		"name": "startGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "stopGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
 		"inputs": [],
 		"name": "terminate",
 		"outputs": [],
@@ -133,10 +38,32 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
+		"name": "game_status",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "correct_choice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -178,17 +105,12 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [],
-		"name": "correct_choice",
-		"outputs": [
-			{
-				"name": "",
-				"type": "int8"
-			}
-		],
+		"name": "resumeGame",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -208,11 +130,11 @@ function getUrlParameter(name) {
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "game_desc",
+		"name": "number_of_choices",
 		"outputs": [
 			{
 				"name": "",
-				"type": "string"
+				"type": "int8"
 			}
 		],
 		"payable": false,
@@ -220,13 +142,22 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "stopGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
-		"name": "game_status",
+		"name": "owner",
 		"outputs": [
 			{
 				"name": "",
-				"type": "int8"
+				"type": "address"
 			}
 		],
 		"payable": false,
@@ -254,11 +185,11 @@ function getUrlParameter(name) {
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "number_of_choices",
+		"name": "game_desc",
 		"outputs": [
 			{
 				"name": "",
-				"type": "int8"
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -266,18 +197,69 @@ function getUrlParameter(name) {
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"name": "",
-				"type": "address"
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
+				"type": "int8"
 			}
 		],
+		"name": "startGame",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_correct_choice",
+				"type": "int8"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
+			}
+		],
+		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "payMe",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "int8"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	}
 ];
     const contract = web3.cmt.contract(betAbi, contract_addr);
