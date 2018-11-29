@@ -28,22 +28,17 @@ contract BettingGame {
         _;
     }
     
-    constructor () public {
+    constructor (string _game_desc, int8 _number_of_choices) public {
+        require(_number_of_choices > 0);
         owner = msg.sender;
-        game_status = 0;
-    }
-    
-    function startGame(string _game_desc, int8 _number_of_choices) external onlyOwner {
+        game_status = 1;
         game_desc = _game_desc;
         number_of_choices = _number_of_choices;
-        
         total_bet_amount = 0;
-        
         correct_choice = -1;
         correct_choice_txt = "";
-        
-        game_status = 1;
     }
+
     
     function placeBet (int8 _choice) public payable {
         require (game_status == 1); // game is running
