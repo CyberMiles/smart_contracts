@@ -8,12 +8,7 @@
 			}
 		],
 		"name": "addForbiddenSymbol",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -27,12 +22,7 @@
 			}
 		],
 		"name": "deleteForbiddenSymbol",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -46,12 +36,7 @@
 			}
 		],
 		"name": "forceRemove",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -64,17 +49,12 @@
 				"type": "address"
 			},
 			{
-				"name": "_exitPrice",
+				"name": "_deposit",
 				"type": "uint256"
 			}
 		],
 		"name": "register",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
@@ -107,35 +87,7 @@
 			}
 		],
 		"name": "updateFee",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_contractAddr",
-				"type": "address"
-			},
-			{
-				"name": "_exitPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateRegistration",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -149,14 +101,23 @@
 			}
 		],
 		"name": "withdraw",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "feeBalance",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -182,6 +143,20 @@
 		"constant": true,
 		"inputs": [],
 		"name": "getBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getFeeBalance",
 		"outputs": [
 			{
 				"name": "",
