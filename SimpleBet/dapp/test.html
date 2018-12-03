@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* 弹窗 (background) */
+        .modal {
+            display: block; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1;
+            padding-top: 50%;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* 弹窗内容 */
+        .modal-content {
+            position: relative;
+            background-color: #1976d2;
+            margin: auto;
+            align-content: center;
+            padding: 0;
+            border: 1px solid #888;
+            width: 55%;
+            height: 20%;
+            box-shadow: 0 4px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* 添加动画 */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* 关闭按钮 */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding: 2px;
+            flex: auto;
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+            height: 35%;
+        }
+
+        .modal-footer {
+            padding: 2px 12px;
+            background-color: #5587A2;
+            text-align: right;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- 打开弹窗按钮 -->
+<button id="myBtn">打开弹窗</button>
+
+<!-- 弹窗 -->
+<div id="myModal" class="modal">
+
+    <!-- 弹窗内容 -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">×</span>
+            <h2>&nbsp;</h2>
+        </div>
+        <div class="modal-body">
+            <p>It had an error</p>
+        </div>
+        <!--<div class="modal-footer">
+            <h3>弹窗底部</h3>
+        </div>-->
+    </div>
+
+</div>
+<script>
+    // 获取弹窗
+    var modal = document.getElementById('myModal');
+
+    // 打开弹窗的按钮对象
+    var btn = document.getElementById("myBtn");
+
+    // 获取 <span> 元素，用于关闭弹窗 that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // 点击按钮打开弹窗
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // 点击 <span> (x), 关闭弹窗
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+</script>
+</body>
+</html>

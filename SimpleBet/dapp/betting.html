@@ -365,7 +365,7 @@
             if (status_payout > 0 && status_paid) {
                 payMeResult = "You bet " + status_amount + " CMTs on " + descs[selected] + ". You already received your payout of: " + status_payout + " CMTs";
             } else if (status_payout == 0) {
-                payMeResult = "You bet " + status_amount + " CMTs on " + descs[status_choice + 1] + ". You have no anticipated payout.";
+                payMeResult = "You bet " + status_amount + " CMTs on " + descs[selected] + ". You have no anticipated payout.";
             } else {
                 document.getElementById("payMe").style.visibility = "visible";
             }
