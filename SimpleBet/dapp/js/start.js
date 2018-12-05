@@ -8,11 +8,12 @@ var checkChoice = function () {
     var inputs = document.getElementsByName("choice");
     var root = document.getElementsByClassName("main-button")[0];
     var count = 0;
+    var title = $("#title").val();
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].value != null && inputs[i].value != '') {
             count++;
         }
-        if (count >= 3) {
+        if (count >= 3 && title != null && title != '') {
             root.style.cssText = "background-color: #1976d2;";
             fun.addMainEvent(obj, "click", startGame);
         } else {
@@ -33,7 +34,14 @@ var startGame = function () {
             numChoices++;
         }
     }
-
+    if (numChoices <= 2) {
+        fun.popupTip('The choices must bigger then two!');
+    }
+    var title = $("#title").val();
+    if (title == null || title == '') {
+        fun.popupTip('The game title should be input');
+        return;
+    }
     fun.popupTip('The account address have an error');
     return;
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");

@@ -5,92 +5,110 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
-    <link resource="file" href="../css/main.css">
+    <link rel="stylesheet" href="../css/join.css">
     <title>WeBet</title>
 </head>
 <body class="main-bg">
-
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
 <div class="main-contain">
     <div class="main-bet-status main-bet-join-div main-bet-status-top">
-        <p class="">In Progress</p>
+        <p id="bet-status">In Progress</p>
         <p class="main-bet-title">How is the weather today?</p>
     </div>
-</div>
-<div id="choices">
-
-</div>
-<input type="hidden" value="" id="selectEdValue">
-
-<div class="main-contain main-bottom">
-    <div class="main-button-div" id="submit-div">
-        <div class="main-button">
-            <p id="submit" class="main-button-not-click-font">Confirm my option</p>
-        </div>
+    <div class="bet-share-div" id="betShare">
+        <img class="bet-share" src="../images/share.png">
     </div>
 </div>
-<div id="owner-bet">
 
-</div>
-<div class="main-detail" id="details">
-    <div class="main-contain">
-        <div class="main-bet-details-font">
-            <div class="main-bet-detail-div main-bet-detail-show">
-                <div class="main-bet-detail">
-                    Details
+<div id="showChoice">
+    <div id="choices">
+
+    </div>
+    <input type="hidden" value="" id="selectedValue">
+    <input type="hidden" value="" id="betStatus">
+    <div class="main-contain main-div-button" id="after-button">
+        <div class="main-button-div" id="submit-div">
+            <div class="main-button">
+                <p id="submit" class="main-button-not-click-font">Confirm my option</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-detail" id="details">
+        <div class="main-contain">
+            <div class="main-bet-details-font">
+                <div class="main-bet-detail-div main-bet-detail-show">
+                    <div class="main-bet-detail">
+                        Details
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-contain">
+            <div class="main-bet-details-font">
+                <div class="main-bet-detail-div main-bet-detail-show">
+                    <div class="main-bet-detail main-bet-address-left">
+                        Bet contract address
+                    </div>
+                    <div class="main-bet-detail main-bet-address-right" id="userAddress">
+                        0x0dbC…9E80
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-contain">
+            <div class="main-bet-details-font">
+                <div class="main-bet-detail-div main-bet-detail-show">
+                    <div class="main-bet-detail main-bet-address-left">
+                        Bet Player Amount
+                    </div>
+                    <div class="main-bet-detail main-bet-address-normal main-float-right" id="userAmount">
+                        0
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-contain">
+            <div class="main-bet-details-font">
+                <div class="main-bet-detail-div main-bet-detail-show">
+                    <div class="main-bet-detail main-bet-address-normal">
+                        Bet winer will get paid after the game concludes.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="main-contain">
-        <div class="main-bet-details-font">
-            <div class="main-bet-detail-div main-bet-detail-show">
-                <div class="main-bet-detail main-bet-address-left">
-                    Bet contract address
-                </div>
-                <div class="main-bet-detail main-bet-address-right">
-                    0x0dbC…9E80
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="main-contain">
-        <div class="main-bet-details-font">
-            <div class="main-bet-detail-div main-bet-detail-show">
-                <div class="main-bet-detail main-bet-address-left">
-                    Bet Player Amount
-                </div>
-                <div class="main-bet-detail main-bet-address-normal main-float-right">
-                    0
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="main-contain">
-        <div class="main-bet-details-font">
-            <div class="main-bet-detail-div main-bet-detail-show">
-                <div class="main-bet-detail main-bet-address-normal">
-                    Bet winer will get paid after the game concludes.
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
-
-<div class="main-bottom">
-
+<input type="text" id="share_link" style="width:1px;">
+<div class="bet-share-div main-hidden-display" id="shareDiv">
+    <p class="bet-share-qr-line"></p>
+    <div class="bet-share-qr-div">
+        <div id="qrcode"></div>
+    </div>
+    <div class="share-desc-div" id="desc">
+        <p class="share-font">Use CMT Wallet to scan bet QR to join the bet.</p>
+    </div>
+    <div class="share-desc-div">
+        <div class="main-button-div main-contain main-div-button">
+            <div class="share-save-button" id="saveButton">
+                <p id="setting" class="share-save-button-font" onclick="saveQRImage()">Save to Album</p>
+            </div>
+        </div>
+    </div>
+    <div class="share-desc-div share-bottom-div">
+        <div class="share-font">
+            <img class="bet-share" src="../images/webet.png">
+            <a id="downloadLink"></a>
+        </div>
+        <div class="share-font">
+            Blockchain Bet Game
+        </div>
+    </div>
 </div>
+</body>
 <script src="../js/main.js"></script>
 <script src="../js/bet.js"></script>
-
-
-</body>
-
 </html>

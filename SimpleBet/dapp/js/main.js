@@ -1,10 +1,15 @@
 document.write("<script type='text/javascript' src='https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'></script>");
 document.write("<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossOrigin='anonymous'></script>");
 document.write("<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossOrigin='anonymous'></script>");
-document.write("<script type='text/javascript' src='http://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js'></script>");
+document.write("<script type='text/javascript' src='../js/qrcode.js'></script>");
+document.write("<script type='text/javascript' src='../js/clipboard.js'></script>");
+document.write("<script type='text/javascript' src='../js/popuTip/layer.js'></script>");
+const domType = ["div", "span", "p"];
+const attrType = ["id", "name", "class"];
+const appendType = ["after", "before", "children", "body", "bodyFirst"];
+
 
 var MainFun = (function () {
-
     var _createDiv = function (elementObj) {
         var divs = elementObj.children;
         var str = _convert(divs.length - 1);
@@ -56,13 +61,22 @@ var MainFun = (function () {
         * btnText 按钮文字 （可缺省，不加按钮）
         * */
     var _popupTip = function (pupW, pupH, pupText, pupClose, pupCloseH, btnText) {
-        var popup = $('<div id="pupopBox" class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;align-items:center;width:' + pupW + ';height: ' + pupH + ';background-color: #fff;border-radius: 10px;padding: 20px">' +
-            '<img class="pupClose" src="' + pupClose + '" style="position: absolute;height:' + pupCloseH + '; top:-' + pupCloseH + ';right:0; cursor: pointer " />' +
+        var popDiv = document.getElementById("pupopBox");
+        if (popDiv != null && popDiv != '') {
+            popDiv.remove();
+        }
+        var popup = $('<div id="pupopBox" class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
+            'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;' +
+            'transform: translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;width:' + pupW + ';' +
+            'height: ' + pupH + ';background-color: #fff;border-radius: 10px;padding: 20px">' +
+            '<img class="pupClose" src="' + pupClose + '" style="position: absolute;height:' + pupCloseH + '; top:-' + pupCloseH + ';' +
+            'right:0; cursor: pointer " />' +
             '<div style="font-size: 14px;">' + pupText + ' </div>' +
             '</div></div>');
         $("body").append(popup);
         if (btnText) {
-            $('.pupopContent').append($('<a style="display:; background-color:#1976d2;border-radius: 6px;margin-top:15px;padding:8px 20px;color: #fff; text-decoration: none;font-size: 14px; " id="pup_btn" href="javascript:;">' + btnText + '</a>'));
+            $('.pupopContent').append($('<a style="display:; background-color:#1976d2;border-radius: 6px;margin-top:15px;padding:8px 20px;' +
+                'color: #fff; text-decoration: none;font-size: 14px; " id="pup_btn" href="javascript:;">' + btnText + '</a>'));
         }
         $('.pupopBox').fadeIn();
         $('body').on('click', '.pupClose', function () {
@@ -72,29 +86,166 @@ var MainFun = (function () {
         })
     };
 
+    /**
+     * add choice div
+     * @param title         div title
+     * @param select[]        div content
+     * @param bottomBtn[]     div button name
+     * @private
+     */
+    var _popupSelectTip = function (title, select, bottomBtn) {
+        var popDiv = document.getElementById("pupopBox");
+        if (popDiv != null && popDiv != '') {
+            popDiv.remove();
+        }
+        var btnDiv = '';
+        var selectDiv = '';
+        var divStyle = 'style="position:relative;top: 23px;bottom: 18px;flex: auto;"';
+        var divFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top:5px;margin-bottom:5px;bottom: 10px;font-size: 16px;font-weight: 500;font-family: SFProText;height: 19px;"';
+        var divSelectFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top: 6px;margin-bottom:19px;font-size: 16px;font-weight: normal;font-family: SFProText;height: 19px;"';
+        var bottomBtnStyle = 'style="position:relative;float:right;margin-right:20px;margin-top:5px;margin-bottom:35px;font-family: SFUIText;font-size: 16px;font-weight: 500;color: #1976d2;"';
+        if (select instanceof Array) {
+            for (var i = 0; i < select.length; i++) {
+                selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><p ' + divSelectFontStyle + ' id="' + select[i] + '">' + select[i] + ' </p>' +
+                    '<p class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p>' +
+                    '<p hidden="hidden">' + i + '</p>' +
+                    '</div>'
+            }
+        } else {
+            selectDiv += '<div><p ' + divSelectFontStyle + ' id="' + select + '">' + select + ' </p></div>'
+        }
+        if (bottomBtn instanceof Array) {
+            for (var i = 0; i < bottomBtn.length; i++) {
+                btnDiv += '<p ' + bottomBtnStyle + ' id="' + bottomBtn[i] + '">' + bottomBtn[i] + ' </p>'
+            }
+        } else {
+            btnDiv += '<p ' + bottomBtnStyle + ' id="' + bottomBtn + '">' + bottomBtn + ' </p>'
+        }
+        btnDiv = '<div style="margin-bottom: 10px;">' + btnDiv + '</div>';
+        var popup = $('<div id="pupopBox" class="pupopBox main-bet-title" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
+            'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;' +
+            'transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;width: 80%' +
+            ';background-color: #fff;">' +
+            '<div ' + divStyle + '><div ' + divFontStyle + '>' + title + '</div><p style="border: solid 1px #e7eaec;position: relative"></p>' +
+            selectDiv +
+            '<p style="border: solid 1px #e7eaec;position: relative;float: bottom;margin-bottom: 8px"></p>' +
+            btnDiv +
+            '</div></div></div>'
+        );
+        $("body").append(popup);
+        $('.pupopBox').fadeIn();
+        $('body').on('click', '.pupClose', function () {
+            $('.pupopBox').fadeOut(500, function () {
+                $(this).remove()
+            })
+        })
+    };
+
+
+    /**
+     * add input div
+     * @param title           div title
+     * @param select[]        div desc
+     * @private
+     */
+    var _popupInputTip = function (title, content, btnName) {
+        var popDiv = document.getElementById("pupopBox");
+        if (popDiv != null && popDiv != '') {
+            popDiv.remove();
+        }
+
+        var divStyle = 'style="position:relative;top: 23px;bottom: 18px;flex: auto;"';
+        var divFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top:5px;margin-bottom:5px;bottom: 10px;font-size: 16px;font-weight: 500;font-family: SFProText;height: 19px;"';
+        var bottomBtnStyle = 'style="position:relative;float:right;margin-right:20px;margin-top:5px;margin-bottom:35px;font-family: SFUIText;font-size: 16px;font-weight: 500;color: #1976d2;"';
+        var inputDivFontStyle = 'style="width: 90%;height: 44px;padding-top:20px;padding-bottom:20px;border-radius: 4px;background-color: #f4f6f8;font-family: SFUIText;font-size: 16px;font-weight: normal;"';
+        var inputDiv = '<div style="margin: 10px;"><input ' + inputDivFontStyle + 'id="' + btnName + 'Value" type="text" placeholder="' + content + '"></div>';
+        var btnDiv = '<div style="margin-bottom: 10px;"><p ' + bottomBtnStyle + ' id="' + btnName + '">' + btnName + ' </p></div>';
+        var popup = $('<div id="pupopBox" class="pupopBox main-bet-title" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
+            'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:39%;left:50%;' +
+            'transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;width: 80%' +
+            ';background-color: #fff;">' +
+            '<div ' + divStyle + '><div ' + divFontStyle + '>' + title + '</div><p style="border: solid 1px #e7eaec;position: relative"></p>' +
+            inputDiv +
+            '<p style="border: solid 1px #e7eaec;position: relative;float: bottom;margin-bottom: 8px"></p>' +
+            btnDiv +
+            '</div></div></div>'
+        );
+        $("body").append(popup);
+        $('.pupopBox').fadeIn();
+        $('body').on('click', '.pupClose', function () {
+            $('.pupopBox').fadeOut(500, function () {
+                $(this).remove()
+            })
+        })
+    };
+
+    var _popuTipBottom = function (options, funArray) {
+        //底部对话框 1：content 2：btn array 3：fun array
+        options.unshift('');
+        layer.open({
+            btn: '',
+            skin: 'footer',
+            yes: function (index, type) {
+                const map = funArray();
+                var clickFun = map.get(type.innerText);
+                clickFun();
+                layer.closeAll();
+            },
+            no: function (index, type) {
+
+            },
+            success: function () {
+                var obj = document.querySelector('.layui-m-layerbtn');
+                for (var i = 1; i < options.length; i++) {
+                    var newbtn = document.createElement('span');
+                    newbtn.setAttribute('yes', '');
+                    newbtn.setAttribute('name', options[i]);
+                    newbtn.textContent = options[i];
+                    newbtn.setAttribute('type', i);
+                    obj.appendChild(newbtn);
+                }
+                obj.removeChild(obj.firstChild);
+                var cancelBtn = document.createElement('span');
+                cancelBtn.textContent = 'Cancel';
+                cancelBtn.setAttribute('no', '');
+                cancelBtn.setAttribute('type', 0);
+                obj.appendChild(cancelBtn);
+            }
+        });
+    };
+
     // 关闭弹窗
-    var _clousePopupTip = function () {
+    var _closePopupTip = function () {
         // 获取弹窗
         var modal = document.getElementById('pupopBox');
         // 在用户点击其他地方时，关闭弹窗
         window.onclick = function (event) {
             if (event.target == modal) {
-                modal.style.display = "none";
+                //modal.style.display = "none";
+                $('.pupopBox').fadeOut(500, function () {
+                    modal.style.display = "none";
+                })
             }
         }
     }
 
-    // show owner setting button ,before call it you should add id "owner-bet"
-    var _showOwnerBetSetting = function () {
-        var ownerDiv = '<div class="main-contain main-bottom"><div class="main-button-div"><div class="main-button" id="owner-button"><p id="setting" class="main-button-not-click-font">Bet settings</p></div></div></div>';
-        var element = document.getElementById("owner-bet");
-        if (element == 'undefind' || element == null || element == '') {
-            return 'you should add a div with the id "owner-bet" '
-        }
-        element.innerHTML = ownerDiv;
-        var element = document.getElementById("owner-button");
-        element.style.cssText = "background-color: #1976d2;";
-        fun.addMainEvent(element, "click", betSetting);
+    // 移除弹窗
+    var _hidePopupTip = function () {
+        // 获取弹窗
+        var modal = document.getElementById('pupopBox');
+        modal.style.display = "none";
+    }
+
+    // create a button show owner setting button ,before call it you should add id "owner-bet"
+    var _addButton = function (id, afterId, content, color, bindFun) {
+        var parentId = id + '-parent';
+        _createDivInnerHtml(domType[0], attrType[0], appendType[0], '', parentId, afterId);
+        var ownerDiv = '<div class="main-contain main-div-button"><div class="main-button-div"><div class="main-button" id="create-button"><p id="setting" class="main-button-not-click-font">' + content + '</p></div></div></div>';
+        _createDivInnerHtml(domType[0], attrType[0], appendType[2], ownerDiv, id, parentId);
+        var element = document.getElementById(id);
+        var btnElement = document.getElementById("create-button");
+        btnElement.style.cssText = "background-color: " + color;
+        fun.addMainEvent(btnElement, "click", bindFun);
         fun.divShow(element);
     };
 
@@ -110,6 +261,65 @@ var MainFun = (function () {
         }
         return singleLet;
     }
+
+    var _createDivInnerHtml = function (type, attrArray, aptType, divContent, id, divId) {
+        var div = document.createElement(type);
+
+        var appendDiv = document.getElementById(divId);
+        if (aptType == appendType[0]) {
+            appendDiv.after(div);
+        }
+        if (aptType == appendType[1]) {
+            appendDiv.before(div);
+        }
+        if (aptType == appendType[2]) {
+            appendDiv.appendChild(div);
+        }
+        if (aptType == appendType[3]) {
+            document.body.appendChild(div)
+        }
+        if (aptType == appendType[4]) {
+            document.body.appendChild(div, document.body.firstElementChild);
+        }
+        if (attrArray instanceof Array) {
+            for (var i = 0; i < attrArray.length; i++) {
+                var attr = document.createAttribute(attrArray[i]);
+                attr.value = id[i];
+                div.setAttributeNode(attr);
+                if (divContent != null && divContent != '') {
+                    var element = document.getElementById(id[i]);
+                    if (attrArray[i] == attrType[1]) {
+                        element = document.getElementsByName(id[i]);
+                    }
+                    if (attrArray[i] == attrType[2]) {
+                        element = document.getElementsByClassName(id[i]);
+                    }
+                    element.innerHTML = divContent;
+                }
+            }
+        } else {
+            var attr = document.createAttribute(attrArray);
+            attr.value = id;
+            div.setAttributeNode(attr);
+            if (divContent != null && divContent != '') {
+                var element = document.getElementById(id);
+                if (attrArray == attrType[1]) {
+                    element = document.getElementsByName(id);
+                }
+                if (attrArray == attrType[2]) {
+                    element = document.getElementsByClassName(id);
+                }
+                element.innerHTML = divContent;
+            }
+        }
+    }
+
+    var _getUrlParameter = function (name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
 
     var MainFunction = function (...args) {
     };
@@ -144,8 +354,8 @@ var MainFun = (function () {
         };
     };
 
-    MainFunction.addOwnerButton = function(){
-        return _showOwnerBetSetting();
+    MainFunction.addButton = function (id, afterId, content, color, callBack) {
+        return _addButton(id, afterId, content, color, callBack);
     }
 
     MainFunction.divShow = function (element) {
@@ -165,11 +375,59 @@ var MainFun = (function () {
     };
 
     MainFunction.popupTip = function (pupText, btnText) {
-        _popupTip('255px', '160px', pupText, 'images/add.png', '38px', btnText);
+        _popupTip('255px', '160px', pupText, '', '38px', btnText);
+        this.addMainEvent(document.getElementById("pupopBox"), "click", this.closePopupTip)
+    }
+
+    /**
+     * middle popupTip
+     * @param title
+     * @param select
+     * @param bottomBtn
+     */
+    MainFunction.popupSelectTip = function (title, select, buttonBtn) {
+        _popupSelectTip(title, select, buttonBtn);
+        this.addMainEvent(document.getElementById("pupopBox"), "click", this.closePopupTip)
+    }
+
+    /**
+     * alert input div
+     * @param title         div title
+     * @param inputDesc     input desc
+     * @param buttonName    button name
+     */
+    MainFunction.popupInputTip = function (title, inputDesc, buttonName) {
+        _popupInputTip(title, inputDesc, buttonName);
+        this.addMainEvent(document.getElementById("pupopBox"), "click", this.closePopupTip)
+    }
+
+    MainFunction.popupTipBottom = function (button, funArray) {
+        _popuTipBottom(button, funArray);
+    }
+
+    /**
+     * create a content with domType,if appendType == body ,you can ignore afterId
+     * @param domType           "div", "span", "p"
+     * @param attrType[]        "id", "name", "class"
+     * @param appendType[]      "after", "before", "children", "body", "bodyFirst"
+     * @param content           div content
+     * @param id                div id
+     * @param afterId           afterId
+     */
+    MainFunction.addDivInnerhtml = function (domType, attrType, appendType, content, id, afterId) {
+        _createDivInnerHtml(domType, attrType, appendType, content, id, afterId);
     }
 
     MainFunction.closePopupTip = function () {
-        _clousePopupTip();
+        _closePopupTip();
+    }
+
+    MainFunction.removePopupTip = function () {
+        _hidePopupTip();
+    }
+
+    MainFunction.getParameter = function (name) {
+        _getUrlParameter(name);
     }
 
     return MainFunction;
