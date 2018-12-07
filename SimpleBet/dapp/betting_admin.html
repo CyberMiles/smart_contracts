@@ -366,6 +366,7 @@
                 document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "The account address have an error";
             } else {
+                console.log(contract);
                 var feeDate = '0x' + contract.new.getData(gameDesc, numChoices, {data: betByteCode.object});
                 web3.cmt.estimateGas({data: feeDate}, function (e, estimategas) {
                     var gas = '4700000';

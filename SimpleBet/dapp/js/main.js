@@ -4,6 +4,8 @@ document.write("<script type='text/javascript' src='https://stackpath.bootstrapc
 document.write("<script type='text/javascript' src='../js/qrcode.js'></script>");
 document.write("<script type='text/javascript' src='../js/clipboard.js'></script>");
 document.write("<script type='text/javascript' src='../js/popuTip/layer.js'></script>");
+
+
 const domType = ["div", "span", "p"];
 const attrType = ["id", "name", "class"];
 const appendType = ["after", "before", "children", "body", "bodyFirst"];
@@ -85,6 +87,50 @@ var MainFun = (function () {
             })
         })
     };
+
+    var _popupLoadTip = function (content, fadeTime) {
+        var popDiv = document.getElementById("pupopBox");
+        if (popDiv != null && popDiv != '') {
+            popDiv.remove();
+        }
+        var popup = $('<div id="pupopBox" class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
+            'background-color:rgba(0,0,0,0.6); ">' +
+            '<div id="layout" class="layoutLoading">' +
+            '<img id="loadImg" src="../images/cybermiles.ico"/><div style="align-content: center;margin-top: 12px;width:100%" id="over">' + content + '</div></div>' +
+            '<input type="hidden" id="removedTheInterval" value="false"></div>');
+        $("body").append(popup);
+        $('.pupopBox').fadeIn();
+        document.getElementById("layout").style.display = "block";
+        var time = fadeTime / 2;
+        $('#loadImg').fadeOut(time);
+        $('#loadImg').fadeIn(time)
+        var intervalFun = setInterval(function () {
+            // if the popupTip had start then hided,after will be not executed and stop the interval;
+            var stop = $("#boxHaveStop").val();
+            if (stop != null && stop != '' && Boolean(stop)) {
+                clearInterval(intervalFun);
+                return;
+            }
+            $('#loadImg').fadeOut(time, function () {
+            });
+            $('#loadImg').fadeIn(time, function () {
+            })
+            console.log("start");
+        }, fadeTime);
+        return intervalFun;
+    };
+
+    /**
+     * hide the popupTip
+     * @param boxId
+     * @private
+     */
+    var _popupLoadTipHide = function (intervalFun, boxId) {
+        clearInterval(intervalFun);
+        var domId = "#" + boxId;
+        $(domId).css("display", "none");
+    }
+
 
     /**
      * add choice div
@@ -416,6 +462,14 @@ var MainFun = (function () {
      */
     MainFunction.addDivInnerhtml = function (domType, attrType, appendType, content, id, afterId) {
         _createDivInnerHtml(domType, attrType, appendType, content, id, afterId);
+    }
+
+    MainFunction.popupLoadTip = function (content, fadeTime) {
+        return _popupLoadTip(content, fadeTime);
+    }
+
+    MainFunction.popupLoadTipClose = function (intervalFun, boxId) {
+        _popupLoadTipHide(intervalFun, boxId);
     }
 
     MainFunction.closePopupTip = function () {

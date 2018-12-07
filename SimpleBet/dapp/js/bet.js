@@ -3,53 +3,99 @@ const functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy
 const betStatus = ['Not Start', 'In Progress', 'Pending Confirm', 'End'];// functionArray status 0:init 1:progress 2:stop 3:end
 const betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];// betting status 0:init 1:progress 2:stop 3:end
 //TODO online should replace this const to the prod env
-//const baseUrl = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting.html';
-//const contract_address = fun.getParameter("contract");
+const contract_address = fun.getParameter("contract");
 const baseUrl = 'http://192.169.31.32:8088/workspace_go/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html';
-const contract_address = "0xae8f64ee99970669ea4f0854c3ef82a164f4ea92";
 var localUrl = baseUrl + "?contract=" + contract_address;
+var userAddress = '';
 const displayLink = "Copy CMT Code and goto CMT Wallet App to Open Red Packet! " + localUrl + "CMT Wallet Download Link：https://www.cybermiles.io/cmt-wallet/";
 //fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
+var betAbi = '';
+var betBin = '';
+var contract = '';
+var instance = '';  // contract instance
+//Game status -1:unknown 0:init 1:progress 2:stop 3:end
+var gameStatus = -1;
+// Game correct choice
+var correctChoice = -1;
+// User choice of this bet Game
+var userChoice = -1;
 // init the functions in the html
 $(function () {
-    //TODO judge if the owner
-    var isOwner = true;
-    //TODO get the bet game status
-    var status = 1;
-    //TODO get correct choice
-    var correctChoice = -1;
-    //TODO get user choice
-    var userChoice = -1;
-    //initCopyTextToClipboardShare();
+    // init the abi and bin
+    getAbi();
+    getBin();
     bindShare();
-    showChoices();
-    betStatusFun(status);
-    // user can not choice when user 1:selected 2:the game stop 3:the game end
-    if (status != 1 || userChoice >= 0) {
-        showChoice(status, userChoice, correctChoice);
-    }
-    //if the bet game had end
-    var contentId = "owner-bet";
-    var afterBtnName = "after-button";
-    // if the owner of this bet
-    if (isOwner) {
-        if (status == 1) {
-            showBetSetting(contentId, afterBtnName, "Bet settings", betSettingStop);
-        }
-        if (status == 2) {
-            showBetSetting(contentId, afterBtnName, "Bet settings", betSettingResume);
-        }
-    }
-    var buttonName = "Withdraw bet reward";
-    if (status == 3) {
-        // use selected the correct choice
-        if (userChoice > 0 && correctChoice == userChoice) {
-            showWithdraw(contentId, afterBtnName, buttonName, withdraw);
+    var interval = fun.popupLoadTip('pending .....', 1000);
+    web3.cmt.getAccounts(function (e, address) {
+        if (e) {
+            fun.popupTip('The account address have an error');
         } else {
-            showFailed(contentId);
+            userAddress = address.toString();
+            $("#userAddress").html(dealUserAddress(userAddress));
+            $("#removedTheInterval").val(true);
+            fun.popupLoadTipClose(interval, "pupopBox");
+            contract = web3.cmt.contract(betAbi, contract_address);
+            instance = contract.at(contract_address);
+            instance.checkStatus(userAddress, function (gameError, result) {
+                if (gameError) {
+                    console.log(gameError);
+                    fun.popupTip('Game status have an error ：' + gameError);
+                    return;
+                } else {
+                    gameStatus = BigInt(result[0]);
+                    var gameDesc = result[1];
+                    var choice = BigInt(result[2]);
+                    var status_amount = BigInt(result[3] / 1000000000000000000);
+                    var status_payout = BigInt(result[4] / 1000000000000000000);
+                    var status_paid = Boolean(result[5]);
+                    // if the owner of this bet then show the betting settings
+                    console.log(gameStatus);
+                    instance.owner(function (e, owner) {
+                        if (owner && owner == address) {
+                            if (gameStatus == 1) {
+                                showBetSetting(contentId, afterBtnName, "Bet settings", betSettingStop);
+                            }
+                            if (gameStatus == 2) {
+                                showBetSetting(contentId, afterBtnName, "Bet settings", betSettingResume);
+                            }
+                        }
+                    });
+                    showChoices();
+                    betStatusFun(gameStatus);
+                    // user can not choice when user 1:selected 2:the game stop 3:the game end
+                    if (gameStatus != 1 || userChoice >= 0) {
+                        showChoice(gameStatus, userChoice, correctChoice);
+                    }
+                    //if the bet game had end
+                    var contentId = "owner-bet";
+                    var afterBtnName = "after-button";
+                    var buttonName = "Withdraw bet reward";
+                    if (gameStatus == 3) {
+                        // use selected the correct choice
+                        if (userChoice > 0 && correctChoice == userChoice) {
+                            showWithdraw(contentId, afterBtnName, buttonName, withdraw);
+                        } else {
+                            showFailed(contentId);
+                        }
+                    }
+                }
+            });
         }
-    }
+    });
 });
+
+/**
+ * hide some of userAddress
+ * @param address
+ * @returns {string}
+ */
+var dealUserAddress = function (address) {
+    var result = "0x0000....0000";
+    if (address != null && address != '' && address.length > 10) {
+        result = address.substr(0, 5) + '....' + address.substr(address.length - 5, 5);
+    }
+    return result;
+}
 
 /**
  * show user choice and the correct choice
@@ -70,6 +116,260 @@ var showChoice = function (status, userChoice, correctChoice) {
             elements[i].style.cssText = 'background-color: rgba(79, 234, 57, 0.2);';
         }
     }
+}
+
+/**
+ * read the abi info from the abi file
+ */
+var getAbi = function () {
+
+    $.ajax({
+        url: '../../BettingGame.abi',
+        sync: true,
+        dataType: 'text',
+        success: function (data) {
+            //betAbi = JSON.parse(data);
+            betAbi = [
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "_correct_choice",
+                            "type": "int8"
+                        },
+                        {
+                            "name": "_correct_choice_txt",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "endGame",
+                    "outputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [],
+                    "name": "payMe",
+                    "outputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "_choice",
+                            "type": "int8"
+                        }
+                    ],
+                    "name": "placeBet",
+                    "outputs": [],
+                    "payable": true,
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [],
+                    "name": "resumeGame",
+                    "outputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [],
+                    "name": "stopGame",
+                    "outputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [],
+                    "name": "terminate",
+                    "outputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "name": "_game_desc",
+                            "type": "string"
+                        },
+                        {
+                            "name": "_number_of_choices",
+                            "type": "int8"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "name": "_addr",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "checkStatus",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "int8"
+                        },
+                        {
+                            "name": "",
+                            "type": "string"
+                        },
+                        {
+                            "name": "",
+                            "type": "int8"
+                        },
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "correct_choice",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "int8"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "correct_choice_txt",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "game_desc",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "game_status",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "int8"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "getAnswer",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "int8"
+                        },
+                        {
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "number_of_choices",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "int8"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "owner",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ]
+        }
+    });
+}
+
+/**
+ * read the bin info from the bin file
+ */
+var getBin = function () {
+    $.ajax({
+        url: '../../BettingGame.bin',
+        dataType: 'text',
+        success: function (data) {
+            betBin = JSON.parse(data);
+        }
+    });
 }
 
 /**
@@ -359,22 +659,33 @@ var confirmOption = function () {
  */
 var confirmOptionSubmit = function () {
     var amount = $("#SubmitValue").val();
+    fun.popupLoadTip('pending .....', 3100);
+    return;
     if (amount <= 0) {
         fun.popupTip('The amount you fill should more than zero!')
         return;
     }
-    fun.popupTip('The choice you submit is pending， wait for seconds!')
+    //fun.popupTip('The choice you submit is pending， wait for seconds!')
+    fun.popupLoadTip('pending .....', 3100);
 }
 
 /**
  * show the choice
  */
-var showChoices = function () {
-    var values = {0: 'A. Smog', 1: 'B. Snowing', 2: 'C. Rain'}
+var showChoices = function (values) {
     var html = '';
-    for (var choiceValue in values) {
+    if (values instanceof Array) {
+        for (var i = 0; i < values.length; i++) {
+            var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
+                '<p class="main-bet-join-div">' + values[i] + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + i + '</p></div></div>';
+            html += div;
+        }
+    } else {
+        if (values == null || values == undefined) {
+            values = 'Have No choice! ';
+        }
         var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
-            '<p class="main-bet-join-div">' + values[choiceValue] + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + choiceValue + '</p></div></div>';
+            '<p class="main-bet-join-div">' + values + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + 0 + '</p></div></div>';
         html += div;
     }
     document.getElementById("choices").innerHTML = html;

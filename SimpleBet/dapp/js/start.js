@@ -1,7 +1,64 @@
 var fun = new MainFun();
-
+var userAddress = '';
+var betAbi = '';
+var betBin = '';
+var boxDivId = 'pupopBox';
+var callBackCount = 0;
+var contract_address = '';
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
+
+$(function () {
+    var intervalFun = fun.popupLoadTip('pending .....', 1000);
+    web3.cmt.getAccounts(function (e, address) {
+        if (e) {
+            fun.popupTip('The account address have an error');
+        } else {
+            $("#userAddress").val(address);
+            removedTheInterval(intervalFun);
+            userAddress = address;
+        }
+    });
+    getAbi();
+    getBin();
+});
+
+/**
+ * if the popupTip had showed,then we will hide the popupTip div
+ */
+var removedTheInterval = function (intervalFun) {
+    $("#removedTheInterval").val(true);
+    fun.popupLoadTipClose(intervalFun, boxDivId);
+}
+
+/**
+ * read the abi info from the abi file
+ */
+var getAbi = function () {
+
+    $.ajax({
+        url: '../../BettingGame.abi',
+        sync: true,
+        dataType: 'text',
+        success: function (data) {
+            betAbi = JSON.parse(data);
+        }
+    });
+}
+
+/**
+ * read the bin info from the bin file
+ */
+var getBin = function () {
+    $.ajax({
+        url: '../../BettingGame.bin',
+        dataType: 'text',
+        success: function (data) {
+            betBin = JSON.parse(data);
+        }
+    });
+}
+
 
 var checkChoice = function () {
     var obj = document.getElementById("submit-div");
@@ -24,6 +81,7 @@ var checkChoice = function () {
 };
 
 var startGame = function () {
+
     var inputs = document.getElementsByName("choice");
     var numChoices = 0;
     var gameDesc = '';
@@ -42,67 +100,42 @@ var startGame = function () {
         fun.popupTip('The game title should be input');
         return;
     }
-    fun.popupTip('The account address have an error');
-    return;
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
-    web3.cmt.getAccounts(function (e, address) {
-        if (e) {
-            fun.popupTip('The account address have an error');
-        } else {
-            var feeDate = '0x' + contract.new.getData(gameDesc, numChoices, {data: betByteCode.object});
-            web3.cmt.estimateGas({data: feeDate}, function (e, estimategas) {
-                var gas = '4700000';
-                if (!e) {
-                    gas = estimategas;
-                }
-                contract.new([gameDesc, numChoices], {
-                    from: address.toString(),
-                    data: feeDate,
-                    gas: gas,
-                    gasPrice: '2000000000'
-                }, function (e, instance) {
-                    console.log(instance);
-                    console.log(e);
-                    if (e) {
-                        fun.popupTip('Start game failed!');
-                    } else {
-                        if (typeof instance.address !== 'undefined') {
-                            var contract_address = instance.address;
-                            window.location.search = "?contract=" + contract_address;
-                            document.getElementById("startGameResult").innerHTML = "Success hash : " + instance + ". You can stop / resume it as people vote.";
-                            showQRAndUrl(contract_address);
-                            console.log('Contract mined! address: ' + contract_address + ' transactionHash: ' + instance.transactionHash);
-                        } else {
-                            document.getElementById("alertTxtSuccess").innerHTML = "Please wait for the game deploy !";
-                            fun.popupTip('Please wait for the game deploy !');
-                        }
-                    }
-                });
-            });
+    var contract = web3.cmt.contract(betAbi);
+    var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, {data: betBin.object});
+    var intervalFun = fun.popupLoadTip('pending .....', 3100);
+    web3.cmt.estimateGas({data: feeDate}, function (e, returnGas) {
+        var gas = '4700000';
+        if (!e) {
+            gas = returnGas;
         }
+        contract.new([gameDesc, numChoices], {
+            from: userAddress.toString(),
+            data: feeDate,
+            gas: gas,
+            gasPrice: '2000000000'
+        }, function (e, instance) {
+            if (e) {
+                fun.popupTip('Start game failed!');
+            } else {
+                callBackCount++;
+                contract_address = instance.address;
+                if (typeof contract_address != 'undefined') {
+                    removedTheInterval(intervalFun);
+                    fun.popupTip('Create this Bet Game Success!');
+                    setTimeout(function () {
+                        window.location.href = './simplebet_join.html?contract=' + contract_address;
+                    }, 3000);
+                    console.log('Contract mined! address: ' + contract_address + ' transactionHash: ' + instance.transactionHash);
+                }
+                // default callBack count ,if the count bigger then 2,then hide the popupTip
+                if (callBackCount >= 2) {
+                    setTimeout(function () {
+                        removedTheInterval(intervalFun);
+                    }, 1000);
+                }
+            }
+        });
     });
 }
-
-/*
-
-new MainFun.addEvent(document.getElementById("addDiv"), "click", mainFun.createDiv());
-new MainFun.addEvent(document.getElementById("delDiv"), "click", mainFun.removeLastDiv());
-// check choice and show the submit button
-mainFun.checkChoice(document.getElementsByName("choice"), document.getElementsByClassName("main-button")[0], document.getElementById("submit-div"), "click", startFun.startGame());
-
-var startFun = (function () {
-
-    var _startGame = function () {
-        alert("start game");
-    };
-
-    var StartFun = function (...args) {
-    };``
-
-    StartFun.startGame = function () {
-        _startGame();
-    };
-
-    return startFun;
-});*/
