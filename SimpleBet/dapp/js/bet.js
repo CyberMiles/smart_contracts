@@ -8,17 +8,26 @@ const baseUrl = 'http://192.169.31.32:8088/workspace_go/smart_contracts/SimpleBe
 var localUrl = baseUrl + "?contract=" + contract_address;
 var userAddress = '';
 const displayLink = "Copy CMT Code and goto CMT Wallet App to Open Red Packet! " + localUrl + "CMT Wallet Download Link：https://www.cybermiles.io/cmt-wallet/";
+const popupTipId = "pupopBox";
 //fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 var betAbi = '';
 var betBin = '';
 var contract = '';
 var instance = '';  // contract instance
+var gameDesc = '';  // the bet desc with title and choices
 //Game status -1:unknown 0:init 1:progress 2:stop 3:end
 var gameStatus = -1;
 // Game correct choice
 var correctChoice = -1;
-// User choice of this bet Game
+// User choice of this Bet Game
 var userChoice = -1;
+// if paid for this Bet Game（type is boolean）
+var statusPaid = -1;
+// user pay amount for this Bet Game
+var userPayAmount = 0;
+// paid amount to user for this Bet Game
+var payoutAmount = 0;
+
 // init the functions in the html
 $(function () {
     // init the abi and bin
@@ -33,7 +42,7 @@ $(function () {
             userAddress = address.toString();
             $("#userAddress").html(dealUserAddress(userAddress));
             $("#removedTheInterval").val(true);
-            fun.popupLoadTipClose(interval, "pupopBox");
+            fun.popupLoadTipClose(interval, popupTipId);
             contract = web3.cmt.contract(betAbi, contract_address);
             instance = contract.at(contract_address);
             instance.checkStatus(userAddress, function (gameError, result) {
@@ -42,14 +51,14 @@ $(function () {
                     fun.popupTip('Game status have an error ：' + gameError);
                     return;
                 } else {
-                    gameStatus = BigInt(result[0]);
-                    var gameDesc = result[1];
-                    var choice = BigInt(result[2]);
-                    var status_amount = BigInt(result[3] / 1000000000000000000);
-                    var status_payout = BigInt(result[4] / 1000000000000000000);
-                    var status_paid = Boolean(result[5]);
+                    console.log(result.toString());
+                    gameStatus = Number(result[0]);
+                    gameDesc = result[1];
+                    userChoice = Number(result[2]);
+                    userPayAmount = Number(result[3] / 1000000000000000000);
+                    payoutAmount = Number(result[4] / 1000000000000000000);
+                    statusPaid = Boolean(result[5]);
                     // if the owner of this bet then show the betting settings
-                    console.log(gameStatus);
                     instance.owner(function (e, owner) {
                         if (owner && owner == address) {
                             if (gameStatus == 1) {
@@ -60,10 +69,15 @@ $(function () {
                             }
                         }
                     });
-                    showChoices();
+                    showChoices(gameDesc);
                     betStatusFun(gameStatus);
+                    $("#userAmount").text(userPayAmount);
+                    // when the game stop or end ,unbind the event with these choice
+                    if (gameStatus == 2 || gameStatus == 3) {
+                        unbindSelect();
+                    }
                     // user can not choice when user 1:selected 2:the game stop 3:the game end
-                    if (gameStatus != 1 || userChoice >= 0) {
+                    if (userChoice > 0) {
                         showChoice(gameStatus, userChoice, correctChoice);
                     }
                     //if the bet game had end
@@ -128,233 +142,7 @@ var getAbi = function () {
         sync: true,
         dataType: 'text',
         success: function (data) {
-            //betAbi = JSON.parse(data);
-            betAbi = [
-                {
-                    "constant": false,
-                    "inputs": [
-                        {
-                            "name": "_correct_choice",
-                            "type": "int8"
-                        },
-                        {
-                            "name": "_correct_choice_txt",
-                            "type": "string"
-                        }
-                    ],
-                    "name": "endGame",
-                    "outputs": [],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "constant": false,
-                    "inputs": [],
-                    "name": "payMe",
-                    "outputs": [],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "constant": false,
-                    "inputs": [
-                        {
-                            "name": "_choice",
-                            "type": "int8"
-                        }
-                    ],
-                    "name": "placeBet",
-                    "outputs": [],
-                    "payable": true,
-                    "stateMutability": "payable",
-                    "type": "function"
-                },
-                {
-                    "constant": false,
-                    "inputs": [],
-                    "name": "resumeGame",
-                    "outputs": [],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "constant": false,
-                    "inputs": [],
-                    "name": "stopGame",
-                    "outputs": [],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "constant": false,
-                    "inputs": [],
-                    "name": "terminate",
-                    "outputs": [],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [
-                        {
-                            "name": "_game_desc",
-                            "type": "string"
-                        },
-                        {
-                            "name": "_number_of_choices",
-                            "type": "int8"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "constructor"
-                },
-                {
-                    "constant": true,
-                    "inputs": [
-                        {
-                            "name": "_addr",
-                            "type": "address"
-                        }
-                    ],
-                    "name": "checkStatus",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "int8"
-                        },
-                        {
-                            "name": "",
-                            "type": "string"
-                        },
-                        {
-                            "name": "",
-                            "type": "int8"
-                        },
-                        {
-                            "name": "",
-                            "type": "uint256"
-                        },
-                        {
-                            "name": "",
-                            "type": "uint256"
-                        },
-                        {
-                            "name": "",
-                            "type": "bool"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "correct_choice",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "int8"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "correct_choice_txt",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "string"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "game_desc",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "string"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "game_status",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "int8"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "getAnswer",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "int8"
-                        },
-                        {
-                            "name": "",
-                            "type": "string"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "number_of_choices",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "int8"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "owner",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "address"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                }
-            ]
+            betAbi = JSON.parse(data);
         }
     });
 }
@@ -379,6 +167,16 @@ var unbindSelect = function () {
     var elements = document.getElementsByName("choice");
     for (var i = 0; i < elements.length; i++) {
         fun.delMainEvent(elements[i], "click", optionSelect);
+    }
+}
+
+/**
+ * add choice onclick event
+ */
+var bindSelect = function () {
+    var elements = document.getElementsByName("choice");
+    for (var i = 0; i < elements.length; i++) {
+        fun.addMainEvent(elements[i], "click", optionSelect);
     }
 }
 
@@ -488,17 +286,6 @@ var funArray = function () {
 }
 
 /**
- * stop the bet
- */
-var stopBet = function () {
-    //TODO stop game
-    fun.popupTip('stop pending');
-    setTimeout(function () {
-        fun.removePopupTip();
-    }, 112000)
-}
-
-/**
  * declare correct choice
  */
 var declareBetGame = function () {
@@ -545,14 +332,41 @@ var declareBetCancel = function () {
 }
 
 /**
+ * stop the bet
+ */
+var stopBet = function () {
+    var interval = fun.popupLoadTip('resume ing .....', 3100);
+    instance.stopGame({
+        gas: 3000000,
+        gasPrice: 2000000000
+    }, function (e, result) {
+        if (e) {
+            fun.popupTip('It have a error when stop this Bet Game : ' + e);
+        } else {
+            getGameStatus("stop");
+            setTimeout(function () {
+                fun.popupLoadTipClose(interval, popupTipId);
+            }, 20000)
+        }
+    });
+}
+
+/**
  * resume the game
  */
 var resumeBet = function () {
-    //TODO resume game
-    fun.popupTip('resume game');
-    setTimeout(function () {
-        fun.removePopupTip();
-    }, 2000)
+    var interval = fun.popupLoadTip('resume ing .....', 3100);
+    instance.resumeGame({
+        gas: 3000000,
+        gasPrice: 2000000000
+    }, function (e, result) {
+        if (e) {
+            fun.popupTip('It have a error when resume this Bet Game : ' + e);
+        } else {
+            getGameStatus("resume");
+            fun.popupLoadTipClose(interval, popupTipId);
+        }
+    });
 }
 
 /**
@@ -659,25 +473,69 @@ var confirmOption = function () {
  */
 var confirmOptionSubmit = function () {
     var amount = $("#SubmitValue").val();
+    var selectedValue = $("#selectedValue").val();
     fun.popupLoadTip('pending .....', 3100);
-    return;
     if (amount <= 0) {
         fun.popupTip('The amount you fill should more than zero!')
         return;
     }
-    //fun.popupTip('The choice you submit is pending， wait for seconds!')
-    fun.popupLoadTip('pending .....', 3100);
+    if (gameStatus == 0) {
+        fun.popupTip('The Game have not start yet!')
+        return;
+    }
+    if (gameStatus == 2) {
+        fun.popupTip('The Game had been stopped !')
+        return;
+    }
+    var feeData = instance.placeBet.getData(selectedValue + "");
+    var amountStr = String(web3.toWei(amount, "cmt"));
+    web3.cmt.estimateGas({
+        data: feeData,
+        to: contract_address,
+        value: amountStr
+    }, function (error, gas) {
+        var virtualGas = '20000000';
+        if (error) {
+            console.log("error for get gas");
+        } else {
+            virtualGas = gas;
+        }
+        instance.placeBet(selectedValue, {
+            value: web3.toWei(amount, "cmt"),
+            gas: virtualGas,
+            gasPrice: 2000000000
+        }, function (e, result) {
+            if (e) {
+                console.log("bet result : " + result);
+                fun.popupTip('The game you bet have some error :' + e);
+            } else {
+                getGameStatus('bet');
+            }
+        });
+    });
 }
 
 /**
  * show the choice
  */
-var showChoices = function (values) {
+var showChoices = function (gameDesc) {
+    if (gameDesc == null || gameDesc == '' || gameDesc.split(";").length < 1) {
+        console.log("This bet game have no set choice and title");
+        return;
+    }
+    var descs = gameDesc.split(";");
+    if (descs.length == 1) {
+        console.log("This bet game have no choice");
+        $("#betTitle").text(descs[0]);
+        return;
+    }
+    var values = descs;
     var html = '';
+    $("#betTitle").text(descs[0]);
     if (values instanceof Array) {
-        for (var i = 0; i < values.length; i++) {
+        for (var i = 1; i < values.length; i++) {
             var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
-                '<p class="main-bet-join-div">' + values[i] + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + i + '</p></div></div>';
+                '<p class="main-bet-join-div">' + fun.getLetterByNum(i) + '. ' + values[i] + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + i + '</p></div></div>';
             html += div;
         }
     } else {
@@ -694,6 +552,61 @@ var showChoices = function (values) {
         fun.addMainEvent(elements[i], "click", optionSelect);
     }
 };
+
+/**
+ * get the game status
+ */
+var getGameStatus = function (type) {
+    var interval = setInterval(function () {
+        instance.checkStatus(userAddress, function (gameError, result) {
+            if (gameError) {
+                console.log(gameError);
+                fun.popupTip('Game status have an error ：' + gameError);
+                return;
+            } else {
+                console.log(result.toString());
+                gameStatus = Number(result[0]);
+                gameDesc = result[1];
+                userChoice = Number(result[2]);
+                userPayAmount = Number(result[3] / 1000000000000000000);
+                payoutAmount = Number(result[4] / 1000000000000000000);
+                statusPaid = Boolean(result[5]);
+                if (gameError) {
+                    console.log("Get the bet game status : " + result);
+                    fun.popupTip('Get the bet game status have some error :' + e);
+                } else {
+                    // if stop the game ,when the result for the game had return ,then will refresh this page
+                    console.log("Game check result is ：" + result);
+                    if (result) {
+                        if (type == 'stop' && gameStatus == 2) {
+                            fun.popupTip("The Game had stopped!");
+                            clearInterval(interval);
+                            betStatusFun(gameStatus);
+                            unbindSelect();
+                            hiddenAllSelect();
+                            gameStatus = 2;
+                        }
+                        if (gameStatus == 1) {
+                            gameStatus = 1;
+                            if (type == 'resume') {
+                                clearInterval(interval);
+                                fun.popupTip("The Game had resumed !");
+                                betStatusFun(gameStatus);
+                                bindSelect();
+                            }
+                            if (type == 'bet' && userChoice > 0) {
+                                clearInterval(interval);
+                                fun.popupTip("The Game you bet success !");
+                                showChoice(gameStatus, userChoice, correctChoice);
+                                $("#userAmount").text(userPayAmount);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }, 3000);
+}
 
 /**
  * change the selected option style
@@ -753,3 +666,23 @@ var hiddenAllSelectAlert = function () {
     }
     document.getElementById("selectedValue").value = '';
 }
+
+/**
+ * create contract success callback function
+ */
+var setTheContractAddressAndTurn = function (result) {
+    console.log(result);
+    if (result != null && (result.contractAddress != 'undefined' || result.address != 'undefined')) {
+        fun.popupTip('Create this Bet Game Success，and then will turn to Bet Page!');
+        setTimeout(function () {
+            // window.location.reload();
+        }, 3000);
+    }
+};
+
+/**
+ * create contract success callback function
+ */
+var callbackError = function () {
+    fun.popupTip('Create this Bet Game Failed，please refresh !');
+};

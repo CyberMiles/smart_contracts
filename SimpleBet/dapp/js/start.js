@@ -3,7 +3,6 @@ var userAddress = '';
 var betAbi = '';
 var betBin = '';
 var boxDivId = 'pupopBox';
-var callBackCount = 0;
 var contract_address = '';
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
@@ -110,7 +109,7 @@ var startGame = function () {
         if (!e) {
             gas = returnGas;
         }
-        contract.new([gameDesc, numChoices], {
+        contract.new([gameDesc, numChoices - 1], {
             from: userAddress.toString(),
             data: feeDate,
             gas: gas,
@@ -119,23 +118,46 @@ var startGame = function () {
             if (e) {
                 fun.popupTip('Start game failed!');
             } else {
-                callBackCount++;
                 contract_address = instance.address;
-                if (typeof contract_address != 'undefined') {
-                    removedTheInterval(intervalFun);
-                    fun.popupTip('Create this Bet Game Success!');
-                    setTimeout(function () {
-                        window.location.href = './simplebet_join.html?contract=' + contract_address;
-                    }, 3000);
+                // if callback fun have no result then should call function for check result for this tx
+                var shouldCheckTheResult = Boolean($("#shouldCheckTheResult").val());
+                if (typeof contract_address != 'undefined' && shouldCheckTheResult) {
+                    shouldCheckTheResult = false;
                     console.log('Contract mined! address: ' + contract_address + ' transactionHash: ' + instance.transactionHash);
+                    setTheContractAddressAndTurn(instance);
+                    $("#shouldCheckTheResult").val("");
                 }
-                // default callBack count ,if the count bigger then 2,then hide the popupTip
-                if (callBackCount >= 2) {
-                    setTimeout(function () {
-                        removedTheInterval(intervalFun);
-                    }, 1000);
+
+                if (shouldCheckTheResult) {
+                    console.log("call back have not result ,then will call the function for check the result by this tx ");
+                    fun.checkTransactionStatus(instance.transactionHash, setTheContractAddressAndTurn, callbackError);
+                    $("#shouldCheckTheResult").val("");
                 }
             }
         });
     });
-}
+};
+
+/**
+ * create contract success callback function
+ */
+var setTheContractAddressAndTurn = function (result) {
+    if (result != null && (result.contractAddress != 'undefined' || result.address != 'undefined')) {
+        fun.popupTip('Create this Bet Game Success，and then will turn to Bet Page!');
+        setTimeout(function () {
+            var turnAddress = result.contractAddress;
+            if (turnAddress == 'undefined') {
+                turnAddress = result.address
+            }
+            console.log(turnAddress);
+            window.location.href = './simplebet_join.html?contract=' + turnAddress;
+        }, 3000);
+    }
+};
+
+/**
+ * create contract success callback function
+ */
+var callbackError = function () {
+    fun.popupTip('Create this Bet Game Failed，please refresh !');
+};

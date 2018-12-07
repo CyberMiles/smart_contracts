@@ -1,7 +1,7 @@
-document.write("<script type='text/javascript' src='https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'></script>");
-document.write("<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossOrigin='anonymous'></script>");
-document.write("<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossOrigin='anonymous'></script>");
 document.write("<script type='text/javascript' src='../js/qrcode.js'></script>");
+document.write("<script type='text/javascript' src='../js/jquery.min.js'></script>");
+document.write("<script type='text/javascript' src='../js/popper.min.js'></script>");
+document.write("<script type='text/javascript' src='../js/bootstrap.min.js'></script>");
 document.write("<script type='text/javascript' src='../js/clipboard.js'></script>");
 document.write("<script type='text/javascript' src='../js/popuTip/layer.js'></script>");
 
@@ -367,6 +367,33 @@ var MainFun = (function () {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
+    var _checkTransactionStatus = function (tx, successCallback, errorCallback) {
+        var checkTransactionTimer = setInterval(function () {
+            web3.cmt.getTransactionReceipt(tx, function (error, result) {
+                if (!error) {
+                    if (result != null && result.status == '0x1') {
+                        clearInterval(checkTransactionTimer);
+                        if (successCallback != null && successCallback != undefined) {
+                            successCallback(result);
+                        } else {
+                            alert('Transaction successfully!')
+                        }
+
+                    } else if (result != null && result.status == '0x0') {
+                        if (errorCallback != null && errorCallback != undefined) {
+                            errorCallback(error);
+                        } else {
+                            alert('Transaction failed!')
+                            // IUToast.show('error', 'Transaction failed!', 1500);
+                        }
+                        clearInterval(checkTransactionTimer);
+                    }
+                }
+            })
+        }, 3000)
+    };
+
+
     var MainFunction = function (...args) {
     };
 
@@ -377,6 +404,10 @@ var MainFun = (function () {
         return function createDiv() {
             _createDiv(elementObj);
         };
+    };
+
+    MainFunction.checkTransactionStatus = function (tx, successCallback, errorCallback) {
+        _checkTransactionStatus(tx, successCallback, errorCallback);
     };
 
     MainFunction.createDivByClassName = function (className) {
@@ -423,6 +454,10 @@ var MainFun = (function () {
     MainFunction.popupTip = function (pupText, btnText) {
         _popupTip('255px', '160px', pupText, '', '38px', btnText);
         this.addMainEvent(document.getElementById("pupopBox"), "click", this.closePopupTip)
+    }
+
+    MainFunction.getLetterByNum = function (number) {
+        return _convert(number);
     }
 
     /**
@@ -481,7 +516,7 @@ var MainFun = (function () {
     }
 
     MainFunction.getParameter = function (name) {
-        _getUrlParameter(name);
+        return _getUrlParameter(name);
     }
 
     return MainFunction;

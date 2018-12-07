@@ -42,7 +42,7 @@ contract BettingGame {
     
     function placeBet (int8 _choice) public payable {
         require (game_status == 1); // game is running
-        require (_choice < number_of_choices); // Must be valid choice
+        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
         require (msg.value > 0); // Must have bet amount
         require (bets[msg.sender].initialized == false); // Cannot bet twice
         

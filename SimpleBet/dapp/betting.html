@@ -288,7 +288,8 @@
             "type": "constructor"
         }
     ];
-    var contract_addr = getUrlParameter('contract');
+    //var contract_addr = getUrlParameter('contract');
+    var contract_addr = "0xbede3aa61a31369d6ee89cee0681d3fb5d9d487a";
     const contract = web3.cmt.contract(betAbi, contract_addr);
     const instance = contract.at(contract_addr);
     $(function () {
@@ -309,6 +310,7 @@
                 document.getElementById("alertTxt").style.visibility = "visible";
                 document.getElementById("alertTxt").innerHTML = "There is an error with this game status !";
             } else {
+                console.log(result.toString());
                 // check the game status
                 // game_status, game_desc, bets[_addr].choice, uint256(bets[_addr].amount), uint256(payout), bets[_addr].paid
                 var game_status = Number(result[0]);
