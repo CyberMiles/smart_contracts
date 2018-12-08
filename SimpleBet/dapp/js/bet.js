@@ -2,13 +2,16 @@ const fun = new MainFun();
 const functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy Bet Link', 'Share Bet QR Code'];
 const betStatus = ['Not Start', 'In Progress', 'Pending Confirm', 'End'];// functionArray status 0:init 1:progress 2:stop 3:end
 const betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];// betting status 0:init 1:progress 2:stop 3:end
-//TODO online should replace this const to the prod env
 const contract_address = fun.getParameter("contract");
 const baseUrl = 'http://192.169.31.32:8088/workspace_go/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html';
 var localUrl = baseUrl + "?contract=" + contract_address;
 var userAddress = '';
 const displayLink = "Copy CMT Code and goto CMT Wallet App to Open Red Packet! " + localUrl + "CMT Wallet Download Link：https://www.cybermiles.io/cmt-wallet/";
 const popupTipId = "pupopBox";
+var contentId = "owner-bet";
+var afterBtnName = "after-button";
+var withdrawButtonName = "Withdraw bet reward";
+var reloadTime = 60000;
 //fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 var betAbi = '';
 var betBin = '';
@@ -34,6 +37,10 @@ $(function () {
     getAbi();
     getBin();
     bindShare();
+    checkGameStatus();
+});
+
+var checkGameStatus = function () {
     var interval = fun.popupLoadTip('pending .....', 1000);
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
@@ -58,14 +65,12 @@ $(function () {
                     userPayAmount = Number(result[3] / 1000000000000000000);
                     payoutAmount = Number(result[4] / 1000000000000000000);
                     statusPaid = Boolean(result[5]);
+                    correctChoice = Number(result[6]);
                     // if the owner of this bet then show the betting settings
                     instance.owner(function (e, owner) {
                         if (owner && owner == address) {
-                            if (gameStatus == 1) {
-                                showBetSetting(contentId, afterBtnName, "Bet settings", betSettingStop);
-                            }
-                            if (gameStatus == 2) {
-                                showBetSetting(contentId, afterBtnName, "Bet settings", betSettingResume);
+                            if (gameStatus != 3) {
+                                showBetSetting(contentId, afterBtnName, "Bet settings", betSetting);
                             }
                         }
                     });
@@ -78,16 +83,16 @@ $(function () {
                     }
                     // user can not choice when user 1:selected 2:the game stop 3:the game end
                     if (userChoice > 0) {
-                        showChoice(gameStatus, userChoice, correctChoice);
+                        showUserChoice(gameStatus, userChoice, correctChoice);
                     }
                     //if the bet game had end
-                    var contentId = "owner-bet";
-                    var afterBtnName = "after-button";
-                    var buttonName = "Withdraw bet reward";
                     if (gameStatus == 3) {
+                        if (document.getElementById("submit-div")) {
+                            document.getElementById("submit-div").style.display = 'none';
+                        }
                         // use selected the correct choice
                         if (userChoice > 0 && correctChoice == userChoice) {
-                            showWithdraw(contentId, afterBtnName, buttonName, withdraw);
+                            showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
                         } else {
                             showFailed(contentId);
                         }
@@ -96,7 +101,7 @@ $(function () {
             });
         }
     });
-});
+}
 
 /**
  * hide some of userAddress
@@ -117,9 +122,11 @@ var dealUserAddress = function (address) {
  * @param userChoice    user choice
  * @param correctChoice correct choice
  */
-var showChoice = function (status, userChoice, correctChoice) {
+var showUserChoice = function (status, userChoice, correctChoice) {
     unbindSelect();
-    document.getElementById("submit-div").remove();
+    if (document.getElementById("submit-div")) {
+        document.getElementById("submit-div").remove();
+    }
     var elements = document.getElementsByName("choice");
     for (var i = 0; i < elements.length; i++) {
         var selectValue = elements[i].lastChild.textContent
@@ -200,17 +207,18 @@ var betStatusFun = function (status) {
 }
 
 /**
- * add popuTip when the game status is running
+ * add popuTip with the game status
  */
-var betSettingStop = function () {
-    fun.popupTipBottom([functionArray[0], functionArray[1]], funArray);
-}
+var betSetting = function () {
 
-/**
- * add popuTip when the game status is stop
- */
-var betSettingResume = function () {
-    fun.popupTipBottom([functionArray[2], functionArray[1]], funArray);
+    // when the game is running
+    if (gameStatus == 1) {
+        fun.popupTipBottom([functionArray[0], functionArray[1]], funArray);
+    }
+    if (gameStatus == 2) {
+        //when the game stop
+        fun.popupTipBottom([functionArray[2], functionArray[1]], funArray);
+    }
 }
 
 /**
@@ -232,14 +240,35 @@ var showBetSetting = function (btnId, afterBtnName, buttonName, betFun) {
  * @param buttonName
  * @param betFun
  */
-var showWithdraw = function (contentId, afterBtnName, buttonName, betFun) {
+var showWithdraw = function (contentId, afterBtnName, buttonName, betFun, paid, payAmount) {
+    var id = "winner-div";
     var showColor = "#1976d2";
     fun.addButton(contentId, afterBtnName, buttonName, showColor, betFun);
-    var id = "winner-div";
-    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
-    fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[1], content, [id], contentId);
+    if (paid) {
+        var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
+        content += '<div class="winner-show">You had got ' + payAmount + ' !</div>';
+        fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[1], content, [id], contentId);
+        document.getElementById(contentId).style.display = 'none';
+    }
 }
 
+
+/**
+ * show the game win result and withdraw success
+ * @param contentId
+ * @param afterBtnName
+ * @param buttonName
+ * @param betFun
+ */
+var showWithdrawSuccess = function (contentId, afterBtnName, buttonName, betFun, paid, payAmount) {
+    var id = "winner-div";
+    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
+    if (paid) {
+        content += '<div class="winner-show">You had got ' + payAmount + ' !</div>';
+    }
+    fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[1], content, [id], contentId);
+
+}
 /**
  * show the game failed result
  */
@@ -254,8 +283,18 @@ var showFailed = function () {
  * user withdraw
  */
 var withdraw = function () {
-    //TODO user withdraw
-    alert("withdraw");
+    var interval = fun.popupLoadTip('Paying .....', 3100);
+    instance.payMe(function (e, result) {
+        if (e != null) {
+            fun.popupTip('It have a error when withdraw : ' + e);
+        } else {
+            getGameStatus('withdraw');
+            setTimeout(function () {
+                fun.popupLoadTipClose(interval, popupTipId);
+                window.location.reload();
+            }, reloadTime)
+        }
+    });
 }
 
 /**
@@ -289,20 +328,52 @@ var funArray = function () {
  * declare correct choice
  */
 var declareBetGame = function () {
-    //TODO declare correct option
-    fun.popupTip('declare game ing...........');
+    var interval = fun.popupLoadTip('Stopping .....', 3100);
     var choiceValue = $("#selectedValue").val();
+    var dateTime = new Date();
+    var desc = "This Bet Game stop at the Time : " + dateTime + "， and the correct choice is ：" + fun.getLetterByNum(choiceValue);
+    var feeData = instance.endGame.getData(choiceValue, desc);
+    web3.cmt.estimateGas({
+        data: feeData,
+        to: contract_address
+    }, function (error, gas) {
+        var virtualGas = '20000000';
+        if (error) {
+            console.log("error for get gas");
+        } else {
+            virtualGas = gas;
+        }
+        console.log("placeBet gas is : " + virtualGas);
+        instance.endGame(Number(choiceValue), desc, {
+            gas: virtualGas,
+            gasPrice: 2000000000
+        }, function (e, result) {
+            if (e) {
+                fun.popupTip('It have a error when declare this Bet Game : ' + e);
+            } else {
+                getGameStatus('declare');
+                setTimeout(function () {
+                    fun.popupLoadTipClose(interval, popupTipId);
+                    window.location.reload();
+                }, reloadTime)
+            }
+        });
+    });
 }
 
 /**
  * bind the declare button event
  */
 var declareBet = function () {
-    var title = "how is the weather today？";
-    var select = ['A. Smog', 'B. Snowing', 'C. Rain', 'D. Rain', 'E. Rain'];
+    var descs = gameDesc.split(";");
+    var selects = [];
+    for (var i = 1; i < descs.length; i++) {
+        selects.push(fun.getLetterByNum(i) + '. ' + descs[i]);
+    }
+    var title = descs[0];
     var btnName = ['Declare', 'Cancel'];
     // create select popupTip
-    fun.popupSelectTip(title, select, btnName);
+    fun.popupSelectTip(title, selects, btnName);
     fun.addMainEvent(document.getElementById(btnName[0]), "click", declareBetGame);
     fun.addMainEvent(document.getElementById(btnName[1]), "click", declareBetCancel);
     var elements = document.getElementsByName("choiceAlert");
@@ -335,7 +406,7 @@ var declareBetCancel = function () {
  * stop the bet
  */
 var stopBet = function () {
-    var interval = fun.popupLoadTip('resume ing .....', 3100);
+    var interval = fun.popupLoadTip('Stopping .....', 3100);
     instance.stopGame({
         gas: 3000000,
         gasPrice: 2000000000
@@ -346,7 +417,8 @@ var stopBet = function () {
             getGameStatus("stop");
             setTimeout(function () {
                 fun.popupLoadTipClose(interval, popupTipId);
-            }, 20000)
+                window.location.reload();
+            }, reloadTime)
         }
     });
 }
@@ -355,7 +427,7 @@ var stopBet = function () {
  * resume the game
  */
 var resumeBet = function () {
-    var interval = fun.popupLoadTip('resume ing .....', 3100);
+    var interval = fun.popupLoadTip('Resuming .....', 3100);
     instance.resumeGame({
         gas: 3000000,
         gasPrice: 2000000000
@@ -364,7 +436,10 @@ var resumeBet = function () {
             fun.popupTip('It have a error when resume this Bet Game : ' + e);
         } else {
             getGameStatus("resume");
-            fun.popupLoadTipClose(interval, popupTipId);
+            setTimeout(function () {
+                fun.popupLoadTipClose(interval, popupTipId);
+                window.location.reload();
+            }, reloadTime)
         }
     });
 }
@@ -571,6 +646,7 @@ var getGameStatus = function (type) {
                 userPayAmount = Number(result[3] / 1000000000000000000);
                 payoutAmount = Number(result[4] / 1000000000000000000);
                 statusPaid = Boolean(result[5]);
+                correctChoice = Number(result[6]);
                 if (gameError) {
                     console.log("Get the bet game status : " + result);
                     fun.popupTip('Get the bet game status have some error :' + e);
@@ -583,7 +659,9 @@ var getGameStatus = function (type) {
                             clearInterval(interval);
                             betStatusFun(gameStatus);
                             unbindSelect();
-                            hiddenAllSelect();
+                            if (userChoice < 1) {
+                                hiddenAllSelect();
+                            }
                             gameStatus = 2;
                         }
                         if (gameStatus == 1) {
@@ -592,13 +670,46 @@ var getGameStatus = function (type) {
                                 clearInterval(interval);
                                 fun.popupTip("The Game had resumed !");
                                 betStatusFun(gameStatus);
-                                bindSelect();
+                                if (userChoice > 0) {
+                                    showUserChoice(gameStatus, userChoice, correctChoice);
+                                } else {
+                                    bindSelect();
+                                }
                             }
                             if (type == 'bet' && userChoice > 0) {
                                 clearInterval(interval);
                                 fun.popupTip("The Game you bet success !");
-                                showChoice(gameStatus, userChoice, correctChoice);
+                                showUserChoice(gameStatus, userChoice, correctChoice);
                                 $("#userAmount").text(userPayAmount);
+                            }
+                        }
+
+                        // when owner declare the bet game
+                        if (gameStatus == 3) {
+                            clearInterval(interval);
+                            unbindSelect();
+                            showUserChoice(gameStatus, userChoice, correctChoice);
+                            if (type == 'declare') {
+                                fun.popupTip("You had declare the bet Game success! ");
+                                if (document.getElementById(contentId)) {
+                                    document.getElementById(contentId).style.display = 'none';
+                                }
+                                if (userChoice > 0 && correctChoice == userChoice) {
+                                    showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
+                                } else {
+                                    showFailed(contentId);
+                                }
+                            }
+                            if (type == 'withdraw') {
+                                fun.popupTip("Withdraw success ! ");
+                                if (document.getElementById(contentId)) {
+                                    document.getElementById(contentId).style.display = 'none';
+                                }
+                                if (userChoice > 0 && correctChoice == userChoice) {
+                                    showWithdrawSuccess(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
+                                } else {
+                                    showFailed(contentId);
+                                }
                             }
                         }
                     }

@@ -154,11 +154,14 @@ var MainFun = (function () {
             for (var i = 0; i < select.length; i++) {
                 selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><p ' + divSelectFontStyle + ' id="' + select[i] + '">' + select[i] + ' </p>' +
                     '<p class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p>' +
-                    '<p hidden="hidden">' + i + '</p>' +
+                    '<p hidden="hidden">' + (i + 1) + '</p>' +
                     '</div>'
             }
         } else {
-            selectDiv += '<div><p ' + divSelectFontStyle + ' id="' + select + '">' + select + ' </p></div>'
+            selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><p ' + divSelectFontStyle + ' id="' + select + '">' + select + ' </p>' +
+                '<p class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p>' +
+                '<p hidden="hidden">' + 1 + '</p>' +
+                '</div>'
         }
         if (bottomBtn instanceof Array) {
             for (var i = 0; i < bottomBtn.length; i++) {
