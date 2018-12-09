@@ -68,7 +68,7 @@ var MainFun = (function () {
             popDiv.remove();
         }
         var popup = $('<div id="pupopBox" class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
-            'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;' +
+            'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:39%;left:50%;' +
             'transform: translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;width:' + pupW + ';' +
             'height: ' + pupH + ';background-color: #fff;border-radius: 10px;padding: 20px">' +
             '<img class="pupClose" src="' + pupClose + '" style="position: absolute;height:' + pupCloseH + '; top:-' + pupCloseH + ';' +
@@ -455,7 +455,7 @@ var MainFun = (function () {
     };
 
     MainFunction.popupTip = function (pupText, btnText) {
-        _popupTip('255px', '160px', pupText, '', '38px', btnText);
+        _popupTip('255px', '100px', pupText, '', '38px', btnText);
         this.addMainEvent(document.getElementById("pupopBox"), "click", this.closePopupTip)
     }
 

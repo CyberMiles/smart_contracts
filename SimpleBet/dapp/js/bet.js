@@ -3,10 +3,10 @@ const functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy
 const betStatus = ['Not Start', 'In Progress', 'Pending Confirm', 'End'];// functionArray status 0:init 1:progress 2:stop 3:end
 const betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];// betting status 0:init 1:progress 2:stop 3:end
 const contract_address = fun.getParameter("contract");
-const baseUrl = 'http://192.169.31.32:8088/workspace_go/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html';
-var localUrl = baseUrl + "?contract=" + contract_address;
+const baseUrl = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html';
+var shareUrl = baseUrl + "?contract=" + contract_address;
 var userAddress = '';
-const displayLink = "Copy CMT Code and goto CMT Wallet App to Open Red Packet! " + localUrl + "CMT Wallet Download Link：https://www.cybermiles.io/cmt-wallet/";
+const displayLink = "cmtwallet://dapp?url=" + shareUrl;
 const popupTipId = "pupopBox";
 var contentId = "owner-bet";
 var afterBtnName = "after-button";
@@ -495,10 +495,9 @@ var shareQRCode = function () {
     document.getElementById("showChoice").style.display = "none";
     document.getElementById("betShare").style.display = "none";
     document.getElementById("shareDiv").style.display = "block";
-    var url = baseUrl + '?contract=' + contract_address;
     setTimeout(function () {
         new QRCode(document.getElementById("qrcode"), {
-            text: url,
+            text: shareUrl,
             width: 146,
             height: 148,
             colorDark: "#000000",
