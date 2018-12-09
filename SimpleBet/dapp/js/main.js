@@ -24,7 +24,8 @@ var MainFun = (function () {
         var divs = parent.children;
         var lastDiv = divs[divs.length - 2];
         if (divs.length < 5) {
-            alert("不能小于2个选项！");
+            _popupTip('255px', '100px', "Can't be less than 2 options ！", '', '38px');
+            _eventOption(document.getElementById("pupopBox"), "click", _closePopupTip());
             return;
         }
         parent.removeChild(lastDiv);
