@@ -1,33 +1,35 @@
 var fun = new MainFun();
+var tip = IUToast;
 var userAddress = '';
 var betAbi = '';
 var betBin = '';
-var boxDivId = 'pupopBox';
 var contract_address = '';
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 
 $(function () {
-    var intervalFun = fun.popupLoadTip('pending .....', 1000);
-    web3.cmt.getAccounts(function (e, address) {
-        if (e) {
-            fun.popupTip('The account address have an error');
-        } else {
-            $("#userAddress").val(address);
-            removedTheInterval(intervalFun);
-            userAddress = address;
-        }
-    });
+
     getAbi();
     getBin();
+    window.onload = initUserAddress;
 });
 
-/**
- * if the popupTip had showed,then we will hide the popupTip div
- */
-var removedTheInterval = function (intervalFun) {
-    $("#removedTheInterval").val(true);
-    fun.popupLoadTipClose(intervalFun, boxDivId);
+var initUserAddress = function () {
+
+    tip.loading('Get your address info ');
+    console.log(567)
+    web3.cmt.getAccounts(function (e, address) {
+        if (e) {
+            tip.closeError();
+            userAddress = address;
+            tip.loading('The account address have an error', 3000);
+        } else {
+            $("#userAddress").val(address);
+            userAddress = address;
+            tip.closeLoad();
+        }
+    });
+
 }
 
 /**
@@ -92,22 +94,22 @@ var startGame = function () {
         }
     }
     if (numChoices <= 2) {
-        fun.popupTip('The choices must bigger then two!');
+        tip.error('The choices must bigger then two!');
     }
     var title = $("#title").val();
     if (title == null || title == '') {
-        fun.popupTip('The game title should be input');
+        tip.error('The game title should be input!');
         return;
     }
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
     var contract = web3.cmt.contract(betAbi);
     var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, {data: betBin.object});
-    var intervalFun = fun.popupLoadTip('pending .....', 3100);
+    tip.loading('The Game : ' + title + " Initialization !");
     web3.cmt.estimateGas({data: feeDate}, function (e, returnGas) {
-        var gas = '4700000';
+        var gas = '1700000';
         if (!e) {
-            gas = returnGas;
+            gas = Number(returnGas * 2);
         }
         contract.new([gameDesc, numChoices - 1], {
             from: userAddress.toString(),
@@ -116,7 +118,8 @@ var startGame = function () {
             gasPrice: '2000000000'
         }, function (e, instance) {
             if (e) {
-                fun.popupTip('Start game failed!');
+                tip.close();
+                tip.error('Bet contract Create failed ！');
             } else {
                 contract_address = instance.address;
                 // if callback fun have no result then should call function for check result for this tx
@@ -143,7 +146,7 @@ var startGame = function () {
  */
 var setTheContractAddressAndTurn = function (result) {
     if (result != null && (result.contractAddress != 'undefined' || result.address != 'undefined')) {
-        fun.popupTip('Create this Bet Game Success，and then will turn to Bet Page!');
+        tip.right('Bet contract Created ！');
         setTimeout(function () {
             var turnAddress = result.contractAddress;
             if (turnAddress == 'undefined') {
@@ -151,7 +154,7 @@ var setTheContractAddressAndTurn = function (result) {
             }
             console.log(turnAddress);
             window.location.href = './simplebet_join.html?contract=' + turnAddress;
-        }, 3000);
+        }, 2000);
     }
 };
 
@@ -159,5 +162,5 @@ var setTheContractAddressAndTurn = function (result) {
  * create contract success callback function
  */
 var callbackError = function () {
-    fun.popupTip('Create this Bet Game Failed，please refresh !');
+    tip.error('Bet contract Create failed ！');
 };

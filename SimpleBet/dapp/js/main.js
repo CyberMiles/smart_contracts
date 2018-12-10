@@ -4,12 +4,12 @@ document.write("<script type='text/javascript' src='../js/popper.min.js'></scrip
 document.write("<script type='text/javascript' src='../js/bootstrap.min.js'></script>");
 document.write("<script type='text/javascript' src='../js/clipboard.js'></script>");
 document.write("<script type='text/javascript' src='../js/popuTip/layer.js'></script>");
+document.write("<script type='text/javascript' src='../js/popupTip.js'></script>");
 
 
 const domType = ["div", "span", "p"];
 const attrType = ["id", "name", "class"];
 const appendType = ["after", "before", "children", "body", "bodyFirst"];
-
 
 var MainFun = (function () {
     var _createDiv = function (elementObj) {
@@ -24,8 +24,7 @@ var MainFun = (function () {
         var divs = parent.children;
         var lastDiv = divs[divs.length - 2];
         if (divs.length < 5) {
-            _popupTip('255px', '100px', "Can't be less than 2 options ！", '', '38px');
-            _eventOption(document.getElementById("pupopBox"), "click", _closePopupTip());
+            IUToast.error("Can't be less than 2 options ！");
             return;
         }
         parent.removeChild(lastDiv);
