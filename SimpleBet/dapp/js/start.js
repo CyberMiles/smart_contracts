@@ -17,7 +17,6 @@ $(function () {
 var initUserAddress = function () {
 
     tip.loading('Get your address info ');
-    console.log(567)
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.closeError();

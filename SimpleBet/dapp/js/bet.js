@@ -30,6 +30,10 @@ var statusPaid = -1;
 var userPayAmount = 0;
 // paid amount to user for this Bet Game
 var payoutAmount = 0;
+// total bet user count
+var totalBetCount = 0;
+// total bet amount
+var totalBetAmount = 0;
 
 // init the functions in the html
 $(function () {
@@ -42,6 +46,12 @@ $(function () {
 
 var checkGameStatus = function () {
     tip.loading("Transaction Processing... ");
+    try {
+        web3.cmt
+    } catch (e) {
+        getUserAgent();
+        return;
+    }
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error("The account address have an error!");
@@ -89,18 +99,57 @@ var checkGameStatus = function () {
                         if (document.getElementById("submit-div")) {
                             document.getElementById("submit-div").style.display = 'none';
                         }
-                        // use selected the correct choice
-                        if (userChoice > 0 && correctChoice == userChoice) {
-                            showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
+                        // use selected the choice
+                        if (userChoice > 0) {
+                            if (correctChoice == userChoice) {
+                                showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
+                            } else {
+                                showFailed(contentId);
+                            }
                         } else {
-                            showFailed(contentId);
+                            showNotJoin(contentId);
                         }
                     }
                     tip.closeLoad();
                 }
             });
+            instance.getBetInfo(function (e, result) {
+                if (e) {
+                    console.log("It have an error when get this Bet Game info ：" + e);
+                    tip.error("It have an error when get Bet Game info ,please retry ! ");
+                } else {
+                    console.log(result.toString());
+                    totalBetCount = Number(result[3]);
+                    totalBetAmount = Number(result[4] / 1000000000000000000);
+                    $("#totalBetCount").html(totalBetCount);
+                    $("#totalBetAmount").html(totalBetAmount);
+                    setTimeout(function () {
+                        tip.error("It have an error when get Bet Game info ,please retry ! ");
+                        window.location.reload();
+                    }, reloadTime)
+                }
+            });
         }
-    });
+    })
+    ;
+}
+
+/**
+ * get bet info
+ */
+var getUserAgent = function () {
+    var agent = navigator.userAgent;
+    if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
+        tip.error("You should download CMT Wallet first！");
+        setTimeout(function () {
+            //window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
+        }, 3000)
+    } else {
+        tip.error("You should download MetaMask for CMT first！");
+        setTimeout(function () {
+            //window.location.href = 'https://www.cybermiles.io/metamask/';
+        }, 3000)
+    }
 }
 
 /**
@@ -271,10 +320,20 @@ var showWithdrawSuccess = function (contentId, afterBtnName, buttonName, betFun,
 /**
  * show the game failed result
  */
-var showFailed = function () {
+var showFailed = function (contentId) {
     var contentId = "choices";
     var id = "failed-div";
     var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;Sorry, you bet failed!</div>';
+    fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
+}
+
+/**
+ * show the game not join
+ */
+var showNotJoin = function () {
+    var contentId = "choices";
+    var id = "not-join-div";
+    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;Bet game is over！</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
 
@@ -289,6 +348,7 @@ var withdraw = function () {
         } else {
             getGameStatus('withdraw');
             setTimeout(function () {
+                tip.error("It have a error when withdraw ,please retry");
                 window.location.reload();
             }, reloadTime)
         }
@@ -352,6 +412,7 @@ var declareBetGame = function () {
             } else {
                 getGameStatus('declare');
                 setTimeout(function () {
+                    tip.error("It have an error when declare this Bet Game ,please retry ! ");
                     window.location.reload();
                 }, reloadTime)
             }
@@ -414,6 +475,7 @@ var stopBet = function () {
         } else {
             getGameStatus("stop");
             setTimeout(function () {
+                tip.error("It have a error when stop this Bet Game， please retry ！" + e);
                 window.location.reload();
             }, reloadTime)
         }
@@ -434,6 +496,7 @@ var resumeBet = function () {
         } else {
             getGameStatus("resume");
             setTimeout(function () {
+                tip.error("It have a error when resume this Bet Game， please retry！");
                 window.location.reload();
             }, reloadTime)
         }
@@ -459,6 +522,19 @@ var shareLink = function () {
  * init copy link
  */
 var initCopyLink = function () {
+    /* var inputShareLinl = displayLink;
+     try {
+         web3.cmt
+     } catch (e) {
+         var agent = navigator.userAgent;
+         if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
+             tip.error("You should download CMT Wallet first！");
+             inputShareLinl = 'http://www.cybermiles.io/cmt-wallet/';
+         } else {
+             tip.error("You should download MetaMask for CMT first！");
+             window.location.href = 'https://www.cybermiles.io/metamask/';
+         }
+     }*/
     $("#share_link").val(displayLink);
     var copyId = '#share_link';
     var btnId = 'create_share_btn';
@@ -707,6 +783,22 @@ var getGameStatus = function (type) {
                         }
                     }
                 }
+            }
+        });
+        instance.getBetInfo(function (e, result) {
+            if (e) {
+                console.log("It have an error when get this Bet Game info ：" + e);
+                tip.error("It have an error when get Bet Game info ,please retry ! ");
+            } else {
+                console.log(result.toString());
+                totalBetCount = Number(result[3]);
+                totalBetAmount = Number(result[4] / 1000000000000000000);
+                $("#totalBetCount").html(totalBetCount);
+                $("#totalBetAmount").html(totalBetAmount);
+                setTimeout(function () {
+                    tip.error("It have an error when get Bet Game info ,please retry ! ");
+                    window.location.reload();
+                }, reloadTime)
             }
         });
     }, 3000);

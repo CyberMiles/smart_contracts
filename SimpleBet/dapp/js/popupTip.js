@@ -72,6 +72,9 @@ const IUToast = {
     },
 
     right: function (iTitle, iDelay) {
+        if (iDelay == null || iDelay == '') {
+            iDelay = 3 * 1000;
+        }
         this.close('error');
         this.close('loading');
         this.show('ok', iTitle, iDelay);
