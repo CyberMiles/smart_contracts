@@ -11,6 +11,12 @@ $(function () {
 
     getAbi();
     getBin();
+    try {
+        web3.cmt
+    } catch (e) {
+        getUserAgent();
+        return;
+    }
     window.onload = initUserAddress;
 });
 
@@ -139,6 +145,24 @@ var startGame = function () {
         });
     });
 };
+
+/**
+ * get bet info
+ */
+var getUserAgent = function () {
+    var agent = navigator.userAgent;
+    if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
+        tip.error("You should download CMT Wallet first！");
+        setTimeout(function () {
+            window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
+        }, 3000)
+    } else {
+        tip.error("You should download MetaMask for CMT first！");
+        setTimeout(function () {
+            window.location.href = 'https://www.cybermiles.io/metamask/';
+        }, 3000)
+    }
+}
 
 /**
  * create contract success callback function
