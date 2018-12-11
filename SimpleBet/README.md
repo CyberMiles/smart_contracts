@@ -59,21 +59,25 @@ Please use Remix or the Travis client deploy the contract. Note the address of t
 
 ### Starting the game
 
-Load the URL below in Chrome to load the admin UI of the contract. Your current active Metamask
-account must be the same account where you deployed the contract (i.e., it is the contract owner).
+Load the URL below in Chrome to create a new contract.
 
-https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet_owner.html?contract=0xContract_Addr
+https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting/simplebet_start.html
 
-Next, you can fill in the question and choices to bet on! Use the contract's owner account in Metamask
-to pay for the gas.
+Next, you can fill in the question and choices to bet on! Use Metamask
+to pay for the gas. 
 
-![Start](images/dapp_start.png)
+![Start](images/dapp_deploy.png)
+
+When you are done, you will be redirected to the betting page. You can place a bet here and can share
+the link with anyone who is interested.
+
+https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html?contract=0xContract_Addr
 
 ### Placing bets
 
-Users who wish to bet can load the following web page.
+Users who wish to place a bet can load the above web page.
 
-https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/simplebet.html?contract=0xContract_Addr
+https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html?contract=0xContract_Addr
 
 Each user can now bet. Each user can only bet once.
 
@@ -81,8 +85,9 @@ Each user can now bet. Each user can only bet once.
 
 ### Declaring winners
 
-Now back to the owner's UI page, the contract owner can stop the betting at any time. And he or she
-can declare winners by declaring the correct answer.
+When the contract creator (owner) loads the bet page (the `simplebet_join.html`), he or she
+will see a Settings button in addition to the Bet button. He or she
+can declare winners through the Settings button.
 
 ![End](images/dapp_end.png)
 
