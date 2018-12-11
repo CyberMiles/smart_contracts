@@ -24,7 +24,7 @@ contract BettingGame {
     int8 public correct_choice;
     string public correct_choice_txt;
 
-    int8 public game_status; // 0 not started; 1 running; 2 stopped; 3 ended
+    int8 public game_status; // 0 not started; 1 running; 2 stopped; 3 ended; 4 cancelled
 
     modifier onlyOwner() {
         assert(msg.sender == owner);
@@ -73,18 +73,31 @@ contract BettingGame {
         correct_choice_txt = _correct_choice_txt;
         game_status = 3;
     }
+    
+    function cancelGame() public {
+        require (msg.sender == owner || isValidator(msg.sender));
+        game_status = 4;
+    }
 
     function payMe () public {
-        require (game_status == 3); // game is done
         require (bets[msg.sender].initialized); // Must have a bet
         require (bets[msg.sender].amount > 0); // More than zero
-        require (bets[msg.sender].choice == correct_choice); // chose correctly
         require (bets[msg.sender].paid == false); // chose correctly
-
-        safeuint payout = bets[msg.sender].amount * total_bet_amount / choice_bet_amounts[correct_choice];
-        if (payout > 0) {
-            msg.sender.transfer(uint256(payout));
+        
+        if (game_status == 3) {
+            // game ended normally
+            require (bets[msg.sender].choice == correct_choice); // chose correctly
+            safeuint payout = bets[msg.sender].amount * total_bet_amount / choice_bet_amounts[correct_choice];
+            if (payout > 0) {
+                msg.sender.transfer(uint256(payout));
+                bets[msg.sender].paid = true; // cannot claim twice
+            }
+        } else if (game_status == 4) {
+            // Just refund the bet
+            msg.sender.transfer(uint256(bets[msg.sender].amount));
             bets[msg.sender].paid = true; // cannot claim twice
+        } else {
+            require (false); // Just fail
         }
     }
 
@@ -93,8 +106,10 @@ contract BettingGame {
         // require (bets[_addr].initialized); // Must have a bet
 
         safeuint payout = 0;
-        if (bets[_addr].choice == correct_choice) {
+        if (game_status == 3 && bets[_addr].choice == correct_choice) {
             payout = bets[_addr].amount * total_bet_amount / choice_bet_amounts[correct_choice];
+        } else if (game_status == 4) {
+            payout = bets[_addr].amount;
         }
 
         return (game_status, game_desc, bets[_addr].choice, uint256(bets[_addr].amount), uint256(payout), bets[_addr].paid, correct_choice);
