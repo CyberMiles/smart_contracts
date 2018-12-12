@@ -7,10 +7,14 @@ var contract_address = '';
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 
-$(function () {
+var webBrowser = new AppLink();
 
+
+$(function () {
     getAbi();
     getBin();
+    webBrowser.openBrowser();
+    return;
     try {
         web3.cmt
     } catch (e) {
@@ -72,8 +76,16 @@ var checkChoice = function () {
     var root = document.getElementsByClassName("main-button")[0];
     var count = 0;
     var title = $("#title").val();
+    if (title.length > 140) {
+        tip.error("Title should less than 140 ！");
+        return;
+    }
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].value != null && inputs[i].value != '') {
+            if (inputs[i].value.length > 70) {
+                tip.error("Option should less than 70 ！");
+                return;
+            }
             count++;
         }
         if (count >= 3 && title != null && title != '') {
@@ -100,6 +112,7 @@ var startGame = function () {
     }
     if (numChoices <= 2) {
         tip.error('The choices must bigger then two!');
+        return;
     }
     var title = $("#title").val();
     if (title == null || title == '') {
@@ -151,11 +164,19 @@ var startGame = function () {
  */
 var getUserAgent = function () {
     var agent = navigator.userAgent;
+    var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
     if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
-        tip.error("You should download CMT Wallet first！");
+        tip.right("It will open the cmt wallet ")
         setTimeout(function () {
-            window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
-        }, 3000)
+            window.location.href = dappUrl;
+            setTimeout(function () {
+                tip.error("Do not find CMT Wallet ,You should download first！");
+                window.location.href = '../betting/testone.html';
+                setTimeout(function () {
+                    tip.error("Copy the link <a href='http://www.cybermiles.io/cmt-wallet/'>http://www.cybermiles.io/cmt-wallet/</a> and open the Browser ！");
+                }, 3000)
+            }, 3000)
+        }, 2000);
     } else {
         tip.error("You should download MetaMask for CMT first！");
         setTimeout(function () {

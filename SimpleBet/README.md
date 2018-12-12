@@ -93,13 +93,13 @@ can declare winners through the Settings button.
 
 ### Getting paid
 
-Having won the bet, User B can now go back to the betting page and get paid CMTs.
-
-![Pay B](images/dapp_payB.png)
-
-The payment option is not available to user A if the metamask account is set to A when the betting page is loaded.
+Having won the bet, User A can now go back to the betting page and get paid CMTs.
 
 ![Pay A](images/dapp_payA.png)
+
+The payment option is not available to user B if the metamask account is set to B when the betting page is loaded.
+
+![Pay B](images/dapp_payB.png)
 
 
 
