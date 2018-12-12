@@ -11,7 +11,7 @@ const displayLink = "Copy CMT Code and goto CMT Wallet App to Bet! cmtwallet://d
 var contentId = "owner-bet";
 var afterBtnName = "after-button";
 var withdrawButtonName = "Withdraw bet reward";
-var reloadTime = 60000;
+var reloadTime = 6000;
 //fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 var betAbi = '';
 var betBin = '';
@@ -34,18 +34,28 @@ var payoutAmount = 0;
 var totalBetCount = 0;
 // total bet amount
 var totalBetAmount = 0;
-
+var lg = "";
 // init the functions in the html
 $(function () {
     // init the abi and bin
     getAbi();
     getBin();
-    bindShare();
-    checkGameStatus();
+    window.onload = function () {
+        bindShare();
+    };
+    var interval = setInterval(function () {
+        if (betAbi.length > 0) {
+            window.onload = checkGameStatus();
+            clearInterval(interval);
+        }
+    }, 50);
+    setInterval(function () {
+        getBetInfo();
+    }, 10 * 1000);
 });
 
 var checkGameStatus = function () {
-    tip.loading("Transaction Processing... ");
+    tip.loading("Transaction Processing...", 3000);
     try {
         web3.cmt
     } catch (e) {
@@ -59,6 +69,7 @@ var checkGameStatus = function () {
             userAddress = address.toString();
             $("#userAddress").html(dealUserAddress(userAddress));
             $("#removedTheInterval").val(true);
+            console.log(betAbi.length);
             contract = web3.cmt.contract(betAbi, contract_address);
             instance = contract.at(contract_address);
             instance.checkStatus(userAddress, function (gameError, result) {
@@ -100,38 +111,32 @@ var checkGameStatus = function () {
                             document.getElementById("submit-div").style.display = 'none';
                         }
                         // use selected the choice
-                        if (userChoice > 0) {
-                            if (correctChoice == userChoice) {
-                                showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
-                            } else {
-                                showFailed(contentId);
-                            }
-                        } else {
-                            showNotJoin(contentId);
-                        }
+                        showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
                     }
                     tip.closeLoad();
                 }
             });
-            instance.getBetInfo(function (e, result) {
-                if (e) {
-                    console.log("It have an error when get this Bet Game info ：" + e);
-                    tip.error("It have an error when get Bet Game info ,please retry ! ");
-                } else {
-                    console.log(result.toString());
-                    totalBetCount = Number(result[3]);
-                    totalBetAmount = Number(result[4] / 1000000000000000000);
-                    $("#totalBetCount").html(totalBetCount);
-                    $("#totalBetAmount").html(totalBetAmount);
-                    setTimeout(function () {
-                        tip.error("It have an error when get Bet Game info ,please retry ! ");
-                        window.location.reload();
-                    }, reloadTime)
-                }
-            });
+            getBetInfo();
         }
-    })
-    ;
+    });
+}
+
+/**
+ * update bet game info
+ */
+var getBetInfo = function () {
+    instance.getBetInfo(function (e, result) {
+        if (e) {
+            console.log("It have an error when get this Bet Game info ：" + e);
+            tip.error("It have an error when get Bet Game info ,please retry ! ");
+        } else {
+            console.log(result.toString());
+            totalBetCount = Number(result[3]);
+            totalBetAmount = Number(result[4] / 1000000000000000000);
+            $("#totalBetCount").html(totalBetCount);
+            $("#totalBetAmount").html(totalBetAmount);
+        }
+    });
 }
 
 /**
@@ -210,6 +215,7 @@ var getBin = function () {
     $.ajax({
         url: '../../BettingGame.bin',
         dataType: 'text',
+        sync: true,
         success: function (data) {
             betBin = JSON.parse(data);
         }
@@ -300,29 +306,15 @@ var showWithdraw = function (contentId, afterBtnName, buttonName, betFun, paid, 
     }
 }
 
-
-/**
- * show the game win result and withdraw success
- * @param contentId
- * @param afterBtnName
- * @param buttonName
- * @param betFun
- */
-var showWithdrawSuccess = function (contentId, afterBtnName, buttonName, betFun, paid, payAmount) {
-    var id = "winner-div";
-    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
-    if (paid) {
-        content += '<div class="winner-show">You had got ' + payAmount + ' !</div>';
-    }
-    fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[1], content, [id], contentId);
-
-}
 /**
  * show the game failed result
  */
 var showFailed = function (contentId) {
     var contentId = "choices";
     var id = "failed-div";
+    if (document.getElementById(id)) {
+        return;
+    }
     var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;Sorry, you bet failed!</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
@@ -333,6 +325,9 @@ var showFailed = function (contentId) {
 var showNotJoin = function () {
     var contentId = "choices";
     var id = "not-join-div";
+    if (document.getElementById(id)) {
+        return;
+    }
     var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;Bet game is over！</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
@@ -349,7 +344,6 @@ var withdraw = function () {
             getGameStatus('withdraw');
             setTimeout(function () {
                 tip.error("It have a error when withdraw ,please retry");
-                window.location.reload();
             }, reloadTime)
         }
     });
@@ -390,6 +384,10 @@ var declareBetGame = function () {
     var choiceValue = $("#selectedValue").val();
     var dateTime = new Date();
     var desc = "This Bet Game stop at the Time : " + dateTime + "， and the correct choice is ：" + fun.getLetterByNum(choiceValue);
+    if (choiceValue <= 0) {
+        tip.error("Please Choose at least one option！");
+        return;
+    }
     var feeData = instance.endGame.getData(choiceValue, desc);
     web3.cmt.estimateGas({
         data: feeData,
@@ -616,17 +614,34 @@ var confirmOption = function () {
     fun.addMainEvent(document.getElementById(btnName), "click", confirmOptionSubmit);
 }
 
+var onlyNumber = function (obj) {
+    obj = obj.replace(/[^\d\.]/g, '');
+    obj = obj.replace(/^\./g, '');
+    obj = obj.replace(/\.{2,}/g, '.');
+    obj = obj.replace('.', '$#$').replace(/\./g, '').replace(
+        '$#$', '.');
+    if (obj == null || obj == '') {
+        obj = 0;
+    }
+    $("#SubmitValue").val(obj);
+}
+
 /**
  * submit the result with your choice and amount
  */
 var confirmOptionSubmit = function () {
     var amount = $("#SubmitValue").val();
     var selectedValue = $("#selectedValue").val();
-
+    amount = fun.onlyNumber(amount);
+    if (amount == null || amount == '') {
+        tip.error("Please fill right amount ！")
+        return;
+    }
     if (amount <= 0) {
         tip.error("The amount you fill should more than zero！")
         return;
     }
+
     if (gameStatus == 0) {
         tip.error("The Game have not start yet！")
         return;
@@ -654,9 +669,13 @@ var confirmOptionSubmit = function () {
             gas: virtualGas,
             gasPrice: 2000000000
         }, function (e, result) {
+            document.getElementById("pupopBox").style.visibility = "hidden";
             if (e) {
-                console.log("bet result : " + result);
-                tip.error('The game you bet have some error :' + e);
+                if (e.code == '1001') {
+                    tip.error("The Game you Bet had benn " + e.message)
+                } else {
+                    tip.error('The game you bet have some error :' + e.message);
+                }
             } else {
                 getGameStatus('bet');
             }
@@ -738,7 +757,7 @@ var getGameStatus = function (type) {
                         gameStatus = 1;
                         if (type == 'resume') {
                             clearInterval(interval);
-                            tip.right("Bet Stopped ！");
+                            tip.right("Bet Resumed ！");
                             betStatusFun(gameStatus);
                             if (userChoice > 0) {
                                 showUserChoice(gameStatus, userChoice, correctChoice);
@@ -764,44 +783,34 @@ var getGameStatus = function (type) {
                             if (document.getElementById(contentId)) {
                                 document.getElementById(contentId).style.display = 'none';
                             }
-                            if (userChoice > 0 && correctChoice == userChoice) {
-                                showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
-                            } else {
-                                showFailed(contentId);
-                            }
+                            showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
                         }
                         if (type == 'withdraw') {
                             tip.right("Withdraw success ! ");
                             if (document.getElementById(contentId)) {
                                 document.getElementById(contentId).style.display = 'none';
                             }
-                            if (userChoice > 0 && correctChoice == userChoice) {
-                                showWithdrawSuccess(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
-                            } else {
-                                showFailed(contentId);
-                            }
+                            showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
                         }
                     }
                 }
             }
         });
-        instance.getBetInfo(function (e, result) {
-            if (e) {
-                console.log("It have an error when get this Bet Game info ：" + e);
-                tip.error("It have an error when get Bet Game info ,please retry ! ");
-            } else {
-                console.log(result.toString());
-                totalBetCount = Number(result[3]);
-                totalBetAmount = Number(result[4] / 1000000000000000000);
-                $("#totalBetCount").html(totalBetCount);
-                $("#totalBetAmount").html(totalBetAmount);
-                setTimeout(function () {
-                    tip.error("It have an error when get Bet Game info ,please retry ! ");
-                    window.location.reload();
-                }, reloadTime)
-            }
-        });
-    }, 3000);
+        // check bet game info
+        getBetInfo();
+    }, 6 * 1000);
+}
+
+var showRightChoice = function (contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount) {
+    if (userChoice > 0) {
+        if (correctChoice == userChoice) {
+            showWithdraw(contentId, afterBtnName, withdrawButtonName, withdraw, statusPaid, payoutAmount);
+        } else {
+            showFailed(contentId);
+        }
+    } else {
+        showNotJoin(contentId);
+    }
 }
 
 /**
