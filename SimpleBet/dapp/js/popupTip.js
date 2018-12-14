@@ -14,22 +14,6 @@ let toastTemplate = `<div id="iutoast" class="iu-loading" style="display: none;"
         </div>
     </div>`;
 const IUToast = {
-    //use example
-    runExample: function () {
-        console.log('example go!');
-        IUToast.show('loading', 'test loading', 100000);
-        setTimeout(function () {
-            $("#iutoast").css("display", "none");
-        }, 30000);
-        /*}, 2000);setTimeout(function(){
-            IUToast.show('error', 'test error', 2000);
-        }, 2000);
-        setTimeout(function(){
-            IUToast.show('ok', 'test ok');
-        }, 5000);*/
-        console.log('example over!');
-    },
-
     //param1: itype: ok error loading
     //param2: ititle: tip title
     //param3: idelay: delay seconds
@@ -73,7 +57,7 @@ const IUToast = {
 
     right: function (iTitle, iDelay) {
         if (iDelay == null || iDelay == '') {
-            iDelay = 5 * 1000;
+            iDelay = 3 * 1000;
         }
         this.close('error');
         this.close('loading');
@@ -94,15 +78,6 @@ const IUToast = {
     closeLoad: function () {
         this.close('loading');
     },
-
-    closeError: function () {
-        this.close('error');
-    },
-
-    closeRight: function () {
-        this.close('ok');
-    },
-
 
     isToastExist: function () {
         const toast = document.getElementById('iutoast');

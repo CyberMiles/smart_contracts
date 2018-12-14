@@ -1,4 +1,5 @@
 var fun = new MainFun();
+
 var tip = IUToast;
 var userAddress = '';
 var betAbi = '';
@@ -13,32 +14,22 @@ var webBrowser = new AppLink();
 $(function () {
     getAbi();
     getBin();
+    initUserAddress;
     webBrowser.openBrowser();
-    return;
-    try {
-        web3.cmt
-    } catch (e) {
-        getUserAgent();
-        return;
-    }
-    window.onload = initUserAddress;
 });
 
 var initUserAddress = function () {
-
-    tip.loading('Get your address info ');
-    web3.cmt.getAccounts(function (e, address) {
-        if (e) {
-            tip.closeError();
-            userAddress = address;
-            tip.loading('The account address have an error', 3000);
-        } else {
-            $("#userAddress").val(address);
-            userAddress = address;
-            tip.closeLoad();
-        }
-    });
-
+    var interval = setInterval(function () {
+        web3.cmt.getAccounts(function (e, address) {
+            if (result) {
+                userAddress = address;
+                $("#userAddress").val(address);
+                userAddress = address;
+                tip.closeLoad();
+                clearInterval(interval);
+            }
+        });
+    }, 300);
 }
 
 /**
