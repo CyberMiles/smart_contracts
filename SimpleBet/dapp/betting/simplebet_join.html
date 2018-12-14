@@ -29,8 +29,10 @@
     <div id="choices">
 
     </div>
-    <input type="hidden" value="" id="selectedValue">
     <input type="hidden" value="" id="betStatus">
+    <input type="hidden" value="" id="callbackStop">
+    <input type="hidden" value="" id="selectedValue">
+    <input type="hidden" value="" id="declareValue">
     <input type="hidden" value="true" id="shouldCheckTheResult">
     <div class="main-contain main-div-button" id="after-button">
         <div class="main-button-div" id="submit-div">
@@ -108,7 +110,6 @@
         </div>
     </div>
 </div>
-<input type="text" id="share_link" style="width:1px;">
 <div class="bet-share-div main-hidden-display" id="shareDiv">
     <p class="bet-share-qr-line"></p>
     <div class="bet-share-qr-div">
@@ -118,11 +119,11 @@
         <p class="share-font">Use CMT Wallet to scan bet QR to join the bet.</p>
     </div>
     <div class="share-desc-div">
-        <div class="main-button-div main-contain main-div-button">
+        <!--<div class="main-button-div main-contain main-div-button">
             <div class="share-save-button" id="saveButton">
                 <p id="setting" class="share-save-button-font" onclick="saveQRImage()">Save to Album</p>
             </div>
-        </div>
+        </div>-->
         <div class="main-button-div main-contain main-div-button">
             <div class="share-save-button" id="returnBackButton">
                 <p id="returnBack" class="share-save-button-font" onclick="returnBack()">Back to Bet</p>

@@ -15,7 +15,7 @@ var webBrowser = new AppLink();
 $(function () {
     getAbi();
     getBin();
-    initUserAddress;
+    initUserAddress();
     webBrowser.openBrowser();
 });
 
@@ -23,10 +23,13 @@ var initUserAddress = function () {
     var interval = setInterval(function () {
         web3.cmt.getAccounts(function (e, address) {
             if (address) {
-                userAddress = address;
+                userAddress = address.toString();
                 $("#userAddress").val(address);
                 userAddress = address;
                 tip.closeLoad();
+                setTimeout(function () {
+                    cfun.getContractAddressByApi(methodId, address.toString());
+                }, 10)
                 clearInterval(interval);
             }
         });

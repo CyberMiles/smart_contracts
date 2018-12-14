@@ -8,12 +8,9 @@ const baseUrl = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/bet
 var shareUrl = window.location.href;//baseUrl + "?contract=" + contract_address;
 var userAddress = '';
 const displayLink = "Copy CMT Code and goto CMT Wallet App to Bet! cmtwallet://dapp?url=" + shareUrl + " CMT Wallet Download Link：http://www.cybermiles.io/cmt-wallet/";
-//const displayLink = window.location.href;
 var contentId = "owner-bet";
 var afterBtnName = "after-button";
 var withdrawButtonName = "Withdraw bet reward";
-var reloadTime = 60 * 1000;
-//fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 var betAbi = '';
 var betBin = '';
 var contract = '';
@@ -21,6 +18,8 @@ var instance = '';  // contract instance
 var gameDesc = '';  // the bet desc with title and choices
 //Game status -1:unknown 0:init 1:progress 2:stop 3:end
 var gameStatus = -1;
+//Game title
+var title = 'Bet title！';
 // Game correct choice
 var correctChoice = -1;
 // User choice of this Bet Game
@@ -51,7 +50,7 @@ $(function () {
 
     setInterval(function () {
         checkGameStatus('reload');
-    }, 60 * 1000);
+    }, 15 * 1000);
 
     setInterval(function () {
         getBetInfo();
@@ -60,7 +59,7 @@ $(function () {
 
 var checkGameStatus = function (type) {
     if (type != 'reload') {
-        tip.loading("Transaction Processing...");
+        tip.loading("Loading...");
     }
     try {
         web3.cmt
@@ -118,10 +117,14 @@ var checkGameStatus = function (type) {
                         // use selected the choice
                         showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
                     }
-                    tip.closeLoad();
+                    // if it is first load ,when get result then close the popup
+                    var callbackStop = $("#callbackStop").val();
+                    if (!callbackStop) {
+                        tip.closeLoad();
+                    }
+                    getBetInfo();
                 }
             });
-            getBetInfo();
         }
     });
 }
@@ -367,6 +370,7 @@ var showNotJoin = function () {
  */
 var withdraw = function () {
     tip.loading("Transaction Processing...");
+    $("#callbackStop").val(true);
     instance.payMe(function (e, result) {
         if (e != null) {
             if (e.code == '1001') {
@@ -411,15 +415,16 @@ var funArray = function () {
  * declare correct choice
  */
 var declareBetGame = function () {
-    var choiceValue = $("#selectedValue").val();
+    var choiceValue = $("#declareValue").val();
     var dateTime = new Date();
     var desc = "This Bet Game stop at the Time : " + dateTime + "， and the correct choice is ：" + fun.getLetterByNum(choiceValue);
     if (choiceValue <= 0) {
-        tip.error("Please Choose at least one option！");
+        tip.error("Please select a correct option！");
         return;
     }
     document.getElementById("pupopBox").style.display = "none";
     tip.loading("Transaction Processing...");
+    $("#callbackStop").val(true);
     var feeData = instance.endGame.getData(choiceValue, desc);
     web3.cmt.estimateGas({
         data: feeData,
@@ -431,7 +436,7 @@ var declareBetGame = function () {
         } else {
             virtualGas = gas;
         }
-        console.log("placeBet gas is : " + virtualGas);
+        console.log("Declare Bet Game gas is : " + virtualGas);
         instance.endGame(Number(choiceValue), desc, {
             gas: virtualGas,
             gasPrice: 2000000000
@@ -479,7 +484,7 @@ var optionSelectAlert = function () {
     hiddenAllSelectAlert();
     if (currentVisible != 'visible') {
         this.children[1].style.visibility = 'visible';
-        document.getElementById("selectedValue").value = inputValue;
+        document.getElementById("declareValue").value = inputValue;
     }
 }
 
@@ -495,6 +500,7 @@ var declareBetCancel = function () {
  */
 var stopBet = function () {
     tip.loading("Transaction Processing...");
+    $("#callbackStop").val(true);
     instance.stopGame({
         gas: 3000000,
         gasPrice: 2000000000
@@ -516,6 +522,7 @@ var stopBet = function () {
  */
 var resumeBet = function () {
     tip.loading("Transaction Processing...");
+    $("#callbackStop").val(true);
     instance.resumeGame({
         gas: 3000000,
         gasPrice: 2000000000
@@ -536,8 +543,9 @@ var resumeBet = function () {
  * the bet link for share
  */
 var shareLink = function () {
+    var shareBetLink = "【WeBet：" + title + "】" + displayLink;
     var clipboard = new ClipboardJS('#create_share_btn', {
-        text: displayLink
+        text: shareBetLink
     });
     clipboard.on('success', function (e) {
         tip.right("Bet Link Copied！");
@@ -553,13 +561,14 @@ var shareLink = function () {
  * init copy link
  */
 var initCopyLink = function () {
+    var shareBetLink = "【WeBet：" + title + "】" + displayLink;
     var btnId = 'create_share_btn';
     var element = document.getElementsByName(functionArray[3])[0];
     // add alert msg div
     fun.addDivInnerhtml(domType[0], [attrType[0], attrType[2]], appendType[3], 'Bet Link Copied！', ["copy_tip_share", "copy_tip_share main-hidden-display"], '');
     //element.setAttribute("data-clipboard-target", copyId);
     element.setAttribute("id", btnId);
-    element.setAttribute("data-clipboard-text", displayLink);
+    element.setAttribute("data-clipboard-text", shareBetLink);
     var clipboard = new ClipboardJS('#create_share_btn', {});
     clipboard.on('success', function (e) {
         tip.right("Bet Link Copied！");
@@ -636,13 +645,10 @@ var confirmOption = function () {
 }
 
 var onlyNumber = function (obj) {
-    obj = obj.replace(/[^\d]/g, '');
-    obj = obj.replace(/^\./g, '');
-    obj = obj.replace(/\.{2,}/g, '.');
-    obj = obj.replace('.', '$#$').replace(/\./g, '').replace(
-        '$#$', '.');
-    if (obj == null || obj == '') {
-        obj = '';
+    obj = obj.replace(/\D/g, '');
+    var t = obj.charAt(0);
+    if (t == 0) {
+        obj = obj.substr(1, obj.length);
     }
     $("#SubmitValue").val(obj);
 }
@@ -673,6 +679,12 @@ var confirmOptionSubmit = function () {
     }
     document.getElementById("pupopBox").style.display = "none";
     tip.loading("Transaction Processing...");
+    $("#callbackStop").val(true);
+    // change the submit button color and event
+    var root = document.getElementsByClassName("main-button")[0];
+    root.style.cssText = "background-color: #c6cfd5;";
+    var obj = document.getElementById("submit-div");
+    fun.delMainEvent(obj, "click", confirmOption);
     var feeData = instance.placeBet.getData(selectedValue + "");
     var amountStr = String(web3.toWei(amount, "cmt"));
     web3.cmt.estimateGas({
@@ -721,6 +733,7 @@ var showChoices = function (gameDesc) {
     var values = descs;
     var html = '';
     $("#betTitle").text(descs[0]);
+    title = descs[0];
     if (values instanceof Array) {
         for (var i = 1; i < values.length; i++) {
             var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
@@ -770,6 +783,7 @@ var getGameStatus = function (type) {
                 if (result) {
                     if (type == 'stop' && gameStatus == 2) {
                         tip.right("Bet Stopped ！");
+                        $("#callbackStop").val();
                         clearInterval(interval);
                         betStatusFun(gameStatus);
                         unbindSelect();
@@ -783,6 +797,7 @@ var getGameStatus = function (type) {
                         if (type == 'resume') {
                             clearInterval(interval);
                             tip.right("Bet Resumed ！");
+                            $("#callbackStop").val();
                             betStatusFun(gameStatus);
                             if (userChoice > 0) {
                                 showUserChoice(gameStatus, userChoice, correctChoice);
@@ -793,6 +808,7 @@ var getGameStatus = function (type) {
                         if (type == 'bet' && userChoice > 0) {
                             clearInterval(interval);
                             tip.right("Bet Submitted！");
+                            $("#callbackStop").val();
                             showUserChoice(gameStatus, userChoice, correctChoice);
                             $("#userAmount").text(userPayAmount);
                         }
@@ -805,6 +821,7 @@ var getGameStatus = function (type) {
                         showUserChoice(gameStatus, userChoice, correctChoice);
                         if (type == 'declare') {
                             tip.right("Correct Option Declared！");
+                            $("#callbackStop").val();
                             if (document.getElementById(contentId)) {
                                 document.getElementById(contentId).style.display = 'none';
                             }
@@ -812,6 +829,7 @@ var getGameStatus = function (type) {
                         }
                         if (type == 'withdraw') {
                             tip.right("Withdraw success ! ");
+                            $("#callbackStop").val();
                             if (document.getElementById(contentId)) {
                                 document.getElementById(contentId).style.display = 'none';
                             }
@@ -848,7 +866,6 @@ var showRightChoice = function (contentId, userChoice, correctChoice, afterBtnNa
             showFailed(contentId);
         }
     } else {
-        //hiddenAllSelectAlert();
         showNotJoin(contentId);
     }
 }
@@ -909,5 +926,5 @@ var hiddenAllSelectAlert = function () {
     for (var i = 0; i < allElement.length; i++) {
         allElement[i].style.visibility = 'hidden';
     }
-    document.getElementById("selectedValue").value = '';
+    document.getElementById("declareValue").value = '';
 }
