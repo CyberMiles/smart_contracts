@@ -1,7 +1,6 @@
 var ContractFun = (function () {
     var _getContractAddressByFunctionId = function (functionId, userAddress, pageSize, pageNo) {
         var url = 'https://api-dev.cmttracking.io/api/v3/contractsByType?funcIds=' + functionId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
-        alert(url);
         $.ajax({
             url: url,
             dataType: 'json',
