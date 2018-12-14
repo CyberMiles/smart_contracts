@@ -1,10 +1,11 @@
 var fun = new MainFun();
-
+var cfun = new ContractFun();
 var tip = IUToast;
 var userAddress = '';
 var betAbi = '';
 var betBin = '';
 var contract_address = '';
+var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 
@@ -21,7 +22,7 @@ $(function () {
 var initUserAddress = function () {
     var interval = setInterval(function () {
         web3.cmt.getAccounts(function (e, address) {
-            if (result) {
+            if (address) {
                 userAddress = address;
                 $("#userAddress").val(address);
                 userAddress = address;

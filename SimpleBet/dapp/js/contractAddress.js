@@ -1,8 +1,10 @@
 var ContractFun = (function () {
     var _getContractAddressByFunctionId = function (functionId, userAddress, pageSize, pageNo) {
         $.ajax({
-            url: 'https://api-dev.cmttracking.io/api/v3/contractsByType?funcIds=de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec&limit=10&page=1',
+            url: 'https://api-dev.cmttracking.io/api/v3/contractsByType',
             dataType: 'json',
+            type: 'GET',
+            async: true,
             data: {
                 funcIds: functionId,
                 address: userAddress,
@@ -18,13 +20,18 @@ var ContractFun = (function () {
         });
     };
 
-    ContractFun.getContractAddress = function () {
-        _getContractAddressByFunctionId;
-    }
-
-
     var ContractFun = function (...args) {
     };
 
+    ContractFun.getContractAddressByApi = function (functionId, userAddress, pageSize, pageNo) {
+        if (pageSize <= 0 || pageSize >= 10) {
+            pageSize = 10;
+        }
+        if (pageNo <= 0) {
+            pageNo = 1;
+        }
+        _getContractAddressByFunctionId(functionId, userAddress, pageSize, pageNo);
+    }
+
     return ContractFun;
-}
+});
