@@ -90,6 +90,12 @@ var checkGameStatus = function (type) {
                     payoutAmount = Number(result[4] / 1000000000000000000);
                     statusPaid = Boolean(result[5]);
                     correctChoice = Number(result[6]);
+                    if (userPayAmount > 0) {
+                        userPayAmount = userPayAmount.toFixed(4);
+                    }
+                    if (payoutAmount > 0) {
+                        payoutAmount = payoutAmount.toFixed(4);
+                    }
                     // if the owner of this bet then show the betting settings
                     instance.owner(function (e, owner) {
                         if (owner && owner.toLowerCase() == userAddress.toLowerCase()) {
@@ -138,13 +144,14 @@ var getBetInfo = function () {
             console.log("It have an error when get this Bet Game info ：" + e);
             if (e.code == '1001') {
                 tip.error("The Game you Get : " + e.message)
-            } else {
-                tip.error('The game you Get Bet Info have some error :' + e.code + ' , ' + e.message);
             }
         } else {
             gameStatus = Number(result[0]);
             totalBetCount = Number(result[3]);
             totalBetAmount = Number(result[4] / 1000000000000000000);
+            if (totalBetAmount > 0) {
+                totalBetAmount = totalBetAmount.toFixed(4);
+            }
             betStatusFun(gameStatus);
             $("#totalBetCount").html(totalBetCount);
             $("#totalBetAmount").html(totalBetAmount);
@@ -330,9 +337,13 @@ var showWithdraw = function (contentId, afterBtnName, buttonName, betFun) {
  */
 var showWithdrawSuccess = function (contentId, payAmount) {
     var id = "winner-div";
+    var failId = "failed-show";
     var divId = "choices";
     if (document.getElementById(id)) {
-        document.getElementById(id).style.display = 'none';
+        document.getElementById(id).remove();
+    }
+    if (document.getElementById(failId)) {
+        document.getElementById(failId).remove();
     }
     var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
     content += '<div class="winner-show">You had got ' + payAmount + ' !</div>';
@@ -645,6 +656,7 @@ var confirmOption = function () {
 }
 
 var onlyNumber = function (obj) {
+    return;
     obj = obj.replace(/\D/g, '');
     var t = obj.charAt(0);
     if (t == 0) {
@@ -660,10 +672,12 @@ var confirmOptionSubmit = function () {
     var amount = $("#SubmitValue").val();
     var selectedValue = $("#selectedValue").val();
     amount = fun.onlyNumber(amount);
-    if (amount == null || amount == '') {
+    amount = Number(amount);
+    if (amount == null || amount == '' || 'number' != typeof amount) {
         tip.error("Please fill right amount ！")
         return;
     }
+
     if (amount <= 0) {
         tip.error("The amount you fill should more than zero！")
         return;
@@ -770,7 +784,6 @@ var getGameStatus = function (type) {
                 tip.error('Game status have an error ,please refresh !');
                 return;
             } else {
-                console.log(result.toString());
                 gameStatus = Number(result[0]);
                 gameDesc = result[1];
                 userChoice = Number(result[2]);
@@ -778,6 +791,12 @@ var getGameStatus = function (type) {
                 payoutAmount = Number(result[4] / 1000000000000000000);
                 statusPaid = Boolean(result[5]);
                 correctChoice = Number(result[6]);
+                if (userPayAmount > 0) {
+                    userPayAmount = userPayAmount.toFixed(4);
+                }
+                if (payoutAmount > 0) {
+                    payoutAmount = payoutAmount.toFixed(4);
+                }
                 // if stop the game ,when the result for the game had return ,then will refresh this page
                 console.log("Game check result is ：" + result);
                 if (result) {

@@ -208,7 +208,7 @@ var MainFun = (function () {
         var divFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top:5px;margin-bottom:5px;bottom: 10px;font-size: 16px;font-weight: 500;font-family: SFProText;height: 19px;"';
         var bottomBtnStyle = 'style="position:relative;float:right;margin-right:20px;margin-top:5px;margin-bottom:35px;font-family: SFUIText;font-size: 16px;font-weight: 500;color: #1976d2;"';
         var inputDivFontStyle = 'style="width: 90%;height: 44px;padding-top:20px;padding-bottom:20px;border-radius: 4px;background-color: #f4f6f8;font-family: SFUIText;font-size: 16px;font-weight: normal;"';
-        var inputDiv = '<div style="margin: 10px;"><input ' + inputDivFontStyle + 'id="' + btnName + 'Value" type="number" placeholder="' + content + '" onkeypress="onlyNumber(this.value)"></div>';
+        var inputDiv = '<div style="margin: 10px;"><input ' + inputDivFontStyle + 'id="' + btnName + 'Value" type="number" placeholder="' + content + '" onkeyup="onlyNumber(this.value)"></div>';
         var btnDiv = '<div style="margin-bottom: 10px;"><p ' + bottomBtnStyle + ' id="' + btnName + '">' + btnName + ' </p></div>';
         var popup = $('<div id="pupopBox" class="pupopBox main-bet-title" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
             'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:39%;left:50%;' +
@@ -398,9 +398,8 @@ var MainFun = (function () {
     };
 
     var _onlyNumber = function (obj) {
-        obj = obj.replace(/[^\d\.]/g, '');
+        obj = obj.replace(/[^\d]/g, '');
         obj = obj.replace(/^\./g, '');
-        obj = obj.replace(/\.{2,}/g, '.');
         obj = obj.replace('.', '$#$').replace(/\./g, '').replace(
             '$#$', '.');
         return obj;

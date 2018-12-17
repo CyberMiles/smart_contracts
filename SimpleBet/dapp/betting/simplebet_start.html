@@ -17,7 +17,7 @@
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<div class="main-contain">
+<div class="main-contain start-content">
     <div class="main-middle">
         <div id="main-div-count">
             <div class="main-div">
@@ -57,17 +57,43 @@
     </div>
 </div>
 
-<div class="main-contain main-div-button">
+<div class="main-contain main-div-button start-content">
     <div class="main-button-div" id="submit-div">
         <div class="main-button">
             <p id="submit" class="main-button-not-click-font">New Bet Contract</p>
         </div>
     </div>
 </div>
+<div class="share-desc-div share-bottom-div start-content">
+    <div class="share-font">
+        <a href="##" onclick="showBetList()">View My Bets</a>
+    </div>
+</div>
+<div class="main-contain list-content">
+    <!-- list head-->
+    <div class="showBetList share-font">
+        <div>
+            <div class="list-head">Title</div>
+            <div class="list-head">Status</div>
+            <div class="list-head">Total Count</div>
+            <div class="list-head">Total Amount</div>
+        </div>
+        <div class="list-head-div">
+            <div class="list-line"></div>
+        </div>
+    </div>
+    <!-- list content -->
+    <div id="listContent">
+    </div>
+    <div id="listButton" class="share-desc-div share-bottom-div start-content">
+        <div class="back-new-contract">
+            <a href="##" onclick="backNewContract()">Back New Bet Contract</a>
+        </div>
+    </div>
+</div>
 <input type="hidden" value="true" id="shouldCheckTheResult">
 <input type="hidden" id="userAddress">
 <script src="../js/main.js"></script>
-<script src="../js/contractAddress.js"></script>
 <script src="../js/start.js"></script>
 </body>
 

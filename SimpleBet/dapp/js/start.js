@@ -1,11 +1,14 @@
+const betStatus = ['Not Start', 'Progress', 'Pending', 'End']
 var fun = new MainFun();
-var cfun = new ContractFun();
 var tip = IUToast;
 var userAddress = '';
 var betAbi = '';
 var betBin = '';
 var contract_address = '';
+var contract = '';
+var instance = '';
 var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
+var loadCount = 0;
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
 
@@ -27,13 +30,95 @@ var initUserAddress = function () {
                 $("#userAddress").val(address);
                 userAddress = address;
                 tip.closeLoad();
-                setTimeout(function () {
-                    cfun.getContractAddressByApi(methodId, address.toString());
-                }, 10)
                 clearInterval(interval);
             }
         });
     }, 300);
+}
+
+var showBetList = function () {
+    $(".start-content").css("display", "none");
+    $(".list-content").css("display", "block");
+    $("#listButton").css("display", "block");
+    showListContent();
+}
+
+var backNewContract = function () {
+    $(".start-content").css("display", "block");
+    $(".list-content").css("display", "none");
+    $("#listButton").css("display", "none");
+    $("#listContent").children().remove();
+}
+
+var showListContent = function (pageSize, pageNo) {
+    var textHtml = '';
+    if (pageSize == null || pageSize == '' || pageSize == 'undefined' || pageSize <= 0 || pageSize >= 10) {
+        pageSize = 10;
+    }
+    if (pageNo == null || pageNo == '' || pageNo == 'undefined' || pageNo <= 0) {
+        pageNo = 1;
+    }
+    tip.loading("Loading...");
+    var url = 'https://api-dev.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'GET',
+        async: true,
+        success: function (result) {
+            if (result && result.data && result.data.objects) {
+                for (var i = 0; i < result.data.objects.length; i++) {
+                    var id = 'showListId' + i;
+                    var obj = result.data.objects[i];
+                    textHtml = '<a id="' + id + '" href="../betting/simplebet_join.html?contract=' + obj.address + '" ></a>'
+                    $("#listContent").append(textHtml);
+                    appendChildList(obj.address, id);
+                }
+            }
+        },
+        error: function (e) {
+            console.log("Get user contract address failed" + e)
+        }
+    });
+}
+
+var appendChildList = function (contractAddress, id) {
+    contract = web3.cmt.contract(betAbi, contract_address);
+    instance = contract.at(contractAddress);
+    instance.getBetInfo(function (e, result) {
+        if (e) {
+            console.log("It have an error when get this Bet Game info ：" + e);
+            if (e.code == '1001') {
+                tip.error("The Game you Get : " + e.message)
+            }
+        } else {
+            loadCount++;
+            var gameStatus = Number(result[0]);
+            var gameDesc = result[1];
+            var totalBetCount = Number(result[3]);
+            var totalBetAmount = Number(result[4] / 1000000000000000000);
+            if (totalBetAmount > 0) {
+                totalBetAmount = totalBetAmount.toFixed(4);
+            }
+            var descArray = gameDesc.split(";");
+            var title = 'Bet title';
+            if (descArray.length > 0) {
+                title = descArray[0];
+                if (title.length > 15) {
+                    title = title.substr(0, 10) + "...";
+                }
+            }
+            var html = '<div class="showBetContent share-font"><div>' +
+                '<div class="list-head">' + title + '</div>' +
+                '<div class="list-head">' + betStatus[gameStatus] + '</div>' +
+                '<div class="list-head">' + totalBetCount + '</div>' +
+                '<div class="list-head">' + totalBetAmount + '</div></div><div class="list-head-div"><div class="list-line"></div></div></div>';
+            $("#" + id).append(html);
+            if (loadCount >= 10) {
+                tip.closeLoad();
+            }
+        }
+    });
 }
 
 /**
@@ -203,3 +288,31 @@ var setTheContractAddressAndTurn = function (result) {
 var callbackError = function () {
     tip.error('Bet contract Create failed ！');
 };
+
+/**
+ * read the abi info from the abi file
+ */
+var getAbi = function () {
+    $.ajax({
+        url: '../../BettingGame.abi',
+        sync: true,
+        dataType: 'text',
+        success: function (data) {
+            betAbi = JSON.parse(data);
+        }
+    });
+}
+
+/**
+ * read the bin info from the bin file
+ */
+var getBin = function () {
+    $.ajax({
+        url: '../../BettingGame.bin',
+        dataType: 'text',
+        sync: true,
+        success: function (data) {
+            betBin = JSON.parse(data);
+        }
+    });
+}
