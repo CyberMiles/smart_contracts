@@ -111,7 +111,7 @@ var checkGameStatus = function (type) {
                     if (gameStatus == 2 || gameStatus == 3) {
                         unbindSelect();
                     }
-                    // user can not choice when user 1:selected 2:the game stop 3:the game end
+                    // user can noot choice when user 1:selected 2:the game stop 3:the game end
                     if (userChoice > 0) {
                         showUserChoice(gameStatus, userChoice, correctChoice);
                     }
@@ -656,7 +656,6 @@ var confirmOption = function () {
 }
 
 var onlyNumber = function (obj) {
-    return;
     obj = obj.replace(/\D/g, '');
     var t = obj.charAt(0);
     if (t == 0) {
