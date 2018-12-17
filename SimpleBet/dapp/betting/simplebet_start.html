@@ -86,9 +86,18 @@
     <div id="listContent">
     </div>
     <div id="listButton" class="share-desc-div share-bottom-div start-content">
+        <div class="contract-page">
+            <a class="contract-page-href" href="##" onclick="showBetList('first')" id="firstPage">First Page</a>
+            <a class="contract-page-href" href="##" onclick="showBetList('previous')" id="previousPage">Previous Page</a>
+            <a class="contract-page-href" href="##" onclick="showBetList('next')" id="nextPage">Next Page</a>
+            <a class="contract-page-href" href="##" onclick="showBetList('last')" id="lastPage">Last Page</a>
+        </div>
         <div class="back-new-contract">
             <a href="##" onclick="backNewContract()">Back New Bet Contract</a>
         </div>
+        <input type="hidden" id="currentPage" value="1">
+        <input type="hidden" id="totalCount" value="1">
+        <input type="hidden" id="totalPage" value="1">
     </div>
 </div>
 <input type="hidden" value="true" id="shouldCheckTheResult">

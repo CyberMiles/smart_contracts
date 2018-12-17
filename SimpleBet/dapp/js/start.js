@@ -36,11 +36,39 @@ var initUserAddress = function () {
     }, 300);
 }
 
-var showBetList = function () {
+var showBetList = function (type) {
     $(".start-content").css("display", "none");
     $(".list-content").css("display", "block");
     $("#listButton").css("display", "block");
-    showListContent();
+    var pageNo = $("#currentPage").val();
+    var pageSize = 10;
+    if (type == 'first') {
+        pageNo = 1;
+    }
+    if (type == 'last') {
+        pageNo = $("#totalPage").val()
+    }
+    if (type == 'previous') {
+        if (pageNo > 1) {
+            pageNo = pageNo - 1;
+        } else {
+            pageNo = 1;
+            tip.right("This is already the First Page！");
+            return;
+        }
+    }
+    if (type == 'next') {
+        var totalPage = $("#totalPage").val();
+        if (pageNo >= totalPage) {
+            pageNo = totalPage;
+            tip.right("This is already the Last Page！");
+            return;
+        } else {
+            pageNo = Number(pageNo) + 1;
+        }
+    }
+    $("#currentPage").val(pageNo);
+    showListContent(pageSize, pageNo);
 }
 
 var backNewContract = function () {
@@ -51,6 +79,9 @@ var backNewContract = function () {
 }
 
 var showListContent = function (pageSize, pageNo) {
+    if (pageNo == 1) {
+        $("#previousPage").remove("href");
+    }
     var textHtml = '';
     if (pageSize == null || pageSize == '' || pageSize == 'undefined' || pageSize <= 0 || pageSize >= 10) {
         pageSize = 10;
@@ -67,12 +98,21 @@ var showListContent = function (pageSize, pageNo) {
         async: true,
         success: function (result) {
             if (result && result.data && result.data.objects) {
+                $("#listContent").children().remove();
+                $("#totalCount").val(result.data.meta.total);
+                var totalPage = parseInt(result.data.meta.total / 10) + 1;
+                $("#totalPage").val(totalPage);
+                var lastCount = result.data.meta.total % 10;
+                if (pageNo < totalPage) {
+                    lastCount = pageSize;
+                }
+                loadCount = 0;
                 for (var i = 0; i < result.data.objects.length; i++) {
                     var id = 'showListId' + i;
                     var obj = result.data.objects[i];
                     textHtml = '<a id="' + id + '" href="../betting/simplebet_join.html?contract=' + obj.address + '" ></a>'
                     $("#listContent").append(textHtml);
-                    appendChildList(obj.address, id);
+                    appendChildList(obj.address, id, lastCount);
                 }
             }
         },
@@ -82,17 +122,17 @@ var showListContent = function (pageSize, pageNo) {
     });
 }
 
-var appendChildList = function (contractAddress, id) {
+var appendChildList = function (contractAddress, id, lastCount) {
     contract = web3.cmt.contract(betAbi, contract_address);
     instance = contract.at(contractAddress);
     instance.getBetInfo(function (e, result) {
+        loadCount++;
         if (e) {
             console.log("It have an error when get this Bet Game info ：" + e);
             if (e.code == '1001') {
-                tip.error("The Game you Get : " + e.message)
+                tip.error("The Game you Get : " + e.message);
             }
         } else {
-            loadCount++;
             var gameStatus = Number(result[0]);
             var gameDesc = result[1];
             var totalBetCount = Number(result[3]);
@@ -114,12 +154,13 @@ var appendChildList = function (contractAddress, id) {
                 '<div class="list-head">' + totalBetCount + '</div>' +
                 '<div class="list-head">' + totalBetAmount + '</div></div><div class="list-head-div"><div class="list-line"></div></div></div>';
             $("#" + id).append(html);
-            if (loadCount >= 10) {
-                tip.closeLoad();
-            }
+        }
+        if (loadCount >= lastCount) {
+            tip.closeLoad();
         }
     });
 }
+
 
 /**
  * read the abi info from the abi file
