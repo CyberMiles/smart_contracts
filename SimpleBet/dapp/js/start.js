@@ -90,7 +90,7 @@ var showListContent = function (pageSize, pageNo) {
         pageNo = 1;
     }
     tip.loading("Loading...");
-    var url = 'https://api-dev.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
+    var url = 'http://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
     $.ajax({
         url: url,
         dataType: 'json',

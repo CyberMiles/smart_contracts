@@ -667,6 +667,7 @@ var onlyNumber = function (obj) {
         obj = obj.substr(1, obj.length);
     }
     $("#SubmitValue").val(obj);
+    return obj;
 }
 
 /**
