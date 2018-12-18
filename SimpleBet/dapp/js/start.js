@@ -161,52 +161,25 @@ var appendChildList = function (contractAddress, id, lastCount) {
     });
 }
 
-
-/**
- * read the abi info from the abi file
- */
-var getAbi = function () {
-
-    $.ajax({
-        url: '../../BettingGame.abi',
-        sync: true,
-        dataType: 'text',
-        success: function (data) {
-            betAbi = JSON.parse(data);
-        }
-    });
-}
-
-/**
- * read the bin info from the bin file
- */
-var getBin = function () {
-    $.ajax({
-        url: '../../BettingGame.bin',
-        dataType: 'text',
-        success: function (data) {
-            betBin = JSON.parse(data);
-        }
-    });
-}
-
-
-var checkChoice = function () {
+var checkChoice = function (inputValue) {
     var obj = document.getElementById("submit-div");
     var inputs = document.getElementsByName("choice");
     var root = document.getElementsByClassName("main-button")[0];
     var count = 0;
     var title = $("#title").val();
-    if (title.length > 140) {
-        tip.error("Title should less than 140 ！");
-        return;
+    if (inputValue == '' || inputValue == null || inputValue == 'undefined') {
+        if (title.length >= 140) {
+            tip.error("Title should less than 140 ！");
+            return;
+        }
+    } else {
+        if (inputValue.length >= 70) {
+            tip.error("Option should less than 70 ！");
+            return;
+        }
     }
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].value != null && inputs[i].value != '') {
-            if (inputs[i].value.length > 70) {
-                tip.error("Option should less than 70 ！");
-                return;
-            }
             count++;
         }
         if (count >= 3 && title != null && title != '') {

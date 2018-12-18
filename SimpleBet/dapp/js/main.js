@@ -16,7 +16,7 @@ var MainFun = (function () {
     var _createDiv = function (elementObj) {
         var divs = elementObj.children;
         var str = _convert(divs.length - 1);
-        var newDiv = '<div class="main-div"><input name="choice" onkeyup="checkChoice()"' +
+        var newDiv = '<div class="main-div"><input  maxlength="70" name="choice" onkeyup="checkChoice(this.value)"' +
             ' placeholder="Option ' + str + '"><div class="main-line"></div></div>'
         $(".add-div").before(newDiv)
     };

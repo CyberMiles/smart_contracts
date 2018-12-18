@@ -111,7 +111,7 @@ var checkGameStatus = function (type) {
                     if (gameStatus == 2 || gameStatus == 3) {
                         unbindSelect();
                     }
-                    // user can noot choice when user 1:selected 2:the game stop 3:the game end
+                    // user can not choice when user 1:selected 2:the game stop 3:the game end
                     if (userChoice > 0) {
                         showUserChoice(gameStatus, userChoice, correctChoice);
                     }
@@ -649,13 +649,18 @@ var confirmOption = function () {
         return;
     }
     var divTitle = "Bet CMT Amount";
-    var inputDesc = "Enter Amount";
+    var inputDesc = "Please Enter Positive Integer";
     var btnName = "Submit";
     fun.popupInputTip(divTitle, inputDesc, btnName);
     fun.addMainEvent(document.getElementById(btnName), "click", confirmOptionSubmit);
 }
 
 var onlyNumber = function (obj) {
+    if (obj.indexOf(".") > -1) {
+        $("#SubmitValue").val(obj.substr(0, obj.indexOf(".")));
+        tip.error("Please Enter a positive Integer ！")
+        return;
+    }
     obj = obj.replace(/\D/g, '');
     var t = obj.charAt(0);
     if (t == 0) {
@@ -670,9 +675,14 @@ var onlyNumber = function (obj) {
 var confirmOptionSubmit = function () {
     var amount = $("#SubmitValue").val();
     var selectedValue = $("#selectedValue").val();
-    amount = fun.onlyNumber(amount);
+    if (amount.indexOf(".") > -1) {
+        $("#SubmitValue").val(amount.substr(0, amount.indexOf(".")));
+        tip.error("Please Enter a positive Integer ！")
+        return;
+    }
+    amount = onlyNumber(amount);
     amount = Number(amount);
-    if (amount == null || amount == '' || 'number' != typeof amount) {
+    if (amount == null || amount == '' || 'number' != typeof amount || isNaN(amount)) {
         tip.error("Please fill right amount ！")
         return;
     }
