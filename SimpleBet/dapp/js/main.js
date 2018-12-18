@@ -6,6 +6,7 @@ document.write("<script type='text/javascript' src='../js/clipboard.js'></script
 document.write("<script type='text/javascript' src='../js/popuTip/layer.js'></script>");
 document.write("<script type='text/javascript' src='../js/popupTip.js'></script>");
 document.write("<script type='text/javascript' src='../js/browser.js'></script>");
+document.write("<script type='text/javascript' src='../js/language/zh.js'></script>");
 
 
 const domType = ["div", "span", "p"];
@@ -16,7 +17,7 @@ var MainFun = (function () {
     var _createDiv = function (elementObj) {
         var divs = elementObj.children;
         var str = _convert(divs.length - 1);
-        var newDiv = '<div class="main-div"><input  maxlength="70" name="choice" onkeyup="checkChoice(this.value)"' +
+        var newDiv = '<div class="main-div"><input  maxlength="20" name="choice" onkeyup="checkChoice(this.value)"' +
             ' placeholder="Option ' + str + '"><div class="main-line"></div></div>'
         $(".add-div").before(newDiv)
     };
@@ -148,37 +149,39 @@ var MainFun = (function () {
         var btnDiv = '';
         var selectDiv = '';
         var divStyle = 'style="position:relative;top: 23px;bottom: 18px;flex: auto;"';
-        var divFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top:5px;margin-bottom:5px;bottom: 10px;font-size: 16px;font-weight: 500;font-family: SFProText;height: 19px;"';
+        var titleHeight = parseInt((title.length + 28) / 28) * 20;
+        var divFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top:5px;margin-bottom:5px;bottom: 10px;font-size: 16px;font-weight: 500;font-family: SFProText;height: ' + titleHeight + 'px;"';
         var divSelectFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top: 6px;margin-bottom:19px;font-size: 16px;font-weight: normal;font-family: SFProText;height: 19px;"';
         var bottomBtnStyle = 'style="position:relative;float:right;margin-right:20px;margin-top:5px;margin-bottom:35px;font-family: SFUIText;font-size: 16px;font-weight: 500;color: #1976d2;"';
         if (select instanceof Array) {
             for (var i = 0; i < select.length; i++) {
-                selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><p ' + divSelectFontStyle + ' id="' + select[i] + '">' + select[i] + ' </p>' +
-                    '<p class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p>' +
-                    '<p hidden="hidden">' + (i + 1) + '</p>' +
+                selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><div ' + divSelectFontStyle + ' id="' + select[i] + '">' + select[i] + ' </div>' +
+                    '<div class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></div>' +
+                    '<div hidden="hidden">' + (i + 1) + '</div>' +
                     '</div>'
             }
         } else {
-            selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><p ' + divSelectFontStyle + ' id="' + select + '">' + select + ' </p>' +
-                '<p class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p>' +
-                '<p hidden="hidden">' + 1 + '</p>' +
+            selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><div ' + divSelectFontStyle + ' id="' + select + '">' + select + ' </div>' +
+                '<div class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></div>' +
+                '<div hidden="hidden">' + 1 + '</div>' +
                 '</div>'
         }
         if (bottomBtn instanceof Array) {
             for (var i = 0; i < bottomBtn.length; i++) {
-                btnDiv += '<p ' + bottomBtnStyle + ' id="' + bottomBtn[i] + '">' + bottomBtn[i] + ' </p>'
+                btnDiv += '<div ' + bottomBtnStyle + ' id="' + bottomBtn[i] + '">' + bottomBtn[i] + ' </div>'
             }
         } else {
-            btnDiv += '<p ' + bottomBtnStyle + ' id="' + bottomBtn + '">' + bottomBtn + ' </p>'
+            btnDiv += '<div ' + bottomBtnStyle + ' id="' + bottomBtn + '">' + bottomBtn + ' </div>'
         }
         btnDiv = '<div style="margin-bottom: 10px;">' + btnDiv + '</div>';
+
         var popup = $('<div id="pupopBox" class="pupopBox main-bet-title" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
             'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;' +
             'transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;width: 80%' +
             ';background-color: #fff;">' +
-            '<div ' + divStyle + '><div ' + divFontStyle + '>' + title + '</div><p style="border: solid 1px #e7eaec;position: relative"></p>' +
+            '<div ' + divStyle + '><p ' + divFontStyle + '>' + title + '</p><div style="border: solid 1px #e7eaec;position: relative"></div>' +
             selectDiv +
-            '<p style="border: solid 1px #e7eaec;position: relative;float: bottom;margin-bottom: 8px"></p>' +
+            '<div style="border: solid 1px #e7eaec;position: relative;float: bottom;margin-bottom: 8px"></div>' +
             btnDiv +
             '</div></div></div>'
         );
@@ -408,7 +411,7 @@ var MainFun = (function () {
     var _languageNote = '';
 
     var _languageChoice = function () {
-        var fileName = 'en.conf';
+        var lang = '';
         var language = '';
         if (navigator.appName == 'Netscape') {
             language = navigator.language;
@@ -416,24 +419,9 @@ var MainFun = (function () {
             language = navigator.browserLanguage;
         }
         if (language.indexOf('zh') > -1) {
-            fileName = 'zh.conf';
+            lang = ZHLanguage;
         }
-        var url = '../language/' + fileName;
-        var interval = setInterval(function () {
-            $.ajax({
-                url: url,
-                sync: true,
-                dataType: 'text',
-                success: function (data) {
-                    if (data.length > 0) {
-                        clearInterval(interval);
-                        _languageNote = JSON.parse(data);
-                        return JSON.parse(data);
-                    }
-                }
-            });
-        }, 50);
-
+        return lang;
     }
 
     var MainFunction = function (...args) {

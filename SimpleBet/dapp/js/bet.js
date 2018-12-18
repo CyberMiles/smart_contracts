@@ -756,12 +756,13 @@ var showChoices = function (gameDesc) {
     }
     var values = descs;
     var html = '';
+    var row = (descs[0].length + 28) / 28;
+    $("#betTitle").css("height", row * 25);
     $("#betTitle").text(descs[0]);
-    title = descs[0];
     if (values instanceof Array) {
         for (var i = 1; i < values.length; i++) {
             var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
-                '<p class="main-bet-join-div">' + fun.getLetterByNum(i) + '. ' + values[i] + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + i + '</p></div></div>';
+                '<div class="main-bet-join-div">' + fun.getLetterByNum(i) + '. ' + values[i] + '</div><div class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></div><div hidden="hidden">' + i + '</div></div></div>';
             html += div;
         }
     } else {

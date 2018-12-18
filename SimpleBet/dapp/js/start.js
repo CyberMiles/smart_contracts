@@ -1,5 +1,6 @@
 const betStatus = ['Not Start', 'Progress', 'Pending', 'End'];
 var fun = new MainFun();
+const lang = fun.languageChoice();
 var tip = IUToast;
 var userAddress = '';
 var betAbi = '';
@@ -7,7 +8,6 @@ var betBin = '';
 var contract_address = '';
 var contract = '';
 var instance = '';
-var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
 var loadCount = 0;
 fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
 fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
@@ -18,11 +18,20 @@ var webBrowser = new AppLink();
 $(function () {
     getAbi();
     getBin();
+    initLanguage();
     initUserAddress();
     webBrowser.openBrowser();
 });
 
-
+// init language
+var initLanguage = function () {
+    if (lang == '' || lang == null) {
+        return;
+    }
+    //$("#title").attr("placeholder", lang.title);
+    console.log(lang.title);
+    console.log(lang.title);
+}
 
 var initUserAddress = function () {
     var interval = setInterval(function () {
@@ -81,6 +90,7 @@ var backNewContract = function () {
 }
 
 var showListContent = function (pageSize, pageNo) {
+    var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
     if (pageNo == 1) {
         $("#previousPage").remove("href");
     }
@@ -175,8 +185,8 @@ var checkChoice = function (inputValue) {
             return;
         }
     } else {
-        if (inputValue.length >= 70) {
-            tip.error("Option should less than 70 ！");
+        if (inputValue.length >= 20) {
+            tip.error("Option should less than 20 ！");
             return;
         }
     }
