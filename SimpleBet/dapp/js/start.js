@@ -1,4 +1,4 @@
-const betStatus = ['Not Start', 'Progress', 'Pending', 'End']
+const betStatus = ['Not Start', 'Progress', 'Pending', 'End'];
 var fun = new MainFun();
 var tip = IUToast;
 var userAddress = '';
@@ -21,6 +21,8 @@ $(function () {
     initUserAddress();
     webBrowser.openBrowser();
 });
+
+
 
 var initUserAddress = function () {
     var interval = setInterval(function () {
@@ -90,7 +92,7 @@ var showListContent = function (pageSize, pageNo) {
         pageNo = 1;
     }
     tip.loading("Loading...");
-    var url = 'http://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
+    var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
     $.ajax({
         url: url,
         dataType: 'json',
