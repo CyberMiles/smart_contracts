@@ -115,6 +115,7 @@ var showListContent = function (pageSize, pageNo) {
     }
     tip.loading(lang.tip.loading);
     var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
+    console.log(url);
     $.ajax({
         url: url,
         dataType: 'json',
@@ -168,8 +169,23 @@ var appendChildList = function (contractAddress, id, lastCount) {
             var title = 'Bet title';
             if (descArray.length > 0) {
                 title = descArray[0];
-                if (title.length > 15) {
-                    title = title.substr(0, 10) + "...";
+                var length = 0;
+                var subLength = 0;
+                for (var i = 0; i < title.length; i++) {
+                    if (length <= 15) {
+                        subLength++;
+                        if (/.*[\u4e00-\u9fa5]+.*$/.test(title[i])) {
+                            console.log(title[i] + ' ' + length);
+                            length += 2;
+                        } else {
+                            length++;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                if (length > 15) {
+                    title = title.substr(0, subLength) + "...";
                 }
             }
             var html = '<div class="showBetContent share-font"><div>' +
@@ -282,7 +298,7 @@ var startGame = function () {
  */
 var setTheContractAddressAndTurn = function (result) {
     if (result != null && (result.contractAddress != 'undefined' || result.address != 'undefined')) {
-        tip.right('Bet contract Created ！');
+        tip.right(lang.bet.betCreated);
         setTimeout(function () {
             var turnAddress = result.contractAddress;
             if (turnAddress == 'undefined') {

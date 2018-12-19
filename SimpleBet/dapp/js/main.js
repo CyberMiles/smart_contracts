@@ -34,7 +34,7 @@ var MainFun = (function () {
             var divs = elementObj.children;
             var str = _convert(divs.length - 1);
             var newDiv = '<div class="main-div"><input  maxlength="21" name="choice" onkeyup="checkChoice(this.value)"' +
-                ' placeholder="' + lang.option +' '+ str + '"><div class="main-line"></div></div>'
+                ' placeholder="' + lang.option + ' ' + str + '"><div class="main-line"></div></div>'
             $(".add-div").before(newDiv)
         };
 
@@ -165,7 +165,13 @@ var MainFun = (function () {
             var btnDiv = '';
             var selectDiv = '';
             var divStyle = 'style="position:relative;top: 23px;bottom: 18px;flex: auto;"';
-            var titleHeight = parseInt((title.length + 28) / 28) * 20;
+            var length = 0;
+            for (var i = 0; i < title.length; i++) {
+                if (/.*[\u4e00-\u9fa5]+.*$/.test(title[i])) {
+                    length += 2;
+                }
+            }
+            var titleHeight = parseInt((length + 28) / 28) * 20;
             var divFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top:5px;margin-bottom:5px;bottom: 10px;font-size: 16px;font-weight: 500;font-family: SFProText;height: ' + titleHeight + 'px;"';
             var divSelectFontStyle = 'style="position:relative;flex: auto;margin-left: 25px;margin-top: 6px;margin-bottom:19px;font-size: 16px;font-weight: normal;font-family: SFProText;height: 19px;"';
             var bottomBtnStyle = 'style="position:relative;float:right;margin-right:20px;margin-top:5px;margin-bottom:35px;font-family: SFUIText;font-size: 16px;font-weight: 500;color: #1976d2;"';
@@ -195,7 +201,7 @@ var MainFun = (function () {
                 'background-color:rgba(0,0,0,0.6); "><div  class="pupopContent" style="position:absolute;top:50%;left:50%;' +
                 'transform: translate(-50%,-50%);display:flex;flex-direction:column;justify-content:center;width: 80%' +
                 ';background-color: #fff;">' +
-                '<div ' + divStyle + '><p ' + divFontStyle + '>' + title + '</p><div style="border: solid 1px #e7eaec;position: relative"></div>' +
+                '<div ' + divStyle + '><p ' + divFontStyle + ' id="selectBetTitle">' + title + '</p><div style="border: solid 1px #e7eaec;position: relative"></div>' +
                 selectDiv +
                 '<div style="border: solid 1px #e7eaec;position: relative;float: bottom;margin-bottom: 8px"></div>' +
                 btnDiv +
@@ -431,7 +437,7 @@ var MainFun = (function () {
             if (type == attrType[1]) {
                 var inputs = document.getElementsByName(id);
                 for (var i = 0; i < inputs.length; i++) {
-                    inputs[i].setAttribute("placeholder", value + ' '+_convert(i));
+                    inputs[i].setAttribute("placeholder", value + ' ' + _convert(i));
                 }
             }
             if (type == attrType[2]) {

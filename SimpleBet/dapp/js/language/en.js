@@ -2,6 +2,8 @@ var EnLanguage = {
     title: "The issue to bet on",
     option: "Option",
     cancel: "Cancel",
+    cancelled: "cancelled",
+    error: "Have an error，please re",
     addOption: "Add option",
     delOption: "Del option",
     createContract: "New Bet Contract",
@@ -31,6 +33,7 @@ var EnLanguage = {
         betError: "It have an error when get this Bet Game info ：",
         betInfo: "The Game you Bet : ",
         win: "Congratulations, to the winner！",
+        winGet: "You had got",
         failed: "Sorry, you bet failed！",
         end: "Bet game is over！",
         init: "The Game Initialization with Title : ",
@@ -38,6 +41,12 @@ var EnLanguage = {
         stop: "The Game you Stop : ",
         stopped: "The Game had been stopped ！",
         resume: "The Game you resume : ",
+        betCreated: 'Bet contract Created！',
+        betStop: "Bet Stopped！",
+        betResumed: "Bet Resumed ！",
+        betSubmit: "Bet Submitted！",
+        betDeclared: "Correct Option Declared！",
+        betWithdraw: "Withdraw success ! ",
         declare: "The Game you Declare : ",
         betTitle: "Bet CMT Amount",
         showTitle: "This bet game have no set choice and title",
@@ -59,6 +68,7 @@ var EnLanguage = {
 
     withdraw: {
         info: "You withdraw : ",
+        btnName: "Withdraw Bet Reward",
     },
 
     wallet: {

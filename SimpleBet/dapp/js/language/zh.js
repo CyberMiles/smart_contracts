@@ -2,6 +2,8 @@ var ZHLanguage = {
     title: "请输入标题",
     option: "请输入选项",
     cancel: "取消",
+    cancelled: "已取消",
+    error: "出现错误，刷新后再试！",
     addOption: "添加选项",
     delOption: "删除选项",
     createContract: "创建赌局合约",
@@ -31,6 +33,7 @@ var ZHLanguage = {
         betError: "获取赌局信息有误，请刷新后再试！",
         betInfo: "赌局：",
         win: "恭喜, 您已获胜！",
+        winGet: "您获得：",
         failed: "对不起, 你输了！",
         end: "游戏已结束！",
         init: "赌局初始化中，标题 : ",
@@ -38,6 +41,12 @@ var ZHLanguage = {
         stop: "赌局暂停 : ",
         stopped: "赌局已暂停",
         resume: "赌局恢复 : ",
+        betCreated: '赌局创建成功！',
+        betStop: "赌局已暂停！",
+        betResumed: "赌局已恢复！",
+        betSubmit: "提交成功！",
+        betDeclared: "正确结果已公布！",
+        betWithdraw: "取现成功! ",
         declare: "赌局结算 : ",
         betTitle: "赌局CMT金额",
         showTitle: "未查到赌局的标题和选项！",
@@ -59,6 +68,7 @@ var ZHLanguage = {
 
     withdraw: {
         info: "取现 : ",
+        btnName: "取现",
     },
 
     wallet: {

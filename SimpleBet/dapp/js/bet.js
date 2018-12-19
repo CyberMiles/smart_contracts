@@ -75,6 +75,7 @@ var initLanguage = function () {
     fun.changeDomContentById("qrBet", lgb.detail.qrBet);
     fun.changeDomContentById("returnBack", lgb.bet.back);
     functionArray = lgb.functionArray;
+    withdrawButtonName = lgb.withdraw.btnName
 }
 
 var checkGameStatus = function (type) {
@@ -344,7 +345,7 @@ var showWithdraw = function (contentId, afterBtnName, buttonName, betFun) {
     if (!document.getElementById(id)) {
         fun.addButton(contentId, afterBtnName, buttonName, showColor, betFun);
     }
-    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
+    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[1], content, [id], contentId);
 }
 
@@ -366,7 +367,8 @@ var showWithdrawSuccess = function (contentId, payAmount) {
         document.getElementById(failId).remove();
     }
     var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
-    content += '<div class="winner-show">You had got ' + payAmount + ' !</div>';
+    content += '<div class="winner-show">'
+    lgb.bet.winGet + ' ' + payAmount + ' !</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], divId);
 }
 
@@ -404,9 +406,13 @@ var withdraw = function () {
     $("#callbackStop").val(true);
     instance.payMe(function (e, result) {
         if (e != null) {
-            tip.error(lgb.withdraw.info + e.message)
-
+            if (e.code == '1001') {
+                tip.error(lgb.withdraw.info + lgb.cancelled)
+            } else {
+                tip.error(lgb.withdraw.info + lgb.error)
+            }
         } else {
+            console.log(result);
             getGameStatus('withdraw');
         }
     });
@@ -470,8 +476,13 @@ var declareBetGame = function () {
             gasPrice: 2000000000
         }, function (e, result) {
             if (e) {
-                tip.error(lgb.bet.declare + e.message)
+                if (e.code == '1001') {
+                    tip.error(lgb.bet.declare + lgb.cancelled)
+                } else {
+                    tip.error(lgb.bet.declare + lgb.error)
+                }
             } else {
+                console.log(result);
                 getGameStatus('declare');
             }
         });
@@ -530,7 +541,11 @@ var stopBet = function () {
         gasPrice: 2000000000
     }, function (e, result) {
         if (e) {
-            tip.error(lgb.bet.stop + e.message);
+            if (e.code == '1001') {
+                tip.error(lgb.bet.stop + lgb.cancelled)
+            } else {
+                tip.error(lgb.bet.stop + lgb.error)
+            }
         } else {
             console.log(result);
             getGameStatus("stop");
@@ -549,9 +564,13 @@ var resumeBet = function () {
         gasPrice: 2000000000
     }, function (e, result) {
         if (e) {
-            console.log(result);
-            tip.error(lgb.bet.resume + e.message);
+            if (e.code == '1001') {
+                tip.error(lgb.bet.resume + lgb.cancelled)
+            } else {
+                tip.error(lgb.bet.resume + lgb.error)
+            }
         } else {
+            console.log(result);
             getGameStatus("resume");
         }
     });
@@ -735,9 +754,13 @@ var confirmOptionSubmit = function () {
             gasPrice: 2000000000
         }, function (e, result) {
             if (e) {
-                tip.error(lgb.bet.betInfo + e.message)
-                console.log(result);
+                if (e.code == '1001') {
+                    tip.error(lgb.bet.betInfo + lgb.cancelled);
+                } else {
+                    tip.error(lgb.bet.betInfo + lgb.error);
+                }
             } else {
+                console.log(result);
                 getGameStatus('bet');
             }
         });
@@ -816,7 +839,7 @@ var getGameStatus = function (type) {
                 console.log("Game check result is ：" + result);
                 if (result) {
                     if (type == 'stop' && gameStatus == 2) {
-                        tip.right("Bet Stopped ！");
+                        tip.right(lgb.bet.betStop);
                         $("#callbackStop").val();
                         clearInterval(interval);
                         betStatusFun(gameStatus);
@@ -830,7 +853,7 @@ var getGameStatus = function (type) {
                         gameStatus = 1;
                         if (type == 'resume') {
                             clearInterval(interval);
-                            tip.right("Bet Resumed ！");
+                            tip.right(lgb.bet.betResumed);
                             $("#callbackStop").val();
                             betStatusFun(gameStatus);
                             if (userChoice > 0) {
@@ -841,7 +864,7 @@ var getGameStatus = function (type) {
                         }
                         if (type == 'bet' && userChoice > 0) {
                             clearInterval(interval);
-                            tip.right("Bet Submitted！");
+                            tip.right(lgb.bet.betSubmit);
                             $("#callbackStop").val();
                             showUserChoice(gameStatus, userChoice, correctChoice);
                             $("#userAmount").text(userPayAmount);
@@ -854,7 +877,7 @@ var getGameStatus = function (type) {
                         unbindSelect();
                         showUserChoice(gameStatus, userChoice, correctChoice);
                         if (type == 'declare') {
-                            tip.right("Correct Option Declared！");
+                            tip.right(lgb.bet.betDeclared);
                             $("#callbackStop").val();
                             if (document.getElementById(contentId)) {
                                 document.getElementById(contentId).style.display = 'none';
@@ -862,7 +885,7 @@ var getGameStatus = function (type) {
                             showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
                         }
                         if (type == 'withdraw') {
-                            tip.right("Withdraw success ! ");
+                            tip.right(lgb.bet.betWithdraw);
                             $("#callbackStop").val();
                             if (document.getElementById(contentId)) {
                                 document.getElementById(contentId).style.display = 'none';
