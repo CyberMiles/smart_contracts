@@ -1,7 +1,7 @@
 const fun = new MainFun();
 const tip = IUToast;
-const functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy Bet Link', 'Share Bet QR Code'];
-const betStatus = ['Not Start', 'In Progress', 'Pending Confirm', 'End'];// functionArray status 0:init 1:progress 2:stop 3:end
+const lgb = fun.languageChoice();
+var functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy Bet Link', 'Share Bet QR Code'];
 const betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];// betting status 0:init 1:progress 2:stop 3:end
 const contract_address = fun.getParameter("contract");
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html';
@@ -40,7 +40,7 @@ $(function () {
     // init the abi and bin
     getAbi();
     getBin();
-    bindShare();
+    initLanguage();
     var interval = setInterval(function () {
         if (betAbi.length > 0) {
             window.onload = checkGameStatus();
@@ -55,11 +55,31 @@ $(function () {
     setInterval(function () {
         getBetInfo();
     }, 10 * 1000);
+    bindShare();
 });
+
+
+// init language
+var initLanguage = function () {
+    if (lgb == '' || lgb == null) {
+        return;
+    }
+    fun.changeDomContentById("submit", lgb.bet.confirm);
+    fun.changeDomContentById("betTitle", lgb.bet.title);
+    fun.changeDomContentById("detailInfo", lgb.detail.detailInfo);
+    fun.changeDomContentById("playCount", lgb.detail.playCount);
+    fun.changeDomContentById("totalAmount", lgb.detail.totalAmount);
+    fun.changeDomContentById("contractBetAddress", lgb.detail.contractBetAddress);
+    fun.changeDomContentById("myBetAmount", lgb.detail.myBetAmount);
+    fun.changeDomContentById("betDesc", lgb.detail.betDesc);
+    fun.changeDomContentById("qrBet", lgb.detail.qrBet);
+    fun.changeDomContentById("returnBack", lgb.bet.back);
+    functionArray = lgb.functionArray;
+}
 
 var checkGameStatus = function (type) {
     if (type != 'reload') {
-        tip.loading("Loading...");
+        tip.loading(lgb.tip.loading);
     }
     try {
         web3.cmt
@@ -69,7 +89,7 @@ var checkGameStatus = function (type) {
     }
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
-            tip.error("The account address have an error!");
+            tip.error(lgb.user.errorInfo);
         } else {
             userAddress = address.toString();
             var contractLink = '<a href="https://www.cmttracking.io/address/' + contract_address + '">' + dealUserAddress(contract_address) + '</a>'
@@ -80,7 +100,7 @@ var checkGameStatus = function (type) {
             instance.checkStatus(userAddress, function (gameError, result) {
                 if (gameError) {
                     console.log(gameError);
-                    tip.error("Game status have an error ,please refresh !");
+                    tip.error(lgb.bet.gameError);
                     return;
                 } else {
                     gameStatus = Number(result[0]);
@@ -100,7 +120,7 @@ var checkGameStatus = function (type) {
                     instance.owner(function (e, owner) {
                         if (owner && owner.toLowerCase() == userAddress.toLowerCase()) {
                             if (gameStatus != 3) {
-                                showBetSetting(contentId, afterBtnName, "Bet settings", betSetting);
+                                showBetSetting(contentId, afterBtnName, lgb.bet.setting, betSetting);
                             }
                         }
                     });
@@ -141,9 +161,9 @@ var checkGameStatus = function (type) {
 var getBetInfo = function () {
     instance.getBetInfo(function (e, result) {
         if (e) {
-            console.log("It have an error when get this Bet Game info ：" + e);
+            console.log(lgb.bet.betError + e.message);
             if (e.code == '1001') {
-                tip.error("The Game you Get : " + e.message)
+                tip.error(lgb.bet.betInfo + e.message)
             }
         } else {
             gameStatus = Number(result[0]);
@@ -165,12 +185,12 @@ var getBetInfo = function () {
 var getUserAgent = function () {
     var agent = navigator.userAgent;
     if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
-        tip.error("You should download CMT Wallet first！");
+        tip.error(lgb.wallet.cmtWallet);
         setTimeout(function () {
             window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
         }, 3000)
     } else {
-        tip.error("You should download MetaMask for CMT first！");
+        tip.error(lgb.wallet.metaMask);
         setTimeout(function () {
             window.location.href = 'https://www.cybermiles.io/metamask/';
         }, 3000)
@@ -270,11 +290,11 @@ var bindSelect = function () {
  */
 var betStatusFun = function (status) {
     var element = document.getElementById("bet-status");
-    var betValue = betStatus[0];
+    var betValue = lgb.betStatus[0];
     var betColor = betStatusColor[0];
-    for (var st in betStatus) {
+    for (var st in lgb.betStatus) {
         if (status == st) {
-            betValue = betStatus[st];
+            betValue = lgb.betStatus[st];
             betColor = betStatusColor[st];
             break;
         }
@@ -289,11 +309,11 @@ var betStatusFun = function (status) {
 var betSetting = function () {
     // when the game is running
     if (gameStatus == 1) {
-        fun.popupTipBottom([functionArray[0], functionArray[1]], funArray);
+        fun.popupTipBottom([functionArray[0], functionArray[1]], funArray, lgb.cancel);
     }
     if (gameStatus == 2) {
         //when the game stop
-        fun.popupTipBottom([functionArray[2], functionArray[1]], funArray);
+        fun.popupTipBottom([functionArray[2], functionArray[1]], funArray, lgb.cancel);
     }
 }
 
@@ -345,7 +365,7 @@ var showWithdrawSuccess = function (contentId, payAmount) {
     if (document.getElementById(failId)) {
         document.getElementById(failId).remove();
     }
-    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;Congratulations, to the winner!</div>';
+    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
     content += '<div class="winner-show">You had got ' + payAmount + ' !</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], divId);
 }
@@ -359,7 +379,7 @@ var showFailed = function (contentId) {
     if (document.getElementById(id)) {
         return;
     }
-    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;Sorry, you bet failed!</div>';
+    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.failed + '</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
 
@@ -372,7 +392,7 @@ var showNotJoin = function () {
     if (document.getElementById(id)) {
         return;
     }
-    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;Bet game is over！</div>';
+    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.end + '</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
 
@@ -380,15 +400,12 @@ var showNotJoin = function () {
  * user withdraw
  */
 var withdraw = function () {
-    tip.loading("Transaction Processing...");
+    tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     instance.payMe(function (e, result) {
         if (e != null) {
-            if (e.code == '1001') {
-                tip.error("You withdraw : " + e.message)
-            } else {
-                tip.error('It have a error when withdraw :' + e.message);
-            }
+            tip.error(lgb.withdraw.info + e.message)
+
         } else {
             getGameStatus('withdraw');
         }
@@ -430,11 +447,11 @@ var declareBetGame = function () {
     var dateTime = new Date();
     var desc = "This Bet Game stop at the Time : " + dateTime + "， and the correct choice is ：" + fun.getLetterByNum(choiceValue);
     if (choiceValue <= 0) {
-        tip.error("Please select a correct option！");
+        tip.error(lgb.tip.selectOption);
         return;
     }
     document.getElementById("pupopBox").style.display = "none";
-    tip.loading("Transaction Processing...");
+    tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     var feeData = instance.endGame.getData(choiceValue, desc);
     web3.cmt.estimateGas({
@@ -453,11 +470,7 @@ var declareBetGame = function () {
             gasPrice: 2000000000
         }, function (e, result) {
             if (e) {
-                if (e.code == '1001') {
-                    tip.error("The Game you Declare : " + e.message)
-                } else {
-                    tip.error('"It have an error when declare this Bet Game :' + e.message);
-                }
+                tip.error(lgb.bet.declare + e.message)
             } else {
                 getGameStatus('declare');
             }
@@ -475,7 +488,7 @@ var declareBet = function () {
         selects.push(fun.getLetterByNum(i) + '. ' + descs[i]);
     }
     var title = descs[0];
-    var btnName = ['Declare', 'Cancel'];
+    var btnName = lgb.btnName;
     // create select popupTip
     fun.popupSelectTip(title, selects, btnName);
     fun.addMainEvent(document.getElementById(btnName[0]), "click", declareBetGame);
@@ -510,19 +523,16 @@ var declareBetCancel = function () {
  * stop the bet
  */
 var stopBet = function () {
-    tip.loading("Transaction Processing...");
+    tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     instance.stopGame({
         gas: 3000000,
         gasPrice: 2000000000
     }, function (e, result) {
         if (e) {
-            if (e.code == '1001') {
-                tip.error("The Game you Stop : " + e.message)
-            } else {
-                tip.error('"It have a error when stop this Bet Game：' + e.message);
-            }
+            tip.error(lgb.bet.stop + e.message);
         } else {
+            console.log(result);
             getGameStatus("stop");
         }
     });
@@ -532,18 +542,15 @@ var stopBet = function () {
  * resume the game
  */
 var resumeBet = function () {
-    tip.loading("Transaction Processing...");
+    tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     instance.resumeGame({
         gas: 3000000,
         gasPrice: 2000000000
     }, function (e, result) {
         if (e) {
-            if (e.code == '1001') {
-                tip.error("The Game you resume : " + e.message)
-            } else {
-                tip.error('"It have a error when resume this Bet Game：' + e.message);
-            }
+            console.log(result);
+            tip.error(lgb.bet.resume + e.message);
         } else {
             getGameStatus("resume");
         }
@@ -559,7 +566,7 @@ var shareLink = function () {
         text: shareBetLink
     });
     clipboard.on('success', function (e) {
-        tip.right("Bet Link Copied！");
+        tip.right(lgb.tip.copied);
         e.clearSelection();
     });
     clipboard.on('error', function (e) {
@@ -576,13 +583,13 @@ var initCopyLink = function () {
     var btnId = 'create_share_btn';
     var element = document.getElementsByName(functionArray[3])[0];
     // add alert msg div
-    fun.addDivInnerhtml(domType[0], [attrType[0], attrType[2]], appendType[3], 'Bet Link Copied！', ["copy_tip_share", "copy_tip_share main-hidden-display"], '');
+    fun.addDivInnerhtml(domType[0], [attrType[0], attrType[2]], appendType[3], lgb.tip.copied, ["copy_tip_share", "copy_tip_share main-hidden-display"], '');
     //element.setAttribute("data-clipboard-target", copyId);
     element.setAttribute("id", btnId);
     element.setAttribute("data-clipboard-text", shareBetLink);
     var clipboard = new ClipboardJS('#create_share_btn', {});
     clipboard.on('success', function (e) {
-        tip.right("Bet Link Copied！");
+        tip.right(lgb.tip.copied);
         e.clearSelection();
     });
     clipboard.on('error', function (e) {
@@ -645,20 +652,22 @@ var returnBack = function () {
 var confirmOption = function () {
     var selectedValue = $("#selectedValue").val();
     if (selectedValue == null || selectedValue == '' || selectedValue < 0) {
-        tip.error("Please select you choice！")
+        tip.error(lgb.tip.selectChoice);
         return;
     }
-    var divTitle = "Bet CMT Amount";
-    var inputDesc = "Please Enter Positive Integer";
-    var btnName = "Submit";
-    fun.popupInputTip(divTitle, inputDesc, btnName);
-    fun.addMainEvent(document.getElementById(btnName), "click", confirmOptionSubmit);
+    var divTitle = lgb.bet.betTitle;
+    var inputDesc = lgb.tip.positive;
+    var btnId = "Submit";
+    var btnName = lgb.tip.submit;
+    fun.popupInputTip(divTitle, inputDesc, btnName, btnId);
+    fun.addMainEvent(document.getElementById(btnId), "click", confirmOptionSubmit);
 }
 
 var onlyNumber = function (obj) {
     if (obj.indexOf(".") > -1) {
+        console.log(obj.substr(0, obj.indexOf(".")));
         $("#SubmitValue").val(obj.substr(0, obj.indexOf(".")));
-        tip.error("Please Enter a positive Integer ！")
+        tip.error(lgb.tip.positive)
         return;
     }
     obj = obj.replace(/\D/g, '');
@@ -678,31 +687,29 @@ var confirmOptionSubmit = function () {
     var selectedValue = $("#selectedValue").val();
     if (amount.indexOf(".") > -1) {
         $("#SubmitValue").val(amount.substr(0, amount.indexOf(".")));
-        tip.error("Please Enter a positive Integer ！")
+        tip.error(lgb.tip.positive);
         return;
     }
     amount = onlyNumber(amount);
     amount = Number(amount);
     if (amount == null || amount == '' || 'number' != typeof amount || isNaN(amount)) {
-        tip.error("Please fill right amount ！")
+        tip.error(lgb.tip.fillRightAmount);
         return;
     }
-
     if (amount <= 0) {
-        tip.error("The amount you fill should more than zero！")
+        tip.error(lgb.tip.moreThanZero);
         return;
     }
-
     if (gameStatus == 0) {
-        tip.error("The Game have not start yet！")
+        tip.error(lgb.bet.notStart);
         return;
     }
     if (gameStatus == 2) {
-        tip.error("The Game had been stopped ！");
+        tip.error(lgb.bet.stopped);
         return;
     }
     document.getElementById("pupopBox").style.display = "none";
-    tip.loading("Transaction Processing...");
+    tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     // change the submit button color and event
     var root = document.getElementsByClassName("main-button")[0];
@@ -728,11 +735,8 @@ var confirmOptionSubmit = function () {
             gasPrice: 2000000000
         }, function (e, result) {
             if (e) {
-                if (e.code == '1001') {
-                    tip.error("The Game you Bet : " + e.message)
-                } else {
-                    tip.error('The game you Bet have some error :' + e.code + ' , ' + e.message);
-                }
+                tip.error(lgb.bet.betInfo + e.message)
+                console.log(result);
             } else {
                 getGameStatus('bet');
             }
@@ -745,7 +749,7 @@ var confirmOptionSubmit = function () {
  */
 var showChoices = function (gameDesc) {
     if (gameDesc == null || gameDesc == '' || gameDesc.split(";").length < 1) {
-        console.log("This bet game have no set choice and title");
+        console.log(lgb.bet.showTitle);
         return;
     }
     var descs = gameDesc.split(";");
@@ -767,7 +771,7 @@ var showChoices = function (gameDesc) {
         }
     } else {
         if (values == null || values == undefined) {
-            values = 'Have No choice! ';
+            values = lgb.bet.showChoice;
         }
         var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
             '<p class="main-bet-join-div">' + values + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + 0 + '</p></div></div>';
@@ -929,7 +933,7 @@ var bindShare = function () {
  * bind share function
  */
 var shareFunctions = function () {
-    fun.popupTipBottom([functionArray[3], functionArray[4]], funArray);
+    fun.popupTipBottom([functionArray[3], functionArray[4]], funArray, lgb.cancel);
     initCopyLink();
 }
 

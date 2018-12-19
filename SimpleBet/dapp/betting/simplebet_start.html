@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
 
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
@@ -21,7 +20,8 @@
     <div class="main-middle">
         <div id="main-div-count">
             <div class="main-div">
-                <input name="choice" id="title" onkeyup="checkChoice()" maxlength="140" placeholder="The issue to bet on"
+                <input name="choice" id="title" onkeyup="checkChoice()" maxlength="140"
+                       placeholder="The issue to bet on"
                        value="">
                 <div class="main-line"></div>
             </div>
@@ -32,11 +32,11 @@
             </div>
 
             <div class="main-div">
-                <input name="choice" onkeyup="checkChoice(this.value)"  maxlength="20" placeholder="Option B" value="">
+                <input name="choice" onkeyup="checkChoice(this.value)" maxlength="20" placeholder="Option B" value="">
                 <div class="main-line"></div>
             </div>
             <div class="main-div">
-                <input name="choice" onkeyup="checkChoice(this.value)"  maxlength="20" placeholder="Option C" value="">
+                <input name="choice" onkeyup="checkChoice(this.value)" maxlength="20" placeholder="Option C" value="">
                 <div class="main-line"></div>
             </div>
             <div class="add-div"></div>
@@ -44,13 +44,13 @@
         <div>
             <div class="main-div-option" id="delDiv">
                 <img class="main-button-option" src="../images/del.png">
-                <p class="main-button-front">Del option</p>
+                <p class="main-button-front" id="delOption">Del option</p>
                 <div class="main-line main-hidden"></div>
             </div>
             <p class="main-line-button"></p>
             <div class="main-div-option" id="addDiv">
                 <img class="main-button-option" src="../images/add.png">
-                <p class="main-button-front">Add option</p>
+                <p class="main-button-front" id="addOption">Add option</p>
                 <div class="main-line main-hidden"></div>
             </div>
         </div>
@@ -66,17 +66,17 @@
 </div>
 <div class="share-desc-div share-bottom-div start-content">
     <div class="share-font">
-        <a href="##" onclick="showBetList()">View My Bets</a>
+        <a href="##" onclick="showBetList()" id="showBetListId">View My Bets</a>
     </div>
 </div>
 <div class="main-contain list-content">
     <!-- list head-->
     <div class="showBetList share-font">
         <div>
-            <div class="list-head">Title</div>
-            <div class="list-head">Status</div>
-            <div class="list-head">Total Count</div>
-            <div class="list-head">Total Amount</div>
+            <div class="list-head" id="listTitle">Title</div>
+            <div class="list-head" id="listStatus">Status</div>
+            <div class="list-head" id="listTotalCount">Total Count</div>
+            <div class="list-head" id="listTotalAmount">Total Amount</div>
         </div>
         <div class="list-head-div">
             <div class="list-line"></div>
@@ -88,12 +88,13 @@
     <div id="listButton" class="share-desc-div share-bottom-div start-content">
         <div class="contract-page">
             <a class="contract-page-href" href="##" onclick="showBetList('first')" id="firstPage">First Page</a>
-            <a class="contract-page-href" href="##" onclick="showBetList('previous')" id="previousPage">Previous Page</a>
+            <a class="contract-page-href" href="##" onclick="showBetList('previous')" id="previousPage">Previous
+                Page</a>
             <a class="contract-page-href" href="##" onclick="showBetList('next')" id="nextPage">Next Page</a>
             <a class="contract-page-href" href="##" onclick="showBetList('last')" id="lastPage">Last Page</a>
         </div>
         <div class="back-new-contract">
-            <a href="##" onclick="backNewContract()">Back New Bet Contract</a>
+            <a href="##" onclick="backNewContract()" id="backNewContract">Back New Bet Contract</a>
         </div>
         <input type="hidden" id="currentPage" value="1">
         <input type="hidden" id="totalCount" value="1">

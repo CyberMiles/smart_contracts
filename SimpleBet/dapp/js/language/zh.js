@@ -1,5 +1,89 @@
 var ZHLanguage = {
     title: "请输入标题",
-    option: "请输入选项"
+    option: "请输入选项",
+    cancel: "取消",
+    addOption: "添加选项",
+    delOption: "删除选项",
+    createContract: "创建赌局合约",
+    viewBetList: "查看历史赌局",
+    listTitle: "标题",
+    listStatus: "状态",
+    listTotalCount: "总人数",
+    listTotalAmount: "总金额",
+    firstPage: "首页",
+    previousPage: "上一页",
+    nextPage: "下一页",
+    lastPage: "末页",
+    backNewContract: "返回创建新的赌局合约",
+    btnName: ['宣布结果', '取消'],
+    gameStatus: ['还未开始', '进行中', '已暂停', '已结束'],
+    betStatus: ['还未开始', '进行中', '已暂停', '已结束'],
+    functionArray: ['暂停游戏', '宣布结果', '恢复赌局', '复制链接', '分享二维码'],
+
+    user: {
+        errorInfo: "获取用户信息出错！",
+    },
+
+    bet: {
+        confirm: "确定提交",
+        title: "赌局标题",
+        gameError: "获取赌局信息有误，请刷新后再试！",
+        betError: "获取赌局信息有误，请刷新后再试！",
+        betInfo: "赌局：",
+        win: "恭喜, 您已获胜！",
+        failed: "对不起, 你输了！",
+        end: "游戏已结束！",
+        init: "赌局初始化中，标题 : ",
+        notStart: "赌局还未开始！",
+        stop: "赌局暂停 : ",
+        stopped: "赌局已暂停",
+        resume: "赌局恢复 : ",
+        declare: "赌局结算 : ",
+        betTitle: "赌局CMT金额",
+        showTitle: "未查到赌局的标题和选项！",
+        showChoice: "没有选项! ",
+        back: "返回 ",
+        setting: "设置",
+        betGameInfo: "区块链游戏",
+    },
+
+    detail: {
+        detailInfo: "详情",
+        playCount: "参与人数",
+        totalAmount: "总金额",
+        contractBetAddress: "赌局合约地址",
+        myBetAmount: "已下注金额",
+        betDesc: "比赛获胜者将在比赛结束后获得报酬.",
+        qrBet: "使用CMT钱包扫描二维码并加入投注.",
+    },
+
+    withdraw: {
+        info: "取现 : ",
+    },
+
+    wallet: {
+        cmtWallet: "请先下载CMT钱包！",
+        metaMask: "请先下载CMT-MetaMask！",
+    },
+
+    tip: {
+        loading: "加载中 ...",
+        processing: "交易处理中 ...",
+        nullTitle: "标题不能为空！",
+        lessThan: "不能少于2个选项！",
+        firstPage: "这已经是第一页了！",
+        lastPage: "这已经是最后一页了！",
+        exceedTitle: "标题不能超过140个字 ！",
+        exceedOption: "选项不能超过20个字 ！",
+        createFailed: "创建赌局合约失败！",
+        getBetInfoError: "获取赌局信息异常：",
+        selectOption: "请选择一个选项！ ",
+        copied: "链接已复制！",
+        selectChoice: "请确定你的选项！",
+        positive: "请输入正整数！",
+        moreThanZero: "输入金额必须大于 0！",
+        fillRightAmount: "请输入正确的金额！",
+        submit: "确定",
+    }
 }
 

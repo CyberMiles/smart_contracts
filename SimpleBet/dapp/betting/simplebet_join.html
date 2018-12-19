@@ -45,7 +45,7 @@
         <div class="main-contain">
             <div class="main-bet-details-font">
                 <div class="main-bet-detail-div main-bet-detail-show">
-                    <div class="main-bet-detail">
+                    <div class="main-bet-detail" id="detailInfo">
                         Details
                     </div>
                 </div>
@@ -54,7 +54,7 @@
         <div class="main-contain">
             <div class="main-bet-details-font">
                 <div class="main-bet-detail-div main-bet-detail-show">
-                    <div class="main-bet-detail main-bet-address-left">
+                    <div class="main-bet-detail main-bet-address-left" id="playCount">
                         Bet Player Count
                     </div>
                     <div class="main-bet-detail main-bet-address-right" id="totalBetCount">
@@ -66,7 +66,7 @@
         <div class="main-contain">
             <div class="main-bet-details-font">
                 <div class="main-bet-detail-div main-bet-detail-show">
-                    <div class="main-bet-detail main-bet-address-left">
+                    <div class="main-bet-detail main-bet-address-left" id="totalAmount">
                         Total bet amount
                     </div>
                     <div class="main-bet-detail main-bet-address-right" id="totalBetAmount">
@@ -78,7 +78,7 @@
         <div class="main-contain">
             <div class="main-bet-details-font">
                 <div class="main-bet-detail-div main-bet-detail-show">
-                    <div class="main-bet-detail main-bet-address-left">
+                    <div class="main-bet-detail main-bet-address-left" id="contractBetAddress">
                         Bet contract address
                     </div>
                     <div class="main-bet-detail main-bet-address-right" id="contractAddress">
@@ -90,7 +90,7 @@
         <div class="main-contain">
             <div class="main-bet-details-font">
                 <div class="main-bet-detail-div main-bet-detail-show">
-                    <div class="main-bet-detail main-bet-address-left">
+                    <div class="main-bet-detail main-bet-address-left" id="myBetAmount">
                         My bet amount
                     </div>
                     <div class="main-bet-detail main-bet-address-right" id="userAmount">
@@ -102,7 +102,7 @@
         <div class="main-contain">
             <div class="main-bet-details-font">
                 <div class="main-bet-detail-div main-bet-detail-show">
-                    <div class="main-bet-detail main-bet-address-normal">
+                    <div class="main-bet-detail main-bet-address-normal" id="betDesc">
                         Bet winer will get paid after the game concludes.
                     </div>
                 </div>
@@ -116,7 +116,7 @@
         <div id="qrcode"></div>
     </div>
     <div class="share-desc-div" id="desc">
-        <p class="share-font">Use CMT Wallet to scan bet QR to join the bet.</p>
+        <p class="share-font" id="qrBet">Use CMT Wallet to scan bet QR to join the bet.</p>
     </div>
     <div class="share-desc-div">
         <!--<div class="main-button-div main-contain main-div-button">
@@ -136,7 +136,7 @@
             <a id="downloadLink"></a>
         </div>
         <div class="main-hiddeni"><img id="qrShareImg" src=""></div>
-        <div class="share-font">
+        <div class="share-font" id="betGameInfo">
             Blockchain Bet Game
         </div>
     </div>

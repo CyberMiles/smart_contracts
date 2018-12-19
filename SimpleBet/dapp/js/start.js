@@ -1,4 +1,3 @@
-const betStatus = ['Not Start', 'Progress', 'Pending', 'End'];
 var fun = new MainFun();
 const lang = fun.languageChoice();
 var tip = IUToast;
@@ -9,11 +8,9 @@ var contract_address = '';
 var contract = '';
 var instance = '';
 var loadCount = 0;
-fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
-fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count"));
+var loading = 'Loading...';
 
 var webBrowser = new AppLink();
-
 
 $(function () {
     getAbi();
@@ -21,6 +18,9 @@ $(function () {
     initLanguage();
     initUserAddress();
     webBrowser.openBrowser();
+    fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
+    fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count", lang.tip.lessThan));
+
 });
 
 // init language
@@ -28,9 +28,21 @@ var initLanguage = function () {
     if (lang == '' || lang == null) {
         return;
     }
-    //$("#title").attr("placeholder", lang.title);
-    console.log(lang.title);
-    console.log(lang.title);
+    fun.choiceInputLangByName("choice", lang.option);
+    fun.choiceInputLangById("title", lang.title);
+    fun.changeDomContentById("delOption", lang.delOption);
+    fun.changeDomContentById("addOption", lang.addOption);
+    fun.changeDomContentById("submit", lang.createContract);
+    fun.changeDomContentById("showBetListId", lang.viewBetList);
+    fun.changeDomContentById("listTitle", lang.listTitle);
+    fun.changeDomContentById("listStatus", lang.listStatus);
+    fun.changeDomContentById("listTotalCount", lang.listTotalCount);
+    fun.changeDomContentById("listTotalAmount", lang.listTotalAmount);
+    fun.changeDomContentById("firstPage", lang.firstPage);
+    fun.changeDomContentById("previousPage", lang.previousPage);
+    fun.changeDomContentById("nextPage", lang.nextPage);
+    fun.changeDomContentById("lastPage", lang.lastPage);
+    fun.changeDomContentById("backNewContract", lang.backNewContract);
 }
 
 var initUserAddress = function () {
@@ -64,7 +76,7 @@ var showBetList = function (type) {
             pageNo = pageNo - 1;
         } else {
             pageNo = 1;
-            tip.right("This is already the First Page！");
+            tip.right(lang.tip.firstPage);
             return;
         }
     }
@@ -72,7 +84,7 @@ var showBetList = function (type) {
         var totalPage = $("#totalPage").val();
         if (pageNo >= totalPage) {
             pageNo = totalPage;
-            tip.right("This is already the Last Page！");
+            tip.right(lang.tip.lastPage);
             return;
         } else {
             pageNo = Number(pageNo) + 1;
@@ -101,7 +113,7 @@ var showListContent = function (pageSize, pageNo) {
     if (pageNo == null || pageNo == '' || pageNo == 'undefined' || pageNo <= 0) {
         pageNo = 1;
     }
-    tip.loading("Loading...");
+    tip.loading(lang.tip.loading);
     var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
     $.ajax({
         url: url,
@@ -142,7 +154,7 @@ var appendChildList = function (contractAddress, id, lastCount) {
         if (e) {
             console.log("It have an error when get this Bet Game info ：" + e);
             if (e.code == '1001') {
-                tip.error("The Game you Get : " + e.message);
+                tip.error(lang.tip.getBetInfoError + "：" + e.message);
             }
         } else {
             var gameStatus = Number(result[0]);
@@ -162,7 +174,7 @@ var appendChildList = function (contractAddress, id, lastCount) {
             }
             var html = '<div class="showBetContent share-font"><div>' +
                 '<div class="list-head">' + title + '</div>' +
-                '<div class="list-head">' + betStatus[gameStatus] + '</div>' +
+                '<div class="list-head">' + lang.gameStatus[gameStatus] + '</div>' +
                 '<div class="list-head">' + totalBetCount + '</div>' +
                 '<div class="list-head">' + totalBetAmount + '</div></div><div class="list-head-div"><div class="list-line"></div></div></div>';
             $("#" + id).append(html);
@@ -181,12 +193,12 @@ var checkChoice = function (inputValue) {
     var title = $("#title").val();
     if (inputValue == '' || inputValue == null || inputValue == 'undefined') {
         if (title.length >= 140) {
-            tip.error("Title should less than 140 ！");
+            tip.error(lang.tip.exceedTitle);
             return;
         }
     } else {
         if (inputValue.length >= 20) {
-            tip.error("Option should less than 20 ！");
+            tip.error(lang.tip.exceedTitle);
             return;
         }
     }
@@ -217,19 +229,19 @@ var startGame = function () {
         }
     }
     if (numChoices <= 2) {
-        tip.error('The choices must bigger then two!');
+        tip.error(lang.tip.lessThan);
         return;
     }
     var title = $("#title").val();
     if (title == null || title == '') {
-        tip.error('The game title should be input!');
+        tip.error(lang.tip.nullTitle);
         return;
     }
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
     var contract = web3.cmt.contract(betAbi);
     var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, {data: betBin.object});
-    tip.loading('The Game : ' + title + " Initialization !");
+    tip.loading(lang.bet.init + title);
     web3.cmt.estimateGas({data: feeDate}, function (e, returnGas) {
         var gas = '1700000';
         if (!e) {
@@ -243,7 +255,7 @@ var startGame = function () {
         }, function (e, instance) {
             if (e) {
                 tip.close();
-                tip.error('Bet contract Create failed ！');
+                tip.error(lang.tip.createFailed);
             } else {
                 contract_address = instance.address;
                 // if callback fun have no result then should call function for check result for this tx
@@ -266,32 +278,6 @@ var startGame = function () {
 };
 
 /**
- * get bet info
- */
-var getUserAgent = function () {
-    var agent = navigator.userAgent;
-    var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
-    if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
-        tip.right("It will open the cmt wallet ")
-        setTimeout(function () {
-            window.location.href = dappUrl;
-            setTimeout(function () {
-                tip.error("Do not find CMT Wallet ,You should download first！");
-                window.location.href = '../betting/testone.html';
-                setTimeout(function () {
-                    tip.error("Copy the link <a href='http://www.cybermiles.io/cmt-wallet/'>http://www.cybermiles.io/cmt-wallet/</a> and open the Browser ！");
-                }, 3000)
-            }, 3000)
-        }, 2000);
-    } else {
-        tip.error("You should download MetaMask for CMT first！");
-        setTimeout(function () {
-            window.location.href = 'https://www.cybermiles.io/metamask/';
-        }, 3000)
-    }
-}
-
-/**
  * create contract success callback function
  */
 var setTheContractAddressAndTurn = function (result) {
@@ -312,7 +298,7 @@ var setTheContractAddressAndTurn = function (result) {
  * create contract success callback function
  */
 var callbackError = function () {
-    tip.error('Bet contract Create failed ！');
+    tip.error(lang.tip.createFailed);
 };
 
 /**
