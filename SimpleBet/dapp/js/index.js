@@ -40,7 +40,7 @@ $(window).scroll(function () {
             $("#currentPage").val(pageNo);
             showListContent(pageSize, pageNo);
         } else if (scrollTop <= 0) {
-            tip.right(lang.tip.firstPage);
+            //tip.right(lang.tip.firstPage);
             return;
         }
     }
