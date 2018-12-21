@@ -17,6 +17,7 @@ var ZHLanguage = {
     nextPage: "下一页",
     lastPage: "末页",
     backNewContract: "返回创建新的赌局合约",
+    backIndex: "返回首页",
     btnName: ['宣布结果', '取消'],
     gameStatus: ['还未开始', '进行中', '已暂停', '已结束'],
     betStatus: ['还未开始', '进行中', '已暂停', '已结束'],
@@ -71,9 +72,21 @@ var ZHLanguage = {
         btnName: "取现",
     },
 
+    index: {
+        newBet: "创建赌局",
+        from: "来自于 ",
+        participants: " 参与者",
+        participate: " 参与赌局",
+        backNewBetContract: " 返回",
+    },
+
     wallet: {
         cmtWallet: "请先下载CMT钱包！",
         metaMask: "请先下载CMT-MetaMask！",
+    },
+
+    my: {
+        backBetList: "返回",
     },
 
     tip: {

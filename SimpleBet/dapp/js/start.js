@@ -9,7 +9,6 @@ var contract = '';
 var instance = '';
 var loadCount = 0;
 var loading = 'Loading...';
-
 var webBrowser = new AppLink();
 
 $(function () {
@@ -43,6 +42,7 @@ var initLanguage = function () {
     fun.changeDomContentById("nextPage", lang.nextPage);
     fun.changeDomContentById("lastPage", lang.lastPage);
     fun.changeDomContentById("backNewContract", lang.backNewContract);
+    fun.changeDomContentById("backIndex", lang.backIndex);
 }
 
 var initUserAddress = function () {
@@ -59,146 +59,12 @@ var initUserAddress = function () {
     }, 300);
 }
 
-var showBetList = function (type) {
-    $(".start-content").css("display", "none");
-    $(".list-content").css("display", "block");
-    $("#listButton").css("display", "block");
-    var pageNo = $("#currentPage").val();
-    var pageSize = 10;
-    if (type == 'first') {
-        pageNo = 1;
-    }
-    if (type == 'last') {
-        pageNo = $("#totalPage").val()
-    }
-    if (type == 'previous') {
-        if (pageNo > 1) {
-            pageNo = pageNo - 1;
-        } else {
-            pageNo = 1;
-            tip.right(lang.tip.firstPage);
-            return;
-        }
-    }
-    if (type == 'next') {
-        var totalPage = $("#totalPage").val();
-        if (pageNo >= totalPage) {
-            pageNo = totalPage;
-            tip.right(lang.tip.lastPage);
-            return;
-        } else {
-            pageNo = Number(pageNo) + 1;
-        }
-    }
-    $("#currentPage").val(pageNo);
-    showListContent(pageSize, pageNo);
+var showBetList = function () {
+    window.location.href = "./simplebet_my.html";
 }
 
-var backNewContract = function () {
-    $(".start-content").css("display", "block");
-    $(".list-content").css("display", "none");
-    $("#listButton").css("display", "none");
-    $("#listContent").children().remove();
-}
-
-var showListContent = function (pageSize, pageNo) {
-    var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
-    if (pageNo == 1) {
-        $("#previousPage").remove("href");
-    }
-    var textHtml = '';
-    if (pageSize == null || pageSize == '' || pageSize == 'undefined' || pageSize <= 0 || pageSize >= 10) {
-        pageSize = 10;
-    }
-    if (pageNo == null || pageNo == '' || pageNo == 'undefined' || pageNo <= 0) {
-        pageNo = 1;
-    }
-    tip.loading(lang.tip.loading);
-    var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + userAddress + "&limit=" + pageSize + "&page=" + pageNo
-    console.log(url);
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        type: 'GET',
-        async: true,
-        success: function (result) {
-            if (result && result.data && result.data.objects) {
-                $("#listContent").children().remove();
-                $("#totalCount").val(result.data.meta.total);
-                var totalPage = parseInt(result.data.meta.total / 10) + 1;
-                $("#totalPage").val(totalPage);
-                var lastCount = result.data.meta.total % 10;
-                if (pageNo < totalPage) {
-                    lastCount = pageSize;
-                }
-                loadCount = 0;
-                for (var i = 0; i < result.data.objects.length; i++) {
-                    var id = 'showListId' + i;
-                    var obj = result.data.objects[i];
-                    textHtml = '<a id="' + id + '" href="../betting/simplebet_join.html?contract=' + obj.address + '" ></a>'
-                    $("#listContent").append(textHtml);
-                    appendChildList(obj.address, id, lastCount);
-                }
-            }
-        },
-        error: function (e) {
-            console.log("Get user contract address failed" + e)
-        }
-    });
-}
-
-var appendChildList = function (contractAddress, id, lastCount) {
-    contract = web3.cmt.contract(betAbi, contract_address);
-    instance = contract.at(contractAddress);
-    instance.getBetInfo(function (e, result) {
-        loadCount++;
-        if (e) {
-            console.log("It have an error when get this Bet Game info ：" + e);
-            if (e.code == '1001') {
-                tip.error(lang.tip.getBetInfoError + "：" + e.message);
-            }
-        } else {
-            var gameStatus = Number(result[0]);
-            var gameDesc = result[1];
-            var totalBetCount = Number(result[3]);
-            var totalBetAmount = Number(result[4] / 1000000000000000000);
-            if (totalBetAmount > 0) {
-                totalBetAmount = totalBetAmount.toFixed(4);
-            }
-            var descArray = gameDesc.split(";");
-            var title = 'Bet title';
-            if (descArray.length > 0) {
-                title = descArray[0];
-                var length = 0;
-                var subLength = 0;
-                for (var i = 0; i < title.length; i++) {
-                    if (length <= 15) {
-                        subLength++;
-                        if (/.*[\u4e00-\u9fa5]+.*$/.test(title[i])) {
-                            console.log(title[i] + ' ' + length);
-                            length += 2;
-                        } else {
-                            length++;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-                if (length > 15) {
-                    title = title.substr(0, subLength) + "...";
-                }
-            }
-            var html = '<div class="showBetContent share-font"><div>' +
-                '<div class="list-head">' + title + '</div>' +
-                '<div class="list-head">' + lang.gameStatus[gameStatus] + '</div>' +
-                '<div class="list-head">' + totalBetCount + '</div>' +
-                '<div class="list-head">' + totalBetAmount + '</div></div><div class="list-head-div"><div class="list-line"></div></div></div>';
-            $("#" + id).append(html);
-        }
-        if (loadCount >= lastCount) {
-            tip.closeLoad();
-        }
-    });
+var backIndex = function () {
+    window.location.href = "./simplebet_index.html";
 }
 
 var checkChoice = function (inputValue) {

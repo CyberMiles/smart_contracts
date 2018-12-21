@@ -17,6 +17,7 @@ var EnLanguage = {
     nextPage: "Next Page",
     lastPage: "Last Page",
     backNewContract: "Back New Bet Contract",
+    backIndex: "Back Index",
     btnName: ['Declare', 'Cancel'],
     gameStatus: ['Not Start', 'Progress', 'Pending', 'End'],
     betStatus: ['Not Start', 'In Progress', 'Pending Confirm', 'End'],
@@ -71,9 +72,21 @@ var EnLanguage = {
         btnName: "Withdraw Bet Reward",
     },
 
+    index: {
+        newBet: "New Bet",
+        from: "from ",
+        participants: " participants",
+        participate: "Participate",
+        backNewBetContract: "Back New Bet Contract",
+    },
+
     wallet: {
         cmtWallet: "You should download CMT Wallet first！",
         metaMask: "You should download MetaMask for CMT first！",
+    },
+
+    my: {
+        backBetList: "Back Bet List",
     },
 
     tip: {

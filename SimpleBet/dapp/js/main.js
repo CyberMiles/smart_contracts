@@ -133,7 +133,6 @@ var MainFun = (function () {
                 });
                 $('#loadImg').fadeIn(time, function () {
                 })
-                console.log("start");
             }, fadeTime);
             return intervalFun;
         };
