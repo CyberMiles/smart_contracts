@@ -32,7 +32,6 @@ var initLanguage = function () {
     fun.changeDomContentById("delOption", lang.delOption);
     fun.changeDomContentById("addOption", lang.addOption);
     fun.changeDomContentById("submit", lang.createContract);
-    fun.changeDomContentById("showBetListId", lang.viewBetList);
     fun.changeDomContentById("listTitle", lang.listTitle);
     fun.changeDomContentById("listStatus", lang.listStatus);
     fun.changeDomContentById("listTotalCount", lang.listTotalCount);
@@ -57,10 +56,6 @@ var initUserAddress = function () {
             }
         });
     }, 300);
-}
-
-var showBetList = function () {
-    window.location.href = "./simplebet_my.html";
 }
 
 var backIndex = function () {

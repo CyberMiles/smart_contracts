@@ -19,6 +19,8 @@ $(function () {
     webBrowser.openBrowser();
     showBetList();
     fun.addMainEvent(document.getElementById("newBet"), "click", newBetContract);
+    fun.addMainEvent(document.getElementById("showBetListId"), "click", turnBetList);
+
 });
 
 $(window).scroll(function () {
@@ -55,10 +57,15 @@ var initLanguage = function () {
         return;
     }
     fun.changeDomContentById("newBet", lang.index.newBet);
+    fun.changeDomContentById("showBetListId", lang.viewBetList);
 }
 
 var newBetContract = function () {
     window.location.href = "./simplebet_start.html";
+}
+
+var turnBetList = function () {
+    window.location.href = "./simplebet_my.html";
 }
 
 var showBetList = function () {
@@ -155,7 +162,7 @@ var appendChildList = function (contractAddress, id, lastCount) {
             if (divCount == 0) {
                 $("#showAllBetList").append('<div style="height: 1px"></div>');
             }
-            document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:45px';
+            document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:97px';
             setTimeout(function () {
                 hadLoading = false;
                 tip.closeLoad();
