@@ -38,7 +38,7 @@ $(window).scroll(function () {
                 pageNo++;
             }
             $("#currentPage").val(pageNo);
-            showListContent(pageSize, pageNo);
+            showListContent(pageNo);
         } else if (scrollTop <= 0) {
             //tip.right(lang.tip.firstPage);
             return;
@@ -62,15 +62,12 @@ var newBetContract = function () {
 }
 
 var showBetList = function () {
-    showListContent(pageSize, 1);
+    showListContent(1);
 }
 
 
-var showListContent = function (pageSize, pageNo) {
+var showListContent = function (pageNo) {
     var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
-    if (pageSize == null || pageSize == '' || pageSize == 'undefined' || pageSize <= 0 || pageSize >= 10) {
-        pageSize = 10;
-    }
     if (pageNo == null || pageNo == '' || pageNo == 'undefined' || pageNo <= 0) {
         pageNo = 1;
     }
@@ -107,8 +104,8 @@ var showListContent = function (pageSize, pageNo) {
 
 var appendChildList = function (contractAddress, id, lastCount) {
     document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:1px';
-    contract = web3.cmt.contract(betAbi, contract_address);
-    instance = contract.at(contractAddress);
+    var contract = web3.cmt.contract(betAbi, contract_address);
+    var instance = contract.at(contractAddress);
     instance.getBetInfo(function (e, result) {
         loadCount++;
         if (e) {
