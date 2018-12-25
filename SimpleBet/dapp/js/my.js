@@ -64,7 +64,7 @@ var initUserAddress = function () {
 }
 
 var backNewContract = function () {
-    window.location.href = "./simplebet_start.html";
+    window.location.href = "./simplebet_index.html";
 }
 
 var showListContent = function (pageNo, userAddress) {
