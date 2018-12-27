@@ -332,7 +332,7 @@ var callbackError = function () {
  */
 var getAbi = function () {
     $.ajax({
-        url: '../../BettingGame.abi',
+        url: 'BettingGame.abi',
         sync: true,
         dataType: 'text',
         success: function (data) {
@@ -346,7 +346,7 @@ var getAbi = function () {
  */
 var getBin = function () {
     $.ajax({
-        url: '../../BettingGame.bin',
+        url: 'BettingGame.bin',
         dataType: 'text',
         sync: true,
         success: function (data) {

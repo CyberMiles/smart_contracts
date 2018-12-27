@@ -10,6 +10,7 @@ var instance = '';
 var loadCount = 0;
 var loading = 'Loading...';
 var webBrowser = new AppLink();
+var minBetAmount = 10000000000000000000;
 
 $(function () {
     getAbi();
@@ -117,14 +118,14 @@ var startGame = function () {
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
     var contract = web3.cmt.contract(betAbi);
-    var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, {data: betBin.object});
+    var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, minBetAmount, {data: betBin.object});
     tip.loading(lang.bet.init + title);
     web3.cmt.estimateGas({data: feeDate}, function (e, returnGas) {
         var gas = '1700000';
         if (!e) {
             gas = Number(returnGas * 2);
         }
-        contract.new([gameDesc, numChoices - 1], {
+        contract.new([gameDesc, numChoices - 1, minBetAmount], {
             from: userAddress.toString(),
             data: feeDate,
             gas: gas,
@@ -183,7 +184,7 @@ var callbackError = function () {
  */
 var getAbi = function () {
     $.ajax({
-        url: '../../BettingGame.abi',
+        url: 'BettingGame.abi',
         sync: true,
         dataType: 'text',
         success: function (data) {
@@ -197,7 +198,7 @@ var getAbi = function () {
  */
 var getBin = function () {
     $.ajax({
-        url: '../../BettingGame.bin',
+        url: 'BettingGame.bin',
         dataType: 'text',
         sync: true,
         success: function (data) {

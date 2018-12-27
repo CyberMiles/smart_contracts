@@ -15,6 +15,7 @@ contract BettingGame {
     string public game_desc;
     int8 public number_of_choices;
 
+    safeuint min_bet_amount;
     safeuint total_bet_amount;
 
     int8 public total_bet_count;
@@ -31,12 +32,16 @@ contract BettingGame {
         _;
     }
 
-    constructor (string _game_desc, int8 _number_of_choices) public {
+    constructor (string _game_desc, int8 _number_of_choices, uint256 _min_bet_amount) public {
         require(_number_of_choices > 0);
+        require(_min_bet_amount > 0);
+        
         owner = msg.sender;
         game_status = 1;
         game_desc = _game_desc;
         number_of_choices = _number_of_choices;
+        min_bet_amount = _min_bet_amount;
+        
         total_bet_count = 0;
         total_bet_amount = 0;
         correct_choice = -1;
@@ -47,7 +52,7 @@ contract BettingGame {
     function placeBet (int8 _choice) public payable {
         require (game_status == 1); // game is running
         require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
-        require (msg.value > 0); // Must have bet amount
+        require (msg.value >= min_bet_amount); // Must have min bet amount
         require (bets[msg.sender].initialized == false); // Cannot bet twice
 
         Bet memory newBet = Bet(_choice, msg.value, false, true);
