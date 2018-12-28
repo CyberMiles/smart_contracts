@@ -1,0 +1,109 @@
+// if you changed this file, you should also consider update
+// the corresponding example in docs/rule-examples.rst
+
+pragma lity ^1.2.3;
+
+contract InsuranceClaim {
+    address owner;    // owner of the contract, typically the insurer
+    uint fee;
+    struct Person {
+        address addr;
+        uint loss; // due to flight delay
+        uint claimAmount;
+        uint flightID;
+        bool claimApplied;
+        bool claimReceived;
+    }
+
+    struct Flight{
+        uint id;
+        uint delay;
+    }
+
+    mapping (address => Person) insureds;
+    mapping (uint => Flight) flights;
+
+    //================ insured functions ===================
+    function InsuranceClaim() public {
+        owner = msg.sender;
+        fee = 100 finney;
+    }
+
+    function applyInsurance(uint flightID) public {
+        require(owner != msg.sender);
+        insureds[msg.sender] = Person(msg.sender, 0, 0, flightID, false, false);
+        factInsert insureds[msg.sender];
+        owner.transfer(fee);
+    }
+
+    function applyClaim(uint loss) public {
+        insureds[msg.sender].loss = loss;
+        insureds[msg.sender].claimApplied = true;
+    }
+
+    function queryClaimApplied() view public returns (bool) {
+        return insureds[msg.sender].claimApplied;
+    }
+
+    function queryClaimReceived() view public returns (bool) {
+        return insureds[msg.sender].claimReceived;
+    }
+
+    function queryClaim() view public returns (uint) {
+        return insureds[msg.sender].claimAmount;
+    }
+
+    function queryFlight() view public returns (uint) {
+        return insureds[msg.sender].flightID;
+    }
+
+    function queryFlightDelay(uint flightID) view public returns (uint) {
+        return flights[flightID].delay;
+    }
+
+    //================ owner-only functions ===================
+    function addFlight(uint flightID, uint delay) public {
+        require(owner == msg.sender);
+        flights[flightID] = Flight(flightID, delay);
+        factInsert flights[flightID];
+    }
+
+    function sendClaim() public {
+        require(owner == msg.sender);
+        fireAllRules;
+    }
+
+    function max(uint a, uint b) internal pure returns (uint) {
+        return a > b ? a : b;
+    }
+
+    function min(uint a, uint b) internal pure returns (uint) {
+        return a < b ? a : b;
+    }
+
+    rule "four hour fix amount" 
+    salience 10
+    when {
+        p: Person(claimApplied, !claimReceived);
+        f: Flight(delay >= 4, id == p.flightID);
+    } then {
+        p.claimAmount = max(5 ether, p.claimAmount);
+    }
+
+    rule "six hour limited amount" 
+    salience 10
+    when {
+        p: Person(claimApplied, !claimReceived);
+        f: Flight(delay >= 6, id == p.flightID);
+    } then {
+        p.claimAmount = max(min(p.loss, 15 ether), p.claimAmount);
+    }
+
+    rule "send compensation" when {
+        p: Person(claimApplied, !claimReceived, claimAmount > 0);
+    } then {
+        p.addr.transfer(p.claimAmount);
+        p.claimReceived = true;
+    }
+}
+
