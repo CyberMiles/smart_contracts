@@ -60,7 +60,7 @@ var initUserAddress = function () {
 }
 
 var backIndex = function () {
-    window.location.href = "./simplebet_index.html";
+    window.location.href = "./index.html";
 }
 
 var checkChoice = function (inputValue) {
@@ -167,7 +167,7 @@ var setTheContractAddressAndTurn = function (result) {
                 turnAddress = result.address
             }
             console.log(turnAddress);
-            window.location.href = './simplebet_join.html?contract=' + turnAddress;
+            window.location.href = './join.html?contract=' + turnAddress;
         }, 2000);
     }
 };

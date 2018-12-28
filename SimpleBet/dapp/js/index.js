@@ -61,11 +61,11 @@ var initLanguage = function () {
 }
 
 var newBetContract = function () {
-    window.location.href = "./simplebet_start.html";
+    window.location.href = "./start.html";
 }
 
 var turnBetList = function () {
-    window.location.href = "./simplebet_my.html";
+    window.location.href = "./my.html";
 }
 
 var showBetList = function () {
@@ -155,7 +155,7 @@ var appendChildList = function (contractAddress, id, lastCount) {
                 '<div class="main-bet-status"><div style="color:' + betStatusColor[gameStatus] + '">' + lang.gameStatus[gameStatus] + '</div></div><div class="index-details-font">' +
                 '<div class="main-bet-details-font"><div class="index-content-div-left">' + totalBetAmount + ' CMT&nbsp;&nbsp;</div>' +
                 '<div class="main-bet-detail main-bet-address-left">' + lang.index.from + totalBetCount + lang.index.participants + '</div>' +
-                '<div class="main-bet-detail main-bet-address-right"><a href="./simplebet_join.html?contract=' + contractAddress + '">' + lang.index.participate + ' ></a></div></div></div></div></div>'
+                '<div class="main-bet-detail main-bet-address-right"><a href="./join.html?contract=' + contractAddress + '">' + lang.index.participate + ' ></a></div></div></div></div></div>'
             $("#" + id).append(html);
         }
         if (loadCount >= lastCount) {

@@ -64,7 +64,7 @@ var initUserAddress = function () {
 }
 
 var backNewContract = function () {
-    window.location.href = "./simplebet_index.html";
+    window.location.href = "./index.html";
 }
 
 var showListContent = function (pageNo, userAddress) {
@@ -201,7 +201,7 @@ var appendHtml = function (instance, showCount, contractAddress, id) {
                     title = title.substr(0, subLength) + "...";
                 }
             }
-            var html = '<div class="index-content-div list-detail-div"><a href="./simplebet_join.html?contract=' + contractAddress + '"><div class="index-main-content">' +
+            var html = '<div class="index-content-div list-detail-div"><a href="./join.html?contract=' + contractAddress + '"><div class="index-main-content">' +
                 '<div class="main-bet-detail">' + title + '</div><div class="list-bet-status">' +
                 '<div class="index-details-left"><div style="color:' + betStatusColor[gameStatus] + '">' + lang.gameStatus[gameStatus] + '</div></div><div>' +
                 '<div class="index-details-right index-details-right-count">' + lang.index.from + totalBetCount + lang.index.participants + '</div>' +
@@ -315,7 +315,7 @@ var setTheContractAddressAndTurn = function (result) {
                 turnAddress = result.address
             }
             console.log(turnAddress);
-            window.location.href = './simplebet_join.html?contract=' + turnAddress;
+            window.location.href = './join.html?contract=' + turnAddress;
         }, 2000);
     }
 };

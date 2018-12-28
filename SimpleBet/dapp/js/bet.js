@@ -4,7 +4,7 @@ const lgb = fun.languageChoice();
 var functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy Bet Link', 'Share Bet QR Code'];
 const betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];// betting status 0:init 1:progress 2:stop 3:end
 const contract_address = fun.getParameter("contract");
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/SimpleBet/dapp/betting/simplebet_join.html';
+const baseUrl = 'http://webet.codeislaw.co/join.html';
 var shareUrl = window.location.href;//baseUrl + "?contract=" + contract_address;
 var userAddress = '';
 const displayLink = "Copy CMT Code and goto CMT Wallet App to Bet! cmtwallet://dapp?url=" + shareUrl + " CMT Wallet Download Link：http://www.cybermiles.io/cmt-wallet/";
