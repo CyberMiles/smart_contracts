@@ -14,10 +14,8 @@ contract BettingGame {
 
     string public game_desc;
     int8 public number_of_choices;
-
-    safeuint min_bet_amount;
+    uint256 public min_bet_amount;
     safeuint total_bet_amount;
-
     int8 public total_bet_count;
 
     mapping(int8 => safeuint) choice_bet_amounts;
