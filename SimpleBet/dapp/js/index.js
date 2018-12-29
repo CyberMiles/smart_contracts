@@ -18,8 +18,8 @@ $(function () {
     initLanguage();
     webBrowser.openBrowser();
     showBetList();
+    //showLocalStorage();
     fun.addMainEvent(document.getElementById("newBet"), "click", newBetContract);
-    fun.addMainEvent(document.getElementById("showBetListId"), "click", turnBetList);
 
 });
 
@@ -72,6 +72,9 @@ var showBetList = function () {
     showListContent(1);
 }
 
+var showLocalStorage = function(){
+    alert(JSON.stringify(window.localStorage));
+}
 
 var showListContent = function (pageNo) {
     var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
