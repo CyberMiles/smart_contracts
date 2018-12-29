@@ -28,7 +28,7 @@ var ZHLanguage = {
     },
 
     bet: {
-        confirm: "确定提交",
+        confirm: "投注 ",
         title: "赌局标题",
         gameError: "获取赌局信息有误，请刷新后再试！",
         betError: "获取赌局信息有误，请刷新后再试！",

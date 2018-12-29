@@ -28,7 +28,7 @@ var EnLanguage = {
     },
 
     bet: {
-        confirm: "Confirm my option",
+        confirm: "Bet ",
         title: "The bet title",
         gameError: "Game status have an error ,please refresh！",
         betError: "It have an error when get this Bet Game info ：",

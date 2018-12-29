@@ -126,7 +126,7 @@
                 , e = d.substring(0, d.lastIndexOf("/") + 1);
             c.getAttribute("merge") || document.head.appendChild(function () {
                 var a = b.createElement("link");
-                return a.href = "../js/popuTip/layer.css?2.0",
+                return a.href = "./js/popuTip/layer.css?2.0",
                     a.type = "text/css",
                     a.rel = "styleSheet",
                     a.id = "layermcss",

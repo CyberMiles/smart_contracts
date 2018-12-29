@@ -110,7 +110,9 @@ var showListContent = function (pageNo) {
 }
 
 var appendChildList = function (contractAddress, id, lastCount) {
-    document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:1px';
+    if(document.getElementById("showAllBetList").lastChild){
+        document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:1px';
+    }
     var contract = web3.cmt.contract(betAbi, contract_address);
     var instance = contract.at(contractAddress);
     instance.getBetInfo(function (e, result) {

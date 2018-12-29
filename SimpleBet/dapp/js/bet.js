@@ -35,6 +35,8 @@ var totalBetCount = 0;
 // total bet amount
 var totalBetAmount = 0;
 var lg = "";
+//default min bet amount
+var minBetAmount = 10;
 // init the functions in the html
 $(function () {
     // init the abi and bin
@@ -64,7 +66,8 @@ var initLanguage = function () {
     if (lgb == '' || lgb == null) {
         return;
     }
-    fun.changeDomContentById("submit", lgb.bet.confirm);
+    var betBtn = lgb.bet.confirm + minBetAmount + " CMT"
+    fun.changeDomContentById("submit", betBtn);
     fun.changeDomContentById("betTitle", lgb.bet.title);
     fun.changeDomContentById("detailInfo", lgb.detail.detailInfo);
     fun.changeDomContentById("playCount", lgb.detail.playCount);
@@ -150,6 +153,17 @@ var checkGameStatus = function (type) {
                         tip.closeLoad();
                     }
                     getBetInfo();
+                }
+            });
+            // get default min bet amount
+            instance.min_bet_amount(function (e, result) {
+                if (e) {
+                    console.log(lgb.bet.betError + e.message);
+                    if (e.code == '1001') {
+                        tip.error(lgb.bet.betInfo + e.message)
+                    }
+                } else {
+                    $("#minBetAmount").val(result/1000000000000000000);
                 }
             });
         }
@@ -345,7 +359,7 @@ var showWithdraw = function (contentId, afterBtnName, buttonName, betFun) {
     if (!document.getElementById(id)) {
         fun.addButton(contentId, afterBtnName, buttonName, showColor, betFun);
     }
-    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
+    var content = '<div class="winner-show"><img class="end-icon" src="./images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[1], content, [id], contentId);
 }
 
@@ -366,7 +380,7 @@ var showWithdrawSuccess = function (contentId, payAmount) {
     if (document.getElementById(failId)) {
         document.getElementById(failId).remove();
     }
-    var content = '<div class="winner-show"><img class="end-icon" src="../images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
+    var content = '<div class="winner-show"><img class="end-icon" src="./images/trophy.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.win + '</div>';
     content += '<div class="winner-show">'
     lgb.bet.winGet + ' ' + payAmount + ' !</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], divId);
@@ -375,13 +389,13 @@ var showWithdrawSuccess = function (contentId, payAmount) {
 /**
  * show the game failed result
  */
-var showFailed = function (contentId) {
+var showFailed = function () {
     var contentId = "choices";
     var id = "failed-div";
     if (document.getElementById(id)) {
         return;
     }
-    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.failed + '</div>';
+    var content = '<div class="failed-show"><img class="end-icon" src="./images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.failed + '</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
 
@@ -394,7 +408,7 @@ var showNotJoin = function () {
     if (document.getElementById(id)) {
         return;
     }
-    var content = '<div class="failed-show"><img class="end-icon" src="../images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.end + '</div>';
+    var content = '<div class="failed-show"><img class="end-icon" src="./images/failed.png">&nbsp;&nbsp;&nbsp;&nbsp;' + lgb.bet.end + '</div>';
     fun.addDivInnerhtml(domType[0], [attrType[0]], appendType[0], content, [id], contentId);
 }
 
@@ -674,12 +688,13 @@ var confirmOption = function () {
         tip.error(lgb.tip.selectChoice);
         return;
     }
-    var divTitle = lgb.bet.betTitle;
+    confirmOptionSubmit();
+    /*var divTitle = lgb.bet.betTitle;
     var inputDesc = lgb.tip.positive;
     var btnId = "Submit";
     var btnName = lgb.tip.submit;
     fun.popupInputTip(divTitle, inputDesc, btnName, btnId);
-    fun.addMainEvent(document.getElementById(btnId), "click", confirmOptionSubmit);
+    fun.addMainEvent(document.getElementById(btnId), "click", confirmOptionSubmit);*/
 }
 
 var onlyNumber = function (obj) {
@@ -702,7 +717,7 @@ var onlyNumber = function (obj) {
  * submit the result with your choice and amount
  */
 var confirmOptionSubmit = function () {
-    var amount = $("#SubmitValue").val();
+    var amount = $("#minBetAmount").val();
     var selectedValue = $("#selectedValue").val();
     if (amount.indexOf(".") > -1) {
         $("#SubmitValue").val(amount.substr(0, amount.indexOf(".")));
@@ -727,7 +742,7 @@ var confirmOptionSubmit = function () {
         tip.error(lgb.bet.stopped);
         return;
     }
-    document.getElementById("pupopBox").style.display = "none";
+    //document.getElementById("pupopBox").style.display = "none";
     tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     // change the submit button color and event
@@ -789,7 +804,7 @@ var showChoices = function (gameDesc) {
     if (values instanceof Array) {
         for (var i = 1; i < values.length; i++) {
             var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
-                '<div class="main-bet-join-div">' + fun.getLetterByNum(i) + '. ' + values[i] + '</div><div class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></div><div hidden="hidden">' + i + '</div></div></div>';
+                '<div class="main-bet-join-div">' + fun.getLetterByNum(i) + '. ' + values[i] + '</div><div class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="./images/choice.png"></div><div hidden="hidden">' + i + '</div></div></div>';
             html += div;
         }
     } else {
@@ -797,7 +812,7 @@ var showChoices = function (gameDesc) {
             values = lgb.bet.showChoice;
         }
         var div = '<div class="main-contain"><div class="main-bet-choice" name="choice">' +
-            '<p class="main-bet-join-div">' + values + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></p><p hidden="hidden">' + 0 + '</p></div></div>';
+            '<p class="main-bet-join-div">' + values + '</p><p class="main-bet-choice-right-div main-hidden"><img class="main-bet-choice-right" src="./images/choice.png"></p><p hidden="hidden">' + 0 + '</p></div></div>';
         html += div;
     }
     document.getElementById("choices").innerHTML = html;

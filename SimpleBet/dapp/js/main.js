@@ -1,13 +1,13 @@
-document.write("<script type='text/javascript' src='../js/qrcode.js'></script>");
-document.write("<script type='text/javascript' src='../js/jquery.min.js'></script>");
-document.write("<script type='text/javascript' src='../js/popper.min.js'></script>");
-document.write("<script type='text/javascript' src='../js/bootstrap.min.js'></script>");
-document.write("<script type='text/javascript' src='../js/clipboard.js'></script>");
-document.write("<script type='text/javascript' src='../js/popuTip/layer.js'></script>");
-document.write("<script type='text/javascript' src='../js/popupTip.js'></script>");
-document.write("<script type='text/javascript' src='../js/browser.js'></script>");
-document.write("<script type='text/javascript' src='../js/language/en.js'></script>");
-document.write("<script type='text/javascript' src='../js/language/zh.js'></script>");
+document.write("<script type='text/javascript' src='./js/qrcode.js'></script>");
+document.write("<script type='text/javascript' src='./js/jquery.min.js'></script>");
+document.write("<script type='text/javascript' src='./js/popper.min.js'></script>");
+document.write("<script type='text/javascript' src='./js/bootstrap.min.js'></script>");
+document.write("<script type='text/javascript' src='./js/clipboard.js'></script>");
+document.write("<script type='text/javascript' src='./js/popuTip/layer.js'></script>");
+document.write("<script type='text/javascript' src='./js/popupTip.js'></script>");
+document.write("<script type='text/javascript' src='./js/browser.js'></script>");
+document.write("<script type='text/javascript' src='./js/language/en.js'></script>");
+document.write("<script type='text/javascript' src='./js/language/zh.js'></script>");
 
 const domType = ["div", "span", "p"];
 const attrType = ["id", "name", "class"];
@@ -24,7 +24,7 @@ var MainFun = (function () {
                 language = navigator.browserLanguage;
             }
             if (language.indexOf('zh') > -1) {
-                document.write("<script type='text/javascript' src='../js/language/zh.js'></script>");
+                document.write("<script type='text/javascript' src='./js/language/zh.js'></script>");
                 lang = ZHLanguage;
             }
             return lang;
@@ -32,7 +32,7 @@ var MainFun = (function () {
 
         var _createDiv = function (elementObj) {
             var divs = elementObj.children;
-            var str = _convert(divs.length - 1);
+            var str = _convert(divs.length - 2);
             var newDiv = '<div class="main-div"><input  maxlength="21" name="choice" onkeyup="checkChoice(this.value)"' +
                 ' placeholder="' + lang.option + ' ' + str + '"><div class="main-line"></div></div>'
             $(".add-div").before(newDiv)
@@ -41,7 +41,7 @@ var MainFun = (function () {
         var _removeLastDiv = function (parent, tipMsg) {
             var divs = parent.children;
             var lastDiv = divs[divs.length - 2];
-            if (divs.length < 5) {
+            if (divs.length < 6) {
                 IUToast.error(tipMsg);
                 return;
             }
@@ -114,7 +114,7 @@ var MainFun = (function () {
             var popup = $('<div id="pupopBox" class="pupopBox" style="display:none;position: fixed;top:0;left: 0;width: 100%;height: 100%;' +
                 'background-color:rgba(0,0,0,0.6); ">' +
                 '<div id="layout" class="layoutLoading">' +
-                '<img id="loadImg" src="../images/cybermiles.ico"/><div style="align-content: center;margin-top: 12px;width:100%" id="over">' + content + '</div></div>' +
+                '<img id="loadImg" src="./images/cybermiles.ico"/><div style="align-content: center;margin-top: 12px;width:100%" id="over">' + content + '</div></div>' +
                 '<input type="hidden" id="removedTheInterval" value="false"></div>');
             $("body").append(popup);
             $('.pupopBox').fadeIn();
@@ -177,13 +177,13 @@ var MainFun = (function () {
             if (select instanceof Array) {
                 for (var i = 0; i < select.length; i++) {
                     selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><div ' + divSelectFontStyle + ' id="' + select[i] + '">' + select[i] + ' </div>' +
-                        '<div class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></div>' +
+                        '<div class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="./images/choice.png"></div>' +
                         '<div hidden="hidden">' + (i + 1) + '</div>' +
                         '</div>'
                 }
             } else {
                 selectDiv += '<div class="main-bet-choice-alert main-contain" name="choiceAlert"><div ' + divSelectFontStyle + ' id="' + select + '">' + select + ' </div>' +
-                    '<div class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="../images/choice.png"></div>' +
+                    '<div class="main-bet-choice-right-div-alert main-hidden"><img class="main-bet-choice-right" src="./images/choice.png"></div>' +
                     '<div hidden="hidden">' + 1 + '</div>' +
                     '</div>'
             }

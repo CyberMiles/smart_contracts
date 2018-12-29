@@ -10,7 +10,6 @@ var instance = '';
 var loadCount = 0;
 var loading = 'Loading...';
 var webBrowser = new AppLink();
-var minBetAmount = 10000000000000000000;
 
 $(function () {
     getAbi();
@@ -95,10 +94,10 @@ var checkChoice = function (inputValue) {
 };
 
 var startGame = function () {
-
     var inputs = document.getElementsByName("choice");
     var numChoices = 0;
     var gameDesc = '';
+
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].value != null && inputs[i].value != '') {
             var inputValue = inputs[i].value
@@ -115,6 +114,8 @@ var startGame = function () {
         tip.error(lang.tip.nullTitle);
         return;
     }
+    var betMinAmount = $("#betMinAmount").val();
+    var minBetAmount = web3.toWei(betMinAmount, "cmt");
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
     var contract = web3.cmt.contract(betAbi);
@@ -171,6 +172,22 @@ var setTheContractAddressAndTurn = function (result) {
         }, 2000);
     }
 };
+
+var startOnlyNumber = function (obj) {
+    if (obj.indexOf(".") > -1) {
+        console.log(obj.substr(0, obj.indexOf(".")));
+        $("#betAmount").val(obj.substr(0, obj.indexOf(".")));
+        tip.error(lang.tip.positive)
+        return;
+    }
+    obj = obj.replace(/\D/g, '');
+    var t = obj.charAt(0);
+    if (t == 0) {
+        obj = obj.substr(1, obj.length);
+    }
+    $("#betAmount").val(obj);
+    return obj;
+}
 
 /**
  * create contract success callback function

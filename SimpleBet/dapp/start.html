@@ -26,6 +26,12 @@
                        value="">
                 <div class="main-line"></div>
             </div>
+            <div class="main-div">
+                <input id="betMinAmount" onkeyup="startOnlyNumber(this.value)" maxlength="10"
+                       placeholder="The Bet Minimum to bet "
+                       value="">
+                <div class="main-line"></div>
+            </div>
 
             <div class="main-div">
                 <input name="choice" onkeyup="checkChoice(this.value)" maxlength="20" placeholder="Option A" value="">
@@ -44,13 +50,13 @@
         </div>
         <div>
             <div class="main-div-option" id="delDiv">
-                <img class="main-button-option" src="../images/del.png">
+                <img class="main-button-option" src="./images/del.png">
                 <p class="main-button-front" id="delOption">Del option</p>
                 <div class="main-line main-hidden"></div>
             </div>
             <p class="main-line-button"></p>
             <div class="main-div-option" id="addDiv">
-                <img class="main-button-option" src="../images/add.png">
+                <img class="main-button-option" src="./images/add.png">
                 <p class="main-button-front" id="addOption">Add option</p>
                 <div class="main-line main-hidden"></div>
             </div>
@@ -72,8 +78,8 @@
 </div>
 <input type="hidden" value="true" id="shouldCheckTheResult">
 <input type="hidden" id="userAddress">
-<script src="js/main.js"></script>
-<script src="js/start.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/start.js"></script>
 </body>
 
 </html>
