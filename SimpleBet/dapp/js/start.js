@@ -157,6 +157,18 @@ var startGame = function () {
 };
 
 /**
+ * save bet data in local storage
+ */
+var saveLocalStorageBet = function (contractAddress) {
+    if (window.localStorage) {
+        var storage = window.localStorage;
+        var item = {"userAddress": userAddress, "contractAddress": contractAddress};
+        storage.setItem("bets", item);
+    }
+}
+
+
+/**
  * create contract success callback function
  */
 var setTheContractAddressAndTurn = function (result) {
@@ -166,6 +178,7 @@ var setTheContractAddressAndTurn = function (result) {
             var turnAddress = result.contractAddress;
             if (turnAddress == 'undefined') {
                 turnAddress = result.address
+                saveLocalStorageBet(turnAddress);
             }
             console.log(turnAddress);
             window.location.href = './join.html?contract=' + turnAddress;

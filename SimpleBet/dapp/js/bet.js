@@ -163,7 +163,15 @@ var checkGameStatus = function (type) {
                         tip.error(lgb.bet.betInfo + e.message)
                     }
                 } else {
-                    $("#minBetAmount").val(result/1000000000000000000);
+                    if (result / 1000000000000000000 <= 0) {
+                        $("#minBetAmount").val(10);
+                        return;
+                    }
+                    if (result / 1000000000000000000 <= 1) {
+                        $("#minBetAmount").val(1);
+                        return;
+                    }
+                    $("#minBetAmount").val(result / 1000000000000000000);
                 }
             });
         }

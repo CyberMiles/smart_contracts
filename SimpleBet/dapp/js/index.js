@@ -15,12 +15,13 @@ var hadLoading = false;
 $(function () {
     getAbi();
     getBin();
+    tip.loading(lang.tip.loading);
+    initUserAddress();
     initLanguage();
     webBrowser.openBrowser();
-    showBetList();
     //showLocalStorage();
     fun.addMainEvent(document.getElementById("newBet"), "click", newBetContract);
-
+    fun.addMainEvent(document.getElementById("showBetListId"), "click", turnBetList);
 });
 
 $(window).scroll(function () {
@@ -48,6 +49,19 @@ $(window).scroll(function () {
     }
 });
 
+var initUserAddress = function () {
+    var interval = setInterval(function () {
+        web3.cmt.getAccounts(function (e, address) {
+            if (address) {
+                userAddress = address.toString();
+                $("#userAddress").val(userAddress);
+                showBetList();
+                clearInterval(interval);
+            }
+        });
+    }, 300);
+}
+
 var sleep = function (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -68,12 +82,30 @@ var turnBetList = function () {
     window.location.href = "./my.html";
 }
 
+
 var showBetList = function () {
     showListContent(1);
 }
 
-var showLocalStorage = function(){
-    alert(JSON.stringify(window.localStorage));
+var showLocalStorage = function () {
+    if (window.localStorage) {
+        var items = window.localStorage.getItem("bets");
+        if (items != null && items != '') {
+            var lastCount = 0;
+            var itemJson = JSON.parse(items);
+            alert(itemJson);
+            for (var i = 0; i < itemJson.length; i++) {
+                if (itemJson.userAddress.toLowerCase() == userAddress) {
+                    lastCount++;
+                }
+            }
+            for (var i = 0; i < itemJson.length; i++) {
+                if (itemJson.userAddress.toLowerCase() == userAddress) {
+                    appendChildList(itemJson.contractAddress, id, lastCount);
+                }
+            }
+        }
+    }
 }
 
 var showListContent = function (pageNo) {
@@ -81,8 +113,10 @@ var showListContent = function (pageNo) {
     if (pageNo == null || pageNo == '' || pageNo == 'undefined' || pageNo <= 0) {
         pageNo = 1;
     }
-    tip.loading(lang.tip.loading);
-    var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?address=&funcIds=' + methodId + "&limit=" + pageSize + "&page=" + pageNo
+    var address = $("#userAddress").val();
+    console.log(address);
+    var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + address + "&limit=" + pageSize + "&page=" + pageNo
+    console.log(url);
     $.ajax({
         url: url,
         dataType: 'json',
@@ -113,7 +147,7 @@ var showListContent = function (pageNo) {
 }
 
 var appendChildList = function (contractAddress, id, lastCount) {
-    if(document.getElementById("showAllBetList").lastChild){
+    if (document.getElementById("showAllBetList").lastChild) {
         document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:1px';
     }
     var contract = web3.cmt.contract(betAbi, contract_address);
@@ -167,7 +201,11 @@ var appendChildList = function (contractAddress, id, lastCount) {
             if (divCount == 0) {
                 $("#showAllBetList").append('<div style="height: 1px"></div>');
             }
-            document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:97px';
+            var showTotal = $("#totalPage").val();
+            var showCurrentPage = $("#totalPage").val();
+            if (showTotal >= showCurrentPage) {
+                document.getElementById("showAllBetList").lastChild.style = 'margin-bottom:97px';
+            }
             setTimeout(function () {
                 hadLoading = false;
                 tip.closeLoad();
