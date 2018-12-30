@@ -1,0 +1,82 @@
+pragma lity ^1.2.4;
+
+contract CommunityVote {
+
+    address public owner;
+    
+    struct Candidate {
+        safeuint vp;
+        int8 choice;
+        uint ts;
+    }
+    mapping(address => Candidate) candidates;
+
+    struct Choice {
+        string choice_text;
+        safeuint vp;
+    }
+    mapping(int8 => Choice) choices;
+
+    int8 public status; // 0: stopped; 1: running
+    string public desc;
+    int8 public number_of_choices;
+
+    modifier onlyOwner() {
+        assert(msg.sender == owner);
+        _;
+    }
+
+    constructor (string _desc, int8 _number_of_choices) public {
+        require(_number_of_choices > 0);
+        
+        owner = msg.sender;
+        desc = _desc;
+        number_of_choices = _number_of_choices;
+        status = 0;
+    }
+    
+    function setChoice (int8 _choice, string _choice_text) external onlyOwner {
+        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
+        choices[_choice].choice_text = _choice_text;
+    }
+    
+    function getChoice (int8 _choice) public view returns (safeuint) {
+        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
+        return choices[_choice].vp;
+    }
+    
+    function addCandidates (address[] _addrs, safeuint[] _vp) external onlyOwner {
+        for (uint256 i = 0; i < _addrs.length; i++) {
+            Candidate memory newCan = Candidate (_vp[i], 0, 0);
+            candidates[_addrs[i]] = newCan;
+        }
+    }
+    
+    function getCandidate (address _addr) public view returns (safeuint, int8, uint) {
+        return (candidates[_addr].vp, candidates[_addr].choice, candidates[_addr].ts);
+    }
+
+    function vote (int8 _choice) public {
+        require (status == 1); // Must be running
+        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
+        require (candidates[msg.sender].vp > 0);  // Must be a valid candidate
+        require (candidates[msg.sender].ts == 0); // Cannot bet twice
+
+        candidates[msg.sender].ts = now;
+        choices[_choice].vp = choices[_choice].vp + candidates[msg.sender].vp;
+    }
+
+    
+    function resumeVote() external onlyOwner {
+        require (status == 0);
+        status = 1;
+    }
+
+    function endVote() external onlyOwner {
+        status = 0;
+    }
+
+    function terminate() external onlyOwner {
+        selfdestruct(owner);
+    }
+}
