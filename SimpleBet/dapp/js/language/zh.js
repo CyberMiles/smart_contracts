@@ -1,5 +1,6 @@
 var ZHLanguage = {
     title: "请输入标题",
+    betMinAmount: "每次赌的CMT数量",
     option: "请输入选项",
     cancel: "取消",
     cancelled: "已取消",

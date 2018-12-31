@@ -1,5 +1,6 @@
 var EnLanguage = {
     title: "Description of the bet",
+    betMinAmount: "CMT amount for each bet",
     option: "Option",
     cancel: "Cancel",
     cancelled: "cancelled",

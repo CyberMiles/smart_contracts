@@ -29,6 +29,7 @@ var initLanguage = function () {
     }
     fun.choiceInputLangByName("choice", lang.option);
     fun.choiceInputLangById("title", lang.title);
+    fun.choiceInputLangById("betMinAmount", lang.betMinAmount);
     fun.changeDomContentById("delOption", lang.delOption);
     fun.changeDomContentById("addOption", lang.addOption);
     fun.changeDomContentById("submit", lang.createContract);
