@@ -13,6 +13,13 @@ var divCount = 0;
 var hadLoading = false;
 
 $(function () {
+    try {
+        web3.cmt
+    } catch (e) {
+        getUserAgent();
+        return;
+    }
+
     getAbi();
     getBin();
     tip.loading(lang.tip.loading);
@@ -272,3 +279,22 @@ var getBin = function () {
         }
     });
 }
+
+var getUserAgent = function () {
+    var agent = navigator.userAgent;
+    if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
+        tip.error(lgb.wallet.cmtWallet);
+        window.location.href = 'cmtwallet://dapp?url=' + window.location.href;
+        /*
+        setTimeout(function () {
+            window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
+        }, 3000);
+        */
+    } else {
+        tip.error(lgb.wallet.metaMask);
+        setTimeout(function () {
+            window.location.href = 'https://www.cybermiles.io/metamask/';
+        }, 3000);
+    }
+}
+

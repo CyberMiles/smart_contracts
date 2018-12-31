@@ -39,6 +39,13 @@ var lg = "";
 var minBetAmount = 10;
 // init the functions in the html
 $(function () {
+    try {
+        web3.cmt
+    } catch (e) {
+        getUserAgent();
+        return;
+    }
+
     // init the abi and bin
     getAbi();
     getBin();
@@ -84,12 +91,6 @@ var initLanguage = function () {
 var checkGameStatus = function (type) {
     if (type != 'reload') {
         tip.loading(lgb.tip.loading);
-    }
-    try {
-        web3.cmt
-    } catch (e) {
-        getUserAgent();
-        return;
     }
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
@@ -173,6 +174,7 @@ var checkGameStatus = function (type) {
                     }
                     $("#minBetAmount").val(result / 1000000000000000000);
                 }
+                fun.changeDomContentById("submit", lgb.bet.confirm + $("#minBetAmount").val() + " CMT");
             });
         }
     });
@@ -209,14 +211,17 @@ var getUserAgent = function () {
     var agent = navigator.userAgent;
     if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
         tip.error(lgb.wallet.cmtWallet);
+        window.location.href = 'cmtwallet://dapp?url=' + window.location.href;
+        /*
         setTimeout(function () {
             window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
-        }, 3000)
+        }, 3000);
+        */
     } else {
         tip.error(lgb.wallet.metaMask);
         setTimeout(function () {
             window.location.href = 'https://www.cybermiles.io/metamask/';
-        }, 3000)
+        }, 3000);
     }
 }
 
