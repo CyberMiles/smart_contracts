@@ -20,6 +20,8 @@ The OpenZeppelin ERC20Pausable contract inherits from ERC20 and Pausable. Pausab
 ## Detailed
 The OpenZeppelin ERC20Detailed contract is IERC20 and simply provides an opportunity to enrich the contract with additional name, symbol and number of decimals for the token.
 
+All in all, the above 4 contracts (and their inherited contracts and implemented libraries) provide the following functionality to the CMTD contract without any modification whatsoever. As mentioned any additional functionality can be created through the use of function overriding and/or additional modifiers.
+
 ## Functionality
 
 ![Functionality](images/functionality.png)
