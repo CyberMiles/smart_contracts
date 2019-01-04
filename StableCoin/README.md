@@ -25,3 +25,6 @@ All in all, the above 4 contracts (and their inherited contracts and implemented
 ## Functionality
 
 ![Functionality](images/functionality.png)
+
+## Supply
+The CMTD contract is designed to have a variable supply. The initial supply is set to zero. Tokens minted will increase the supply and tokens burned will decrease the supply. The minting and burning of tokens will come about as a result of logic in the payment gateway.
