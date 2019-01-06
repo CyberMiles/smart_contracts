@@ -1,4 +1,5 @@
 var fun = new MainFun();
+var webBrowser = new AppLink();
 const lang = fun.languageChoice();
 var tip = IUToast;
 var userAddress = '';
@@ -9,17 +10,16 @@ var contract = '';
 var instance = '';
 var loading = 'Loading...';
 var betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];
-var webBrowser = new AppLink();
 var divCount = 0;
 var hadLoading = false;
 var pageSize = 10;
 $(function () {
+    webBrowser.openBrowser();
     getAbi();
     getBin();
     initLanguage();
     initUserAddress();
     showListContent();
-    webBrowser.openBrowser();
     fun.addMainEvent(document.getElementById("backBetList"), "click", backNewContract);
 });
 
@@ -90,7 +90,7 @@ var showListContent = function (pageNo, userAddress) {
 
 var requestListInfo = function (pageNo) {
     var methodId = 'de2fd8ab,83bd72ba,3cc4c6ce,9c16667c,340190ec';
-    var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&limit=" + pageSize + "&page=" + pageNo
+    var url = 'https://api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&limit=" + pageSize + "&page=" + pageNo
     $.ajax({
         url: url,
         dataType: 'json',

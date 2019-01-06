@@ -1,4 +1,5 @@
 var fun = new MainFun();
+var webBrowser = new AppLink();
 var tip = IUToast;
 var lang = fun.languageChoice();
 var betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];
@@ -8,24 +9,16 @@ var contract_address = '';
 var contract = '';
 var instance = '';
 var pageSize = 10;
-var webBrowser = new AppLink();
 var divCount = 0;
 var hadLoading = false;
 
 $(function () {
-    try {
-        web3.cmt
-    } catch (e) {
-        getUserAgent();
-        return;
-    }
-
+    webBrowser.openBrowser();
     getAbi();
     getBin();
     tip.loading(lang.tip.loading);
     initUserAddress();
     initLanguage();
-    webBrowser.openBrowser();
     //showLocalStorage();
     fun.addMainEvent(document.getElementById("newBet"), "click", newBetContract);
     fun.addMainEvent(document.getElementById("showBetListId"), "click", turnBetList);
@@ -122,7 +115,7 @@ var showListContent = function (pageNo) {
     }
     var address = $("#userAddress").val();
     console.log(address);
-    var url = 'https://test-api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + address + "&limit=" + pageSize + "&page=" + pageNo
+    var url = 'https://api.cmttracking.io/api/v3/contractsByType?funcIds=' + methodId + "&address=" + address + "&limit=" + pageSize + "&page=" + pageNo
     console.log(url);
     $.ajax({
         url: url,
@@ -145,6 +138,8 @@ var showListContent = function (pageNo) {
                     var obj = result.data.objects[i];
                     appendChildList(obj.address, id, lastCount);
                 }
+            } else {
+                tip.closeLoad();
             }
         },
         error: function (e) {
@@ -279,22 +274,3 @@ var getBin = function () {
         }
     });
 }
-
-var getUserAgent = function () {
-    var agent = navigator.userAgent;
-    if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
-        tip.error(lgb.wallet.cmtWallet);
-        window.location.href = 'cmtwallet://dapp?url=' + window.location.href;
-        /*
-        setTimeout(function () {
-            window.location.href = 'http://www.cybermiles.io/cmt-wallet/';
-        }, 3000);
-        */
-    } else {
-        tip.error(lgb.wallet.metaMask);
-        setTimeout(function () {
-            window.location.href = 'https://www.cybermiles.io/metamask/';
-        }, 3000);
-    }
-}
-
