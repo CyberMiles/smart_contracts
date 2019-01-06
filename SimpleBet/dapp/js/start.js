@@ -1,4 +1,5 @@
 var fun = new MainFun();
+var webBrowser = new AppLink();
 const lang = fun.languageChoice();
 var tip = IUToast;
 var userAddress = '';
@@ -9,14 +10,13 @@ var contract = '';
 var instance = '';
 var loadCount = 0;
 var loading = 'Loading...';
-var webBrowser = new AppLink();
 
 $(function () {
+    webBrowser.openBrowser();
     getAbi();
     getBin();
     initLanguage();
     initUserAddress();
-    webBrowser.openBrowser();
     fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
     fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count", lang.tip.lessThan));
 
@@ -70,12 +70,12 @@ var checkChoice = function (inputValue) {
     var count = 0;
     var title = $("#title").val();
     if (inputValue == '' || inputValue == null || inputValue == 'undefined') {
-        if (title.length >= 140) {
+        if (title.length >= 1400) {
             tip.error(lang.tip.exceedTitle);
             return;
         }
     } else {
-        if (inputValue.length >= 20) {
+        if (inputValue.length >= 200) {
             tip.error(lang.tip.exceedTitle);
             return;
         }
