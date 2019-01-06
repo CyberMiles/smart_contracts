@@ -40,14 +40,14 @@ contract CommunityVote {
         choices[_choice].choice_text = _choice_text;
     }
     
-    function getChoice (int8 _choice) public view returns (safeuint) {
+    function getChoice (int8 _choice) public view returns (string, safeuint) {
         require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
-        return choices[_choice].vp;
+        return (choices[_choice].choice_text, choices[_choice].vp);
     }
     
     function addCandidates (address[] _addrs, safeuint[] _vp) external onlyOwner {
         for (uint256 i = 0; i < _addrs.length; i++) {
-            Candidate memory newCan = Candidate (_vp[i], 0, 0);
+            Candidate memory newCan = Candidate (_vp[i], -1, 0);
             candidates[_addrs[i]] = newCan;
         }
     }
@@ -55,7 +55,12 @@ contract CommunityVote {
     function getCandidate (address _addr) public view returns (safeuint, int8, uint) {
         return (candidates[_addr].vp, candidates[_addr].choice, candidates[_addr].ts);
     }
-
+    
+    function checkStatus (address _addr) public view returns (int8, safeuint, int8, string, int8) {
+        // if vp == 0, then this address is not permitted to vote
+        return (status, candidates[_addr].vp, candidates[_addr].choice, desc, number_of_choices);
+    }
+    
     function vote (int8 _choice) public {
         require (status == 1); // Must be running
         require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
