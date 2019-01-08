@@ -58,6 +58,7 @@ var ZHLanguage = {
         betGameInfo: "区块链游戏",
         alreadyBetted: "你已经做出了选择（见下面）。请在这一局结束之后，回到这个网页，来提现你赢的 CMTs",
         pendingBet: "你的选择已经被提交到 CyberMiles 公链",
+        pendingWithdraw: "正在处理你的提现要求",
         ended: "这一局已经结束，你赢了吗？",
         cancelled: "这一局被取消了，你可以提走你下的注",
     },

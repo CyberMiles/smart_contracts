@@ -427,6 +427,8 @@ var withdraw = function () {
             }
         } else {
             console.log(result);
+            $("#msg").html(lgb.bet.pendingWithdraw);
+            $('#msg').css('display','block');
             getGameStatus('withdraw');
         }
     });
@@ -834,7 +836,7 @@ var showChoices = function (gameDesc) {
  * get the game status
  */
 var getGameStatus = function (type) {
-    if (type == 'bet') {
+    if (type == 'bet' || type == 'withdraw') {
       // This returns immediately and will have no spinner
       tip.closeLoad();
     }
@@ -909,12 +911,13 @@ var getGameStatus = function (type) {
                             showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
                         }
                         if (type == 'withdraw') {
-                            tip.right(lgb.bet.betWithdraw);
-                            $("#callbackStop").val();
-                            if (document.getElementById(contentId)) {
-                                document.getElementById(contentId).style.display = 'none';
-                            }
-                            showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
+                            // tip.right(lgb.bet.betWithdraw);
+                            // $("#callbackStop").val();
+                            // if (document.getElementById(contentId)) {
+                            //     document.getElementById(contentId).style.display = 'none';
+                            // }
+                            // showRightChoice(contentId, userChoice, correctChoice, afterBtnName, withdrawButtonName, statusPaid, payoutAmount);
+                            window.location.reload(true);
                         }
                     }
                 }

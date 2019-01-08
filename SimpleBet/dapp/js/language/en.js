@@ -58,6 +58,7 @@ var EnLanguage = {
         betGameInfo: "WeBet on CMT",
         alreadyBetted: "Your bet below has already been recorded. Please come back to this page and claim your winnings, if you win, after the betting ends",
         pendingBet: "Your bet has been submitted to the CyberMiles public blockchain",
+        pendingWithdraw: "Your withdraw request has been submitted",
         ended: "The betting has concluded. Check below to see if you win",
         cancelled: "Cancelled. You can withdraw your bet.",
     },
