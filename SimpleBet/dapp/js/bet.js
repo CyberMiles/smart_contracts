@@ -435,6 +435,7 @@ var withdraw = function () {
             console.log(result);
             $("#msg").html(lgb.bet.pendingWithdraw);
             $('#msg').css('display','block');
+            document.getElementById(contentId).style.display = 'none';
             getGameStatus('withdraw');
         }
     });
@@ -850,7 +851,7 @@ var getGameStatus = function (type) {
         instance.checkStatus(userAddress, function (gameError, result) {
             if (gameError) {
                 console.log(gameError);
-                tip.error('Game status have an error ,please refresh !');
+                tip.error('Game status have an error, please refresh!');
                 return;
             } else {
                 gameStatus = Number(result[0]);

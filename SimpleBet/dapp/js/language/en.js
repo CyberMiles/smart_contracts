@@ -56,11 +56,11 @@ var EnLanguage = {
         back: "Bet ",
         setting: "Owner admin options",
         betGameInfo: "WeBet on CMT",
-        alreadyBetted: "Your bet below has already been recorded. Please come back to this page and claim your winnings, if you win, after the betting ends",
+        alreadyBetted: "Your bet was recorded. Claim your winnings after the betting ends",
         pendingBet: "Your bet has been submitted to the CyberMiles public blockchain",
         pendingWithdraw: "Your withdraw request has been submitted",
         ended: "The betting has concluded. Check below to see if you win",
-        cancelled: "Cancelled. You can withdraw your bet.",
+        cancelled: "Cancelled. You can withdraw your bet",
     },
 
     detail: {
@@ -69,8 +69,8 @@ var EnLanguage = {
         totalAmount: "Total bet amount",
         contractBetAddress: "Bet contract address",
         myBetAmount: "My bet amount",
-        betDesc: "Winner will get paid after the betting concludes.",
-        qrBet: "Use CMT Wallet and scan QR code to bet.",
+        betDesc: "Winner will get paid after the betting concludes",
+        qrBet: "Use CMT Wallet and scan QR code to bet",
     },
 
     withdraw: {
