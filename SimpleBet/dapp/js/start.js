@@ -76,7 +76,7 @@ var checkChoice = function (inputValue) {
         }
     } else {
         if (inputValue.length >= 200) {
-            tip.error(lang.tip.exceedTitle);
+            tip.error(lang.tip.exceedOption);
             return;
         }
     }

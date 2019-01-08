@@ -56,6 +56,10 @@ var ZHLanguage = {
         back: "返回 ",
         setting: "设置",
         betGameInfo: "区块链游戏",
+        alreadyBetted: "你已经做出了选择（见下面）。请在这一局结束之后，回到这个网页，来提现你赢的 CMTs",
+        pendingBet: "你的选择已经被提交到 CyberMiles 公链",
+        ended: "这一局已经结束，你赢了吗？",
+        cancelled: "这一局被取消了，你可以提走你下的注",
     },
 
     detail: {
@@ -98,7 +102,7 @@ var ZHLanguage = {
         firstPage: "这已经是第一页了",
         lastPage: "这已经是最后一页了",
         exceedTitle: "标题太长了",
-        exceedOption: "选项不能超过140个字",
+        exceedOption: "选项太长了",
         createFailed: "创建赌局合约失败",
         getBetInfoError: "获取赌局信息异常：",
         selectOption: "请选择一个选项",

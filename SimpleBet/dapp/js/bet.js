@@ -1,7 +1,7 @@
 const fun = new MainFun();
-var webBrowser = new AppLink();
 const tip = IUToast;
 const lgb = fun.languageChoice();
+var webBrowser = new AppLink();
 var functionArray = ['Stop Bet', 'Declare Correct Option', 'Resume Bet', 'Copy Bet Link', 'Share Bet QR Code'];
 const betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];// betting status 0:init 1:progress 2:stop 3:end
 const contract_address = fun.getParameter("contract");
@@ -222,6 +222,16 @@ var showUserChoice = function (status, userChoice, correctChoice) {
     unbindSelect();
     if (document.getElementById("submit-div")) {
         document.getElementById("submit-div").remove();
+    }
+    if (status == 1 || status == 2) {
+        // running or stopped
+        $("#msg").html(lgb.bet.alreadyBetted);
+    } else if (status == 3) {
+        // ended 
+        $("#msg").html(lgb.bet.ended);
+    } else if (status == 4) {
+        // cancelled 
+        $("#msg").html(lgb.bet.cancelled);
     }
     var elements = document.getElementsByName("choice");
     for (var i = 0; i < elements.length; i++) {
@@ -581,7 +591,7 @@ var resumeBet = function () {
  * the bet link for share
  */
 var shareLink = function () {
-    var shareBetLink = "【WeBet：" + title + "】" + displayLink;
+    var shareBetLink = shareUrl;
     var clipboard = new ClipboardJS('#create_share_btn', {
         text: shareBetLink
     });
@@ -599,7 +609,7 @@ var shareLink = function () {
  * init copy link
  */
 var initCopyLink = function () {
-    var shareBetLink = "【WeBet：" + title + "】" + displayLink;
+    var shareBetLink = shareUrl;
     var btnId = 'create_share_btn';
     var element = document.getElementsByName(functionArray[3])[0];
     // add alert msg div
@@ -763,6 +773,9 @@ var confirmOptionSubmit = function () {
                 }
             } else {
                 console.log(result);
+                // We will not wait and will just show a pending message instead
+                showUserChoice(gameStatus, userChoice, correctChoice);
+                $("#msg").html(lgb.bet.pendingBet);
                 getGameStatus('bet');
             }
         });
@@ -817,6 +830,10 @@ var showChoices = function (gameDesc) {
  * get the game status
  */
 var getGameStatus = function (type) {
+    if (type == 'bet') {
+      // This returns immediately and will have no spinner
+      tip.closeLoad();
+    }
     var interval = setInterval(function () {
         instance.checkStatus(userAddress, function (gameError, result) {
             if (gameError) {
@@ -866,10 +883,11 @@ var getGameStatus = function (type) {
                         }
                         if (type == 'bet' && userChoice > 0) {
                             clearInterval(interval);
-                            tip.right(lgb.bet.betSubmit);
-                            $("#callbackStop").val();
-                            showUserChoice(gameStatus, userChoice, correctChoice);
-                            $("#userAmount").text(userPayAmount);
+                            // tip.right(lgb.bet.betSubmit);
+                            // $("#callbackStop").val();
+                            // showUserChoice(gameStatus, userChoice, correctChoice);
+                            // $("#userAmount").text(userPayAmount);
+                            window.location.reload(true);
                         }
                     }
 

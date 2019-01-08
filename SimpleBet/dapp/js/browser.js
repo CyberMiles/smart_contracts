@@ -68,7 +68,7 @@ var AppLink = (function () {
      */
     var _open = function () {
         var browser = _getBrowser();
-        var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
+        // var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
         var shareLinkMsg = "Please Copy the Share Link and open in the Browser ！";
         // agent is mobile
         try {
@@ -77,9 +77,11 @@ var AppLink = (function () {
             if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
                 // 微信、QQ 直接跳 钱包下载页面
                 if (browser.isWx) {
-                    tip.error(shareLinkMsg, 120 * 1000);
+                    // tip.error(shareLinkMsg, 120 * 1000);
+                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isQQ) {
-                    tip.error(shareLinkMsg, 120 * 1000);
+                    // tip.error(shareLinkMsg, 120 * 1000);
+                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isIOS) {
                     // 没有下载
                     _go(config.localApp);
@@ -98,7 +100,7 @@ var AppLink = (function () {
                     alert("isWb");
                     // 使用scheme唤起
                     _tryCallApp(config.localApp)
-                    tip.right("It is web");
+                    // tip.right("It is web");
                     // 微博：唤起失败，也不跳转，会有引导功能
                 } else if (browser.isSafari) {
                     alert("isSafari");
@@ -115,7 +117,7 @@ var AppLink = (function () {
                     _go(config.wallet)
                 }
             } else {
-                tip.error("You should download MetaMask for CMT first！");
+                // tip.error("You should download MetaMask for CMT first！");
                 setTimeout(function () {
                     window.location.href = 'https://www.cybermiles.io/metamask/';
                 }, 3000);

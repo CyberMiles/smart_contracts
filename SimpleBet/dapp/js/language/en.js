@@ -56,6 +56,10 @@ var EnLanguage = {
         back: "Bet ",
         setting: "Owner admin options",
         betGameInfo: "WeBet on CMT",
+        alreadyBetted: "Your bet below has already been recorded. Please come back to this page and claim your winnings, if you win, after the betting ends",
+        pendingBet: "Your bet has been submitted to the CyberMiles public blockchain",
+        ended: "The betting has concluded. Check below to see if you win",
+        cancelled: "Cancelled. You can withdraw your bet.",
     },
 
     detail: {
@@ -98,7 +102,7 @@ var EnLanguage = {
         firstPage: "This is the First Page",
         lastPage: "This is the Last Page",
         exceedTitle: "Title is too long ",
-        exceedOption: "Option should not exceed 140 chars",
+        exceedOption: "Option is too long",
         createFailed: "Failed to create contract",
         getBetInfoError: "The Game you Get: ",
         selectOption: "Please select a winning option",
