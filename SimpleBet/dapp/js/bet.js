@@ -226,12 +226,15 @@ var showUserChoice = function (status, userChoice, correctChoice) {
     if (status == 1 || status == 2) {
         // running or stopped
         $("#msg").html(lgb.bet.alreadyBetted);
+        $('#msg').css('display','block');
     } else if (status == 3) {
         // ended 
         $("#msg").html(lgb.bet.ended);
+        $('#msg').css('display','block');
     } else if (status == 4) {
         // cancelled 
         $("#msg").html(lgb.bet.cancelled);
+        $('#msg').css('display','block');
     }
     var elements = document.getElementsByName("choice");
     for (var i = 0; i < elements.length; i++) {
@@ -776,6 +779,7 @@ var confirmOptionSubmit = function () {
                 // We will not wait and will just show a pending message instead
                 showUserChoice(gameStatus, userChoice, correctChoice);
                 $("#msg").html(lgb.bet.pendingBet);
+                $('#msg').css('display','block');
                 getGameStatus('bet');
             }
         });
@@ -968,7 +972,7 @@ var optionSelect = function () {
  * bind the share button onclick event
  */
 var bindShare = function () {
-    $("#share_link").val(displayLink);
+    $("#share_link").val(shareUrl);
     fun.addMainEvent(document.getElementById("betShare"), "click", shareFunctions);
 }
 
