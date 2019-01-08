@@ -130,6 +130,12 @@ var checkGameStatus = function (type) {
                     // when the game stop or end ,unbind the event with these choice
                     if (gameStatus == 2 || gameStatus == 3) {
                         unbindSelect();
+                        if (gameStatus == 2) {
+                            $("#msg").html(lgb.bet.stopped);
+                        } else if (gameStatus == 3) {
+                            $("#msg").html(lgb.bet.ended);
+                        }
+                        $('#msg').css('display','block');
                     }
                     // user can not choice when user 1:selected 2:the game stop 3:the game end
                     if (userChoice > 0) {
