@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/vote.css">
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title>Community Vote</title>
+</head>
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<div class="main-contain">
+    <div class="main-status main-join-div main-status-top">
+        <p id="main-status">In Progress</p>
+        <p class="main-title" id="title">Title</p>
+    </div>
+</div>
+
+<div id="showChoice">
+    <div id="choices">
+
+    </div>
+    <input type="hidden" value="" id="status">
+    <input type="hidden" value="" id="selectedValue">
+    <div class="main-contain main-div-button" id="after-button">
+        <div class="main-button-div" id="submit-div">
+            <div class="main-button">
+                <p id="submit" class="main-button-not-click-font">Vote</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-detail" id="details">
+        <div class="main-contain">
+            <div class="main-details-font">
+                <div class="main-detail-div main-detail-show">
+                    <div class="main-detail main-address-left" id="contractAddressLabel">
+                        contract address
+                    </div>
+                    <div class="main-detail main-address-right" id="contractAddress">
+                        0x0000....0000
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/main.js"></script>
+<script src="js/vote.js"></script>
+</html>

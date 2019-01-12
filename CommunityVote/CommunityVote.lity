@@ -11,64 +11,65 @@ contract CommunityVote {
     }
     mapping(address => Candidate) candidates;
 
-    struct Choice {
-        string choice_text;
-        safeuint vp;
-    }
-    mapping(int8 => Choice) choices;
-
     int8 public status; // 0: stopped; 1: running
-    string public desc;
-    int8 public number_of_choices;
+    string public title;
+    string public choices;
+    uint256 public number_of_choices;
+    safeuint public number_of_candidates;
+    
+    mapping(uint256 => safeuint) votes;
 
     modifier onlyOwner() {
         assert(msg.sender == owner);
         _;
     }
 
-    constructor (string _desc, int8 _number_of_choices) public {
+    constructor (string _title, uint256 _number_of_choices, string _choices) public {
         require(_number_of_choices > 0);
         
         owner = msg.sender;
-        desc = _desc;
+        title = _title;
+        choices = _choices;
         number_of_choices = _number_of_choices;
         status = 0;
+        number_of_candidates = 0;
     }
     
-    function setChoice (int8 _choice, string _choice_text) external onlyOwner {
-        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
-        choices[_choice].choice_text = _choice_text;
-    }
-    
-    function getChoice (int8 _choice) public view returns (string, safeuint) {
-        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
-        return (choices[_choice].choice_text, choices[_choice].vp);
-    }
-    
-    function addCandidates (address[] _addrs, safeuint[] _vp) external onlyOwner {
+    function addCandidates (address[] _addrs, safeuint[] _vps) external onlyOwner {
         for (uint256 i = 0; i < _addrs.length; i++) {
-            Candidate memory newCan = Candidate (_vp[i], -1, 0);
+            Candidate memory newCan = Candidate (_vps[i], -1, 0);
             candidates[_addrs[i]] = newCan;
         }
+        number_of_candidates = number_of_candidates + _addrs.length;
+    }
+    
+    function addCandidate (address _addr, safeuint _vp) external onlyOwner {
+        Candidate memory newCan = Candidate (_vp, -1, 0);
+        candidates[_addr] = newCan;
+        number_of_candidates = number_of_candidates + 1;
     }
     
     function getCandidate (address _addr) public view returns (safeuint, int8, uint) {
         return (candidates[_addr].vp, candidates[_addr].choice, candidates[_addr].ts);
     }
     
-    function checkStatus (address _addr) public view returns (int8, safeuint, int8, string, int8) {
+    function checkStatus (address _addr) public view returns (int8, safeuint, int8, string, uint256, string, safeuint[]) {
+        safeuint[] memory choice_votes = new safeuint[](number_of_choices);
+        for (uint256 i = 0; i < number_of_choices; i++) {
+            choice_votes[i] = votes[i];
+        }
         // if vp == 0, then this address is not permitted to vote
-        return (status, candidates[_addr].vp, candidates[_addr].choice, desc, number_of_choices);
+        return (status, candidates[_addr].vp, candidates[_addr].choice, title, number_of_choices, choices, choice_votes);
     }
     
-    function vote (int8 _choice) public {
+    function vote (uint256 _choice) public {
         require (status == 1); // Must be running
         require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
         require (candidates[msg.sender].vp > 0);  // Must be a valid candidate
         require (candidates[msg.sender].ts == 0); // Cannot bet twice
 
         candidates[msg.sender].ts = now;
-        choices[_choice].vp = choices[_choice].vp + candidates[msg.sender].vp;
+        votes[_choice] = votes[_choice] + candidates[msg.sender].vp;
     }
 
     
