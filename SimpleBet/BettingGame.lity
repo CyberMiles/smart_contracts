@@ -15,6 +15,7 @@ contract BettingGame {
     string public game_desc;
     int8 public number_of_choices;
     safeuint public min_bet_amount;
+    bool public allow_user_bet_amount;
     safeuint total_bet_amount;
     int8 public total_bet_count;
 
@@ -30,7 +31,7 @@ contract BettingGame {
         _;
     }
 
-    constructor (string _game_desc, int8 _number_of_choices, safeuint _min_bet_amount) public {
+    constructor (string _game_desc, int8 _number_of_choices, safeuint _min_bet_amount, bool _allow_user_bet_amount) public {
         require(_number_of_choices > 0);
         require(_min_bet_amount > 0);
         
@@ -39,6 +40,7 @@ contract BettingGame {
         game_desc = _game_desc;
         number_of_choices = _number_of_choices;
         min_bet_amount = _min_bet_amount;
+        allow_user_bet_amount = _allow_user_bet_amount;
         
         total_bet_count = 0;
         total_bet_amount = 0;
