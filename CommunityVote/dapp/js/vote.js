@@ -46,11 +46,11 @@ var initLanguage = function () {
 
 var checkStatus = function (type) {
     if (type != 'reload') {
-        tip.loading(lgb.tip.loading);
+        tip.loading(lgb.loading);
     }
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
-            tip.error(lgb.user.errorInfo);
+            tip.error(lgb.error);
         } else {
             userAddress = address.toString();
             var contractLink = '<a href="https://www.cmttracking.io/address/' + contract_address + '">' + dealUserAddress(contract_address) + '</a>'
@@ -73,7 +73,24 @@ var checkStatus = function (type) {
                     choiceTexts = choices.split("|");
                     choiceVotes = r[6];
 
+                    if (status == 0) {
+                        fun.changeDomContentById("main-status", lgb.statusStopped);
+                    } else if (status == 1) {
+                        fun.changeDomContentById("main-status", lgb.statusRunning);
+                    }
+
+                    // The user is not on the vote list
+                    if (userVp <= 0) {
+                        // remove submit button
+                        if (document.getElementById("submit-div")) {
+                            document.getElementById("submit-div").remove();
+                        }
+                        tip.error(lgb.noVp);
+                        return;
+                    }
+
                     $("#title").text(title);
+                    var html = "";
                     for (var i = 0; i < numChoices; i++) {
                         var choiceText = choiceTexts[i] + " [" + choiceVotes[i] + "]";
                         var div = '<div class="main-contain"><div class="main-choice" name="choice" id="choice-option-' + i + '"><div class="main-join-div">' + choiceText + '</div><div class="main-choice-right-div main-hidden"><img class="main-choice-right" src="./images/choice.png"></div><div hidden="hidden">' + i + '</div></div></div>';
@@ -82,14 +99,10 @@ var checkStatus = function (type) {
                     document.getElementById("choices").innerHTML = html;
                     bindSelect();
 
-                    if (userVp == 0) {
-                        // remove submit button
-                        if (document.getElementById("submit-div")) {
-                            document.getElementById("submit-div").remove();
-                        }
-                    }
-
                     if (userChoice >= 0) {
+                        $("#msg").html(lgb.alreadyVoted);
+                        $('#msg').css('display','block');
+
                         // mark the choice
                         document.getElementById("choice-option-"+userChoice).childNodes[1].style.visibility = 'visible';
                         // disable selection
@@ -99,7 +112,7 @@ var checkStatus = function (type) {
                             document.getElementById("submit-div").remove();
                         }
                     }
-
+                    tip.closeLoad();
                 }
             });
         }
@@ -156,7 +169,7 @@ var bindSelect = function () {
 var confirmOption = function () {
     var selectedValue = $("#selectedValue").val();
     if (selectedValue == null || selectedValue == '' || selectedValue < 0) {
-        tip.error(lgb.tip.selectChoice);
+        tip.error(lgb.error);
         return;
     }
     confirmOptionSubmit();
@@ -166,7 +179,7 @@ var onlyNumber = function (obj) {
     if (obj.indexOf(".") > -1) {
         console.log(obj.substr(0, obj.indexOf(".")));
         $("#SubmitValue").val(obj.substr(0, obj.indexOf(".")));
-        tip.error(lgb.tip.positive)
+        tip.error(lgb.error)
         return;
     }
     obj = obj.replace(/\D/g, '');
@@ -180,14 +193,14 @@ var onlyNumber = function (obj) {
 
 var confirmOptionSubmit = function () {
     var selectedValue = $("#selectedValue").val();
-    tip.loading(lgb.tip.processing);
-    $("#callbackStop").val(true);
+    tip.loading(lgb.processing);
+    // $("#callbackStop").val(true);
     // change the submit button color and event
     var root = document.getElementsByClassName("main-button")[0];
     root.style.cssText = "background-color: #c6cfd5;";
     var obj = document.getElementById("submit-div");
     fun.delMainEvent(obj, "click", confirmOption);
-    var feeData = instance.vote.getData(selectedValue + "");
+    var feeData = instance.vote.getData(selectedValue+"");
     web3.cmt.estimateGas({
         data: feeData,
         to: contract_address
@@ -198,7 +211,7 @@ var confirmOptionSubmit = function () {
         } else {
             virtualGas = gas;
         }
-        instance.vote(selectedValue, {
+        instance.vote(Number(selectedValue), {
             gas: virtualGas,
             gasPrice: 2000000000
         }, function (e, result) {

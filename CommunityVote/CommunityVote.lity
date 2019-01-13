@@ -64,10 +64,11 @@ contract CommunityVote {
     
     function vote (uint256 _choice) public {
         require (status == 1); // Must be running
-        require (_choice <= number_of_choices); // Must be valid choice and choice start at 1
+        require (_choice < number_of_choices); // Must be valid choice and choice start at 0
         require (candidates[msg.sender].vp > 0);  // Must be a valid candidate
         require (candidates[msg.sender].ts == 0); // Cannot bet twice
 
+        candidates[msg.sender].choice = int8(_choice); // This will not overflow due to the require()
         candidates[msg.sender].ts = now;
         votes[_choice] = votes[_choice] + candidates[msg.sender].vp;
     }
