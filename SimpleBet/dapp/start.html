@@ -32,7 +32,14 @@
                        value="">
                 <div class="main-line"></div>
             </div>
-
+            <div class="main-div">
+                <div class="start-checkbox">
+                    <input type="checkbox" value="markCheckbox" id="markCheckbox" onclick="allowUserBet()">
+                    <label class="mark start-checkbox" for="markCheckbox" id="allowUserBet">&nbsp;&nbsp;Allow User Bet
+                        Amount</label>
+                </div>
+                <div class="main-line"></div>
+            </div>
             <div class="main-div">
                 <input name="choice" onkeyup="checkChoice(this.value)" maxlength="20" placeholder="Option A" value="">
                 <div class="main-line"></div>
@@ -78,6 +85,7 @@
 </div>
 <input type="hidden" value="true" id="shouldCheckTheResult">
 <input type="hidden" id="userAddress">
+<input type="hidden" id="allowUserBetCheckbox" value="1">
 <script src="./js/main.js"></script>
 <script src="./js/start.js"></script>
 </body>

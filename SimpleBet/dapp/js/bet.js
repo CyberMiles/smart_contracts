@@ -38,6 +38,8 @@ var totalBetAmount = 0;
 var lg = "";
 //default min bet amount
 var minBetAmount = 10;
+// allow user bet amount
+var allowUserBetAmount = false;
 // init the functions in the html
 $(function () {
     webBrowser.openBrowser();
@@ -135,7 +137,7 @@ var checkGameStatus = function (type) {
                         } else if (gameStatus == 3) {
                             $("#msg").html(lgb.bet.ended);
                         }
-                        $('#msg').css('display','block');
+                        $('#msg').css('display', 'block');
                     }
                     // user can not choice when user 1:selected 2:the game stop 3:the game end
                     if (userChoice > 0) {
@@ -157,26 +159,6 @@ var checkGameStatus = function (type) {
                     getBetInfo();
                 }
             });
-            // get default min bet amount
-            instance.min_bet_amount(function (e, result) {
-                if (e) {
-                    console.log(lgb.bet.betError + e.message);
-                    if (e.code == '1001') {
-                        tip.error(lgb.bet.betInfo + e.message)
-                    }
-                } else {
-                    if (result / 1000000000000000000 <= 0) {
-                        $("#minBetAmount").val(10);
-                        return;
-                    }
-                    if (result / 1000000000000000000 <= 1) {
-                        $("#minBetAmount").val(1);
-                        return;
-                    }
-                    $("#minBetAmount").val(result / 1000000000000000000);
-                }
-                fun.changeDomContentById("submit", lgb.bet.confirm + $("#minBetAmount").val() + " CMT");
-            });
         }
     });
 }
@@ -185,6 +167,22 @@ var checkGameStatus = function (type) {
  * update bet game info
  */
 var getBetInfo = function () {
+    instance.min_bet_amount(function (e, result) {
+        if (e) {
+            console.log(lgb.bet.betError + e.message);
+            if (e.code == '1001') {
+                tip.error(lgb.bet.betInfo + e.message)
+            }
+        } else {
+            if (result <= 0) {
+                $("#minBetAmount").val(10);
+                return;
+            } else {
+                $("#minBetAmount").val(result);
+            }
+        }
+    });
+    // get default min bet amount
     instance.getBetInfo(function (e, result) {
         if (e) {
             console.log(lgb.bet.betError + e.message);
@@ -195,8 +193,14 @@ var getBetInfo = function () {
             gameStatus = Number(result[0]);
             totalBetCount = Number(result[3]);
             totalBetAmount = Number(result[4] / 1000000000000000000);
-            if (totalBetAmount > 0) {
-                totalBetAmount = totalBetAmount.toFixed(4);
+            if (result[5] != null) {
+                allowUserBetAmount = Boolean(result[5]);
+                if (allowUserBetAmount) {
+                    fun.changeDomContentById("submit", lgb.bet.userConfirm);
+                } else {
+                    fun.changeDomContentById("submit", lgb.bet.confirm + $("#minBetAmount").val() + " CMT");
+                }
+                $("#allowUserBetAmount").val(allowUserBetAmount);
             }
             betStatusFun(gameStatus);
             $("#totalBetCount").html(totalBetCount);
@@ -232,15 +236,15 @@ var showUserChoice = function (status, userChoice, correctChoice) {
     if (status == 1 || status == 2) {
         // running or stopped
         $("#msg").html(lgb.bet.alreadyBetted);
-        $('#msg').css('display','block');
+        $('#msg').css('display', 'block');
     } else if (status == 3) {
         // ended 
         $("#msg").html(lgb.bet.ended);
-        $('#msg').css('display','block');
+        $('#msg').css('display', 'block');
     } else if (status == 4) {
         // cancelled 
         $("#msg").html(lgb.bet.cancelled);
-        $('#msg').css('display','block');
+        $('#msg').css('display', 'block');
     }
     var elements = document.getElementsByName("choice");
     for (var i = 0; i < elements.length; i++) {
@@ -434,7 +438,7 @@ var withdraw = function () {
         } else {
             console.log(result);
             $("#msg").html(lgb.bet.pendingWithdraw);
-            $('#msg').css('display','block');
+            $('#msg').css('display', 'block');
             document.getElementById(contentId).style.display = 'none';
             getGameStatus('withdraw');
         }
@@ -697,13 +701,17 @@ var confirmOption = function () {
         tip.error(lgb.tip.selectChoice);
         return;
     }
-    confirmOptionSubmit();
-    /*var divTitle = lgb.bet.betTitle;
-    var inputDesc = lgb.tip.positive;
-    var btnId = "Submit";
-    var btnName = lgb.tip.submit;
-    fun.popupInputTip(divTitle, inputDesc, btnName, btnId);
-    fun.addMainEvent(document.getElementById(btnId), "click", confirmOptionSubmit);*/
+    var allowBet = $("#allowUserBetAmount").val();
+    if (allowBet == 'true') {
+        var divTitle = lgb.bet.betTitle;
+        var inputDesc = lgb.tip.positive;
+        var btnId = "Submit";
+        var btnName = lgb.tip.submit;
+        fun.popupInputTip(divTitle, inputDesc, btnName, btnId);
+        fun.addMainEvent(document.getElementById(btnId), "click", confirmOptionSubmit);
+    } else {
+        confirmOptionSubmit();
+    }
 }
 
 var onlyNumber = function (obj) {
@@ -728,21 +736,6 @@ var onlyNumber = function (obj) {
 var confirmOptionSubmit = function () {
     var amount = $("#minBetAmount").val();
     var selectedValue = $("#selectedValue").val();
-    if (amount.indexOf(".") > -1) {
-        $("#SubmitValue").val(amount.substr(0, amount.indexOf(".")));
-        tip.error(lgb.tip.positive);
-        return;
-    }
-    amount = onlyNumber(amount);
-    amount = Number(amount);
-    if (amount == null || amount == '' || 'number' != typeof amount || isNaN(amount)) {
-        tip.error(lgb.tip.fillRightAmount);
-        return;
-    }
-    if (amount <= 0) {
-        tip.error(lgb.tip.moreThanZero);
-        return;
-    }
     if (gameStatus == 0) {
         tip.error(lgb.bet.notStart);
         return;
@@ -751,7 +744,25 @@ var confirmOptionSubmit = function () {
         tip.error(lgb.bet.stopped);
         return;
     }
-    //document.getElementById("pupopBox").style.display = "none";
+    var allowBet = $("#allowUserBetAmount").val();
+    if (allowBet == 'true') {
+        var betAmount = $("#SubmitValue").val();
+        if (betAmount == null || betAmount == '' || isNaN(betAmount)) {
+            tip.error(lgb.tip.fillRightAmount);
+            return;
+        }
+        betAmount = onlyNumber(betAmount);
+        if (betAmount <= 0) {
+            tip.error(lgb.tip.moreThanZero);
+            return;
+        }
+        if (betAmount < amount) {
+            tip.error(lgb.tip.moreThan + amount);
+            return;
+        }
+        amount = betAmount;
+        document.getElementById("pupopBox").style.display = "none";
+    }
     tip.loading(lgb.tip.processing);
     $("#callbackStop").val(true);
     // change the submit button color and event
@@ -788,7 +799,7 @@ var confirmOptionSubmit = function () {
                 // We will not wait and will just show a pending message instead
                 showUserChoice(gameStatus, userChoice, correctChoice);
                 $("#msg").html(lgb.bet.pendingBet);
-                $('#msg').css('display','block');
+                $('#msg').css('display', 'block');
                 getGameStatus('bet');
             }
         });
@@ -844,8 +855,8 @@ var showChoices = function (gameDesc) {
  */
 var getGameStatus = function (type) {
     if (type == 'bet' || type == 'withdraw') {
-      // This returns immediately and will have no spinner
-      tip.closeLoad();
+        // This returns immediately and will have no spinner
+        tip.closeLoad();
     }
     var interval = setInterval(function () {
         instance.checkStatus(userAddress, function (gameError, result) {

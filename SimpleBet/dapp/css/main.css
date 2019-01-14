@@ -369,3 +369,28 @@ p {
     z-index: 1001;
     text-align: center;
 }
+
+input[type="checkbox"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    background-color: #f8f8f8;
+}
+
+.mark {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.mark::before {
+    content: '\a0';
+    display: inline-block;
+    border: 1px solid silver;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+}
+
+input[type="checkbox"]:checked + .mark::before {
+    content: '\2713';
+    color: #FA8E53;
+}

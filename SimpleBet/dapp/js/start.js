@@ -29,6 +29,7 @@ var initLanguage = function () {
     }
     fun.choiceInputLangByName("choice", lang.option);
     fun.choiceInputLangById("title", lang.title);
+    fun.changeDomContentById("allowUserBet", lang.allowUserBet);
     fun.choiceInputLangById("betMinAmount", lang.betMinAmount);
     fun.changeDomContentById("delOption", lang.delOption);
     fun.changeDomContentById("addOption", lang.addOption);
@@ -61,6 +62,15 @@ var initUserAddress = function () {
 
 var backIndex = function () {
     window.location.href = "./index.html";
+}
+
+var allowUserBet = function () {
+    var allowUserBet = $("#allowUserBetCheckbox").val();
+    if (allowUserBet == '1') {
+        $("#allowUserBetCheckbox").val(0);
+    } else {
+        $("#allowUserBetCheckbox").val(1);
+    }
 }
 
 var checkChoice = function (inputValue) {
@@ -115,19 +125,24 @@ var startGame = function () {
         tip.error(lang.tip.nullTitle);
         return;
     }
+    var allowUserBet = $("#allowUserBetCheckbox").val();
+    var allowUserBetAmount = false;
+    if (allowUserBet == 0) {
+        allowUserBetAmount = true;
+    }
     var betMinAmount = $("#betMinAmount").val();
     var minBetAmount = web3.toWei(betMinAmount, "cmt");
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
     var contract = web3.cmt.contract(betAbi);
-    var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, minBetAmount, {data: betBin.object});
+    var feeDate = '0x' + contract.new.getData(gameDesc, numChoices - 1, minBetAmount, allowUserBetAmount, {data: betBin.object});
     tip.loading(lang.bet.init + title);
     web3.cmt.estimateGas({data: feeDate}, function (e, returnGas) {
         var gas = '1700000';
         if (!e) {
             gas = Number(returnGas * 2);
         }
-        contract.new([gameDesc, numChoices - 1, minBetAmount], {
+        contract.new([gameDesc, numChoices - 1, minBetAmount, allowUserBetAmount], {
             from: userAddress.toString(),
             data: feeDate,
             gas: gas,

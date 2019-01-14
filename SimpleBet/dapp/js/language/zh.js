@@ -1,5 +1,6 @@
 var ZHLanguage = {
     title: "请输入标题",
+    allowUserBet: "&nbsp;&nbsp;是否允许用户自己输入投注金额",
     betMinAmount: "每次赌的CMT数量",
     option: "请输入选项",
     cancel: "取消",
@@ -30,6 +31,7 @@ var ZHLanguage = {
 
     bet: {
         confirm: "投注 ",
+        userConfirm: "确认",
         title: "赌局标题",
         gameError: "获取赌局信息有误，请刷新后再试",
         betError: "获取赌局信息有误，请刷新后再试",

@@ -39,9 +39,10 @@ var MainFun = (function () {
         };
 
         var _removeLastDiv = function (parent, tipMsg) {
+
             var divs = parent.children;
             var lastDiv = divs[divs.length - 2];
-            if (divs.length < 6) {
+            if (divs.length < 7) {
                 IUToast.error(tipMsg);
                 return;
             }

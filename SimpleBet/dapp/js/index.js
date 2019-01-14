@@ -133,6 +133,10 @@ var showListContent = function (pageNo) {
                 }
                 loadCount = 0;
                 divCount = 0;
+                if (result.data.objects.length <= 0) {
+                    tip.closeLoad();
+                    return;
+                }
                 for (var i = 0; i < result.data.objects.length; i++) {
                     var id = 'showAllBetList';
                     var obj = result.data.objects[i];

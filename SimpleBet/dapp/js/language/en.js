@@ -1,5 +1,6 @@
 var EnLanguage = {
     title: "Description of the bet",
+    allowUserBet: "&nbsp;&nbsp;Allow User Bet Amount",
     betMinAmount: "CMT amount for each bet",
     option: "Option",
     cancel: "Cancel",
@@ -30,6 +31,7 @@ var EnLanguage = {
 
     bet: {
         confirm: "Bet ",
+        userConfirm: "Confirm my option",
         title: "The bet description",
         gameError: "Error, please refresh",
         betError: "It have an error when get this Bet Game info ：",
@@ -111,6 +113,7 @@ var EnLanguage = {
         selectChoice: "Please make your choice",
         positive: "Please enter a positive integer",
         moreThanZero: "The amount should be more than zero",
+        moreThan: "The amount should be more than ",
         fillRightAmount: "Please enter the right amount",
         submit: "Submit",
     }

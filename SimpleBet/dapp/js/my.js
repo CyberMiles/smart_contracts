@@ -13,6 +13,7 @@ var betStatusColor = ['#ff3636', '#6aba0c', '#f5a623', '#ff3636'];
 var divCount = 0;
 var hadLoading = false;
 var pageSize = 10;
+var showTotal = 0;
 $(function () {
     webBrowser.openBrowser();
     getAbi();
@@ -107,6 +108,10 @@ var requestListInfo = function (pageNo) {
                 }
                 var id = "listContent";
                 divCount = 0;
+                if (result.data.objects.length <= 0) {
+                    tip.closeLoad();
+                    return;
+                }
                 for (var i = 0; i < result.data.objects.length; i++) {
                     var obj = result.data.objects[i];
                     appendChildList(obj.address, id, lastCount, userAddress);
@@ -125,6 +130,7 @@ var appendChildList = function (contractAddress, id, lastCount, userAddress) {
     var contract = web3.cmt.contract(betAbi, contractAddress);
     var instance = contract.at(contractAddress);
     instance.checkStatus(userAddress, function (statusError, choiceResult) {
+        showTotal++;
         if (!statusError) {
             var userChoice = Number(choiceResult[2]);
             var showCount = $("#showCount").val();
@@ -152,7 +158,7 @@ var appendChildList = function (contractAddress, id, lastCount, userAddress) {
         var currentPage = $("#currentPage").val();
         var showCount = $("#showCount").val();
         var totalPage = $("#totalPage").val();
-        if (showCount >= pageSize || currentPage >= totalPage) {
+        if (showCount >= pageSize || currentPage >= totalPage || showTotal >= pageSize) {
             setTimeout(function () {
                 hadLoading = false;
                 clearInterval(interval);
