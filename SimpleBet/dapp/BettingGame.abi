@@ -2,6 +2,74 @@
 	{
 		"constant": false,
 		"inputs": [],
+		"name": "cancelGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_correct_choice",
+				"type": "int8"
+			},
+			{
+				"name": "_correct_choice_txt",
+				"type": "string"
+			}
+		],
+		"name": "endGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "payMe",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_choice",
+				"type": "int8"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "resumeGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "stopGame",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
 		"name": "terminate",
 		"outputs": [],
 		"payable": false,
@@ -9,41 +77,36 @@
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "game_status",
-		"outputs": [
+		"inputs": [
 			{
-				"name": "",
+				"name": "_game_desc",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_choices",
 				"type": "int8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "correct_choice",
-		"outputs": [
+			},
 			{
-				"name": "",
-				"type": "int8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "min_bet_amount",
-		"outputs": [
-			{
-				"name": "",
+				"name": "_min_bet_amount",
 				"type": "uint256"
+			},
+			{
+				"name": "_allow_user_bet_amount",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "allow_user_bet_amount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -94,12 +157,17 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "resumeGame",
-		"outputs": [],
+		"name": "correct_choice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -119,11 +187,11 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "number_of_choices",
+		"name": "game_desc",
 		"outputs": [
 			{
 				"name": "",
-				"type": "int8"
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -133,34 +201,11 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "total_bet_count",
+		"name": "game_status",
 		"outputs": [
 			{
 				"name": "",
 				"type": "int8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "stopGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
 			}
 		],
 		"payable": false,
@@ -188,52 +233,6 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "game_desc",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "allow_user_bet_amount",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_correct_choice",
-				"type": "int8"
-			},
-			{
-				"name": "_correct_choice_txt",
-				"type": "string"
-			}
-		],
-		"name": "endGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "getBetInfo",
 		"outputs": [
 			{
@@ -255,6 +254,10 @@
 			{
 				"name": "",
 				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -262,58 +265,59 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "cancelGame",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "payMe",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
+		"name": "min_bet_amount",
+		"outputs": [
 			{
-				"name": "_choice",
-				"type": "int8"
-			}
-		],
-		"name": "placeBet",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"name": "_game_desc",
-				"type": "string"
-			},
-			{
-				"name": "_number_of_choices",
-				"type": "int8"
-			},
-			{
-				"name": "_min_bet_amount",
+				"name": "",
 				"type": "uint256"
-			},
-			{
-				"name": "_allow_user_bet_amount",
-				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "number_of_choices",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "total_bet_count",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]

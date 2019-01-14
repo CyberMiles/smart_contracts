@@ -120,8 +120,8 @@ contract BettingGame {
         return (game_status, game_desc, bets[_addr].choice, uint256(bets[_addr].amount), uint256(payout), bets[_addr].paid, correct_choice);
     }
 
-    function getBetInfo()public view returns(int8,string,int8,int8,safeuint){
-        return (game_status, game_desc, correct_choice, total_bet_count, total_bet_amount);
+    function getBetInfo()public view returns(int8,string,int8,int8,safeuint,bool){
+        return (game_status, game_desc, correct_choice, total_bet_count, total_bet_amount, allow_user_bet_amount);
     }
 
     function getAnswer() public view returns (int8, string) {
