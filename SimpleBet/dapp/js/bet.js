@@ -70,8 +70,7 @@ var initLanguage = function () {
     if (lgb == '' || lgb == null) {
         return;
     }
-    var betBtn = lgb.bet.confirm + minBetAmount + " CMT"
-    fun.changeDomContentById("submit", betBtn);
+    fun.changeDomContentById("submit", lgb.bet.userConfirm);
     fun.changeDomContentById("betTitle", lgb.bet.title);
     fun.changeDomContentById("detailInfo", lgb.detail.detailInfo);
     fun.changeDomContentById("playCount", lgb.detail.playCount);
@@ -167,21 +166,6 @@ var checkGameStatus = function (type) {
  * update bet game info
  */
 var getBetInfo = function () {
-    instance.min_bet_amount(function (e, result) {
-        if (e) {
-            console.log(lgb.bet.betError + e.message);
-            if (e.code == '1001') {
-                tip.error(lgb.bet.betInfo + e.message)
-            }
-        } else {
-            if (result <= 0) {
-                $("#minBetAmount").val(10);
-                return;
-            } else {
-                $("#minBetAmount").val(result);
-            }
-        }
-    });
     // get default min bet amount
     instance.getBetInfo(function (e, result) {
         if (e) {
@@ -194,14 +178,30 @@ var getBetInfo = function () {
             totalBetCount = Number(result[3]);
             totalBetAmount = Number(result[4] / 1000000000000000000);
             if (result[5] != null) {
-                allowUserBetAmount = Boolean(result[5]);
-                if (allowUserBetAmount) {
-                    fun.changeDomContentById("submit", lgb.bet.userConfirm);
-                } else {
-                    fun.changeDomContentById("submit", lgb.bet.confirm + $("#minBetAmount").val() + " CMT");
-                }
-                $("#allowUserBetAmount").val(allowUserBetAmount);
+                $("#allowUserBetAmount").val(Boolean(result[5]));
             }
+            instance.min_bet_amount(function (e, result) {
+                if (e) {
+                    console.log(lgb.bet.betError + e.message);
+                    if (e.code == '1001') {
+                        tip.error(lgb.bet.betInfo + e.message)
+                    }
+                } else {
+                    if (result <= 0) {
+                        $("#minBetAmount").val(10);
+                        return;
+                    } else {
+                        $("#minBetAmount").val(result / 1000000000000000000);
+                    }
+                    allowUserBetAmount = $("#allowUserBetAmount").val();
+                    //console.log(allowUserBetAmount);
+                    if (allowUserBetAmount == 'true') {
+                        fun.changeDomContentById("submit", lgb.bet.userConfirm);
+                    } else {
+                        fun.changeDomContentById("submit", lgb.bet.confirm + $("#minBetAmount").val() + " CMT");
+                    }
+                }
+            });
             betStatusFun(gameStatus);
             $("#totalBetCount").html(totalBetCount);
             $("#totalBetAmount").html(totalBetAmount);
@@ -703,8 +703,10 @@ var confirmOption = function () {
     }
     var allowBet = $("#allowUserBetAmount").val();
     if (allowBet == 'true') {
+        var minAmount = $("#minBetAmount").val();
+        fun.choiceInputLangById("betMinAmount",);
         var divTitle = lgb.bet.betTitle;
-        var inputDesc = lgb.tip.positive;
+        var inputDesc = lgb.betMinAmountAtLeast + minAmount + ' CMT';
         var btnId = "Submit";
         var btnName = lgb.tip.submit;
         fun.popupInputTip(divTitle, inputDesc, btnName, btnId);

@@ -68,8 +68,12 @@ var allowUserBet = function () {
     var allowUserBet = $("#allowUserBetCheckbox").val();
     if (allowUserBet == '1') {
         $("#allowUserBetCheckbox").val(0);
+        $(".start-checkbox").attr('style', 'color:#000000');
+        fun.changeDomContentById("allowUserBet", lang.allowedUserBet);
     } else {
         $("#allowUserBetCheckbox").val(1);
+        $(".start-checkbox").attr('style', 'color:#dadde3');
+        fun.changeDomContentById("allowUserBet", lang.allowUserBet);
     }
 }
 

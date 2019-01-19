@@ -1,7 +1,9 @@
 var ZHLanguage = {
     title: "请输入标题",
     allowUserBet: "&nbsp;&nbsp;是否允许用户自己输入投注金额",
+    allowedUserBet: "&nbsp;&nbsp;允许用户自己输入投注金额",
     betMinAmount: "每次赌的CMT数量",
+    betMinAmountAtLeast: "最少 ",
     option: "请输入选项",
     cancel: "取消",
     cancelled: "已取消",
