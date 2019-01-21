@@ -18,8 +18,9 @@ $(function () {
     initLanguage();
     initUserAddress();
     fun.addMainEvent(document.getElementById("addDiv"), "click", fun.createDivById("main-div-count"));
+    fun.addMainEvent(document.getElementById("markCheckbox"), "click", allowUserBet);
     fun.addMainEvent(document.getElementById("delDiv"), "click", fun.removeLastDiv("main-div-count", lang.tip.lessThan));
-
+    document.getElementById("allowUserBet").setAttribute("for", "markCheckbox");
 });
 
 // init language
