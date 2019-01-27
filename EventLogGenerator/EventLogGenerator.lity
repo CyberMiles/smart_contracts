@@ -1,0 +1,37 @@
+pragma lity ^1.2.3;
+
+contract EventLogCreator{
+    
+    // Contract variables
+    mapping(address => safeuint) pointBalances;
+    address owner;
+    
+    // Constructor
+    constructor() public{
+        owner = msg.sender;
+    }
+    
+    // Modifier onlyOwner
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can execute this function");
+        _;
+    }
+    
+    // Event
+    event pointBalanceUpdated(address indexed endUser, safeuint amount);
+    
+    function addPoints(safeuint pointValue) public {
+        pointBalances[msg.sender] += pointValue;
+        emit pointBalanceUpdated(msg.sender, pointValue);
+    }
+    
+    // Destructor
+    function destroyContract() public onlyOwner {
+        selfdestruct(owner);
+    }
+    
+    // Fallback function
+    function () public payable {
+        revert("Please do not send funds to this contract");
+    }
+}
