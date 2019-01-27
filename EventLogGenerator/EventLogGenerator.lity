@@ -20,6 +20,7 @@ contract EventLogCreator{
     // Event
     event pointBalanceUpdated(address indexed endUser, safeuint amount);
     
+    // Function which adds points and emits
     function addPoints(safeuint pointValue) public {
         pointBalances[msg.sender] += pointValue;
         emit pointBalanceUpdated(msg.sender, pointValue);
