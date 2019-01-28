@@ -62,6 +62,10 @@ contract CommunityVote {
         return (status, candidates[_addr].vp, candidates[_addr].choice, title, number_of_choices, choices, choice_votes);
     }
     
+    function getVote (uint256 _choice) public view returns (safeuint) {
+        return (votes[_choice]);
+    }
+    
     function vote (uint256 _choice) public {
         require (status == 1); // Must be running
         require (_choice < number_of_choices); // Must be valid choice and choice start at 0
