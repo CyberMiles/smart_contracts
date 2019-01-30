@@ -21,7 +21,8 @@ cd flattenedContract
 sudo chown -R ubuntu:ubuntu /home/ubuntu/
 truffle init
 # Install the OpenZeppelin Solidity codebase via npm
-npm install openzeppelin-solidity
+# Please note this is the tag 2.1.1
+npm install openzeppelin-solidity@2.1.1
 ```
 Create a new CMTD smart contract, in the contracts folder.
 Make sure that the new CMTD smart contract has the appropriate import statements (relative URLs as shown below).
