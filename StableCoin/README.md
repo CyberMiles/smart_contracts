@@ -21,8 +21,7 @@ cd flattenedContract
 sudo chown -R ubuntu:ubuntu /home/ubuntu/
 truffle init
 # Install the OpenZeppelin Solidity codebase via npm
-# Please note this is the tag 2.1.1
-npm install openzeppelin-solidity@2.1.1
+npm install openzeppelin-solidity
 ```
 Create a new CMTD smart contract, in the contracts folder.
 Make sure that the new CMTD smart contract has the appropriate import statements (relative URLs as shown below).
@@ -84,7 +83,13 @@ sudo apt-get -y install curl
 [Install Lity on Ubuntu 16.04](https://lity.readthedocs.io/en/latest/developers-guide.html#developers-guide)
 
 ### Compile 
+You can either use Lity in the command line.
+```bash
+cd lity/build
+lityc/lityc --abi --bin ~/flattenedContract/flat_cmtd.sol
+```
 
+Or you can simply use [Remix](http://remix.cybermiles.io) online to compile and also deploy the contract.
 
 # Functionality
 
