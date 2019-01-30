@@ -578,13 +578,6 @@ contract ERC20Detailed is IERC20 {
  * Use this contract at your own risk.
  */
 
-//Import contracts
-//This file has been marked old because dynamically linking to these contracts was causing issues at times when OpenZeppelin updated their code base and GitHub repository file structure etc.
-
-
-
-
-
 //Create CMTD contract
 contract CMTD is ERC20Mintable, ERC20Burnable, ERC20Pausable, ERC20Detailed {
     constructor() public
