@@ -103,6 +103,7 @@ var ZHLanguage = {
         loading: "加载中 ...",
         processing: "交易处理中 ...",
         nullTitle: "标题不能为空",
+        nullBetAmount: "投注金额必须大于0",
         lessThan: "不能少于2个选项",
         firstPage: "这已经是第一页了",
         lastPage: "这已经是最后一页了",

@@ -84,6 +84,7 @@ var checkChoice = function (inputValue) {
     var root = document.getElementsByClassName("main-button")[0];
     var count = 0;
     var title = $("#title").val();
+    var betMinAmount = $("#betMinAmount").val();
     if (inputValue == '' || inputValue == null || inputValue == 'undefined') {
         if (title.length >= 1400) {
             tip.error(lang.tip.exceedTitle);
@@ -99,7 +100,7 @@ var checkChoice = function (inputValue) {
         if (inputs[i].value != null && inputs[i].value != '') {
             count++;
         }
-        if (count >= 3 && title != null && title != '') {
+        if (count >= 3 && title != null && title != '' && betMinAmount != null && betMinAmount > 0) {
             root.style.cssText = "background-color: #1976d2;";
             fun.addMainEvent(obj, "click", startGame);
         } else {
@@ -130,12 +131,21 @@ var startGame = function () {
         tip.error(lang.tip.nullTitle);
         return;
     }
+    var betMinAmount = $("#betMinAmount").val();
+    if (betMinAmount == null || betMinAmount == '' || isNaN(betMinAmount)) {
+        tip.error(lang.tip.fillRightAmount);
+        return;
+    }
+    if (betMinAmount <= 0) {
+        tip.error(lang.tip.moreThanZero);
+        return;
+    }
     var allowUserBet = $("#allowUserBetCheckbox").val();
     var allowUserBetAmount = false;
     if (allowUserBet == 0) {
         allowUserBetAmount = true;
     }
-    var betMinAmount = $("#betMinAmount").val();
+
     var minBetAmount = web3.toWei(betMinAmount, "cmt");
     gameDesc = gameDesc.replace(/(^;)|(;$)/g, "");
     // deploy and start the game
@@ -210,7 +220,7 @@ var setTheContractAddressAndTurn = function (result) {
 var startOnlyNumber = function (obj) {
     if (obj.indexOf(".") > -1) {
         console.log(obj.substr(0, obj.indexOf(".")));
-        $("#betAmount").val(obj.substr(0, obj.indexOf(".")));
+        $("#betMinAmount").val(obj.substr(0, obj.indexOf(".")));
         tip.error(lang.tip.positive)
         return;
     }
@@ -219,7 +229,8 @@ var startOnlyNumber = function (obj) {
     if (t == 0) {
         obj = obj.substr(1, obj.length);
     }
-    $("#betAmount").val(obj);
+    $("#betMinAmount").val(obj);
+    checkChoice();
     return obj;
 }
 

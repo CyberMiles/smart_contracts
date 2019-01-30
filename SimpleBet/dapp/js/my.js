@@ -112,6 +112,7 @@ var requestListInfo = function (pageNo) {
                     tip.closeLoad();
                     return;
                 }
+                console.log(result.data.objects);
                 for (var i = 0; i < result.data.objects.length; i++) {
                     var obj = result.data.objects[i];
                     appendChildList(obj.address, id, lastCount, userAddress);
@@ -134,14 +135,16 @@ var appendChildList = function (contractAddress, id, lastCount, userAddress) {
         if (!statusError) {
             var userChoice = Number(choiceResult[2]);
             var showCount = $("#showCount").val();
+            console.log(userChoice);
             if (userChoice > 0) {
                 appendHtml(instance, showCount, contractAddress, id);
+            } else {
+                instance.owner(function (e, ownerAddress) {
+                    if (ownerAddress.toString().toLowerCase() == userAddress.toLowerCase()) {
+                        appendHtml(instance, showCount, contractAddress, id);
+                    }
+                });
             }
-            instance.owner(function (e, ownerAddress) {
-                if (ownerAddress.toString().toLowerCase() == userAddress.toLowerCase()) {
-                    appendHtml(instance, showCount, contractAddress, id);
-                }
-            });
             var total = $("#totalPage").val();
             var selfPageNo = Number($("#currentPage").val());
             if (selfPageNo < total) {
