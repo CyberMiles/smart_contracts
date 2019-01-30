@@ -115,6 +115,7 @@ var ZHLanguage = {
         selectChoice: "请确定你的选项",
         positive: "请输入正整数",
         moreThanZero: "输入金额必须大于0",
+        moreThan: "输入金额必须大于  ",
         fillRightAmount: "请输入正确的金额",
         submit: "确定",
     }
