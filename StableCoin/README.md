@@ -12,16 +12,6 @@ The second iteration of the CMTD contract will be a single file which includes a
 The followig process details how the OpenZeppelin contracts are utilized statically (by flattening the entire OpenZeppelin inheritance heirarchy); the result being, a large single static file called StableCoinCMTD.lity.
 
 ```bash
-# Using Ubuntu 16.04LTS
-cd ~
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y install build-essential
-sudo apt-get -y install libz3-dev
-sudo apt-get -y install curl
-```
-[Install Lity on Ubuntu 16.04](https://lity.readthedocs.io/en/latest/developers-guide.html#developers-guide)
-```bash
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo npm install -g truffle
@@ -77,6 +67,23 @@ To flatten the file please use the following command
 truffle-flattener contracts/cmtd.sol > flat_cmtd.sol
 ```
 The flattened file from the above instructions is now stored as StableCoinCMTD.sol.
+
+## Compiling the flattened file
+
+### Install Lity
+```bash
+# Using Ubuntu 16.04LTS
+cd ~
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get -y install build-essential
+sudo apt-get -y install libz3-dev
+sudo apt-get -y install curl
+```
+[Install Lity on Ubuntu 16.04](https://lity.readthedocs.io/en/latest/developers-guide.html#developers-guide)
+
+### Compile 
+
 
 # Functionality
 
