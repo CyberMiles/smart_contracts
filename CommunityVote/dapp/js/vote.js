@@ -3,6 +3,7 @@ const tip = IUToast;
 const lgb = fun.languageChoice();
 const contract_address = fun.getParameter("contract");
 const baseUrl = 'http://community.codeislaw.co/vote.html';
+var webBrowser = new AppLink();
 var shareUrl = window.location.href;//baseUrl + "?contract=" + contract_address;
 var userAddress = '';
 var commAbi = '';
@@ -20,17 +21,23 @@ var choiceTexts = [];
 var choiceVotes = [];
 
 $(function () {
+    webBrowser.openBrowser();
     // init the abi and bin
     getAbi();
     getBin();
     initLanguage();
 
-    // execute this immediately
-    checkStatus();
+    var interval = setInterval(function () {
+        if (commAbi.length > 0) {
+            window.onload = checkStatus();
+            clearInterval(interval);
+        }
+    }, 50);
+
     // Update every 15 seconds
-    setInterval(function () {
-        checkStatus('reload');
-    }, 15 * 1000);
+    // setInterval(function () {
+    //     checkStatus('reload');
+    // }, 15 * 1000);
 });
 
 
@@ -56,7 +63,8 @@ var checkStatus = function (type) {
             var contractLink = '<a href="https://www.cmttracking.io/address/' + contract_address + '">' + dealUserAddress(contract_address) + '</a>'
             $("#contractAddress").html(contractLink);
             $("#removedTheInterval").val(true);
-            contract = web3.cmt.contract(commAbi, contract_address);
+            // contract = web3.cmt.contract(commAbi, contract_address);
+            contract = web3.cmt.contract(commAbi);
             instance = contract.at(contract_address);
             instance.checkStatus(userAddress, function (e, r) {
                 if (e) {
@@ -73,23 +81,26 @@ var checkStatus = function (type) {
                     choiceTexts = choices.split("|");
                     choiceVotes = r[6];
 
+                    var titles = title.split("|");
+                    if (titles.length > 1 && lgb.submit == "确定") {
+                         title = titles[1];
+                    } else {
+                         title = titles[0];
+                    }
+
+                    if (choiceTexts.length > numChoices && lgb.submit == "确定") {
+                        for (var i = 0; i < numChoices; i++) {
+                            choiceTexts[i] = choiceTexts[i+numChoices];
+                        }
+                    }
+
                     if (status == 0) {
                         fun.changeDomContentById("main-status", lgb.statusStopped);
                     } else if (status == 1) {
                         fun.changeDomContentById("main-status", lgb.statusRunning);
                     }
 
-                    // The user is not on the vote list
-                    if (userVp <= 0) {
-                        // remove submit button
-                        if (document.getElementById("submit-div")) {
-                            document.getElementById("submit-div").remove();
-                        }
-                        tip.error(lgb.noVp);
-                        return;
-                    }
-
-                    $("#title").text(title);
+                    $("#title").html(title);
                     var html = "";
                     for (var i = 0; i < numChoices; i++) {
                         var choiceText = choiceTexts[i] + " [" + choiceVotes[i] + "]";
@@ -113,6 +124,20 @@ var checkStatus = function (type) {
                         }
                     }
                     tip.closeLoad();
+
+                    // The user is not on the vote list
+                    if (userVp <= 0) {
+                        // remove submit button
+                        if (document.getElementById("submit-div")) {
+                            document.getElementById("submit-div").remove();
+                        }
+                        // tip.error(lgb.noVp);
+                        // return;
+
+                        $("#msg").html(lgb.noVp);
+                        $('#msg').css('display','block');
+                        document.getElementById("choice-option-"+userChoice).childNodes[1].style.visibility = 'hidden';
+                    }
                 }
             });
         }
@@ -200,6 +225,33 @@ var confirmOptionSubmit = function () {
     root.style.cssText = "background-color: #c6cfd5;";
     var obj = document.getElementById("submit-div");
     fun.delMainEvent(obj, "click", confirmOption);
+
+    instance.vote(Number(selectedValue), {
+        gas: '100000',
+        gasPrice: 2000000000
+    }, function (e, result) {
+        if (e) {
+            if (e.code == '1001') {
+                tip.error(lgb.cancelled);
+            } else {
+                tip.error(lgb.error);
+            }
+        } else {
+            console.log(result);
+            $("#msg").html(lgb.pendingVote);
+            $('#msg').css('display','block');
+            if (document.getElementById("submit-div")) {
+                document.getElementById("submit-div").remove();
+            }
+            tip.closeLoad();
+                
+            setTimeout(function () {
+                checkStatus('reload');
+            }, 15 * 1000);
+        }
+    });
+
+    /*
     var feeData = instance.vote.getData(selectedValue+"");
     web3.cmt.estimateGas({
         data: feeData,
@@ -211,6 +263,7 @@ var confirmOptionSubmit = function () {
         } else {
             virtualGas = gas;
         }
+        console.log("Vote gas is : " + virtualGas);
         instance.vote(Number(selectedValue), {
             gas: virtualGas,
             gasPrice: 2000000000
@@ -236,6 +289,7 @@ var confirmOptionSubmit = function () {
             }
         });
     });
+    */
 }
 
 var optionSelect = function () {

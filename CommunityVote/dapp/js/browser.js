@@ -2,7 +2,6 @@
  * AppLink:H5唤起APP的所有方法
  */
 var AppLink = (function () {
-
     var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
     var agent = navigator.userAgent;
     var config = {
@@ -41,7 +40,7 @@ var AppLink = (function () {
             // 那么代码执行到此处时，时间间隔必然大于设置的定时时间
             if (Date.now() - start > 3000) {
                 // come back from app
-                alert("app 已经open！");
+                console.log("app 已经open！");
                 // 如果浏览器未因为app启动进入后台，则定时器会准时执行，故应该跳转到下载页
             } else {
                 window.location.href = config.wallet;
@@ -68,24 +67,27 @@ var AppLink = (function () {
      */
     var _open = function () {
         var browser = _getBrowser();
-        var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
+        // var dappUrl = "cmtwallet://dapp?url=" + window.location.href;
         var shareLinkMsg = "Please Copy the Share Link and open in the Browser ！";
         // agent is mobile
         try {
+            // alert("get web3.cmt");
             web3.cmt
         } catch (e) {
             if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
                 // 微信、QQ 直接跳 钱包下载页面
                 if (browser.isWx) {
-                    tip.error(shareLinkMsg, 120 * 1000);
+                    // tip.error(shareLinkMsg, 120 * 1000);
+                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isQQ) {
-                    tip.error(shareLinkMsg, 120 * 1000);
+                    // tip.error(shareLinkMsg, 120 * 1000);
+                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isIOS) {
                     // 没有下载
                     _go(config.localApp);
                     _checkOpen();
                 } else if (browser.isAndroid) {
-                    alert('isAndroid');
+                    console.log('isAndroid');
                     // 使用scheme唤起
                     _tryCallApp(config.localApp)
                     // 唤起失败 跳到钱包下载页面
@@ -95,13 +97,13 @@ var AppLink = (function () {
                         }
                     })
                 } else if (browser.isWb) {
-                    alert("isWb");
+                    console.log("isWb");
                     // 使用scheme唤起
                     _tryCallApp(config.localApp)
-                    tip.right("It is web");
+                    // tip.right("It is web");
                     // 微博：唤起失败，也不跳转，会有引导功能
                 } else if (browser.isSafari) {
-                    alert("isSafari");
+                    console.log("isSafari");
                     var version = _getIOSVersion()
                     // iOS10以下不支持直接跳转到AppStore，跳到钱包下载页面
                     if (version < 10) {
@@ -110,12 +112,12 @@ var AppLink = (function () {
                         _go(config.appStore)
                     }
                 } else {
-                    alert("else");
+                    console.log("else");
                     // 其他情况，直接跳钱包下载页面
                     _go(config.wallet)
                 }
             } else {
-                tip.error("You should download MetaMask for CMT first！");
+                // tip.error("You should download MetaMask for CMT first！");
                 setTimeout(function () {
                     window.location.href = 'https://www.cybermiles.io/metamask/';
                 }, 3000);
