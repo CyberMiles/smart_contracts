@@ -1,0 +1,24 @@
+pragma solidity ^0.4.24;
+
+/**
+ * WARNING
+ * This contract is a draft for a stable coin prototype which is being designed to work in conjunction with a payment gateway.
+ * At present this contract is in Beta and must not be used in production or when there is real value at stake.
+ * Use this contract at your own risk.
+ */
+
+//Import contracts
+//This file has been marked old because dynamically linking to these contracts was causing issues at times when OpenZeppelin updated their code base and GitHub repository file structure etc.
+import 'http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol';
+import 'http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Burnable.sol';
+import 'http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Pausable.sol';
+import 'http://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol';
+
+//Create CMTD contract
+contract CMTD is ERC20Mintable, ERC20Burnable, ERC20Pausable, ERC20Detailed {
+    constructor() public
+    ERC20Mintable()
+    ERC20Burnable()
+    ERC20Pausable()
+    ERC20Detailed("CyberMiles Stable Coin", "CMTD", 18) {}
+}

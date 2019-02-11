@@ -62,8 +62,12 @@ $(function () {
         getBetInfo();
     }, 10 * 1000);
     bindShare();
+    fun.addMainEvent(document.getElementById("backBetList"), "click", backNewContract);
 });
 
+var backNewContract = function () {
+    window.location.href = "./index.html";
+}
 
 // init language
 var initLanguage = function () {
@@ -80,6 +84,7 @@ var initLanguage = function () {
     fun.changeDomContentById("betDesc", lgb.detail.betDesc);
     fun.changeDomContentById("qrBet", lgb.detail.qrBet);
     fun.changeDomContentById("returnBack", lgb.bet.back);
+    fun.changeDomContentById("backBetList", lgb.my.backBetList);
     functionArray = lgb.functionArray;
     withdrawButtonName = lgb.withdraw.btnName
 }

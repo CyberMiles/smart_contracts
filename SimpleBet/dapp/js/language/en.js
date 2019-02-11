@@ -103,6 +103,7 @@ var EnLanguage = {
         loading: "Loading ...",
         processing: "Processing...",
         nullTitle: "Title can not be empty",
+        nullBetAmount: "Bet Amount should more than 0",
         lessThan: "You need at least 2 options",
         firstPage: "This is the First Page",
         lastPage: "This is the Last Page",
