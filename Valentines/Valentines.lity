@@ -1,0 +1,46 @@
+pragma lity ^1.2.4;
+
+contract Valentines {
+
+    address public owner;
+    
+    struct Declaration {
+        string stmt;
+        address reply_from;
+        string reply_stmt;
+    }
+    mapping(address => Declaration) declarations;
+    mapping(address => address[]) replies;
+    
+    modifier onlyOwner() {
+        assert(msg.sender == owner);
+        _;
+    }
+
+    constructor () public {
+        owner = msg.sender;
+    }
+    
+    function declare (string _stmt) public {
+        Declaration memory d = Declaration(_stmt, 0, "");
+        declarations[msg.sender] = d;
+    }
+    
+    function reply (address _from, string _stmt) public {
+        declarations[_from].reply_from = msg.sender;
+        declarations[_from].reply_stmt = _stmt;
+        replies[msg.sender].push(_from);
+    }
+    
+    function getDeclaration (address _from) public view returns (string, address, string) {
+        return (declarations[_from].stmt, declarations[_from].reply_from, declarations[_from].reply_stmt);
+    }
+    
+    function getReplies (address _from) public view returns (address[]) {
+        return (replies[_from]);
+    }
+
+    function terminate() external onlyOwner {
+        selfdestruct(owner);
+    }
+}

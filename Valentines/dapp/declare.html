@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/declare.css">
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title>Declare your love</title>
+</head>
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<p></p>
+<center><h2>Declare your love</h2></center>
+<div class="main-contain" id="declaration">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status" id="declaration-addr">Declaration</p>
+        <p class="main-title" id="declaration-text">There is no declaration yet</p>
+        <textarea name="declaration" class="form-control" id="declaration-field" style="display:none"></textarea>
+    </div>
+    <div class="main-contain main-div-button" id="declaration-button" style="display:none">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#1976d2">
+                <p id="declaration-submit" class="main-button-font" onclick="declare()">Declare</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="reply">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status" id="reply-addr">Reply</p>
+        <p class="main-title" id="reply-text">There is no reply yet</p>
+        <textarea name="reply" id="reply-field" class="form-control" style="display:none"></textarea>
+    </div>
+    <div class="main-contain main-div-button" id="reply-button" style="display:none">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#1976d2">
+                <p id="reply-submit" class="main-button-font" onclick="reply()">Reply</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="qrcode" style="display:none">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status" id="qrcode-addr">Scan this QR code with CMT Wallet to see this declaration!</p>
+        <p class="main-title" id="qrcode-image"></p>
+    </div>
+</div>
+
+<div class="main-contain">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status" id="replies-addr">All my replies</p>
+        <p class="main-title" id="replies-html">I have not replied to anyone yet!</p>
+    </div>
+</div>
+
+</body>
+<script src="js/main.js"></script>
+<script src="js/declare.js?r=2"></script>
+</html>
