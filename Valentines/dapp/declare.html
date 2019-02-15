@@ -16,12 +16,12 @@
 <body class="main-bg">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
-<center><h2>Declare your love</h2></center>
+<!--<center><h2>Declare your love</h2></center>-->
 <div class="main-contain" id="declaration">
     <div class="main-status main-join-div main-status-top">
         <p class="main-status" id="declaration-addr">Declaration</p>
-        <p class="main-title" id="declaration-text">There is no declaration yet</p>
-        <textarea name="declaration" class="form-control" id="declaration-field" style="display:none"></textarea>
+        <p class="main-title main-declare-back" id="declaration-text">There is no declaration yet</p>
+        <textarea name="declaration" class="form-control main-textarea" id="declaration-field" style="display:none"></textarea>
     </div>
     <div class="main-contain main-div-button" id="declaration-button" style="display:none">
         <div class="main-button-div">
@@ -35,8 +35,8 @@
 <div class="main-contain" id="reply">
     <div class="main-status main-join-div main-status-top">
         <p class="main-status" id="reply-addr">Reply</p>
-        <p class="main-title" id="reply-text">There is no reply yet</p>
-        <textarea name="reply" id="reply-field" class="form-control" style="display:none"></textarea>
+        <p class="main-title main-reply-back" id="reply-text">There is no reply yet</p>
+        <textarea name="reply" id="reply-field" class="form-control main-textarea" style="display:none"></textarea>
     </div>
     <div class="main-contain main-div-button" id="reply-button" style="display:none">
         <div class="main-button-div">
@@ -49,14 +49,19 @@
 
 <div class="main-contain" id="qrcode" style="display:none">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status" id="qrcode-addr">Scan this QR code with CMT Wallet to see this declaration!</p>
-        <p class="main-title" id="qrcode-image"></p>
+        <div class="main-code-container">
+            <div class="main-title" id="qrcode-image"></div>
+            <div class="main-code-down">
+                <p class="main-status" id="qrcode-addr">Scan this QR code with CMT Wallet to see this declaration!</p>
+                <div class="main-save" id="save-to-phone" onclick="saveNow()">Save to Phone</div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="main-contain">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status" id="replies-addr">All my replies</p>
+        <p class="main-status main-status-replay-all" id="replies-addr">All my replies</p>
         <p class="main-title" id="replies-html">I have not replied to anyone yet!</p>
     </div>
 </div>

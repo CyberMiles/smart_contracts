@@ -35,6 +35,9 @@ $(function () {
     $('#reply-addr').text(lgb.reply);
     $('#replies-addr').text(lgb.all_my_replies);
     $('#qrcode-addr').text(lgb.share_qr);
+    $('#declaration-field').attr("placeholder", lgb.declare_your_love)
+    $('#reply-field').attr("placeholder", lgb.reply_holder)
+    $('#save-to-phone').text(lgb.save_to_phone)
 
     var interval = setInterval(function () {
         if (abi.length > 0) {
@@ -50,7 +53,10 @@ var initLanguage = function () {
         return;
     }
 }
-
+function splitAddresss(str) {
+    str = str.substring(0,6) + '...' + str.substring(str.length - 4, str.length)
+    return str;
+}
 var getDeclaration = function () {
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
@@ -80,7 +86,7 @@ var getDeclaration = function () {
 
                     if (stmt) {
                         // there is a declaration from this address -- show the declarartion
-                        $('#declaration-addr').text(lgb.declaration_from + " " + targetAddress);
+                        $('#declaration-addr').html(lgb.declaration_from + " <span class='main-addr-gray'>" + splitAddresss(targetAddress) + "</span>");
                         $('#declaration-text').css("display", "block");
                         $('#declaration-text').text(stmt);
                         $('#declaration-field').css("display", "none");
@@ -100,7 +106,7 @@ var getDeclaration = function () {
                         } else {
                             // show the reply
                             $('#reply-text').css("display", "block");
-                            $('#reply-addr').text(lgb.reply_from + " " + reply_from);
+                            $('#reply-addr').html(lgb.reply_from + " <span class='main-addr-gray'>" + splitAddresss(reply_from) + "</span>");
                             $('#reply-text').text(reply_stmt);
                             $('#reply-field').css("display", "none");
                             $('#reply-button').css("display", "none");
@@ -117,8 +123,8 @@ var getDeclaration = function () {
                         setTimeout(function () {
                             new QRCode(document.getElementById("qrcode-image"), {
                                 text: baseUrl + '?a=' + targetAddress,
-                                width: 146,
-                                height: 148,
+                                width: 100,
+                                height: 100,
                                 colorDark: "#000000",
                                 colorLight: "#ffffff",
                                 correctLevel: QRCode.CorrectLevel.H
@@ -154,7 +160,8 @@ var getDeclaration = function () {
                     if (r && r.length > 0) {
                         var html = "<ul>";
                         for (var i = 0; i < r.length; i++) {
-                            html += "<li><a href='declare.html?a='>" + r[i] + "</a></li>";
+                            let newStr = r[i].substring(0,6) + '...' + r[i].substring(r[i].length - 4,r[i].length)
+                            html += "<li><div class='main-reply-pre'>Contract Address</div><a href='declare.html?a=" + r[i] + "'>" + newStr + "</a></li>";
                         }
                         html += "</ul>";
                         $('#replies-html').html(html);
@@ -247,5 +254,21 @@ var reply = function () {
             }, 20 * 1000);
         }
     });
+}
+
+function saveFile(data, filename) {
+    const save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+    save_link.href = data;
+    save_link.download = filename;
+
+    const event = document.createEvent('MouseEvents');
+    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    save_link.dispatchEvent(event);
+}
+
+function saveNow(){
+    let canvas= document.querySelector('#qrcode-image canvas');
+    let url = canvas.toDataURL('image/png');
+    saveFile(url, 'sayLove')
 }
 

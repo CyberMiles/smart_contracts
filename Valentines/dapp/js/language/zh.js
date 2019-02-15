@@ -10,8 +10,10 @@ var ZhLanguage = {
     share_qr: "分享二维码给你爱的那个Ta，看看Ta怎么说",
     reply: "回复",
     reply_to: "回复给Ta",
+    reply_holder: "在这里回复..",
     reply_from: "回复来自",
     share_qr_all: "分享二维码给任何人，让他们用CMT Wallet 见证你们的爱",
+    save_to_phone: "保存到手机",
 
     error: "错误。请再试一次！",
     wait: "上链中 ...",
