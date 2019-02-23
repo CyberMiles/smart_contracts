@@ -55,6 +55,7 @@ var checkStatus = function (type) {
     if (type != 'reload') {
         tip.loading(lgb.loading);
     }
+
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error(lgb.error);
@@ -82,28 +83,37 @@ var checkStatus = function (type) {
                     choiceVotes = r[6];
 
                     var titles = title.split("|");
-                    if (titles.length > 1 && lgb.submit == "确定") {
+                    if (titles.length > 3 && navigator.language.indexOf('ja') > -1) {
+                         title = titles[3];
+                    } else if (titles.length > 2 && navigator.language.indexOf('ko') > -1) {
+                         title = titles[2];
+                    } else if (titles.length > 1 && navigator.language.indexOf('zh') > -1) {
                          title = titles[1];
                     } else {
                          title = titles[0];
                     }
 
-                    if (choiceTexts.length > numChoices && lgb.submit == "确定") {
+                    if (choiceTexts.length > 3*numChoices && navigator.language.indexOf('ja') > -1) {
+                        for (var i = 0; i < numChoices; i++) {
+                            choiceTexts[i] = choiceTexts[i+3*numChoices];
+                        }
+                    } else if (choiceTexts.length > 2*numChoices && navigator.language.indexOf('ko') > -1) {
+                        for (var i = 0; i < numChoices; i++) {
+                            choiceTexts[i] = choiceTexts[i+2*numChoices];
+                        }
+                    } else if (choiceTexts.length > numChoices && navigator.language.indexOf('zh') > -1) {
                         for (var i = 0; i < numChoices; i++) {
                             choiceTexts[i] = choiceTexts[i+numChoices];
                         }
                     }
 
-                    if (status == 0) {
-                        fun.changeDomContentById("main-status", lgb.statusStopped);
-                    } else if (status == 1) {
-                        fun.changeDomContentById("main-status", lgb.statusRunning);
-                    }
-
                     $("#title").html(title);
                     var html = "";
                     for (var i = 0; i < numChoices; i++) {
-                        var choiceText = choiceTexts[i] + " [" + choiceVotes[i] + "]";
+                        var choiceText = choiceTexts[i];
+                        if (status == 0) {
+                            choiceText = choiceText + " [" + choiceVotes[i] + "]";
+                        }
                         var div = '<div class="main-contain"><div class="main-choice" name="choice" id="choice-option-' + i + '"><div class="main-join-div">' + choiceText + '</div><div class="main-choice-right-div main-hidden"><img class="main-choice-right" src="./images/choice.png"></div><div hidden="hidden">' + i + '</div></div></div>';
                         html += div;
                     }
@@ -137,6 +147,18 @@ var checkStatus = function (type) {
                         $("#msg").html(lgb.noVp);
                         $('#msg').css('display','block');
                         document.getElementById("choice-option-"+userChoice).childNodes[1].style.visibility = 'hidden';
+                    }
+
+                    if (status == 0) {
+                        fun.changeDomContentById("main-status", lgb.statusStopped);
+                        // disable selection
+                        unbindSelect();
+                        // remove submit button
+                        if (document.getElementById("submit-div")) {
+                            document.getElementById("submit-div").remove();
+                        }
+                    } else if (status == 1) {
+                        fun.changeDomContentById("main-status", lgb.statusRunning);
                     }
                 }
             });
