@@ -28,6 +28,8 @@ Download the raw (flattened) source code of the CMTD stable coin
 $ cd ~/truffle/truffle_env/contracts
 wget https://raw.githubusercontent.com/CyberMiles/smart_contracts/master/StableCoin/StableCoinCMTD.lity
 ```
+Copy [all of StableCoin tests](https://github.com/CyberMiles/smart_contracts/tree/master/StableCoin/tests) into the ```~/truffle/truffle_env/test``` directory.
+
 Run the unit tests
 ```
 cd ~/truffle/truffle_env
