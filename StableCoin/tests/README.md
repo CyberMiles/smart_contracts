@@ -1,0 +1,1 @@
+Please see [the documentation on unit testing](https://github.com/CyberMiles/smart_contracts/blob/master/StableCoin/documentation/documentation.md#unit-testing-with-truffle) to learn how to use these files.
