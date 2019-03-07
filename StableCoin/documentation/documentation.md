@@ -38,7 +38,34 @@ truffle test
 ``` 
 ![](../images/truffle_test_screencapture.png)
 
-### Adding more unit tests
+### Run tests on deployed contracts
+The following steps can be carried out so that Truffle console can interact with a deployed smart contract.
+
+- Step 1, install web3
+```
+npm install -i -g web3
+```
+- Step 2, configure Truffle console so that it can connect to the CyberMiles testnet
+```
+vi truffle-config.js
+```
+```
+const web3 = require("web3");
+```
+```
+module.exports = {
+    networks: {
+      testnet: {
+        provider: () => new web3.providers.HttpProvider('https://testnet.cmtwallet.io:8545'),
+        network_id: "*",
+      }
+    }
+}
+```
+- Step 3, start the Truffle console
+```
+truffle console --network testnet
+```
 
 #### Assert
 Assert should be saved for internal invariants (reserved for an internal invariant which is assumed to always be true at run time).
