@@ -30,11 +30,14 @@ wget https://raw.githubusercontent.com/CyberMiles/smart_contracts/master/StableC
 ```
 Copy [all of StableCoin tests](https://github.com/CyberMiles/smart_contracts/tree/master/StableCoin/tests) into the ```~/truffle/truffle_env/test``` directory.
 
-### Run the unit tests
+### Run the unit tests on undeployed contracts
+The following will perform unit tests on functions which are essentially pure or view i.e. the ones from our [tests directory](https://github.com/CyberMiles/smart_contracts/tree/master/StableCoin/tests) which we copied across earlier. See screen capture below.
 ```
 cd ~/truffle/truffle_env
 truffle test
 ``` 
+![](../images/truffle_test_screencapture.png)
+
 ### Adding more unit tests
 
 #### Assert
