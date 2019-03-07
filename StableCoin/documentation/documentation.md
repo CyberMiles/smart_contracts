@@ -91,26 +91,15 @@ truffle(testnet)> CMTD.events
      inputs: [ [Object] ],
      name: 'Paused',
      type: 'event' },
-  '0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa': 
-   { anonymous: false,
-     inputs: [ [Object] ],
-     name: 'Unpaused',
-     type: 'event' },
-  '0x6719d08c1888103bea251a4ed56406bd0c3e69723c8a1686e017e7bbe159b6f8': 
-   { anonymous: false,
-     inputs: [ [Object] ],
-     name: 'PauserAdded',
-     type: 'event' },
-  '0xcd265ebaf09df2871cc7bd4133404a235ba12eff2041bb89d9c714a2621c7c7e': 
-   { anonymous: false,
-     inputs: [ [Object] ],
-     name: 'PauserRemoved',
-     type: 'event' },
   '0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6': 
    { anonymous: false,
      inputs: [ [Object] ],
      name: 'MinterAdded',
      type: 'event' } ...
+```
+Create an instance of a deployed contract which was deployed using Remix
+```
+var dc = CMTD.at("0x627306090abaB3A6e1400e9345bC60c78a8BEf57")
 ```
 
 #### Assert
@@ -125,11 +114,6 @@ State conditions are rolled back to before code execution.
 
 #### Revert
 The Revert function can also be used to prevent further execution but it can also produce an error message (taken as one of its arguments).
-
-### Unit test example
-```
-
-```
 
 
 # References
