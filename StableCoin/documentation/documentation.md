@@ -38,7 +38,7 @@ truffle test
 ``` 
 ![](../images/truffle_test_screencapture.png)
 
-### Run tests on deployed contracts
+### Truffle console - run tests directly against deployed Lity/Solidity contracts
 The following steps can be carried out so that Truffle console can interact with a deployed smart contract.
 
 - Step 1, install web3
@@ -65,6 +65,13 @@ module.exports = {
 - Step 3, start the Truffle console
 ```
 truffle console --network testnet
+```
+- Step 4, test the console
+```
+truffle(testnet)> CMTD.network_id
+```
+```
+'19' //returns 19 which is the testnet.cmtwallet.io network id
 ```
 
 #### Assert
