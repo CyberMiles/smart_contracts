@@ -67,11 +67,50 @@ module.exports = {
 truffle console --network testnet
 ```
 - Step 4, test the console
+-- 4a
 ```
 truffle(testnet)> CMTD.network_id
 ```
 ```
-'19' //returns 19 which is the testnet.cmtwallet.io network id
+'19' // returns 19 which is the testnet.cmtwallet.io network id
+```
+-- 4b
+```
+truffle(testnet)> CMTD.contract_name
+```
+```
+'CMTD' // returns CMTD
+```
+-- 4c
+```
+truffle(testnet)> CMTD.events
+```
+```
+{ '0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258': 
+   { anonymous: false,
+     inputs: [ [Object] ],
+     name: 'Paused',
+     type: 'event' },
+  '0x5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa': 
+   { anonymous: false,
+     inputs: [ [Object] ],
+     name: 'Unpaused',
+     type: 'event' },
+  '0x6719d08c1888103bea251a4ed56406bd0c3e69723c8a1686e017e7bbe159b6f8': 
+   { anonymous: false,
+     inputs: [ [Object] ],
+     name: 'PauserAdded',
+     type: 'event' },
+  '0xcd265ebaf09df2871cc7bd4133404a235ba12eff2041bb89d9c714a2621c7c7e': 
+   { anonymous: false,
+     inputs: [ [Object] ],
+     name: 'PauserRemoved',
+     type: 'event' },
+  '0x6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f6': 
+   { anonymous: false,
+     inputs: [ [Object] ],
+     name: 'MinterAdded',
+     type: 'event' } ...
 ```
 
 #### Assert
