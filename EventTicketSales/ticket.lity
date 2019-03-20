@@ -1,0 +1,377 @@
+pragma lity ^ 1.2.3;
+
+contract Event {
+    event EventHalted(address indexed revenueTakersAddress);
+    event TicketRefunded(address indexed provider, bytes32 id);
+    event TicketVerified(address indexed spectator, bytes32 id);
+    event TicketPurchased(address indexed receiver, safeuint id);
+    event EventNormallyOperating(address indexed revenueTakersAddress);
+    event FallbackExecuted(address indexed theSender, safeuint theAmount);
+    event TicketTransferred(address indexed receiver, address indexed provider, bytes32 id);
+    event EventConstructed(address indexed eventContractsAddress, address indexed revenueTaker, address indexed feeTaker, EventStatus eventStatus, safeuint theFee);
+    event EventInitialized(address indexed eventContractsAddress, string indexed venueName, string indexed eventName, safeuint eventStartTime, safeuint eventEndTime, safeuint ticketPrice, safeuint totalTicketsSold, safeuint maxTicketsAllowed);
+
+    //Please note that the following variables are available publicly
+    //venueName
+    //eventName
+    //eventStatus
+    //ticketPrice
+    //eventEndTime
+    //eventStartTime
+    //numberOfTicketsLeft
+
+    // Constructor variables
+    safeuint private theFee;
+    address private feeTaker;
+    safeuint private ticketNonce;
+    address private revenueTaker;
+    EventStatus public eventStatus;
+    AdminOverride private adminOverride;
+
+    // Initialize variables
+    string public venueName;
+    string public eventName;
+    safeuint public ticketPrice;
+    safeuint public eventEndTime;
+    safeuint public eventStartTime;
+    safeuint private totalTicketsSold;
+    safeuint private maxTicketsAllowed;
+    safeuint public numberOfTicketsLeft;
+
+    // Function variables
+    mapping(address => Ticket) private ticketOwnership;
+
+    // Internal data structures
+    // These can never be changed, if they are you need to replace integer values in any calls like this "safeuint(eventStatus) == 2"
+    enum EventStatus {
+        Inactive, //Inactive = 0
+        SellingTickets, //SellingTickets = 1
+        SoldOut, //SoldOut = 2
+        EventInProgress, //EventInProgress = 3
+        EventFinished //EventFinished = 4
+    }
+
+    enum AdminOverride {
+        Halted, // Halted = 0
+        NormallyOperating // NormallyOperating = 1
+    }
+
+    // This struct idea might turn into a separate smart contract (one which can be cloned to store unique seating numbers and seating prices and zoning etc.)
+    struct Ticket {
+        safeuint id;
+    }
+
+    // Internal modifiers
+    modifier mustBeNormallyOperating() {
+        require(safeuint(adminOverride) == 1, "Event must be operating normally to perform this task!");
+        _;
+    }
+
+    modifier mustBeHalted() {
+        require(safeuint(adminOverride) == 0, "Event must be halted to perform this task!");
+        _;
+    }
+
+    modifier onlyRevenueTaker(address _account) {
+        require(revenueTaker == _account, "Only the contract owner can perform this task!");
+        _;
+    }
+
+    modifier eventMustBeInactive() {
+        require(safeuint(eventStatus) == 0, "This event must be inactive to perform this task");
+        _;
+    }
+
+    modifier mustBeAfterEventActivation() {
+        require(safeuint(eventStatus) >= 1, "This event must be active to perform this task");
+        _;
+    }
+
+    modifier eventMustBeSellingTickets() {
+        require(safeuint(eventStatus) == 1, "Sorry, status must be selling tickets for this to work");
+        _;
+    }
+
+    modifier eventMustBeSoldOut() {
+        require(safeuint(eventStatus) == 2, "Event must be sold out for this to work");
+        _;
+    }
+
+    modifier mustBeBeforeEvent() {
+        require(safeuint(eventStatus) <= 2, "Sorry, the event has already started, you can not do that now.");
+        _;
+    }
+
+    modifier eventMustInProgress() {
+        require(safeuint(eventStatus) == 3, "The event must be in progress for this to work");
+        _;
+    }
+
+    modifier eventMustBeFinished() {
+        require(safeuint(eventStatus) == 4, "Event has to be finished for this to work");
+        _;
+    }
+
+    // Constructor
+    // To be deployed by the Revenue Taker 
+    // The revenue taker, who deploys this contract provides the Fee Taker's address as the only argument'
+    constructor(address _feeTakerAddress) public {
+        // Set the event status: brand-new/inactive
+        eventStatus = EventStatus.Inactive;
+        // Set the Admin override
+        adminOverride = AdminOverride.Halted;
+        emit EventHalted(msg.sender);
+        // Register the revenue taker
+        revenueTaker = msg.sender;
+        // Register the fee taker
+        feeTaker = _feeTakerAddress;
+        // Test addresses
+        require(revenueTaker != feeTaker, "Revenue and Fee addresses must be different");
+        // Register fee amount 1/2 of a percent at present (0.5). Anything divided by 200 gives you half a percent so this is hard coded for now
+        theFee = 200;
+        // Creating a ticket nonce which is incremented with every ticket transaction and used to create unique ticket id for the Ticket Struct
+        ticketNonce = 1;
+        // Log this activity
+        emit EventConstructed(address(this), revenueTaker, feeTaker, eventStatus, theFee);
+
+    }
+
+    // Initializer
+    // For example, "Grant Park, Chicago", "Lollapalooza", 1550819635, 1561187635, 100, 5000
+    function initialize(string _venueName, string _eventName, safeuint _eventStartTime, safeuint _eventEndTime, safeuint _ticketPrice, safeuint _maxTicketsAllowed)
+    public
+    onlyRevenueTaker(msg.sender)
+    eventMustBeInactive
+    mustBeHalted {
+        eventStatus = EventStatus.SellingTickets;
+        adminOverride = AdminOverride.NormallyOperating;
+        emit EventNormallyOperating(msg.sender);
+        venueName = _venueName;
+        eventName = _eventName;
+        eventStartTime = _eventStartTime;
+        // Event must start in the future
+        require(eventStartTime > now, "Event must be in the future");
+        eventEndTime = _eventEndTime;
+        require(eventStartTime < eventEndTime, "Event start time must be before event end time");
+        ticketPrice = mul(_ticketPrice, 1e18);
+        totalTicketsSold = 0;
+        maxTicketsAllowed = _maxTicketsAllowed;
+        require(maxTicketsAllowed > totalTicketsSold, "Max tickets allowed must be greater than zero");
+        setNumberOfTicketsLeft();
+        emit EventInitialized(address(this), venueName, eventName, eventStartTime, eventEndTime, ticketPrice, totalTicketsSold, maxTicketsAllowed);
+    }
+
+    function terminate()
+    public
+    payable
+    eventMustBeFinished
+    mustBeHalted
+    onlyRevenueTaker(msg.sender) {
+        //If contract balance is ever required please use address(this).balance and NOT this.balance
+        selfdestruct(revenueTaker);
+    }
+
+    // Internal operational functions
+    function appendTotalTicketsSold() private {
+        totalTicketsSold = add(totalTicketsSold, 1);
+        increaseTicketNonce;
+        setNumberOfTicketsLeft();
+    }
+    
+    function reduceTotalTicketsSold() private {
+        totalTicketsSold = sub(totalTicketsSold, 1);
+        setNumberOfTicketsLeft();
+    }
+
+    function increaseTicketNonce() private {
+        ticketNonce = add(ticketNonce, 1);
+    }
+
+    function setNumberOfTicketsLeft() private {
+        numberOfTicketsLeft = sub(maxTicketsAllowed, totalTicketsSold);
+        if (numberOfTicketsLeft == 0) {
+            eventStatus = EventStatus.SoldOut;
+        } else {
+            if (numberOfTicketsLeft >= 1 && safeuint(eventStatus) == 2) {
+                eventStatus = EventStatus.SellingTickets;
+            }
+        }
+    }
+
+    function enoughTicketsLeft(safeuint _ticketsWanted)
+    private
+    view
+    returns(bool) {
+        if (_ticketsWanted <= numberOfTicketsLeft) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function processFee(safeuint _numberOfTickets) private view returns(safeuint) {
+        return (ticketPrice * _numberOfTickets) / theFee;
+    }
+
+    function performInternalTicketPurchase() private {
+        appendTotalTicketsSold();
+        
+        // This struct idea might turn into a separate smart contract (one which can be cloned to store unique seating numbers and seating prices and zoning etc.)
+        ticketOwnership[msg.sender] = Ticket(ticketNonce); // Setting this value properly requires an extra step and it may be better to use individual smart contracts per ticket ... still thinking about an approach
+        
+        emit TicketPurchased(msg.sender, ticketNonce);
+    }
+
+    function performInternalTicketRefund() private {
+        reduceTotalTicketsSold();
+        //TODO 
+    }
+
+    // Public query functions
+    function verifyTicket(address _spectator)
+    public
+    view
+    mustBeAfterEventActivation
+    returns(safeuint) {
+        //TODO 
+        return ticketOwnership[_spectator].id;
+    }
+
+    // Public transaction functions
+    function purchaseSingleTicket()
+    public
+    payable
+    mustBeNormallyOperating
+    eventMustBeSellingTickets {
+        if (enoughTicketsLeft(1)) {
+            require(msg.value == ticketPrice);
+            safeuint totalFeeSingle = processFee(1);
+            feeTaker.transfer(uint256(totalFeeSingle));
+            performInternalTicketPurchase();
+        }
+    }
+
+    function purchaseMultipleTickets(safeuint _numberOfTickets)
+    public
+    payable
+    mustBeNormallyOperating
+    eventMustBeSellingTickets {
+        if (enoughTicketsLeft(_numberOfTickets)) {
+            safeuint totalFeeMulti = processFee(_numberOfTickets);
+            feeTaker.transfer(uint256(totalFeeMulti));
+            for (safeuint i = 0; i < _numberOfTickets; i++) {
+                performInternalTicketPurchase();
+            }
+        }
+    }
+
+    function transferSingleTicket()
+    public
+    payable
+    mustBeNormallyOperating
+    mustBeAfterEventActivation
+    mustBeBeforeEvent {
+        //TODO 
+    }
+
+    function transferMultipleTickets()
+    public
+    payable
+    mustBeNormallyOperating
+    mustBeAfterEventActivation
+    mustBeBeforeEvent {
+        //TODO 
+    }
+
+    function refundSingleTicket()
+    public
+    payable
+    mustBeNormallyOperating
+    mustBeAfterEventActivation
+    mustBeBeforeEvent {
+        //TODO 
+    }
+
+    function refundMultipleTickets()
+    public
+    payable
+    mustBeNormallyOperating
+    mustBeAfterEventActivation
+    mustBeBeforeEvent {
+        //TODO 
+    }
+
+    // Internal utility functions (Maths)
+    function mul(safeuint a, safeuint b) internal pure returns(safeuint) {
+        if (a == 0) {
+            return 0;
+        }
+        safeuint c = a * b;
+        require(c / a == b);
+        return c;
+    }
+
+    function div(safeuint a, safeuint b) internal pure returns(safeuint) {
+        require(b > 0);
+        safeuint c = a / b;
+        return c;
+    }
+
+    function sub(safeuint a, safeuint b) internal pure returns(safeuint) {
+        require(b <= a);
+        safeuint c = a - b;
+        return c;
+    }
+
+    function add(safeuint a, safeuint b) internal pure returns(safeuint) {
+        safeuint c = a + b;
+        require(c >= a);
+        return c;
+    }
+
+    // Administration functions
+    // Emergency refund - used to refund all spectators if the event is cancelled due to unexpected circumstances - no fees for this
+    // The event organizer must manually halt the operation to perform this task. This is a safety feature (2 step process)
+    function checkRevenueAmount()
+    public
+    view
+    onlyRevenueTaker(msg.sender)
+    returns(safeuint) {
+        return address(this).balance;
+    }
+
+    function emergencyRefund()
+    public
+    payable
+    mustBeHalted
+    mustBeAfterEventActivation
+    onlyRevenueTaker(msg.sender) {
+        //TODO
+
+    }
+
+    // This is a safety feature. 
+    // The emergency refund can only be performed if the event is halted.
+    // The terminate aka selfdestruct function can only be performed if the event is halted
+    function haltEvent()
+    public
+    mustBeNormallyOperating
+    mustBeAfterEventActivation
+    onlyRevenueTaker(msg.sender) {
+        adminOverride = AdminOverride.Halted;
+        emit EventHalted(msg.sender);
+    }
+
+    function resumeNormalOperation()
+    public
+    mustBeHalted
+    mustBeAfterEventActivation
+    onlyRevenueTaker(msg.sender) {
+        adminOverride = AdminOverride.NormallyOperating;
+        emit EventNormallyOperating(msg.sender);
+    }
+
+    function() public payable {
+        emit FallbackExecuted(msg.sender, msg.value);
+    }
+}
