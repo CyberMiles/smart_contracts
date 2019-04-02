@@ -585,11 +585,11 @@ contract ERC20Detailed is IERC20 {
 
 
 
-//Create CMTD contract
-contract CMTD is ERC20Mintable, ERC20Burnable, ERC20Pausable, ERC20Detailed {
+//Create USDCM contract
+contract USDCM is ERC20Mintable, ERC20Burnable, ERC20Pausable, ERC20Detailed {
     constructor() public
     ERC20Mintable()
     ERC20Burnable()
     ERC20Pausable()
-    ERC20Detailed("CyberMiles Stable Coin", "CMTD", 18) {}
+    ERC20Detailed("CyberMiles USD Stable Coin", "USDCM", 18) {}
 }
