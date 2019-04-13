@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/play.css">
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title>Draw the prize!</title>
+</head>
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<p></p>
+<div class="main-contain">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-title main-declare-back" id="title-div">Title ...</p>
+        <p style="text-align:center"><img id="image-img" src=""/></p>
+        <p class="main-status" id="desc-div">Fair Play!</p>
+    </div>
+    <div class="main-contain main-div-button" id="declaration-button" style="display:none">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#1976d2">
+                <p id="declaration-submit" class="main-button-font" onclick="declare()">Declare</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="play-panel">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status">Enter the drawing</p>
+        <input type="text" id="name-field" placeholder="Your name"/>
+        <input type="text" id="mesg-field" placeholder="Leave a message"/>
+        <input type="text" id="contact-app-field" placeholder="Twitter / FB / Email"/>
+        <input type="text" id="contact-id-field" placeholder="Your ID"/>
+    </div>
+    <div class="main-contain main-div-button">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#1976d2">
+                <p id="play-submit" class="main-button-font" onclick="play()">Enter</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="draw-panel">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status">The time is up. Anyone can initiate the prize draw now!</p>
+    </div>
+    <div class="main-contain main-div-button">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#1976d2">
+                <p id="draw-submit" class="main-button-font" onclick="draw()">Draw</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="ended-panel">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status">This event has ended</p>
+    </div>
+</div>
+
+<div class="main-contain" id="confirm-panel">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status">You are one of the winners! Please confirm here after you receive your prize.</p>
+        <input type="text" id="confirm-field" placeholder="Leave a confirmation message"/>
+    </div>
+    <div class="main-contain main-div-button">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#1976d2">
+                <p id="confirm-submit" class="main-button-font" onclick="confirm()">Confirm</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="qrcode" style="display:none">
+    <div class="main-status main-join-div main-status-top">
+        <div class="main-code-container">
+            <div class="main-title" id="qrcode-image"></div>
+            <div class="main-code-down">
+                <p class="main-status" id="qrcode-addr">Scan this QR code with CMT Wallet to see this declaration!</p>
+                <div class="main-save" id="save-to-phone" onclick="saveNow()">Save to Phone</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-contain" id="winners-panel">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status main-status-replay-all">Winners</p>
+        <table id="winners-panel-table"></table>
+    </div>
+</div>
+
+<div class="main-contain" id="players-panel">
+    <div class="main-status main-join-div main-status-top">
+        <p class="main-status main-status-replay-all">All players</p>
+        <table id="players-panel-table"></table>
+    </div>
+</div>
+
+</body>
+<script src="js/main.js"></script>
+<script src="js/play.js"></script>
+</html>
