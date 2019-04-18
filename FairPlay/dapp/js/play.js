@@ -76,7 +76,7 @@ var getInfo = function () {
                     var confirm_mesg = r[5];
 
                     if (status == 0) {
-                        if (ts < now) {
+                        if (ts < Math.round(new Date().getTime()/1000)) {
                             $('#play-panel').css("display", "block");
                             if (contact == null || contact == "") {
                                 // show empty play form
@@ -115,7 +115,7 @@ I                               // Show prefilled play form
                         console.log(e);
                     } else {
                         var winners = r[0];
-                        if (winners.length > 0) {
+                        if (winners && winners.length > 0) {
                             $('#winners-panel').css("display", "block");
                         }
                         for (var i = 0; i < winners.length; i++) {
@@ -144,7 +144,7 @@ I                               // Show prefilled play form
                     console.log(e);
                 } else {
                     var players = r[0];
-                    if (players.length > 0) {
+                    if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
                     }
                     for (var i = 0; i < players.length; i++) {
