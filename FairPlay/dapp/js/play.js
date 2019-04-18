@@ -49,7 +49,7 @@ var getInfo = function () {
             contract = web3.cmt.contract(abi);
             instance = contract.at(contract_address);
 
-            Number status = 0;
+            var status = 0;
             instance.info (function (e, r) {
                 if (e) {
                     console.log(e);
@@ -68,12 +68,12 @@ var getInfo = function () {
                     console.log(e);
                     tip.error(lgb.error);
                 } else {
-                    Boolean is_winner = r[0];
-                    Number ts = r[1];
-                    String name = r[2];
-                    String contact = r[3];
-                    String mesg = r[4];
-                    String confirm_mesg = r[5];
+                    var is_winner = r[0];
+                    var ts = r[1];
+                    var name = r[2];
+                    var contact = r[3];
+                    var mesg = r[4];
+                    var confirm_mesg = r[5];
 
                     if (status == 0) {
                         if (ts < now) {
