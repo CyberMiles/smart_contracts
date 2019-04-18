@@ -85,7 +85,7 @@ var getInfo = function () {
                             if (contact == null || contact == "") {
                                 // show empty play form
                             } else {
-I                               // Show prefilled play form
+                                // Show prefilled play form
                                 $('#name-field').val(name);
                                 $('#mesg-field').val(mesg);
                                 var cc = contact.split(":");
