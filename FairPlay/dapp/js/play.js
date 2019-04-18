@@ -1,4 +1,4 @@
-const contract_address = '0x8f982c59312e87e7a0ad15a6d14d35e4e8780cbb';
+const contract_address = '0x5efa94b9183aa1b4dd3fb6fc06e792533cec075b';
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
