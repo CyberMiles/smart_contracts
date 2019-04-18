@@ -156,7 +156,7 @@ I                               // Show prefilled play form
                                 var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
                                 $('#players-panel-table').html(html_old + html_snippet);
                             }
-                        }
+                        });
                     }
                 }
             });
