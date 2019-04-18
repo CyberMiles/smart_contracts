@@ -114,7 +114,7 @@ I                               // Show prefilled play form
                     if (e) {
                         console.log(e);
                     } else {
-                        var String [] winners = r[0];
+                        var winners = r[0];
                         if (winners.length > 0) {
                             $('#winners-panel').css("display", "block");
                         }
@@ -143,7 +143,7 @@ I                               // Show prefilled play form
                 if (e) {
                     console.log(e);
                 } else {
-                    var String [] players = r[0];
+                    var players = r[0];
                     if (players.length > 0) {
                         $('#players-panel').css("display", "block");
                     }
