@@ -156,6 +156,7 @@ var getInfo = function () {
                                 if (epi) {
                                     console.log(epi);
                                 } else {
+                                    console.log(rpi);
                                     var html_old = $('#players-panel-table').html();
                                     var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
                                     $('#players-panel-table').html(html_old + html_snippet);
