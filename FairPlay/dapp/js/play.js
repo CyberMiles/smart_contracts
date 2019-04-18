@@ -1,8 +1,8 @@
-const contract_address = '';
+const contract_address = '0x8f982c59312e87e7a0ad15a6d14d35e4e8780cbb';
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'http://fairplay.codeislaw.co/play.html';
+const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
 var webBrowser = new AppLink();
 var userAddress = '';
 var abi = '';
