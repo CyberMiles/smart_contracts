@@ -118,7 +118,7 @@ var getInfo = function () {
                     if (e) {
                         console.log(e);
                     } else {
-                        var winners = r[0];
+                        var winners = r;
                         if (winners && winners.length > 0) {
                             $('#winners-panel').css("display", "block");
                         }
@@ -147,12 +147,9 @@ var getInfo = function () {
                 if (e) {
                     console.log(e);
                 } else {
-                    var players = r[0];
-                    console.log(players);
-                    console.log(players[0]);
+                    var players = r;
                     if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
-                        
                         for (var i = 0; i < players.length; i++) {
                             instance.playerInfo (players[i], function (epi, rpi) {
                                 if (epi) {
