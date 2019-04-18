@@ -148,6 +148,8 @@ var getInfo = function () {
                     console.log(e);
                 } else {
                     var players = r[0];
+                    console.log(players);
+                    console.log(players[0]);
                     if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
                         
