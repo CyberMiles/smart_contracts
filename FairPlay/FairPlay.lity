@@ -47,9 +47,12 @@ contract FairPlay {
         require (status == 0); // Must be running
         require (now < cutoff_ts); // Not expired yet
 
+        if (players[msg.sender].ts == 0) {
+            player_addresses.push(msg.sender);
+        }
+
         Player memory np = Player (now, _name, _contact, _mesg, "");
-        players[msg.sender] = np; 
-        player_addresses.push(msg.sender);
+        players[msg.sender] = np;
     }
     
     function draw () public {
