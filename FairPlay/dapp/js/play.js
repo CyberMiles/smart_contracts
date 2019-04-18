@@ -80,7 +80,7 @@ var getInfo = function () {
                     var confirm_mesg = r[5];
 
                     if (status == 0) {
-                        if (cutoff_ts < Math.round(new Date().getTime()/1000)) {
+                        if (cutoff_ts > Math.round(new Date().getTime()/1000)) {
                             $('#play-panel').css("display", "block");
                             if (contact == null || contact == "") {
                                 // show empty play form
