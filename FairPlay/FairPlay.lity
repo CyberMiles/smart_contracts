@@ -62,12 +62,13 @@ contract FairPlay {
             return;
         }
 
+        uint i = 0;
         // Construct the winner_addresses array
-        for (uint i=0; i<player_addresses.length; i++) {
+        for (i=0; i<player_addresses.length; i++) {
             cache.push(player_addresses[i]);
         }
-        for (uint i=0; i<number_of_winners; i++) {
-            uint r = rand() % player_addresses.length;
+        for (i=0; i<number_of_winners; i++) {
+            uint r = rand() % cache.length;
             winner_addresses.push(cache[r]);
 
             cache[r] = cache[cache.length-1];
