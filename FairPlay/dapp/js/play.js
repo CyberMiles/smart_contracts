@@ -146,17 +146,18 @@ I                               // Show prefilled play form
                     var players = r[0];
                     if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
-                    }
-                    for (var i = 0; i < players.length; i++) {
-                        instance.playerInfo (players[i], function (epi, rpi) {
-                            if (epi) {
-                                console.log(epi);
-                            } else {
-                                var html_old = $('#players-panel-table').html();
-                                var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
-                                $('#players-panel-table').html(html_old + html_snippet);
-                            }
-                        });
+                        
+                        for (var i = 0; i < players.length; i++) {
+                            instance.playerInfo (players[i], function (epi, rpi) {
+                                if (epi) {
+                                    console.log(epi);
+                                } else {
+                                    var html_old = $('#players-panel-table').html();
+                                    var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
+                                    $('#players-panel-table').html(html_old + html_snippet);
+                                }
+                            });
+                        }
                     }
                 }
             });
