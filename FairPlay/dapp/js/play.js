@@ -92,7 +92,7 @@ I                               // Show prefilled play form
                             // Show drawing form
                             $('#draw-panel').css("display", "block");
                         }
-                    } else (status == 1) {
+                    } else if (status == 1) {
                         if (contact == null || contact == "") {
                             // Show ended message
                             $('#ended-panel').css("display", "block");
