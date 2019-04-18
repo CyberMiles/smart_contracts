@@ -50,6 +50,8 @@ var getInfo = function () {
             instance = contract.at(contract_address);
 
             var status = 0;
+            var number_of_winners = 0;
+            var cutoff_ts = 0;
             instance.info (function (e, r) {
                 if (e) {
                     console.log(e);
@@ -60,6 +62,8 @@ var getInfo = function () {
                     $('#title-div').text(r[1]);
                     $('#desc-div').text(r[2]);
                     $('#image-img').attr("src", r[3]);
+                    number_of_winners = r[4];
+                    cutoff_ts = r[5];
                 }
             });
 
@@ -76,7 +80,7 @@ var getInfo = function () {
                     var confirm_mesg = r[5];
 
                     if (status == 0) {
-                        if (ts < Math.round(new Date().getTime()/1000)) {
+                        if (cutoff_ts < Math.round(new Date().getTime()/1000)) {
                             $('#play-panel').css("display", "block");
                             if (contact == null || contact == "") {
                                 // show empty play form
