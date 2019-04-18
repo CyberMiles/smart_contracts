@@ -49,98 +49,97 @@ var getInfo = function () {
             contract = web3.cmt.contract(abi);
             instance = contract.at(contract_address);
 
-            var status = 0;
-            var number_of_winners = 0;
-            var cutoff_ts = 0;
             instance.info (function (e, r) {
                 if (e) {
                     console.log(e);
                     tip.error(lgb.error);
                     return;
                 } else {
-                    status = r[0];
+                    var status = r[0];
                     $('#title-div').text(r[1]);
                     $('#desc-div').text(r[2]);
                     $('#image-img').attr("src", r[3]);
-                    number_of_winners = r[4];
-                    cutoff_ts = r[5];
-                }
-            });
-
-            instance.playerInfo (userAddress, function (e, r) {
-                if (e) {
-                    console.log(e);
-                    tip.error(lgb.error);
-                } else {
-                    var is_winner = r[0];
-                    var ts = r[1];
-                    var name = r[2];
-                    var contact = r[3];
-                    var mesg = r[4];
-                    var confirm_mesg = r[5];
-
-                    if (status == 0) {
-                        if (cutoff_ts > Math.round(new Date().getTime()/1000)) {
-                            $('#play-panel').css("display", "block");
-                            if (contact == null || contact == "") {
-                                // show empty play form
-                            } else {
-                                // Show prefilled play form
-                                $('#name-field').val(name);
-                                $('#mesg-field').val(mesg);
-                                var cc = contact.split(":");
-                                $('#contact-app-field').val(cc[0].trim());
-                                $('#contact-id-field').val(cc[1].trim());
-                            }
+                    var number_of_winners = r[4];
+                    var cutoff_ts = r[5];
+                    
+                    instance.playerInfo (userAddress, function (epi, rpi) {
+                        if (epi) {
+                            console.log(epi);
+                            tip.error(lgb.error);
                         } else {
-                            // Show drawing form
-                            $('#draw-panel').css("display", "block");
-                        }
-                    } else if (status == 1) {
-                        if (contact == null || contact == "") {
-                            // Show ended message
-                            $('#ended-panel').css("display", "block");
-                        } else {
-                            if (is_winner) {
-                                if (confirm_mesg == null || confirm_mesg == "") {
-                                    // Show confirm form
-                                    $('#confirm-panel').css("display", "block");
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+                            var is_winner = rpi[0];
+                            var ts = rpi[1];
+                            var name = rpi[2];
+                            var contact = rpi[3];
+                            var mesg = rpi[4];
+                            var confirm_mesg = rpi[5];
 
-            if (status == 1) {
-                // Display the winners
-                instance.winner_addrs (function (e, r) {
-                    if (e) {
-                        console.log(e);
-                    } else {
-                        var winners = r;
-                        if (winners && winners.length > 0) {
-                            $('#winners-panel').css("display", "block");
-                        }
-                        for (var i = 0; i < winners.length; i++) {
-                            instance.playerInfo (winners[i], function (epi, rpi) {
-                                if (epi) {
-                                    console.log(epi);
-                                } else {
-                                    var html_old = $('#winners-panel-table').html();
-                                    var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
-                                    if (rpi[5] == null || rpi[5] == "") {
-                                        html_snippet = html_snippet + rpi[4] + "</td></tr>";
+                            if (status == 0) {
+                                if (cutoff_ts > Math.round(new Date().getTime()/1000)) {
+                                    $('#play-panel').css("display", "block");
+                                    if (contact == null || contact == "") {
+                                        // show empty play form
                                     } else {
-                                        html_snippet = html_snippet + rpi[5] + "</td></tr>";
+                                        // Show prefilled play form
+                                        $('#name-field').val(name);
+                                        $('#mesg-field').val(mesg);
+                                        var cc = contact.split(":");
+                                        $('#contact-app-field').val(cc[0].trim());
+                                        $('#contact-id-field').val(cc[1].trim());
                                     }
-                                    $('#winners-panel-table').html(html_old + html_snippet);
+                                } else {
+                                    // Show drawing form
+                                    $('#draw-panel').css("display", "block");
                                 }
-                            });
+                            } else if (status == 1) {
+                                if (contact == null || contact == "") {
+                                    // Show ended message
+                                    $('#ended-panel').css("display", "block");
+                                } else {
+                                    if (is_winner) {
+                                        if (confirm_mesg == null || confirm_mesg == "") {
+                                            // Show confirm form
+                                            $('#confirm-panel').css("display", "block");
+                                        }
+                                    }
+                                }
+                            }
                         }
+                    });
+                    // END instance.playerInfo
+                    
+                    if (status == 1) {
+                        // Display the winners
+                        instance.winner_addrs (function (ewa, rwa) {
+                            if (ewa) {
+                                console.log(ewa);
+                            } else {
+                                var winners = rwa;
+                                if (winners && winners.length > 0) {
+                                    $('#winners-panel').css("display", "block");
+                                }
+                                for (var i = 0; i < winners.length; i++) {
+                                    instance.playerInfo (winners[i], function (epi, rpi) {
+                                        if (epi) {
+                                            console.log(epi);
+                                        } else {
+                                            var html_old = $('#winners-panel-table').html();
+                                            var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                            if (rpi[5] == null || rpi[5] == "") {
+                                                html_snippet = html_snippet + rpi[4] + "</td></tr>";
+                                            } else {
+                                                html_snippet = html_snippet + rpi[5] + "</td></tr>";
+                                            }
+                                            $('#winners-panel-table').html(html_old + html_snippet);
+                                        }
+                                    });
+                                }
+                            }
+                        });
                     }
-                });
-            }
+                    // END if (status == 1)  
+                }
+            });
 
             // Display players
             instance.player_addrs (function (e, r) {
@@ -155,7 +154,6 @@ var getInfo = function () {
                                 if (epi) {
                                     console.log(epi);
                                 } else {
-                                    console.log(rpi);
                                     var html_old = $('#players-panel-table').html();
                                     var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
                                     $('#players-panel-table').html(html_old + html_snippet);
