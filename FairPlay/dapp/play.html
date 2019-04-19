@@ -34,7 +34,14 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label>How do we get in touch?</label>
-                    <input type="text" id="contact-app-field"  class="form-control" placeholder="Phone or Email or WeChat">
+                    <select id="contact-app-field" class="form-control">
+                        <option selected>Other</option>
+                        <option>Twitter</option>
+                        <option>Facebook</option>
+                        <option>WeChat</option>
+                        <option>Phone</option>
+                        <option>Email</option>
+                    </select>
                 </div>
                 <div class="form-group col">
                     <input type="text" id="contact-id-field" class="form-control" placeholder="Your ID or address">
@@ -56,7 +63,8 @@
 
 <div class="main-contain" id="draw-panel">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status">The time is up. Anyone can initiate the prize draw now!</p>
+        <h3>The time is up.</h3>
+        <p class="main-status">Anyone can initiate the prize draw now!</p>
     </div>
     <div class="main-contain main-div-button">
         <div class="main-button-div">
@@ -75,8 +83,13 @@
 
 <div class="main-contain" id="confirm-panel">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status">You are one of the winners! Please confirm here after you receive your prize.</p>
-        <input type="text" id="confirm-field" placeholder="Leave a confirmation message"/>
+        <h3>You are one of the winners!</h3>
+        <p class="main-status">Please confirm here after you receive your prize.</p>
+        <form>
+            <div class="form-group">
+                <input type="text" id="confirm-field" placeholder="Leave a confirmation message"/>
+            </div>
+        </form>
     </div>
     <div class="main-contain main-div-button">
         <div class="main-button-div">
@@ -101,15 +114,35 @@
 
 <div class="main-contain" id="winners-panel">
     <div class="main-status main-join-div main-status-top">
+        <hr/>
         <h3>Winners</h3>
-        <table id="winners-panel-table"></table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Note</th>
+                </tr>
+            </thead>
+            <tbody id="winners-panel-table">
+            </tbody>
+        </table>
     </div>
 </div>
 
 <div class="main-contain" id="players-panel">
     <div class="main-status main-join-div main-status-top">
+        <hr/>
         <h3>All players</h3>
-        <table class="table" id="players-panel-table"></table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Note</th>
+                </tr>
+            </thead>
+            <tbody id="players-panel-table">
+            </tbody>
+        </table>
     </div>
 </div>
 
