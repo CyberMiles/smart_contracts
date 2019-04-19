@@ -81,6 +81,7 @@ var getInfo = function () {
                                     $('#play-panel').css("display", "block");
                                     if (contact == null || contact == "") {
                                         // show empty play form
+                                        $('#play-submit').text("Enter");
                                     } else {
                                         // Show prefilled play form
                                         $('#name-field').val(name);
@@ -88,6 +89,7 @@ var getInfo = function () {
                                         var cc = contact.split(":");
                                         $('#contact-app-field').val(cc[0].trim());
                                         $('#contact-id-field').val(cc[1].trim());
+                                        $('#play-submit').text("Update");
                                     }
                                 } else {
                                     // Show drawing form
@@ -120,6 +122,7 @@ var getInfo = function () {
                                 if (winners && winners.length > 0) {
                                     $('#winners-panel').css("display", "block");
                                 }
+                                $('#winners-panel-table').html("");
                                 for (var i = 0; i < winners.length; i++) {
                                     instance.playerInfo (winners[i], function (epi, rpi) {
                                         if (epi) {
@@ -151,6 +154,7 @@ var getInfo = function () {
                     var players = r;
                     if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
+                        $('#players-panel-table').html("");
                         for (var i = 0; i < players.length; i++) {
                             instance.playerInfo (players[i], function (epi, rpi) {
                                 if (epi) {
