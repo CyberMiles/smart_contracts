@@ -18,26 +18,32 @@
 <p></p>
 <div class="main-contain">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-title main-declare-back" id="title-div">Title ...</p>
+        <p class="main-title main-declare-back" id="title-div">... ...</p>
         <p style="text-align:center"><img id="image-img" src=""/></p>
-        <p class="main-status" id="desc-div">Fair Play!</p>
-    </div>
-    <div class="main-contain main-div-button" id="declaration-button" style="display:none">
-        <div class="main-button-div">
-            <div class="main-button" style="background-color:#1976d2">
-                <p id="declaration-submit" class="main-button-font" onclick="declare()">Declare</p>
-            </div>
-        </div>
+        <p class="main-status" id="desc-div">... ...</p>
     </div>
 </div>
 
 <div class="main-contain" id="play-panel">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status">Enter the drawing</p>
-        <input type="text" id="name-field" placeholder="Your name"/>
-        <input type="text" id="mesg-field" placeholder="Leave a message"/>
-        <input type="text" id="contact-app-field" placeholder="Twitter / FB / Email"/>
-        <input type="text" id="contact-id-field" placeholder="Your ID"/>
+        <h2>Enter the drawing</h2>
+        <form>
+            <div class="form-group">
+                <input type="text" id="name-field" class="form-control" placeholder="Your name">
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>How do we get in touch?</label>
+                    <input type="text" id="contact-app-field"  class="form-control" placeholder="Phone or Email or WeChat">
+                </div>
+                <div class="form-group col">
+                    <input type="text" id="contact-id-field" class="form-control" placeholder="Your ID or address">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="mesg-field" class="form-control" placeholder="Leave a message">
+            </div>
+        </form>
     </div>
     <div class="main-contain main-div-button">
         <div class="main-button-div">
@@ -95,15 +101,15 @@
 
 <div class="main-contain" id="winners-panel">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status main-status-replay-all">Winners</p>
+        <h3>Winners</h3>
         <table id="winners-panel-table"></table>
     </div>
 </div>
 
 <div class="main-contain" id="players-panel">
     <div class="main-status main-join-div main-status-top">
-        <p class="main-status main-status-replay-all">All players</p>
-        <table id="players-panel-table"></table>
+        <h3>All players</h3>
+        <table class="table" id="players-panel-table"></table>
     </div>
 </div>
 
