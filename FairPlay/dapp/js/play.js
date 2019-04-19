@@ -37,6 +37,8 @@ var getInfo = function () {
     $('#draw-panel').css("display", "none");
     $('#ended-panel').css("display", "none");
     $('#confirm-panel').css("display", "none");
+    $('#confirm-ended-panel').css("display", "none");
+    $('#not-winner-panel').css("display", "none");
     $('#winners-panel').css("display", "none");
     $('#players-panel').css("display", "none");
 
@@ -104,7 +106,11 @@ var getInfo = function () {
                                         if (confirm_mesg == null || confirm_mesg == "") {
                                             // Show confirm form
                                             $('#confirm-panel').css("display", "block");
+                                        } else {
+                                            $('#confirm-ended-panel').css("display", "block");
                                         }
+                                    } else {
+                                        $('#not-winner-panel').css("display", "block");
                                     }
                                 }
                             }
@@ -223,7 +229,7 @@ var play = function () {
             tip.closeLoad();
                 
             setTimeout(function () {
-                getInfo();
+                location.reload(true);
             }, 20 * 1000);
         }
     });
@@ -248,7 +254,7 @@ var draw = function () {
             tip.closeLoad();
                 
             setTimeout(function () {
-                getInfo();
+                location.reload(true);
             }, 20 * 1000);
         }
     });
@@ -278,7 +284,7 @@ var confirm = function () {
             tip.closeLoad();
                 
             setTimeout(function () {
-                getInfo();
+                location.reload(true);
             }, 20 * 1000);
         }
     });
