@@ -60,7 +60,9 @@ var getInfo = function () {
                     $('#desc-div').text(r[2]);
                     $('#image-img').attr("src", r[3]);
                     var number_of_winners = r[4];
+                    $('#number-of-winners-div').text(number_of_winners);
                     var cutoff_ts = r[5];
+                    $('#cutoff-ts-div').text((new Date(cutoff_ts * 1000)).toLocaleString());
                     
                     instance.playerInfo (userAddress, function (epi, rpi) {
                         if (epi) {
