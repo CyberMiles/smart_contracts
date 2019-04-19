@@ -20,26 +20,29 @@
     <div class="main-status main-join-div main-status-top">
         <p class="main-title main-declare-back" id="title-div">... ...</p>
         <p style="text-align:center"><img id="image-img" src=""/></p>
-        <p class="main-status" id="desc-div">... ...</p>
+        <p class="lead" id="desc-div">... ...</p>
         <dl class="row">
             <dt class="col-sm-3"># of winners</dt>
             <dd class="col-sm-9" id="number-of-winners-div">... ...</dd>
             <dt class="col-sm-3">End at</dt>
             <dd class="col-sm-9" id="cutoff-ts-div">... ...</dd>
         </dl>
+        <hr/>
     </div>
 </div>
 
 <div class="main-contain" id="play-panel">
     <div class="main-status main-join-div main-status-top">
-        <h2>Enter the drawing</h2>
+        <h3>Enter the drawing</h3>
         <form>
             <div class="form-group">
                 <input type="text" id="name-field" class="form-control" placeholder="Your name">
             </div>
+            <div class="form-group">
+                <label>How do we get in touch if you win?</label>
+            </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <label>How do we get in touch?</label>
                     <select id="contact-app-field" class="form-control">
                         <option selected>Other</option>
                         <option>Twitter</option>
@@ -70,7 +73,9 @@
 <div class="main-contain" id="draw-panel">
     <div class="main-status main-join-div main-status-top">
         <h3>The time is up.</h3>
-        <p class="main-status">Anyone can initiate the prize draw now!</p>
+        <div class="alert alert-warning" role="alert">
+            Anyone can initiate the prize draw now!
+        </div>
     </div>
     <div class="main-contain main-div-button">
         <div class="main-button-div">
@@ -82,8 +87,8 @@
 </div>
 
 <div class="main-contain" id="ended-panel">
-    <div class="main-status main-join-div main-status-top">
-        <p class="main-status">This event has ended</p>
+    <div class="alert alert-warning" role="alert">
+        This event has ended
     </div>
 </div>
 
