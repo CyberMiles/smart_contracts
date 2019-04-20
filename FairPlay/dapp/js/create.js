@@ -41,7 +41,7 @@ var create = function () {
                 from: userAddress.toString(),
                 data: data,
                 gas: '999000',
-                gasPrice: '2000000000'
+                gasPrice: 2000000000
             }, function (e, instance) {
                 if (e) {
                     console.log(e);
