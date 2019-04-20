@@ -12,9 +12,7 @@ var instance = '';  // contract instance
 
 $(function () {
     webBrowser.openBrowser();
-    
     tip.loading("Loading ...");
-    
     // init the abi and bin
     getAbi();
     getBin();
