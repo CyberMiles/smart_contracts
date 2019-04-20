@@ -12,6 +12,9 @@ var instance = '';  // contract instance
 
 $(function () {
     webBrowser.openBrowser();
+    
+    tip.loading("Loading ...");
+    
     // init the abi and bin
     getAbi();
     getBin();
@@ -60,7 +63,7 @@ var getInfo = function () {
                     var status = r[0];
                     $('#title-div').text(r[1]);
                     $('#desc-div').text(r[2]);
-                    $('#image-img').attr("src", r[3]);
+                    $('#image-img').html('<img src="' + r[3] + '">');
                     var number_of_winners = r[4];
                     $('#number-of-winners-div').text(number_of_winners);
                     var cutoff_ts = r[5];
@@ -117,6 +120,9 @@ var getInfo = function () {
                         }
                     });
                     // END instance.playerInfo
+                    
+                    // Dismiss the spinner now. The rest of the page can load gradually
+                    tip.closeLoad();
                     
                     if (status == 1) {
                         // Display the winners
