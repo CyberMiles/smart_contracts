@@ -40,7 +40,7 @@ var create = function () {
             contract.new([title, desc, image_url, num_of_winners, cutoff_ts], {
                 from: userAddress.toString(),
                 data: data,
-                gas: '999000',
+                gas: '9999000',
                 gasPrice: 2000000000
             }, function (e, instance) {
                 if (e) {
