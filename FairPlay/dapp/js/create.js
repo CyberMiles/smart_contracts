@@ -33,7 +33,11 @@ var create = function () {
             var image_url = $('#img').val();
             var num_of_winners = $('#num').val();
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();
-
+            
+            console.log(image_url);
+            console.log(num_of_winners);
+            console.log(cutoff_ts);
+            
             var contract = web3.cmt.contract(abi);
             var data = '0x' + contract.new.getData(title, desc, image_url, num_of_winners, cutoff_ts, {data: bin.object});
 
@@ -48,6 +52,7 @@ var create = function () {
                     tip.error("Failed to create contract");
                 } else {
                     var url = baseUrl + "?contract=" + instance.address;
+                    console.log(url);
                     tip.closeLoad();
 
                     $('#create-panel').css("display", "none");
