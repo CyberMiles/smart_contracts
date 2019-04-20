@@ -62,7 +62,7 @@ var getInfo = function () {
                     var status = r[0];
                     $('#title-div').text(r[1]);
                     $('#desc-div').text(r[2]);
-                    $('#image-img').html('<img src="' + r[3] + '">');
+                    $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
                     $('#number-of-winners-div').text(number_of_winners);
                     var cutoff_ts = r[5];
