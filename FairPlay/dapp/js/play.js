@@ -36,6 +36,7 @@ var initLanguage = function () {
 }
 
 var getInfo = function () {
+    $('#info-panel').css("display", "none");
     $('#play-panel').css("display", "none");
     $('#draw-panel').css("display", "none");
     $('#ended-panel').css("display", "none");
@@ -68,6 +69,11 @@ var getInfo = function () {
                     $('#number-of-winners-div').text(number_of_winners);
                     var cutoff_ts = r[5];
                     $('#cutoff-ts-div').text((new Date(cutoff_ts * 1000)).toLocaleString());
+                    
+                    // Show the info panel
+                    $('#info-panel').css("display", "block");
+                    // Dismiss the spinner now. The rest of the page can load gradually
+                    tip.closeLoad();
                     
                     instance.playerInfo (userAddress, function (epi, rpi) {
                         if (epi) {
@@ -120,9 +126,6 @@ var getInfo = function () {
                         }
                     });
                     // END instance.playerInfo
-                    
-                    // Dismiss the spinner now. The rest of the page can load gradually
-                    tip.closeLoad();
                     
                     if (status == 1) {
                         // Display the winners
