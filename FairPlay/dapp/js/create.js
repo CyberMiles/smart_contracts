@@ -34,10 +34,6 @@ var create = function () {
             var num_of_winners = $('#num').val();
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();
             
-            console.log(image_url);
-            console.log(num_of_winners);
-            console.log(cutoff_ts);
-            
             var contract = web3.cmt.contract(abi);
             var data = '0x' + contract.new.getData(title, desc, image_url, num_of_winners, cutoff_ts, {data: bin.object});
 
@@ -48,6 +44,7 @@ var create = function () {
                 gasPrice: '2000000000'
             }, function (e, instance) {
                 if (e) {
+                    console.log(e);
                     tip.close();
                     tip.error("Failed to create contract");
                 } else {
