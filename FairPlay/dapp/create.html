@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title>Create a prize drawing</title>
+</head>
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<p></p>
+
+<div class="container" id="qr-panel" style="display:none">
+    <div class="alert alert-success" role="alert">
+        A new contract has been created! Scan the following barcode in CMT Wallet to participate in the drawing!
+    </div>
+    <center>
+        <div id="qrcode"></div>
+    </center>
+</div>
+
+<div class="container" id="create-panel">
+    <h3>Create a new prize drawing</h3>
+    <form>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title">
+            <small id="titleHelp" class="form-text text-muted">Please provide a short title for your prize drawing.</small>
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <input type="text" class="form-control" id="desc">
+            <small id="descHelp" class="form-text text-muted">A longer description of the prize, and the purproses and procedures of this drawing.</small>
+        </div>
+        <div class="form-group">
+            <label for="img">Image URL</label>
+            <input type="text" class="form-control" id="img" placeholder="http://">
+            <small id="imgHelp" class="form-text text-muted">The URL to a feature image that illustrates prize.</small>
+        </div>
+        <div class="form-group">
+            <label for="num"># of winners</label>
+            <input type="number" class="form-control" id="num">
+            <small id="numHelp" class="form-text text-muted">The number of winners to share the prize.</small>
+        </div>
+        <div class="form-group">
+            <label for="cutoff">End time for the drawing</label>
+            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" id="cutoff" data-target="#datetimepicker"/>
+                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+        <button type="button" onclick="create()" class="btn btn-primary btn-lg btn-block">Create drawing</button>
+    </form>
+</div>
+
+</body>
+<script src="js/main.js"></script>
+<script src="js/create.js"></script>
+</html>
