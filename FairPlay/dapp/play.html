@@ -16,51 +16,50 @@
 <body class="main-bg">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
-<div class="main-contain">
-    <div class="main-status main-join-div main-status-top">
-        <p class="main-title main-declare-back" id="title-div">... ...</p>
-        <p style="text-align:center"><img id="image-img" src=""/></p>
-        <p class="lead" id="desc-div">... ...</p>
-        <dl class="row">
-            <dt class="col-sm-3"># of winners</dt>
-            <dd class="col-sm-9" id="number-of-winners-div">... ...</dd>
-            <dt class="col-sm-3">End at</dt>
-            <dd class="col-sm-9" id="cutoff-ts-div">... ...</dd>
-        </dl>
-        <hr/>
+<div class="container" style="display:none">
+    <div style="text-align:center">
+        <h3 id="title-div">... ...</h3>
+        <p id="image-img"></p>
     </div>
+    <p class="lead" id="desc-div">... ...</p>
+    <dl class="row">
+        <dt class="col-sm-3"># of winners</dt>
+        <dd class="col-sm-9" id="number-of-winners-div">... ...</dd>
+        <dt class="col-sm-3">End at</dt>
+        <dd class="col-sm-9" id="cutoff-ts-div">... ...</dd>
+    </dl>
+    <hr/>
 </div>
 
-<div class="main-contain" id="play-panel">
-    <div class="main-status main-join-div main-status-top">
-        <h3>Enter the drawing</h3>
-        <form>
-            <div class="form-row">
-                <input type="text" id="name-field" class="form-control" placeholder="Your name">
+<div class="container" style="display:none" id="play-panel">
+    <h3>Enter the drawing</h3>
+    <form>
+        <div class="form-row">
+            <input type="text" id="name-field" class="form-control" placeholder="Your name">
+        </div>
+        <div class="form-row">
+            <label>How do we get in touch if you win?</label>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <select id="contact-app-field" class="form-control">
+                    <option selected>Other</option>
+                    <option>Twitter</option>
+                    <option>Facebook</option>
+                    <option>WeChat</option>
+                    <option>Phone</option>
+                    <option>Email</option>
+                </select>
             </div>
-            <div class="form-row">
-                <label>How do we get in touch if you win?</label>
+            <div class="form-group col">
+                <input type="text" id="contact-id-field" class="form-control" placeholder="Your ID or address">
             </div>
-            <div class="form-row">
-                <div class="form-group col">
-                    <select id="contact-app-field" class="form-control">
-                        <option selected>Other</option>
-                        <option>Twitter</option>
-                        <option>Facebook</option>
-                        <option>WeChat</option>
-                        <option>Phone</option>
-                        <option>Email</option>
-                    </select>
-                </div>
-                <div class="form-group col">
-                    <input type="text" id="contact-id-field" class="form-control" placeholder="Your ID or address">
-                </div>
-            </div>
-            <div class="form-row">
-                <input type="text" id="mesg-field" class="form-control" placeholder="Leave a message">
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-row">
+            <input type="text" id="mesg-field" class="form-control" placeholder="Leave a message">
+        </div>
+    </form>
+
     <div class="main-contain main-div-button">
         <div class="main-button-div">
             <div class="main-button" style="background-color:#1976d2">
@@ -70,13 +69,12 @@
     </div>
 </div>
 
-<div class="main-contain" id="draw-panel">
-    <div class="main-status main-join-div main-status-top">
-        <h3>The time is up.</h3>
-        <div class="alert alert-warning" role="alert">
-            Anyone can initiate the prize draw now!
-        </div>
-    </div>
+<div class="container" style="display:none" id="draw-panel">
+    <h3>The time is up.</h3>
+    <p class="lead">
+        Anyone can initiate the prize draw now!
+    </p>
+    
     <div class="main-contain main-div-button">
         <div class="main-button-div">
             <div class="main-button" style="background-color:#1976d2">
@@ -86,34 +84,33 @@
     </div>
 </div>
 
-<div class="main-contain" id="ended-panel">
+<div class="container" style="display:none" id="ended-panel">
     <div class="alert alert-secondary" role="alert">
         This event has ended
     </div>
 </div>
     
-<div class="main-contain" id="confirm-ended-panel">
+<div class="container" style="display:none" id="confirm-ended-panel">
     <div class="alert alert-success" role="alert">
         Thank you for confirming your prize.
     </div>
 </div>
 
-<div class="main-contain" id="not-winner-panel">
+<div class="container" style="display:none" id="not-winner-panel">
     <div class="alert alert-warning" role="alert">
         Sorry you did not win.
     </div>
 </div>
 
-<div class="main-contain" id="confirm-panel">
-    <div class="main-status main-join-div main-status-top">
-        <h3>You are one of the winners!</h3>
-        <p class="main-status">Please confirm here after you receive your prize.</p>
-        <form>
-            <div class="form-group">
-                <input type="text" id="confirm-field" class="form-control" placeholder="Leave a confirmation message"/>
-            </div>
-        </form>
-    </div>
+<div class="container" style="display:none" id="confirm-panel">
+    <h3>You are one of the winners!</h3>
+    <p class="lead">Please confirm here after you receive your prize.</p>
+    <form>
+        <div class="form-group">
+            <input type="text" id="confirm-field" class="form-control" placeholder="Leave a confirmation message"/>
+        </div>
+    </form>
+    
     <div class="main-contain main-div-button">
         <div class="main-button-div">
             <div class="main-button" style="background-color:#1976d2">
@@ -123,50 +120,34 @@
     </div>
 </div>
 
-<div class="main-contain" id="qrcode" style="display:none">
-    <div class="main-status main-join-div main-status-top">
-        <div class="main-code-container">
-            <div class="main-title" id="qrcode-image"></div>
-            <div class="main-code-down">
-                <p class="main-status" id="qrcode-addr">Scan this QR code with CMT Wallet to see this declaration!</p>
-                <div class="main-save" id="save-to-phone" onclick="saveNow()">Save to Phone</div>
-            </div>
-        </div>
-    </div>
+<div class="container" style="display:none" id="winners-panel">
+    <hr/>
+    <h3>Winners</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody id="winners-panel-table">
+        </tbody>
+    </table>
 </div>
 
-<div class="main-contain" id="winners-panel">
-    <div class="main-status main-join-div main-status-top">
-        <hr/>
-        <h3>Winners</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Note</th>
-                </tr>
-            </thead>
-            <tbody id="winners-panel-table">
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="main-contain" id="players-panel">
-    <div class="main-status main-join-div main-status-top">
-        <hr/>
-        <h3>All players</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Note</th>
-                </tr>
-            </thead>
-            <tbody id="players-panel-table">
-            </tbody>
-        </table>
-    </div>
+<div class="container" style="display:none" id="players-panel">
+    <hr/>
+    <h3>All players</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody id="players-panel-table">
+        </tbody>
+    </table>
 </div>
 
 </body>
