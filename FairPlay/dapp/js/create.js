@@ -48,22 +48,24 @@ var create = function () {
                     tip.close();
                     tip.error("Failed to create contract");
                 } else {
-                    var url = baseUrl + "?contract=" + instance.address;
-                    console.log(url);
-                    tip.closeLoad();
+                    console.log(instance.address);
+                    if (instance.address) {
+                        var url = baseUrl + "?contract=" + instance.address;
+                        tip.closeLoad();
 
-                    $('#create-panel').css("display", "none");
-                    $('#qr-panel').css("display", "block");
-                    setTimeout(function () {
-                        new QRCode(document.getElementById("qrcode"), {
-                            text: url,
-                            width: 300,
-                            height: 300,
-                            colorDark: "#000000",
-                            colorLight: "#ffffff",
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
-                    }, 1);
+                        $('#create-panel').css("display", "none");
+                        $('#qr-panel').css("display", "block");
+                        setTimeout(function () {
+                            new QRCode(document.getElementById("qrcode"), {
+                                text: url,
+                                width: 300,
+                                height: 300,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                        }, 1);
+                    }
                 }
             });
         }
