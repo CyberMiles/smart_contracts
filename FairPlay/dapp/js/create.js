@@ -51,7 +51,6 @@ var create = function () {
                 } else {
                     console.log(instance.address);
                     if (instance.address != undefined) {
-                        tip.close();
                         window.location.href = "qrcode.html?code=" + instance.address;
                     } else {
                         var checkTransactionTimer = setInterval(function () {
@@ -59,12 +58,12 @@ var create = function () {
                                 if (!error) {
                                     if (result != null && result.status == '0x1') {
                                         clearInterval(checkTransactionTimer);
-                                        tip.close();
                                         if (result.contractAddress != undefined) {
                                             window.location.href = "qrcode.html?code=" + result.contractAddress;
                                         } else if (result.address != undefined) {
                                             window.location.href = "qrcode.html?code=" + result.address;
                                         } else {
+                                            tip.close();
                                             tip.error("Could not get a contract address");
                                         }
                                     } else if (result != null && result.status == '0x0') {
