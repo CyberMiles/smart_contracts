@@ -1,4 +1,3 @@
-document.write("<script type='text/javascript' src='./js/qrcode.js'></script>");
 document.write("<script type='text/javascript' src='./js/popper.min.js'></script>");
 document.write("<script type='text/javascript' src='./js/bootstrap.min.js'></script>");
 document.write("<script type='text/javascript' src='./js/clipboard.js'></script>");
