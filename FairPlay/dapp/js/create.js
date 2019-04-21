@@ -23,7 +23,7 @@ var initLanguage = function () {
 }
 
 var create = function () {
-    tip.loading("Creating ...");
+    tip.loading("Creating contract ... This could take a few minutes!");
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error("There is an error");
