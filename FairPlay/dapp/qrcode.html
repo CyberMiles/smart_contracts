@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title>Share this QR Code</title>
+
+    <script>
+var getUrlParameter = function (name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+$(function () {
+    var link = "https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract=" + getUrlParameter("code");
+    $("#direct-link").html(link);
+    $("#direct-link").attr('href', link);
+    setTimeout(function () {
+        new QRCode($("#qrcode"), {
+            text: link,
+            width: 300,
+            height: 300,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }, 1);
+});
+    </script>
+</head>
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<p></p>
+
+<div class="container" id="qr-panel">
+    <div class="alert alert-success" role="alert">
+        A new contract has been created! Scan the following barcode in CMT Wallet to participate in the drawing!
+    </div>
+    <center>
+        <div id="qrcode"></div>
+        <p>Or open this directly in CMT Wallet <a id="direct-link" href="">...</a></p>
+    </center>
+</div>
+
+</body>
+</html>

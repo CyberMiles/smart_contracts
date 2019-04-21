@@ -1,7 +1,6 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
 var webBrowser = new AppLink();
 var abi = '';
 var bin = '';
@@ -52,22 +51,6 @@ var create = function () {
                     if (instance.address) {
                         tip.close();
                         window.location.href = "qrcode.html?code=" + instance.address;
-                        /*
-                        var url = baseUrl + "?contract=" + instance.address;
-                        tip.closeLoad();
-                        $('#create-panel').css("display", "none");
-                        $('#qr-panel').css("display", "block");
-                        setTimeout(function () {
-                            new QRCode(document.getElementById("qrcode"), {
-                                text: url,
-                                width: 300,
-                                height: 300,
-                                colorDark: "#000000",
-                                colorLight: "#ffffff",
-                                correctLevel: QRCode.CorrectLevel.H
-                            });
-                        }, 1);
-                        */
                     } else {
                         var checkTransactionTimer = setInterval(function () {
                             web3.cmt.getTransactionReceipt(tx, function (error, result) {
@@ -75,7 +58,13 @@ var create = function () {
                                     if (result != null && result.status == '0x1') {
                                         clearInterval(checkTransactionTimer);
                                         tip.close();
-                                        window.location.href = "qrcode.html?code=" + instance.address;
+                                        if (result.contractAddress) {
+                                            window.location.href = "qrcode.html?code=" + result.contractAddress;
+                                        } else if (result.address) {
+                                            window.location.href = "qrcode.html?code=" + result.address;
+                                        } else {
+                                            tip.error("Could not get a contract address");
+                                        }
                                     } else if (result != null && result.status == '0x0') {
                                         tip.close();
                                         tip.error("Failed to create contract");
