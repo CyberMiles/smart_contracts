@@ -50,9 +50,11 @@ var create = function () {
                 } else {
                     console.log(instance.address);
                     if (instance.address) {
+                        tip.close();
+                        window.location.href = "qrcode.html?code=" + instance.address;
+                        /*
                         var url = baseUrl + "?contract=" + instance.address;
                         tip.closeLoad();
-
                         $('#create-panel').css("display", "none");
                         $('#qr-panel').css("display", "block");
                         setTimeout(function () {
@@ -65,6 +67,23 @@ var create = function () {
                                 correctLevel: QRCode.CorrectLevel.H
                             });
                         }, 1);
+                        */
+                    } else {
+                        var checkTransactionTimer = setInterval(function () {
+                            web3.cmt.getTransactionReceipt(tx, function (error, result) {
+                                if (!error) {
+                                    if (result != null && result.status == '0x1') {
+                                        clearInterval(checkTransactionTimer);
+                                        tip.close();
+                                        window.location.href = "qrcode.html?code=" + instance.address;
+                                    } else if (result != null && result.status == '0x0') {
+                                        tip.close();
+                                        tip.error("Failed to create contract");
+                                        clearInterval(checkTransactionTimer);
+                                    }
+                                }
+                            })
+                        }, 3000);
                     }
                 }
             });
