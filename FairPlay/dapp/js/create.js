@@ -29,6 +29,8 @@ var create = function () {
             tip.error("There is an error");
         } else {
             var userAddress = address.toString();
+            var title = $('#title').val();
+            var desc = $('#desc').val();
             var image_url = $('#img').val();
             var num_of_winners = $('#num').val();
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();
