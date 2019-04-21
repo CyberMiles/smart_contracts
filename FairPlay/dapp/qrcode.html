@@ -26,7 +26,7 @@ $(function () {
     $("#direct-link").html(link);
     $("#direct-link").attr('href', link);
     setTimeout(function () {
-        new QRCode($("#qrcode"), {
+        new QRCode(document.getElementById("qrcode"), {
             text: link,
             width: 300,
             height: 300,
