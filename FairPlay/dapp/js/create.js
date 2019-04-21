@@ -53,7 +53,7 @@ var create = function () {
                         window.location.href = "qrcode.html?code=" + instance.address;
                     } else {
                         var checkTransactionTimer = setInterval(function () {
-                            web3.cmt.getTransactionReceipt(tx, function (error, result) {
+                            web3.cmt.getTransactionReceipt(instance.transactionHash, function (error, result) {
                                 if (!error) {
                                     if (result != null && result.status == '0x1') {
                                         clearInterval(checkTransactionTimer);
