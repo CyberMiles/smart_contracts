@@ -5,6 +5,7 @@ const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play
 var webBrowser = new AppLink();
 const contract_address = fun.getParameter("contract");
 var userAddress = '';
+var ownerAddress = '';
 var abi = '';
 var bin = '';
 var contract = '';
@@ -52,6 +53,7 @@ var getInfo = function () {
 
             contract = web3.cmt.contract(abi);
             instance = contract.at(contract_address);
+            ownerAddress = instance.owner.call().toString();
 
             instance.info (function (e, r) {
                 if (e) {
@@ -136,6 +138,10 @@ var getInfo = function () {
                                     $('#winners-panel').css("display", "block");
                                 }
                                 $('#winners-panel-table').html("");
+                                
+                                console.log(ownerAddress);
+                                console.log(userAddress);
+                                
                                 for (var i = 0; i < winners.length; i++) {
                                     instance.playerInfo (winners[i], function (epi, rpi) {
                                         if (epi) {
@@ -143,6 +149,9 @@ var getInfo = function () {
                                         } else {
                                             var html_old = $('#winners-panel-table').html();
                                             var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                            if (ownerAddress == userAddress) {
+                                                html_snippet = html_snippet + rpi[3] + "</td></td>";
+                                            }
                                             if (rpi[5] == null || rpi[5] == "") {
                                                 html_snippet = html_snippet + rpi[4] + "</td></tr>";
                                             } else {
