@@ -53,6 +53,7 @@ var getInfo = function () {
 
             contract = web3.cmt.contract(abi);
             instance = contract.at(contract_address);
+            /*
             instance.owner.call (function (e, r) {
                 if (e) {
                     console.log(e);
@@ -60,6 +61,7 @@ var getInfo = function () {
                     ownerAddress = r.toString();
                 }
             });
+            */
 
             instance.info (function (e, r) {
                 if (e) {
