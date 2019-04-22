@@ -158,8 +158,8 @@ var getInfo = function () {
                                             if (ownerAddress == userAddress) {
                                                 html_snippet = html_snippet + rpi[3] + "</td></tr>";
                                             } else {
-                                                if (rpi[5] == null || rpi[5] == "") {
-                                                    html_snippet = html_snippet + rpi[4] + "</td></tr>";
+                                                if (rpi[5] == null) {
+                                                    html_snippet = html_snippet + "</td></tr>";
                                                 } else {
                                                     html_snippet = html_snippet + rpi[5] + "</td></tr>";
                                                 }
