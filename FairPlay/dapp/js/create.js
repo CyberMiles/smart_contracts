@@ -12,7 +12,7 @@ $(function () {
     getBin();
     // initLanguage();
 
-    $('#datetimepicker').datetimepicker();
+    $('#cutoff').datetimepicker();
 });
 
 // init language
