@@ -53,7 +53,13 @@ var getInfo = function () {
 
             contract = web3.cmt.contract(abi);
             instance = contract.at(contract_address);
-            ownerAddress = instance.owner.call().toString();
+            instance.owner (function (e, r) {
+                if (e) {
+                    console.log(e);
+                } else {
+                    ownerAddress = r.toString();
+                }
+            });
 
             instance.info (function (e, r) {
                 if (e) {
@@ -304,21 +310,5 @@ var confirm = function () {
             }, 20 * 1000);
         }
     });
-}
-
-function saveFile(data, filename) {
-    const save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-    save_link.href = data;
-    save_link.download = filename;
-
-    const event = document.createEvent('MouseEvents');
-    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-    save_link.dispatchEvent(event);
-}
-
-function saveNow(){
-    let canvas= document.querySelector('#qrcode-image canvas');
-    let url = canvas.toDataURL('image/png');
-    saveFile(url, 'sayLove')
 }
 
