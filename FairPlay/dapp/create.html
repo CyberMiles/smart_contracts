@@ -46,12 +46,8 @@
         </div>
         <div class="form-group">
             <label for="cutoff">End time for the drawing</label>
-            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" id="cutoff" data-target="#datetimepicker"/>
-                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-            </div>
+            <input type="text" class="form-control datetimepicker-input" id="datetimepicker" data-toggle="datetimepicker" data-target="#datetimepicker">
+            <small id="datetimepickerHelp" class="form-text text-muted">E.g., 04/01/2019 3:14 PM</small>
         </div>
         <button type="button" onclick="create()" class="btn btn-primary btn-lg btn-block">Create drawing</button>
     </form>
