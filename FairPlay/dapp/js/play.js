@@ -156,6 +156,12 @@ var getInfo = function () {
                                             var html_old = $('#winners-panel-table').html();
                                             var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
                                             if (ownerAddress == userAddress) {
+                                                $("#winners-panel-table-head > tr").append("<th scope='col'>Contact</th>")
+                                                if (rpi[5] == null) {
+                                                    html_snippet = html_snippet + "</td><td>";
+                                                } else {
+                                                    html_snippet = html_snippet + rpi[5] + "</td><td>";
+                                                }
                                                 html_snippet = html_snippet + rpi[3] + "</td></tr>";
                                             } else {
                                                 if (rpi[5] == null) {
