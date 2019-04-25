@@ -93,6 +93,9 @@ var getInfo = function () {
                             var contact = rpi[3];
                             var mesg = rpi[4];
                             var confirm_mesg = rpi[5];
+                            
+                           $('.sticky-footer').css("display", "block");
+
 
                             if (status == 0) {
                                 if (cutoff_ts > Math.round(new Date().getTime()/1000)) {
@@ -102,8 +105,7 @@ var getInfo = function () {
                                         // show empty play form
                                         $('#play-submit').text("Enter");
                                     } else {
-                                        
-                                        $('.sticky-footer').css("display", "block");
+
                                         // Show prefilled play form
                                         $('#name-field').val(name);
                                         $('#mesg-field').val(mesg);
@@ -115,11 +117,8 @@ var getInfo = function () {
                                 } else {
                                     // Show drawing form
                                     $('#draw-panel').css("display", "block");
-                                    $('.sticky-footer').css("display", "block");
                                 }
                             } else if (status == 1) {
-                                
-                                $('.sticky-footer').css("display", "block");
 
                                 if (contact == null || contact == "") {
                                     // Show ended message
@@ -142,7 +141,6 @@ var getInfo = function () {
                     // END instance.playerInfo
                     
                     if (status == 1) {
-                        $('.sticky-footer').css("display", "block");
                         // Display the winners
                         instance.winner_addrs (function (ewa, rwa) {
                             if (ewa) {
