@@ -30,6 +30,7 @@ $.ajaxPrefilter( function (options) {
 });
 
 $(function () {
+    $("#qr-panel").css("display: none")
     var link = "https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract=" + getUrlParameter("code");
     
     //generate the short link for the current link
@@ -38,6 +39,10 @@ $(function () {
     const getShortLink = async() => {return await $.getJSON(reqLink)}
 
     getShortLink().then(res => {
+        $("#pre-load-qr").css("display: none")
+
+        $("#qr-panel").css("display: block")
+
         shortLink = res['url']['shortLink'];
         $("#direct-link").html(shortLink);
         $("#direct-link").attr('href', shortLink);
@@ -62,10 +67,15 @@ $(function () {
 <body class="main-bg">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
+<div class="container" id="pre-load-qr">
+     <div class="alert alert-success" role="alert">
+        A new contract has been created! Generating the QR code......
+    </div>
+</div>
 
 <div class="container" id="qr-panel">
     <div class="alert alert-success" role="alert">
-        A new contract has been created! Scan the following barcode in CMT Wallet to participate in the drawing!
+        Scan the following barcode in CMT Wallet to participate in the drawing!
     </div>
     <center>
         <div id="qrcode"></div>
