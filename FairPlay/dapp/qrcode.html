@@ -21,20 +21,41 @@ var getUrlParameter = function (name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
+$.ajaxPrefilter( function (options) {
+  if (options.crossDomain && jQuery.support.cors) {
+    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+    //options.url = "http://cors.corsproxy.io/url=" + options.url;
+  }
+});
+
 $(function () {
     var link = "https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract=" + getUrlParameter("code");
-    $("#direct-link").html(link);
-    $("#direct-link").attr('href', link);
-    setTimeout(function () {
-        new QRCode(document.getElementById("qrcode"), {
-            text: link,
-            width: 300,
-            height: 300,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-    }, 1);
+    
+    //generate the short link for the current link
+    var reqLink = 'https://cutt.ly/api/api.php?key=03c2a6a042ffdcccd7a27e0782af36f5b0244&short=' + link;
+
+    const getShortLink = async() => {return await $.getJSON(reqLink)}
+
+    getShortLink().then(res => {
+        shortLink = res['url']['shortLink'];
+        $("#direct-link").html(shortLink);
+        $("#direct-link").attr('href', shortLink);
+        setTimeout(function () {
+            new QRCode(document.getElementById("qrcode"), {
+                text: shortLink,
+                width: 300,
+                height: 300,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }, 1);
+
+    })
+  
+
+  
 });
     </script>
 </head>
