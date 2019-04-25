@@ -44,6 +44,7 @@ var getInfo = function () {
     $('#not-winner-panel').css("display", "none");
     $('#winners-panel').css("display", "none");
     $('#players-panel').css("display", "none");
+    $('.sticky-footer').css("display", "none");
 
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
@@ -96,6 +97,7 @@ var getInfo = function () {
                             if (status == 0) {
                                 if (cutoff_ts > Math.round(new Date().getTime()/1000)) {
                                     $('#play-panel').css("display", "block");
+                                    
                                     if (contact == null || contact == "") {
                                         // show empty play form
                                         $('#play-submit').text("Enter");
@@ -111,8 +113,11 @@ var getInfo = function () {
                                 } else {
                                     // Show drawing form
                                     $('#draw-panel').css("display", "block");
+                                    $('.sticky-footer').css("display", "block");
                                 }
                             } else if (status == 1) {
+                                    $('.sticky-footer').css("display", "block");
+
                                 if (contact == null || contact == "") {
                                     // Show ended message
                                     $('#ended-panel').css("display", "block");
@@ -134,6 +139,7 @@ var getInfo = function () {
                     // END instance.playerInfo
                     
                     if (status == 1) {
+                        $('.sticky-footer').css("display", "block");
                         // Display the winners
                         instance.winner_addrs (function (ewa, rwa) {
                             if (ewa) {
