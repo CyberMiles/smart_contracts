@@ -102,6 +102,8 @@ var getInfo = function () {
                                         // show empty play form
                                         $('#play-submit').text("Enter");
                                     } else {
+                                        
+                                        $('.sticky-footer').css("display", "block");
                                         // Show prefilled play form
                                         $('#name-field').val(name);
                                         $('#mesg-field').val(mesg);
@@ -116,7 +118,8 @@ var getInfo = function () {
                                     $('.sticky-footer').css("display", "block");
                                 }
                             } else if (status == 1) {
-                                    $('.sticky-footer').css("display", "block");
+                                
+                                $('.sticky-footer').css("display", "block");
 
                                 if (contact == null || contact == "") {
                                     // Show ended message
