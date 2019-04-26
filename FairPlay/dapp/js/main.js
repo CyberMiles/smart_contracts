@@ -3,7 +3,7 @@ document.write("<script type='text/javascript' src='./js/bootstrap.min.js'></scr
 document.write("<script type='text/javascript' src='./js/clipboard.js'></script>");
 document.write("<script type='text/javascript' src='./js/popupTip/layer.js'></script>");
 document.write("<script type='text/javascript' src='./js/popupTip.js'></script>");
-//document.write("<script type='text/javascript' src='./js/browser.js'></script>");
+document.write("<script type='text/javascript' src='./js/browser.js'></script>");
 document.write("<script type='text/javascript' src='./js/language/en.js'></script>");
 document.write("<script type='text/javascript' src='./js/language/zh.js'></script>");
 
