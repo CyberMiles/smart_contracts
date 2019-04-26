@@ -44,8 +44,8 @@ $(function () {
         $("#qr-panel").css("display", "block")
 
         shortLink = res['url']['shortLink'];
-        $("#direct-link").html(shortLink);
-        $("#direct-link").attr('href', shortLink);
+        $("#direct-link").html(link);
+        $("#direct-link").attr('href', link);
         setTimeout(function () {
             new QRCode(document.getElementById("qrcode"), {
                 text: shortLink,

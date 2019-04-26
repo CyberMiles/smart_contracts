@@ -12,6 +12,12 @@ $(function () {
     getBin();
     // initLanguage();
 
+    $('.image-upload-wrap').bind('dragover', function () {
+             $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+             $('.image-upload-wrap').removeClass('image-dropping');
+    });
     $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
             icons: {
                 time: 'far fa-clock',
@@ -113,4 +119,58 @@ var getBin = function () {
             bin = JSON.parse(data);
         }
     });
+}
+
+function imgfrom(imgsource){
+    if(imgsource.id == "fromurl"){
+        $("#url-input").removeClass("d-none");
+        $("#local-input").addClass("d-none");
+    }else if(imgsource.id == "fromlocal"){
+        $("#url-input").addClass("d-none");
+        $("#local-input").removeClass("d-none");
+    }
+}
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+
+$('#img-form').ajaxForm({
+    beforeSubmit: function(){
+        var imgname = $("#selected-img").val()
+        var ext = imgname.substr( (imgname.lastIndexOf('.') +1) );
+        var imgsize = $('#selected-img')[0].files[0].size / 1024 / 1024; // in MB
+        console.log(ext, imgsize)
+        if (ext=='jpg' || ext=='jpeg' || ext=='png' || ext=='gif' || ext=='PNG' || ext=='JPG' || ext=='JPEG'){
+            if(imgsize <= 3){
+                return true;
+            }
+        }
+        
+        $("#local-input").removeClass("d-none");
+        console.log("fail to upload");
+        tip.error("Fail to upload. Please check your size and extension.");
+        return false;
+    },
+    success: function(data) {
+        url = data['secure_url']
+        console.log(data['secure_url'])
+
+        $('.image-upload-wrap').hide();
+        $("#uploaded").attr("src", url)
+        $('.file-upload-content').show();
+        $('.image-title').html($("#selected-img").val());
+
+        $("#img").val(url)
+    }
+}); 
+
+
+function uploadPic(){
+    if($("#selected-img").val()){
+           console.log("start")
+          $("#submit").click()
+    }
 }

@@ -7,14 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
     <link rel="stylesheet" href="css/iutoast.css">
+    <link rel="stylesheet" href="css/create.css">
+
     <title>Create a prize drawing</title>
 </head>
 <body class="main-bg">
@@ -34,10 +32,46 @@
             <input type="text" class="form-control" id="desc">
             <small id="descHelp" class="form-text text-muted">A longer description of the prize, and the purproses and procedures of this drawing.</small>
         </div>
+        <!--img upload-->
         <div class="form-group">
-            <label for="img">Image URL</label>
-            <input type="text" class="form-control" id="img" placeholder="http://">
-            <small id="imgHelp" class="form-text text-muted">The URL to a feature image that illustrates prize.</small>
+            <div class="btn-group btn-group-toggle img-btns" data-toggle="buttons">
+              <label class="btn btn-outline-dark active" id="fromlocal" onclick="imgfrom(this);">
+                <input type="radio" name="img-options" id="option2" autocomplete="off"> Select from local
+              </label>
+              <label class="btn btn-outline-dark" id="fromurl" onclick="imgfrom(this);">
+                <input type="radio" name="img-options" id="option1" autocomplete="off" checked="">  Image URL
+              </label>
+            </div>
+            <!--upload img from local-->
+            <div id="local-input">
+                <form id="img-form" method="post" action="https://api.cloudinary.com/v1_1/dgvnn4efo/image/upload" enctype="multipart/form-data" >
+                  <fieldset>
+                     <p>
+                      <input type="text" name="upload_preset" value="fairplay" style="display: none">
+                    </p>
+                    <div class="image-upload-wrap">
+                    <label>
+                     <input id="selected-img" class="file-upload-input" type="file" name="file" accept="image/*" onchange="uploadPic()"></label>
+                    <div class="drag-text">
+                      <h3>Select your picture</h3>
+                    </div>
+                  </div>
+                  <input type="submit" id="submit" value="Submit Comment" style="display: none" /> 
+                  <div class="file-upload-content">
+                    <img id="uploaded" class="file-upload-image img-fluid img-thumbnail src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <span onclick="removeUpload()" class="remove-btn oi oi-x"></span>
+                    </div>
+                  </div>
+                   <small id="uploadimgHelp" class="form-text text-muted">Upload a feature image that illustrates prize. (Make sure that the extensions are one of them: jpg, jpeg, png, gif, PNG, JPG, JPEG, and the size is less than 2 MB.) </small>
+                  </fieldset>
+                </form>
+            </div>
+            <!--upload img from url-->
+            <div id="url-input" class="d-none">
+                <input type="text" class="form-control" id="img" placeholder="http://">
+                <small id="imgHelp" class="form-text text-muted">The URL to a feature image that illustrates prize.</small>
+            </div>
         </div>
         <div class="form-group">
             <label for="num">Number of winners</label>
@@ -54,8 +88,18 @@
         <button type="button" onclick="create()" class="btn btn-primary btn-lg btn-block">Create drawing</button>
     </form>
 </div>
-
 </body>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
 <script src="js/main.js"></script>
 <script src="js/create.js"></script>
 </html>
