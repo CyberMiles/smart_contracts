@@ -28,7 +28,7 @@ var ZhLanguage = {
     twitter:"Twitter",
     facebook:"Facebook",
     wechat:"微信",
-    phone:"手机号"，
+    phone:"手机号",
     email:"邮箱",
     enter:"进入",
     time_up:"时间到了",
@@ -46,7 +46,12 @@ var ZhLanguage = {
     name:"姓名",
     note:"留言",
     create_mine:"我也发起！",
-    share_play:"分享抽奖！"
+    share_play:"分享抽奖！",
+    share_title:"分析二维码",
+    generate_msg:"新的合约已经生成！正在生成二维码......",
+    scan_msg:"在CMT钱包中扫描以下二维码，从而参与到抽奖中！",
+    open_wallet:"或者直接在CMT钱包中打开如下网址："
+
 
 
 }

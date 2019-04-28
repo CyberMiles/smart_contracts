@@ -8,12 +8,54 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type='text/javascript' src='js/qrcode.js'></script>
+   
     <link rel="stylesheet" href="css/iutoast.css">
     <title data-translation="share_title">Share this QR Code</title>
+ 
+</head>
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<p></p>
+<div class="container" id="pre-load-qr">
+     <div class="alert alert-success" role="alert" data-translation="generate_msg">
+        A new contract has been created! Generating the QR code......
+    </div>
+</div>
 
+<div class="container" id="qr-panel" style="display: none">
+    <div class="alert alert-success" role="alert" data-translation="scan_msg">
+        Scan the following barcode in CMT Wallet to participate in the drawing!
+    </div>
+    <center>
+        <div id="qrcode"></div>
+        <p data-translation="open_wallet">Or open this directly in CMT Wallet <a id="direct-link" href="">...</a></p>
+    </center>
+</div>
+
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type='text/javascript' src='js/qrcode.js'></script>
+    <script src="main.js"></script>
     <script>
+
+const fun = new MainFun();
+const lgb = fun.languageChoice();
+var webBrowser = new AppLink();
+        // init language
+var initLanguage = function () {
+    if (lgb == '' || lgb == null) {
+        return;
+    }
+     $("[data-translate]").each(function(){
+        var key = $(this).data('translate');
+        if(lgb[key]){
+            $(this).html(lgb[key]);
+        }
+    });
+}
+
+
 var getUrlParameter = function (name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -30,6 +72,9 @@ $.ajaxPrefilter( function (options) {
 });
 
 $(function () {
+    webBrowser.openBrowser();
+    initLanguage();
+
     $("#qr-panel").css("display", "none")
     var link = "https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract=" + getUrlParameter("code");
     
@@ -63,25 +108,4 @@ $(function () {
   
 });
     </script>
-</head>
-<body class="main-bg">
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<p></p>
-<div class="container" id="pre-load-qr">
-     <div class="alert alert-success" role="alert" data-translation="generate_msg">
-        A new contract has been created! Generating the QR code......
-    </div>
-</div>
-
-<div class="container" id="qr-panel" style="display: none">
-    <div class="alert alert-success" role="alert" data-translation="scan_msg">
-        Scan the following barcode in CMT Wallet to participate in the drawing!
-    </div>
-    <center>
-        <div id="qrcode"></div>
-        <p data-translation="open_wallet">Or open this directly in CMT Wallet <a id="direct-link" href="">...</a></p>
-    </center>
-</div>
-
-</body>
 </html>
