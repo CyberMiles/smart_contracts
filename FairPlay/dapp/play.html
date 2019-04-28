@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/play.css">
     <link rel="stylesheet" href="css/iutoast.css">
-    <title data-translation="draw_title">Draw the prize!</title>
+    <title data-translate="draw_title">Draw the prize!</title>
 </head>
 <body class="main-bg">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -23,33 +23,33 @@
     </div>
     <p class="lead" id="desc-div">... ...</p>
     <dl class="row">
-        <dt class="col-sm-3" data-translation="n_of_winners">Number of winners</dt>
+        <dt class="col-sm-3" data-translate="n_of_winners">Number of winners</dt>
         <dd class="col-sm-9" id="number-of-winners-div">... ...</dd>
-        <dt class="col-sm-3" data-translation="end_at">End at</dt>
+        <dt class="col-sm-3" data-translate="end_at">End at</dt>
         <dd class="col-sm-9" id="cutoff-ts-div">... ...</dd>
     </dl>
     <hr/>
 </div>
 
 <div class="container" style="display:none" id="play-panel">
-    <h3 data-translation="enter_drawing">Enter the drawing</h3>
+    <h3 data-translate="enter_drawing">Enter the drawing</h3>
     <form>
         <div class="form-row">
             <input type="text" id="name-field" class="form-control" placeholder="Your name">
         </div>
         <div class="form-row">
-            <label data-translation="contact_msg">How do we get in touch if you win?</label>
+            <label data-translate="contact_msg">How do we get in touch if you win?</label>
         </div>
         <div class="form-row">
             <div class="form-group col">
                 <select id="contact-app-field" class="form-control">
-                    <option data-translation="other">Other</option>
-                    <option data-translation="telegram">Telegram</option>
-                    <option data-translation="twitter">Twitter</option>
-                    <option data-translation="facebook">Facebook</option>
-                    <option data-translation="wechat">WeChat</option>
-                    <option data-translation="phone">Phone</option>
-                    <option data-translation="email" selected>Email</option>
+                    <option data-translate="other">Other</option>
+                    <option data-translate="telegram">Telegram</option>
+                    <option data-translate="twitter">Twitter</option>
+                    <option data-translate="facebook">Facebook</option>
+                    <option data-translate="wechat">WeChat</option>
+                    <option data-translate="phone">Phone</option>
+                    <option data-translate="email" selected>Email</option>
                 </select>
             </div>
             <div class="form-group col">
@@ -64,48 +64,48 @@
     <div class="main-contain main-div-button">
         <div class="main-button-div">
             <div class="main-button" style="background-color:#1976d2">
-                <p id="play-submit" class="main-button-font" data-translation="enter" onclick="play()">Enter</p>
+                <p id="play-submit" class="main-button-font" data-translate="enter" onclick="play()">Enter</p>
             </div>
         </div>
     </div>
 </div>
 
 <div class="container" style="display:none" id="draw-panel">
-    <h3 data-translation="time_up">The time is up.</h3>
-    <p class="lead" data-translation="draw_msg">
+    <h3 data-translate="time_up">The time is up.</h3>
+    <p class="lead" data-translate="draw_msg">
         Anyone can initiate the prize draw now!
     </p>
     
     <div class="main-contain main-div-button">
         <div class="main-button-div">
             <div class="main-button" style="background-color:#1976d2">
-                <p id="draw-submit" class="main-button-font" data-translation="draw" onclick="draw()">Draw</p>
+                <p id="draw-submit" class="main-button-font" data-translate="draw" onclick="draw()">Draw</p>
             </div>
         </div>
     </div>
 </div>
 
 <div class="container" style="display:none" id="ended-panel">
-    <div class="alert alert-secondary" role="alert" data-translation="event_end">
+    <div class="alert alert-secondary" role="alert" data-translate="event_end">
         This event has ended
     </div>
 </div>
     
 <div class="container" style="display:none" id="confirm-ended-panel">
-    <div class="alert alert-success" role="alert" data-translation="thank_msg">
+    <div class="alert alert-success" role="alert" data-translate="thank_msg">
         Thank you for confirming your prize.
     </div>
 </div>
 
 <div class="container" style="display:none" id="not-winner-panel">
-    <div class="alert alert-warning" role="alert" data-translation="lose_msg">
+    <div class="alert alert-warning" role="alert" data-translate="lose_msg">
         Sorry you did not win.
     </div>
 </div>
 
 <div class="container" style="display:none" id="confirm-panel">
-    <h3 data-translation="win_msg">You are one of the winners!</h3>
-    <p data-translation="confirm_msg" class="lead">Please confirm here after you receive your prize.</p>
+    <h3 data-translate="win_msg">You are one of the winners!</h3>
+    <p data-translate="confirm_msg" class="lead">Please confirm here after you receive your prize.</p>
     <form>
         <div class="form-group">
             <input type="text" id="confirm-field" class="form-control" placeholder="Leave a confirmation message"/>
@@ -115,7 +115,7 @@
     <div class="main-contain main-div-button">
         <div class="main-button-div">
             <div class="main-button" style="background-color:#1976d2">
-                <p id="confirm-submit" data-translation="confirm" class="main-button-font" onclick="confirm()">Confirm</p>
+                <p id="confirm-submit" data-translate="confirm" class="main-button-font" onclick="confirm()">Confirm</p>
             </div>
         </div>
     </div>
@@ -123,13 +123,13 @@
 
 <div class="container" style="display:none" id="winners-panel">
     <hr/>
-    <h3 align="center" data-translation="winners">Winners</h3>
+    <h3 align="center" data-translate="winners">Winners</h3>
     <table class="table">
         <thead id="winners-panel-table-head">
             <tr>
-                <th scope="col" data-translation="name">Name</th>
-                <th scope="col" data-translation="comment">Comment</th>
-                <th scope="col" data-translation="contact" class="winner-contact d-none">Contact</th>
+                <th scope="col" data-translate="name">Name</th>
+                <th scope="col" data-translate="comment">Comment</th>
+                <th scope="col" data-translate="contact" class="winner-contact d-none">Contact</th>
             </tr>
         </thead>
         <tbody id="winners-panel-table">
@@ -139,12 +139,12 @@
 
 <div class="container" style="display:none" id="players-panel">
     <hr/>
-    <h3 align="center" data-translation="all_players">All players</h3>
+    <h3 align="center" data-translate="all_players">All players</h3>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col" data-translation="name">Name</th>
-                <th scope="col" data-translation="note">Note</th>
+                <th scope="col" data-translate="name">Name</th>
+                <th scope="col" data-translate="note">Note</th>
             </tr>
         </thead>
         <tbody id="players-panel-table">
@@ -156,10 +156,10 @@
   <div class="row">   
     <div class="col-1"></div>
             <div class="create-btn col-5">
-                 <button type="button" class="col-sm btn btn-dark"><a href="./create.html" data-translation="create_mine">Create my own!</a></button> 
+                 <button type="button" class="col-sm btn btn-dark"><a href="./create.html" data-translate="create_mine">Create my own!</a></button> 
             </div>
             <div class="share-btn col-5">
-                <button type="button" class="col-sm btn btn-dark" data-translation="share_play">Share the play!</button>
+                <button type="button" class="col-sm btn btn-dark" data-translate="share_play">Share the play!</button>
             </div>   
     <div class="col-1"></div>
 
