@@ -16,7 +16,7 @@ var ZhLanguage = {
     number_helper:"分享该奖品的人数",
     end_time:"抽奖项目截止时间",
     time_eg:"如 04/01/2019 3:14 PM",
-    create_drawing:"创建"
+    create_drawing:"创建",
 //play.html
     draw_title:"开奖！",
     end_at:"结束于",
