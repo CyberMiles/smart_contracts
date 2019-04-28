@@ -34,7 +34,7 @@ var ZhLanguage = {
     wechat:"微信",
     phone:"手机号",
     email:"邮箱",
-    enter:"进入",
+    enter:"参加",
     time_up:"时间到了",
     draw_msg:"任何人现在都可以开奖！",
     draw:"开奖",

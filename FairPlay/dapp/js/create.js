@@ -40,8 +40,12 @@ var initLanguage = function () {
     }
      $("[data-translate]").each(function(){
         var key = $(this).data('translate');
-        if(lgb[key]){
-            $(this).html(lgb[key]);
+       if(lgb[key]){
+            if(this.tagName.toLowerCase() == "input"){
+                $(this).attr("placeholder", lgb[key])
+            }else{
+                $(this).html(lgb[key]);
+            }
         }
     });
 }
