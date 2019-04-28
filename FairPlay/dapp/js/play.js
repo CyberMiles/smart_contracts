@@ -122,7 +122,7 @@ var getInfo = function () {
                                         var cc = contact.split(":");
                                         $('#contact-app-field').val(cc[0].trim());
                                         $('#contact-id-field').val(cc[1].trim());
-                                        $('#play-submit').text("Update");
+                                        $('#play-submit').text(lgb["update"]);
                                     }
                                 } else {
                                     // Show drawing form
