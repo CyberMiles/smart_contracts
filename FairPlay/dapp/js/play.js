@@ -113,7 +113,7 @@ var getInfo = function () {
                                     
                                     if (contact == null || contact == "") {
                                         // show empty play form
-                                        $('#play-submit').text("Enter");
+                                        $('#play-submit').text(lgb["enter"]);
                                     } else {
 
                                         // Show prefilled play form
