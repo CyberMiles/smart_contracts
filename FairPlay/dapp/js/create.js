@@ -47,10 +47,10 @@ var initLanguage = function () {
 }
 
 var create = function () {
-    tip.loading("Creating contract ... This could take a few minutes!");
+    tip.loading(lgb["creating"] || "Creating contract ... This could take a few minutes!");
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
-            tip.error("There is an error");
+            tip.error(lgb["error"] || "There is an error");
         } else {
             var userAddress = address.toString();
             var title = $('#title').val();
@@ -71,7 +71,7 @@ var create = function () {
                 if (e) {
                     console.log(e);
                     tip.close();
-                    tip.error("Failed to create contract");
+                    tip.error(lgb["fail_to_create"] || "Failed to create contract");
                 } else {
                     console.log(instance.address);
                     if (instance.address != undefined) {
@@ -92,7 +92,7 @@ var create = function () {
                                         }
                                     } else if (result != null && result.status == '0x0') {
                                         tip.close();
-                                        tip.error("Failed to create contract");
+                                        tip.error(lgb["fail_to_create"] || "Failed to create contract");
                                         clearInterval(checkTransactionTimer);
                                     }
                                 }
@@ -161,8 +161,7 @@ $('#img-form').ajaxForm({
         }
         
         $("#local-input").removeClass("d-none");
-        console.log("fail to upload");
-        tip.error("Fail to upload. Please check your size and extension.");
+        tip.error(lgb["fail_to_upload"] || "Fail to upload. Please check your size and extension.");
         return false;
     },
     success: function(data) {

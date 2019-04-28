@@ -17,7 +17,11 @@ var ZhLanguage = {
     end_time:"抽奖项目截止时间",
     time_eg:"如 04/01/2019 3:14 PM",
     create_drawing:"创建",
-//play.html
+    //create.js
+    creating:"正在创建合约...这可能要花费几分钟！",
+    fail_to_create:"创建合约失败",
+    fail_to_upload:"上传失败。请检查文件类型和大小",
+    //play.html
     draw_title:"开奖！",
     end_at:"结束于",
     enter_drawing:"参与抽奖",
@@ -51,7 +55,11 @@ var ZhLanguage = {
     generate_msg:"新的合约已经生成！正在生成二维码......",
     scan_msg:"在CMT钱包中扫描以下二维码，从而参与到抽奖中！",
     open_wallet:"或者直接在CMT钱包中打开如下网址："
-
-
+    //play.js
+    error: "错误。请再试一次！",
+    wait: "上链中 ...",
+    cancelled: "已经取消",
+    loading: "加载中 ...",
+    processing: "交易处理中 ..."
 
 }
