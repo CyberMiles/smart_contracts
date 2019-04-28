@@ -15,6 +15,7 @@ var MainFun = (function () {
 
         var _languageChoice = function () {
             var lang = EnLanguage;
+            var lang_setting = document.getElementsByTagName('html')[0];
             var language = '';
             if (navigator.appName == 'Netscape') {
                 language = navigator.language;
@@ -22,8 +23,12 @@ var MainFun = (function () {
                 language = navigator.browserLanguage;
             }
             if (language.indexOf('zh') > -1) {
-                document.write("<script type='text/javascript' src='./js/language/zh.js'></script>");
+                 lang_setting.setAttribute('lang', 'zh');
                 lang = ZhLanguage;
+            }
+            else if (language.indexOf('vi') > -1){ //Vietnam
+                lang_setting.setAttribute('lang', 'vi');
+                lang = ViLanguage;
             }
             return lang;
         }

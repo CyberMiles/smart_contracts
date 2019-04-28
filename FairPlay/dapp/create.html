@@ -14,32 +14,32 @@
     <link rel="stylesheet" href="css/iutoast.css">
     <link rel="stylesheet" href="css/create.css">
 
-    <title>Create a prize drawing</title>
+    <title data-translate="create_title">Create a prize drawing</title>
 </head>
 <body class="main-bg">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
 
 <div class="container" id="create-panel">
-    <h3>Create a new prize drawing</h3>
+    <h3 data-translate="create_a_new">Create a new prize drawing</h3>
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title" data-translate="title">Title</label>
             <input type="text" class="form-control" id="title">
-            <small id="titleHelp" class="form-text text-muted">Please provide a short title for your prize drawing.</small>
+            <small id="titleHelp" class="form-text text-muted" data-translate="title_helper">Please provide a short title for your prize drawing.</small>
         </div>
         <div class="form-group">
-            <label for="desc">Description</label>
+            <label for="desc" data-translate="desc">Description</label>
             <input type="text" class="form-control" id="desc">
-            <small id="descHelp" class="form-text text-muted">A longer description of the prize, and the purproses and procedures of this drawing.</small>
+            <small id="descHelp" class="form-text text-muted" data-translate="desc_helper">A longer description of the prize, and the purposes and procedures of this drawing.</small>
         </div>
         <!--img upload-->
         <div class="form-group">
             <div class="btn-group btn-group-toggle img-btns" data-toggle="buttons">
-              <label class="btn btn-outline-dark active" id="fromlocal" onclick="imgfrom(this);">
-                <input type="radio" name="img-options" id="option2" autocomplete="off"> Select from local
+              <label class="btn btn-outline-dark active" id="fromlocal" onclick="imgfrom(this);" data-translate="select_local">
+                <input type="radio" name="img-options" id="option2" autocomplete="off" > Select from local
               </label>
-              <label class="btn btn-outline-dark" id="fromurl" onclick="imgfrom(this);">
-                <input type="radio" name="img-options" id="option1" autocomplete="off" checked="">  Image URL
+              <label class="btn btn-outline-dark" id="fromurl" onclick="imgfrom(this);" data-translate="img_url">
+                <input type="radio" name="img-options" id="option1" autocomplete="off" checked="" >  Image URL
               </label>
             </div>
             <!--upload img from local-->
@@ -53,10 +53,10 @@
                     <label>
                      <input id="selected-img" class="file-upload-input" type="file" name="file" accept="image/*" onchange="uploadPic()"></label>
                     <div class="drag-text">
-                      <h3>Select your picture</h3>
+                      <h3 data-translate="select_pic">Select your picture</h3>
                     </div>
                    <div class="uploading-text d-none">
-                      <h3>Uploading......</h3>
+                      <h3 data-translate="uploading">Uploading......</h3>
                     </div>
                   </div>
                   <input type="submit" id="submit" value="Submit Comment" style="display: none" /> 
@@ -66,29 +66,29 @@
                       <span onclick="removeUpload()" class="remove-btn oi oi-x"></span>
                     </div>
                   </div>
-                   <small id="uploadimgHelp" class="form-text text-muted">Upload a feature image that illustrates prize. (Make sure that the extensions are one of them: jpg, jpeg, png, gif, PNG, JPG, JPEG, and the size is less than 2 MB.) </small>
+                   <small id="uploadimgHelp" class="form-text text-muted" data-translate="upload_helper">Upload a feature image that illustrates prize. (Make sure that the extensions are one of them: jpg, jpeg, png, gif, PNG, JPG, JPEG, and the size is less than 2 MB.) </small>
                   </fieldset>
                 </form>
             </div>
             <!--upload img from url-->
             <div id="url-input" class="d-none">
                 <input type="text" class="form-control" id="img" placeholder="http://">
-                <small id="imgHelp" class="form-text text-muted">The URL to a feature image that illustrates prize.</small>
+                <small id="imgHelp" class="form-text text-muted" data-translate="url_helper">The URL to a feature image that illustrates prize.</small>
             </div>
         </div>
         <div class="form-group">
-            <label for="num">Number of winners</label>
+            <label for="num" data-translate="n_of_winners">Number of winners</label>
             <input type="number" class="form-control" id="num">
-            <small id="numHelp" class="form-text text-muted">The number of winners to share the prize.</small>
+            <small id="numHelp" class="form-text text-muted" data-translate="number_helper">The number of winners to share the prize.</small>
         </div>
         <div class="form-group">
             <div class="col" style="padding-left:0">
-                <label for="cutoff">End time for the drawing</label>
+                <label for="cutoff" data-translate="end_time">End time for the drawing</label>
                 <input type="text" class="form-control datetimepicker-input" id="cutoff" data-toggle="datetimepicker" data-target="#cutoff">
-                <small id="cutoffHelp" class="form-text text-muted">E.g., 04/01/2019 3:14 PM</small>
+                <small id="cutoffHelp" class="form-text text-muted" data-translate="time_eg">E.g., 04/01/2019 3:14 PM</small>
             </div>
         </div>
-        <button type="button" onclick="create()" class="btn btn-primary btn-lg btn-block">Create drawing</button>
+        <button type="button" onclick="create()" class="btn btn-dark btn-lg btn-block" data-translate="create_drawing">Create drawing</button>
 </div>
 </body>
 

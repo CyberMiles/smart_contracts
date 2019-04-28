@@ -10,7 +10,7 @@ $(function () {
     // init the abi and bin
     getAbi();
     getBin();
-    // initLanguage();
+    initLanguage();
 
     $('.image-upload-wrap').bind('dragover', function () {
              $('.image-upload-wrap').addClass('image-dropping');
@@ -38,6 +38,12 @@ var initLanguage = function () {
     if (lgb == '' || lgb == null) {
         return;
     }
+     $("[data-translate]").each(function(){
+        var key = $(this).data('translate');
+        if(lgb[key]){
+            $(this).html(lgb[key]);
+        }
+    });
 }
 
 var create = function () {
