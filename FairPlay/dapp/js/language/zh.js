@@ -1,4 +1,5 @@
 var ZhLanguage = {
+   //create.html
     create_title: "创建一个抽奖项目",
     create_a_new: "创建一个新的抽奖项目",
     title: "标题",
@@ -16,4 +17,36 @@ var ZhLanguage = {
     end_time:"抽奖项目截止时间",
     time_eg:"如 04/01/2019 3:14 PM",
     create_drawing:"创建"
+//play.html
+    draw_title:"开奖！",
+    end_at:"结束于",
+    enter_drawing:"参与抽奖",
+    contact:"联系方式",
+    contact_msg:"如果您获奖我们怎么联系您？",
+    other:"其他",
+    telegram:"Telegram",
+    twitter:"Twitter",
+    facebook:"Facebook",
+    wechat:"微信",
+    phone:"手机号"，
+    email:"邮箱",
+    enter:"进入",
+    time_up:"时间到了",
+    draw_msg:"任何人现在都可以开奖！",
+    draw:"开奖",
+    event_end:"活动已经结束",
+    thank_msg:"感谢您确认收奖！",
+    lose_msg:"很遗憾，您没有赢",
+    win_msg:"你是赢家之一！",
+    confirm_msg:"请您收奖后在这里确认",
+    confirm: "确认",
+    winners:"胜利者",
+    comment:"评论",
+    all_players:"所有参与者",
+    name:"姓名",
+    note:"留言",
+    create_mine:"我也发起！",
+    share_play:"分享抽奖！"
+
+
 }

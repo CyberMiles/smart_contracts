@@ -163,7 +163,7 @@ var getInfo = function () {
                                             var html_old = $('#winners-panel-table').html();
                                             var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
                                             if (ownerAddress == userAddress) {
-                                                $("#winners-panel-table-head > tr").append("<th scope='col'>Contact</th>")
+                                                $(".winner-contact").removeClass("d-none");
                                                 if (rpi[5] == null) {
                                                     html_snippet = html_snippet + "</td><td>";
                                                 } else {
