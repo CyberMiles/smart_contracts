@@ -17,7 +17,7 @@ $(function () {
     // init the abi and bin
     getAbi();
     getBin();
-    // initLanguage();
+    initLanguage();
 
     var interval = setInterval(function () {
         if (abi.length > 0) {
@@ -27,12 +27,18 @@ $(function () {
     }, 50);
 });
 
-// init language
 var initLanguage = function () {
     if (lgb == '' || lgb == null) {
         return;
     }
+     $("[data-translate]").each(function(){
+        var key = $(this).data('translate');
+        if(lgb[key]){
+            $(this).html(lgb[key]);
+        }
+    });
 }
+
 
 var getInfo = function () {
     $('#info-panel').css("display", "none");
