@@ -54,7 +54,7 @@ var ZhLanguage = {
     share_title:"分析二维码",
     generate_msg:"新的合约已经生成！正在生成二维码......",
     scan_msg:"在CMT钱包中扫描以下二维码，从而参与到抽奖中！",
-    open_wallet:"或者直接在CMT钱包中打开如下网址："
+    open_wallet:"或者直接在CMT钱包中打开如下网址：",
     //play.js
     error: "错误。请再试一次！",
     wait: "上链中 ...",
