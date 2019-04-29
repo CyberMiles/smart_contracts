@@ -303,13 +303,18 @@ var play = function () {
             gasPrice: 0
         }, function (e, result) {
             if (e) {
-                console.log(e)
+                if(e.message.includes('User denied transaction signature.') ){
+                    $("#name-field").removeAttr("disabled");
+                    $("#contact-id-field").removeAttr("disabled");
+                    $("#contact-app-field").removeAttr("disabled");
+                    $("#mesg-field").removeAttr("disabled");
 
-                if (e.code == '-32603') {
-                    tip.error(lgb.cancelled);
-                    location.reload(true);
-                } else {
+                    $('#play-submit').text(lgb["confirm_update"]);
+                }
+                else {
                     tip.error(lgb.error);
+                    location.reload(true);
+
                 }
             } else {
                 tip.closeLoad();
@@ -334,12 +339,13 @@ var draw = function () {
     }, function (e, result) {
         if (e) {
                 console.log(e.code)
-
-            if (e.code == '-32603') {
+            if(e.message.includes('User denied transaction signature.') ){
                 tip.error(lgb.cancelled);
-                location.reload(true);
-            } else {
+
+            }
+            else {
                 tip.error(lgb.error);
+                location.reload(true);
             }
         } else {
             tip.closeLoad();
@@ -372,12 +378,13 @@ var confirm = function () {
             gasPrice: 0
         }, function (e, result) {
             if (e) {
-                console.log(e.code)
-                if (e.code == '-32603') {
-                    tip.error(lgb.cancelled);
-                    location.reload(true);
-                } else {
+                if(e.message.includes('User denied transaction signature.') ){
+                    $("#confirm-field").removeAttr("disabled");
+                    $('#confirm-submit').text(lgb["confirm_update"]);
+                }
+                else {
                     tip.error(lgb.error);
+                    location.reload(true);
                 }
             } else {
                 tip.closeLoad();
