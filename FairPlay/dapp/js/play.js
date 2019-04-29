@@ -157,6 +157,9 @@ var getInfo = function () {
                                             // Show confirm form
                                             $('#confirm-panel').css("display", "block");
                                         } else {
+                                            $("#confirm-field").attr("disabled", true);
+                                            $('#confirm-panel').css("display", "block");
+                                            $('#confirm-submit').text(lgb["update"]);
                                             $('#confirm-ended-panel').css("display", "block");
                                         }
                                     } else {
@@ -340,32 +343,38 @@ var draw = function () {
 }
 
 var confirm = function () {
-    var v = $("#confirm-field").val();
-    if (v == null || v == '') {
-        tip.error(lgb.error);
-        return;
-    }
-    $(".main-button").css("background-color", "#696969");
-    $('#confirm-submit').text(lgb.wait);
-    $('#confirm-submit').removeAttr('onclick');
-
-    instance.confirm(v, {
-        gas: '200000',
-        gasPrice: 0
-    }, function (e, result) {
-        if (e) {
-            if (e.code == '1001') {
-                tip.error(lgb.cancelled);
-            } else {
-                tip.error(lgb.error);
-            }
-        } else {
-            tip.closeLoad();
-                
-            setTimeout(function () {
-                location.reload(true);
-            }, 20 * 1000);
+    if ($("#confirm-field").is('[disabled=disabled]')){
+        $("#confirm-field").removeAttr("disabled");
+        $('#confirm-submit').text(lgb["confirm_update"]);
+    }else{
+        var v = $("#confirm-field").val();
+        if (v == null || v == '') {
+            tip.error(lgb.error);
+            return;
         }
-    });
+        $(".main-button").css("background-color", "#696969");
+        $('#confirm-submit').text(lgb.wait);
+        $('#confirm-submit').removeAttr('onclick');
+
+        instance.confirm(v, {
+            gas: '200000',
+            gasPrice: 0
+        }, function (e, result) {
+            if (e) {
+                if (e.code == '1001') {
+                    tip.error(lgb.cancelled);
+                } else {
+                    tip.error(lgb.error);
+                }
+            } else {
+                tip.closeLoad();
+                    
+                setTimeout(function () {
+                    location.reload(true);
+                }, 20 * 1000);
+            }
+        }); 
+    }
+  
 }
 
