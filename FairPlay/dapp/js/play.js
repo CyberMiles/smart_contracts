@@ -18,6 +18,7 @@ $(function () {
     getAbi();
     getBin();
     initLanguage();
+    refineSharebtn();
 
     var interval = setInterval(function () {
         if (abi.length > 0) {
@@ -43,6 +44,16 @@ var initLanguage = function () {
     });
 }
 
+var refineSharebtn = function(){
+    noDisplay = ['xing', 'print', 'vk'];
+    $(".share-play").click(function(){
+        $("[data-network]").each(function(){
+            if($(this).data("network")in noDisplay){
+                $(this).css("display","none")
+            }
+        })
+    })
+}
 
 var getInfo = function () {
     $('#info-panel').css("display", "none");
