@@ -303,13 +303,14 @@ var play = function () {
             gasPrice: 0
         }, function (e, result) {
             if (e) {
+                $("#drawing-creater").text(e.message);
                 if(e.message.includes('User denied transaction signature.') ){
                     tip.error(lgb.cancelled);
-                    location.reload(true);
+                    //location.reload(true);
                 }
                 else {
                     tip.error(lgb.error);
-                    location.reload(true);
+                    //location.reload(true);
 
                 }
             } else {
