@@ -19,7 +19,7 @@ var EnLanguage = {
     wait: "Please wait ...",
     loading: "Loading ...",
     cancelled: "Cancelled",
-    processing: "Processing..."
+    processing: "Processing...",
 
     update:"Update Info",
     confirm_update:"Confrim Update"
