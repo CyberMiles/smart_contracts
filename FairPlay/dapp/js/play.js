@@ -161,7 +161,7 @@ var getInfo = function () {
                                             $("#confirm-field").attr("disabled", true);
                                             $('#confirm-panel').css("display", "block");
                                             $('#confirm-submit').text(lgb["update"]);
-                                            $('#confirm-ended-panel').css("display", "block");
+                                            //$('#confirm-ended-panel').css("display", "block");
                                         }
                                     } else {
                                         $('#not-winner-panel').css("display", "block");

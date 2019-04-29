@@ -35,7 +35,7 @@
 </div>
 
 <div class="container" style="display:none" id="play-panel">
-    <h3 data-translate="enter_drawing">Enter the drawing</h3>
+    <h3 align="center" data-translate="enter_drawing">Enter the drawing</h3>
     <form>
         <div class="form-row">
             <input type="text" id="name-field" class="form-control" data-translate="ur_name" placeholder="Your name">
@@ -108,10 +108,11 @@
 
 <div class="container" style="display:none" id="confirm-panel">
     <h3 data-translate="win_msg">You are one of the winners!</h3>
-    <p data-translate="confirm_msg" class="lead">Please confirm here after you receive your prize.</p>
+    <!-- <p data-translate="confirm_msg" class="lead">Please confirm here after you receive your prize.</p> -->
     <form>
         <div class="form-group">
-            <input type="text" id="confirm-field" class="form-control" data-translate="leave_confirm_msg" placeholder="Leave a confirmation message"/>
+            <textarea id="confirm-field"  rows="2" class="form-control" data-translate="leave_confirm_msg" placeholder="Leave a confirmation message">
+            </textarea> 
         </div>
     </form>
     
