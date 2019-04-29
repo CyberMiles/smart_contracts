@@ -134,6 +134,12 @@ var getInfo = function () {
                                         var cc = contact.split(":");
                                         $('#contact-app-field').val(cc[0].trim());
                                         $('#contact-id-field').val(cc[1].trim());
+
+                                        $("#name-field").attr("disabled", true);
+                                        $("#contact-id-field").attr("disabled", true);
+                                        $("#contact-app-field").attr("disabled", true);
+                                        $("#mesg-field").attr("disabled", true);
+                                        
                                         $('#play-submit').text(lgb["update"]);
                                     }
                                 } else {
@@ -260,37 +266,52 @@ var getBin = function () {
 }
 
 var play = function () {
-    var contactApp = $("#contact-app-field").val();
-    var contactId = $("#contact-id-field").val();
-    var contact = contactApp + ": " + contactId;
-    var name = $("#name-field").val();
-    var mesg = $("#mesg-field").val();
-    if (contactId == null || contactId == '') {
-        tip.error(lgb.error);
-        return;
-    }
-    $(".main-button").css("background-color", "#696969");
-    $('#play-submit').text(lgb.wait);
-    $('#play-submit').removeAttr('onclick');
-
-    instance.play(name, contact, mesg, {
-        gas: '200000',
-        gasPrice: 0
-    }, function (e, result) {
-        if (e) {
-            if (e.code == '1001') {
-                tip.error(lgb.cancelled);
-            } else {
-                tip.error(lgb.error);
-            }
-        } else {
-            tip.closeLoad();
-                
-            setTimeout(function () {
-                location.reload(true);
-            }, 20 * 1000);
+    if( $("#name-field").hasAttribute("disabled")){//update
+        $("#name-field").removeAttr("disabled");
+        $("#contact-id-field").removeAttr("disabled");
+        $("#contact-app-field").removeAttr("disabled");
+        $("#mesg-field").removeAttr("disabled");
+        
+        $('#play-submit').text(lgb["confirm_update"]),
+    }else{
+        var contactApp = $("#contact-app-field").val();
+        var contactId = $("#contact-id-field").val();
+        var contact = contactApp + ": " + contactId;
+        var name = $("#name-field").val();
+        var mesg = $("#mesg-field").val();
+        if (contactId == null || contactId == '') {
+            tip.error(lgb.error);
+            return;
         }
-    });
+        $(".main-button").css("background-color", "#696969");
+        $('#play-submit').text(lgb.wait);
+        $('#play-submit').removeAttr('onclick');
+
+        $("#name-field").attr("disabled", true);
+        $("#contact-id-field").attr("disabled", true);
+        $("#contact-app-field").attr("disabled", true);
+        $("#mesg-field").attr("disabled", true);
+
+        instance.play(name, contact, mesg, {
+            gas: '200000',
+            gasPrice: 0
+        }, function (e, result) {
+            if (e) {
+                if (e.code == '1001') {
+                    tip.error(lgb.cancelled);
+                } else {
+                    tip.error(lgb.error);
+                }
+            } else {
+                tip.closeLoad();
+                    
+                setTimeout(function () {
+                    location.reload(true);
+                }, 20 * 1000);
+            }
+        });
+    }
+    
 }
 
 var draw = function () {

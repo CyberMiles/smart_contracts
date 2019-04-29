@@ -36,6 +36,7 @@ var ZhLanguage = {
     email:"邮箱",
     enter:"参加",
     update:"更新信息",
+    confirm_update:"确认更新",
     time_up:"时间到了",
     draw_msg:"现在任何人都可以开奖！",
     draw:"开奖",
