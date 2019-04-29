@@ -303,8 +303,8 @@ var play = function () {
             gasPrice: 0
         }, function (e, result) {
             if (e) {
-                console.log(e.code)
-                
+                console.log(e)
+
                 if (e.code == '-32603') {
                     tip.error(lgb.cancelled);
                     location.reload(true);
