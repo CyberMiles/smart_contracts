@@ -157,6 +157,7 @@ var getInfo = function () {
                                             // Show confirm form
                                             $('#confirm-panel').css("display", "block");
                                         } else {
+                                            $("#confirm-field").val(confirm_mesg);
                                             $("#confirm-field").attr("disabled", true);
                                             $('#confirm-panel').css("display", "block");
                                             $('#confirm-submit').text(lgb["update"]);

@@ -60,6 +60,7 @@ var ZhLanguage = {
     ur_name:"您的名字",
     ur_addr:"您的联系方式",
     leave_msg:"说些什么吧...",
+    leave_confirm_msg:"获奖了，说些什么吧...",
     creater:"发起人",
     //play.js
     error: "错误。请再试一次！",
