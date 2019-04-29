@@ -266,13 +266,13 @@ var getBin = function () {
 }
 
 var play = function () {
-    if( $("#name-field").hasAttribute("disabled")){//update
+    if( $("#name-field").hasAttribute("disabled") ){//update
         $("#name-field").removeAttr("disabled");
         $("#contact-id-field").removeAttr("disabled");
         $("#contact-app-field").removeAttr("disabled");
         $("#mesg-field").removeAttr("disabled");
-        
-        $('#play-submit').text(lgb["confirm_update"]),
+
+        $('#play-submit').text(lgb["confirm_update"]);
     }else{
         var contactApp = $("#contact-app-field").val();
         var contactId = $("#contact-id-field").val();
