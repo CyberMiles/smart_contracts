@@ -57,7 +57,8 @@ var ZhLanguage = {
     open_wallet:"或者直接在CMT Wallet中打开如下网址：",
     ur_name:"您的名字",
     ur_addr:"您的联系方式",
-    leave_msg:"中奖了，说些什么吧...",
+    leave_msg:"说些什么吧...",
+    creater:"发起人",
     //play.js
     error: "错误。请再试一次！",
     wait: "上链中 ...",

@@ -35,7 +35,7 @@ var initLanguage = function () {
      $("[data-translate]").each(function(){
         var key = $(this).data('translate');
         if(lgb[key]){
-            if(this.tagName.toLowerCase() == "input"){
+            if(this.tagName.toLowerCase() == "input" || this.tagName.toLowerCase() == "textarea"){
                 $(this).attr("placeholder", lgb[key])
             }else{
                 $(this).html(lgb[key]);
@@ -97,6 +97,7 @@ var getInfo = function () {
                     $('#number-of-winners-div').text(number_of_winners);
                     var cutoff_ts = r[5];
                     $('#cutoff-ts-div').text((new Date(cutoff_ts * 1000)).toLocaleString());
+                    $('#drawing-creater').text(ownerAddress);
                     
                     // Show the info panel
                     $('#info-panel').css("display", "block");
