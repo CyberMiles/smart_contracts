@@ -87,7 +87,11 @@ var AppLink = (function () {
 //                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isQQ) {
                     // tip.error(shareLinkMsg, 120 * 1000);
-                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
+                    var ajax = new XMLHttpRequest();
+                    ajax.open("GET", "android_wechat.html", false);
+                    ajax.send();
+                    document.getElementsByTagName('body')[0].innerHTML = ajax.responseText;
+                    //document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isIOS) {
                     // 没有下载
                     _go(config.localApp);
