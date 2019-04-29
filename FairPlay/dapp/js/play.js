@@ -278,6 +278,8 @@ var play = function () {
 
         $('#play-submit').text(lgb["confirm_update"]);
     }else{
+        $("#mesg-field").removeAttr("disabled");
+
         var contactApp = $("#contact-app-field").val();
         var contactId = $("#contact-id-field").val();
         var contact = contactApp + ": " + contactId;
@@ -348,6 +350,8 @@ var confirm = function () {
         $("#confirm-field").removeAttr("disabled");
         $('#confirm-submit').text(lgb["confirm_update"]);
     }else{
+        $("#confirm-field").attr("disabled", true);
+
         var v = $("#confirm-field").val();
         if (v == null || v == '') {
             tip.error(lgb.error);
