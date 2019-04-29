@@ -79,7 +79,7 @@ var AppLink = (function () {
                 if (browser.isWx) {
                     // tip.error(shareLinkMsg, 120 * 1000);
                     var ajax = new XMLHttpRequest();
-                    ajax.open("GET", "android_wechat.htm", false);
+                    ajax.open("GET", "android_wechat.html", false);
                     ajax.send();
                     document.getElementsByTagName('body')[0].innerHTML = ajax.responseText;
                 
