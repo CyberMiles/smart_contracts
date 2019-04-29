@@ -304,12 +304,8 @@ var play = function () {
         }, function (e, result) {
             if (e) {
                 if(e.message.includes('User denied transaction signature.') ){
-                    $("#name-field").removeAttr("disabled");
-                    $("#contact-id-field").removeAttr("disabled");
-                    $("#contact-app-field").removeAttr("disabled");
-                    $("#mesg-field").removeAttr("disabled");
-
-                    $('#play-submit').text(lgb["confirm_update"]);
+                    tip.error(lgb.cancelled);
+                    location.reload(true);
                 }
                 else {
                     tip.error(lgb.error);
@@ -340,7 +336,8 @@ var draw = function () {
         if (e) {
                 console.log(e.code)
             if(e.message.includes('User denied transaction signature.') ){
-                tip.error(lgb.cancelled);
+               tip.error(lgb.cancelled);
+                location.reload(true);
 
             }
             else {
@@ -379,8 +376,8 @@ var confirm = function () {
         }, function (e, result) {
             if (e) {
                 if(e.message.includes('User denied transaction signature.') ){
-                    $("#confirm-field").removeAttr("disabled");
-                    $('#confirm-submit').text(lgb["confirm_update"]);
+                    tip.error(lgb.cancelled);
+                    location.reload(true);
                 }
                 else {
                     tip.error(lgb.error);
