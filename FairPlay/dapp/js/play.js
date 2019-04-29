@@ -266,7 +266,7 @@ var getBin = function () {
 }
 
 var play = function () {
-    if( $("#name-field").hasAttribute("disabled") ){//update
+    if( $("#name-field").is('[disabled=disabled]') ){//update
         $("#name-field").removeAttr("disabled");
         $("#contact-id-field").removeAttr("disabled");
         $("#contact-app-field").removeAttr("disabled");
