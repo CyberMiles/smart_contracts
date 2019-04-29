@@ -31,7 +31,6 @@ $(function () {
                 clear: 'far fa-trash',
                 close: 'far fa-times'
             },
-        });
     });
 });
 
