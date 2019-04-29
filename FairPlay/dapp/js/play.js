@@ -303,7 +303,7 @@ var play = function () {
             gasPrice: 0
         }, function (e, result) {
             if (e) {
-                if (e.code == '32603') {
+                if (e.code == '-32603') {
                     tip.error(lgb.cancelled);
                     location.reload(true);
                 } else {
@@ -331,7 +331,7 @@ var draw = function () {
         gasPrice: 2000000000
     }, function (e, result) {
         if (e) {
-            if (e.code == '32603') {
+            if (e.code == '-32603') {
                 tip.error(lgb.cancelled);
                 location.reload(true);
             } else {
@@ -368,7 +368,7 @@ var confirm = function () {
             gasPrice: 0
         }, function (e, result) {
             if (e) {
-                if (e.code == '32603') {
+                if (e.code == '-32603') {
                     tip.error(lgb.cancelled);
                     location.reload(true);
                 } else {
