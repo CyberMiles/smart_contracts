@@ -52,6 +52,7 @@ var bindShowShare = function(){
     //noDisplay = ['xing', 'print', 'vk'];
     $(".share-btn").click(function(){
        $(".share-panel").removeClass("d-none");  
+       $("#share-link").text(window.location.href);
     })
 }
 
