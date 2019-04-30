@@ -18,8 +18,8 @@ $(function () {
     getAbi();
     getBin();
     initLanguage();
-    refineSharebtn();
-
+    bindShowShare();
+      
     var interval = setInterval(function () {
         if (abi.length > 0) {
             window.onload = getInfo();
@@ -44,14 +44,14 @@ var initLanguage = function () {
     });
 }
 
-var refineSharebtn = function(){
-    noDisplay = ['xing', 'print', 'vk'];
-    $(".share-play").click(function(){
-        $("[data-network]").each(function(){
-            if($(this).data("network")in noDisplay){
-                $(this).css("display","none")
-            }
-        })
+function hideShare(){
+     $(".share-panel").addClass("d-none");
+}
+
+var bindShowShare = function(){
+    //noDisplay = ['xing', 'print', 'vk'];
+    $(".share-btn").click(function(){
+       $(".share-panel").removeClass("d-none");  
     })
 }
 

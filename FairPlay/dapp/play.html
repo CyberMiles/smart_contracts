@@ -163,13 +163,22 @@
                  <button type="button" class="col-sm btn btn-dark"><a href="./create.html" data-translate="create_mine">Create my own!</a></button> 
             </div>
             <div class="share-btn col-5">
-                <div data-network="sharethis" class="share-play col-sm btn btn-outline-dark st-custom-button" data-translate="share_play">Share the play!</div> 
+               <!--  <div data-network="sharethis" class="share-play col-sm btn btn-outline-dark st-custom-button" data-translate="share_play">Share the play!</div>  -->
             </div>   
 
     <div class="col-1"></div>
 
     </div>
 </div>
+
+ <div class="share-panel d-none">
+        <span onclick="hideShare()" class="remove-btn oi oi-x"></span>
+        <div data-network="twitter" class="st-custom-button">Twitter</div>
+        <div data-network="facebook" class="st-custom-button">Facebook</div> 
+        <div data-network="linkedin" class="st-custom-button">LinkedIn</div> 
+        <div data-network="email" class="st-custom-button">Email</div> 
+ </div>
+
 </body>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
