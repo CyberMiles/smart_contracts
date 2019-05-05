@@ -49,11 +49,12 @@ function hideShare(){
 }
 
 var bindShowShare = function(){
-    //noDisplay = ['xing', 'print', 'vk'];
-    $(".share-btn").click(function(){
-       $(".share-panel").removeClass("d-none");  
-       $("#share-link").text(window.location.href);
-    })
+    //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
+    $(".share-btn > button > a").attr("href", "./qrcode.html?code=" + contract_address)
+    // $(".share-btn").click(function(){
+    //    $(".share-panel").removeClass("d-none");  
+    //    $("#share-link").text(window.location.href);
+    // })
 }
 
 var getInfo = function () {
