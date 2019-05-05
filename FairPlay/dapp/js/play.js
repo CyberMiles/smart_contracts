@@ -19,7 +19,8 @@ $(function () {
     getBin();
     initLanguage();
     bindShowShare();
-      
+    
+
     var interval = setInterval(function () {
         if (abi.length > 0) {
             window.onload = getInfo();
@@ -50,11 +51,19 @@ function hideShare(){
 
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
-    //$(".share-btn > button > a").attr("href", "./qrcode.html?code=" + contract_address)
+    $("iframe").attr("href", "./share.html?code=" + contract_address)
     $(".share-btn").click(function(){
        $(".share-panel").removeClass("d-none");  
        $("#share-link").text(window.location.href);
     })
+
+    var fixed = $(".share-panel")[0];
+
+    fixed.addEventListener('touchmove', function(e) {
+
+            e.preventDefault();
+
+    }, false);
 }
 
 var getInfo = function () {
