@@ -22,7 +22,7 @@
     
 </style>
 <body class="main-bg">
-        <div id="qrcode"></div>
+        <a id="downlink" download="sharedrawing.png" href=""><div id="qrcode"></div></a>
 </body>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -46,7 +46,6 @@ $.ajaxPrefilter( function (options) {
 
 $(function () {
 
-    $("#qr-panel").css("display", "none")
     var link = "https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract=" + getUrlParameter("code");
     
     //generate the short link for the current link
@@ -71,6 +70,8 @@ $(function () {
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
+            downhref = document.getElementsByTagName('img')[0].attributes['src'];
+            document.getElementById("downhref").attributes['href'] = downhref;
         }, 1);
 
     })
