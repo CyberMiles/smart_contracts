@@ -1,2 +1,45 @@
-<div style="text-align: center; padding: 10px;" ><strong>1.</strong> 点击右上角菜单</div>
-<div style="text-align: center; padding: 10px;"><strong>2.</strong> 选择<strong>在浏览器中打开</strong></div>
+<div id="zh">
+<div style="text-align: center; padding: 10px;"  ><strong >1.</strong> 点击右上角菜单</div>
+<div style="text-align: center; padding: 10px;" ><strong>2.</strong> 选择<strong>在浏览器中打开</strong></div>
+</div>
+
+<div id="en">
+<div style="text-align: center; padding: 10px;"  ><strong>1.</strong> Click the menu button at the right top corner.</div>
+<div style="text-align: center; padding: 10px;"><strong>2.</strong> Select <strong>open in browser</strong>.</div>
+</div>
+
+<script>
+	document.getElementById('zh').style.display = "none";
+	document.getElementById('en').style.display = "none";
+
+	var _languageChoice = function () {
+            var lang = 'en';
+            var lang_setting = document.getElementsByTagName('html')[0];
+            var language = '';
+            if (navigator.appName == 'Netscape') {
+                language = navigator.language;
+            } else {
+                language = navigator.browserLanguage;
+            }
+            if (language.indexOf('zh') > -1) {
+                 lang_setting.setAttribute('lang', 'zh');
+                lang = 'zh';
+            }
+            else if (language.indexOf('vi') > -1){ //Vietnam
+                lang_setting.setAttribute('lang', 'vi');
+                lang = 'vi';
+            }
+            return lang;
+        }
+
+    
+
+	lgb = _languageChoice();
+	
+	if(lgb == "zh"){
+		document.getElementById('zh').style.display = "block";
+	}else{
+		document.getElementById('en').style.display = "block";
+	}
+
+</script>
