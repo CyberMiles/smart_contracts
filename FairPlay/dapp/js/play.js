@@ -12,6 +12,7 @@ var contract = '';
 var instance = '';  // contract instance
 
 $(function () {
+    window.lgb = lgb;
     webBrowser.openBrowser();
     tip.loading(lgb["loading"] || "Loading ...");
     // init the abi and bin

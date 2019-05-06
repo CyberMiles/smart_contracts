@@ -78,11 +78,20 @@ var AppLink = (function () {
                 // 微信、QQ 直接跳 钱包下载页面
                 if (browser.isWx) {
                     // tip.error(shareLinkMsg, 120 * 1000);
-                    var ajax = new XMLHttpRequest();
-                    ajax.open("GET", "android_wechat.html", false);
-                    ajax.send();
-                    document.getElementsByTagName('body')[0].innerHTML = ajax.responseText;
-                
+                    if(window.lgb == "zh"){
+                        var ajax = new XMLHttpRequest();
+                        ajax.open("GET", "android_wechat_zh.html", false);
+                        ajax.send();
+                        document.getElementsByTagName('body')[0].innerHTML = ajax.responseText;
+
+                    }else{
+                        var ajax = new XMLHttpRequest();
+                        ajax.open("GET", "android_wechat_en.html", false);
+                        ajax.send();
+                        document.getElementsByTagName('body')[0].innerHTML = ajax.responseText;
+                    }
+                    
+                    
                     
 //                    document.getElementsByTagName('body')[0].innerHTML = '<div class="main-contain"><h1>1. 点击右上角</h1><br/><br/><h1>2. 选择在浏览器里打开</h1></div>'; 
                 } else if (browser.isQQ) {
