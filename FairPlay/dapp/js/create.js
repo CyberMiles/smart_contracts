@@ -6,6 +6,7 @@ var abi = '';
 var bin = '';
 
 $(function () {
+    window.lgb = lgb;
     webBrowser.openBrowser();
     // init the abi and bin
     getAbi();
