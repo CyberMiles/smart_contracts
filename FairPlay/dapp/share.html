@@ -61,18 +61,27 @@ $(function () {
         shortLink = res['url']['shortLink'];
         $("#direct-link").html(link);
         $("#direct-link").attr('href', link);
-        setTimeout(function () {
-            new QRCode(document.getElementById("qrcode"), {
-                text: shortLink,
-                width: 160,
-                height: 160,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
-            downhref = document.getElementsByTagName('img')[0].attributes['src'];
-            document.getElementById("downlink").attributes['href'] = downhref;
-        }, 1);
+        const makecode = async() => 
+        {
+            setTimeout(function () {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: shortLink,
+                    width: 160,
+                    height: 160,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+               
+            }, 1);
+        }
+        makecode().then(()=>{
+            setTimeout(function(){
+                downhref = document.getElementsByTagName('img')[0].getAttribute('src');
+                document.getElementById("downlink").href = downhref;
+            }, 3)
+            
+        })
 
     })
   
