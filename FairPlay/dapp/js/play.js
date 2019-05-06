@@ -51,7 +51,7 @@ function hideShare(){
 
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
-    $("iframe").attr("href", "./share.html?code=" + contract_address)
+    $("iframe").attr("src", "./share.html?code=" + contract_address)
     $(".share-btn").click(function(){
        $(".share-panel").removeClass("d-none");  
        $("#share-link").text(window.location.href);
