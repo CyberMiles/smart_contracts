@@ -55,7 +55,7 @@ var bindShowShare = function(){
     $("iframe").attr("src", "./share.html?code=" + contract_address)
     $(".share-btn").click(function(){
        $(".share-panel").removeClass("d-none");  
-       $("#share-link").text("https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?code="+contract_address);
+       $("#share-link").text("https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract="+contract_address);
     })
 
     var fixed = $(".share-panel")[0];
