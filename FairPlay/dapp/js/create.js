@@ -61,6 +61,9 @@ var create = function () {
             var userAddress = address.toString();
             var title = $('#title').val();
             var desc = $('#desc').val();
+            desc = "{\"desc\":\"" + desc + "\"}";
+            //desc = "{\"desc\":\"" + desc + "\",\"shopping\":[\""+ var1 +"\":\""+ link1 +"\"]}";
+
             var image_url = $('#img').val();
             var num_of_winners = $('#num').val();
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();

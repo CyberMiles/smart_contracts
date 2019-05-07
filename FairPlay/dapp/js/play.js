@@ -101,9 +101,15 @@ var getInfo = function () {
                     tip.error(lgb.error);
                     return;
                 } else {
+                    try{
+                        desc = JSON.parse(r[2])["desc"];
+                    }catch(e){
+                        desc = r[2];
+                    }
+                    //foreach i in desc["shopping"]
                     var status = r[0];
                     $('#title-div').text(r[1]);
-                    $('#desc-div').text(r[2]);
+                    $('#desc-div').text(desc);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
                     $('#number-of-winners-div').text(number_of_winners);
