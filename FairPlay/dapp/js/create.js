@@ -56,6 +56,7 @@ var initLanguage = function () {
 }
 
 var initLinkTb = function(){
+    var $TABLE = $('#table');
     $('.table-add').click(function () {
     var $clone = $TABLE.find('tr.d-none').clone(true).removeClass('d-none table-line');
     $TABLE.find('table').append($clone);
