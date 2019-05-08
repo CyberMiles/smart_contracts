@@ -20,20 +20,22 @@ $(function () {
     $('.image-upload-wrap').bind('dragleave', function () {
              $('.image-upload-wrap').removeClass('image-dropping');
     });
-    $('#cutoff').datetimepicker({
-            minDate: moment().add(1, 'm'),
-            icons: {
-                time: 'far fa-clock',
-                date: 'far fa-calendar',
-                up: 'fas fa-arrow-up',
-                down: 'fas fa-arrow-down',
-                previous: 'fas fa-chevron-left',
-                next: 'fas fa-chevron-right',
-                today: 'far fa-calendar-check-o',
-                clear: 'far fa-trash',
-                close: 'far fa-times'
-            },
-    });
+    // Data Picker Initialization
+    $('#cutoff').pickadate();
+    // $('#cutoff').datetimepicker({
+    //         minDate: moment().add(1, 'm'),
+    //         icons: {
+    //             time: 'far fa-clock',
+    //             date: 'far fa-calendar',
+    //             up: 'fas fa-arrow-up',
+    //             down: 'fas fa-arrow-down',
+    //             previous: 'fas fa-chevron-left',
+    //             next: 'fas fa-chevron-right',
+    //             today: 'far fa-calendar-check-o',
+    //             clear: 'far fa-trash',
+    //             close: 'far fa-times'
+    //         },
+    // });
 });
 
 // init language
@@ -198,9 +200,13 @@ function imgfrom(imgsource){
     if(imgsource.id == "fromurl"){
         $("#url-input").removeClass("d-none");
         $("#local-input").addClass("d-none");
+        $("#fromurl").addClass("btn-outline-dark");
+        $("#fromlocal").removeClass("btn-outline-dark");
     }else if(imgsource.id == "fromlocal"){
         $("#url-input").addClass("d-none");
         $("#local-input").removeClass("d-none");
+        $("#fromurl").removeClass("btn-outline-dark");
+        $("#fromlocal").addClass("btn-outline-dark");
     }
 }
 
