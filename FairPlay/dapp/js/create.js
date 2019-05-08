@@ -12,7 +12,7 @@ $(function () {
     getAbi();
     getBin();
     initLanguage();
-   // initLinkTb();
+    initLinkTb();
 
     $('.image-upload-wrap').bind('dragover', function () {
              $('.image-upload-wrap').addClass('image-dropping');
