@@ -115,16 +115,16 @@ var create = function () {
             //          - [123](http1)
             //          - [111333](dd1)
             //          - [2334555](dfd)`
-            desc_md = "#### Description\n\n" 
+            desc_md = "##### Description\n\n" 
             desc_md += desc + "\n\n"
             if (shopping_site.length > 1){
-                desc_md += "#### Shopping Link\n\n"
+                desc_md += "##### Shopping Link\n\n"
                 var i;
                 for(i = 1; i < shopping_site.length; i++){
-                     desc_md += "- ["+shopping_site[i]+"]("+ shopping_site[i] +")\n"
+                     desc_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
                 }
             }
-            
+            console.log(desc_md)
             // desc = "{\"desc\":\"" + desc + "\"}";
             //desc = "{\"desc\":\"" + desc + "\",\"shopping\":[\""+ var1 +"\":\""+ link1 +"\"]}";
 
