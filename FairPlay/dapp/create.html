@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
 
     <!-- Bootstrap CSS -->
-<!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">    -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -85,7 +85,7 @@
         <!--img upload-->
         <div class="form-group">
             <div class="btn-group btn-group-toggle img-btns" data-toggle="buttons">
-              <label class="btn active" id="fromlocal" onclick="imgfrom(this);" data-translate="select_local">
+              <label class="btn btn-outline-dark active" id="fromlocal" onclick="imgfrom(this);" data-translate="select_local">
                 <input type="radio" name="img-options" id="option2" autocomplete="off" > Select from local
               </label>
               <label class="btn" id="fromurl" onclick="imgfrom(this);" data-translate="img_url">
@@ -136,8 +136,8 @@
 
             <div class="col" style="padding-left:0">
                 <label for="cutoff" data-translate="end_time">End time for the drawing</label>
-                <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
-                <!-- <input type="text" class="form-control datetimepicker-input" id="cutoff" data-toggle="datetimepicker" data-target="#cutoff"> -->
+                <!-- <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker"> -->
+                <input type="text" class="form-control datetimepicker-input" id="cutoff" data-toggle="datetimepicker" data-target="#cutoff">
                 <label for="date-picker-example" data-translate="time_eg">E.g., 04/01/2019 3:14 PM</label>
                 
                 <!-- <small id="cutoffHelp" class="form-text text-muted" ></small> -->
