@@ -793,4 +793,8 @@ contract Decentralized5miles {
     function productHasComments(string memory productId) public view returns (bool) {
         return bytes(productComments[productId]).length != 0;
     }
+    
+    function kill() public onlyOwner {
+        selfdestruct(owner);
+    }
 }
