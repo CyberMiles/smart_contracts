@@ -87,7 +87,46 @@ var create = function () {
             var userAddress = address.toString();
             var title = $('#title').val();
             var desc = $('#desc').val();
-            desc = "{\"desc\":\"" + desc + "\"}";
+
+            //get content from file
+            i = 1;
+
+            shopping_site = [];
+            shopping_link = [];
+            $('#table').each(function(){
+                $(this).find('td').each(function(){
+                    td_content = $(this).text()
+                    if(i%3 == 1 ){
+                        shopping_site.push(td_content)
+                    }else if(i%3 == 2){
+                        shopping_link.push(td_content)
+                    }else if(i%3 == 0){
+
+                    }
+                    i++;
+                })
+            })
+
+            //make the md of desc
+            //   `    #Description
+            //          ddddfdfdf fdf dfdf
+            //      
+            //        #Shopping Link
+            //          - [123](http1)
+            //          - [111333](dd1)
+            //          - [2334555](dfd)`
+            desc_md = "# Description\n" 
+            desc_md += desc + "\n\n"
+            if (shopping_site.length > 1){
+                desc_md += "# Shopping Link\n"
+                var i;
+                for(i = 1; i < shopping_site.length; i++){
+                     desc_md += "    - ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
+                }
+                console.log(desc_md)
+            }
+            
+            // desc = "{\"desc\":\"" + desc + "\"}";
             //desc = "{\"desc\":\"" + desc + "\",\"shopping\":[\""+ var1 +"\":\""+ link1 +"\"]}";
 
             var image_url = $('#img').val();
@@ -95,9 +134,9 @@ var create = function () {
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();
             
             var contract = web3.cmt.contract(abi);
-            var data = '0x' + contract.new.getData(title, desc, image_url, num_of_winners, cutoff_ts, {data: bin.object});
+            var data = '0x' + contract.new.getData(title, desc_md, image_url, num_of_winners, cutoff_ts, {data: bin.object});
 
-            contract.new([title, desc, image_url, num_of_winners, cutoff_ts], {
+            contract.new([title, desc_md, image_url, num_of_winners, cutoff_ts], {
                 from: userAddress.toString(),
                 data: data,
                 gas: '9999000',

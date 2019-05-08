@@ -101,15 +101,14 @@ var getInfo = function () {
                     tip.error(lgb.error);
                     return;
                 } else {
-                    try{
-                        desc = JSON.parse(r[2])["desc"];
-                    }catch(e){
-                        desc = r[2];
-                    }
+                    desc_md = r[2]
+                    var converter = new showdown.Converter(),
+                    desc_html = converter.makeHtml(desc_md);
+
                     //foreach i in desc["shopping"]
                     var status = r[0];
                     $('#title-div').text(r[1]);
-                    $('#desc-div').text(desc);
+                    $('#desc-div').text(desc_html);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
                     $('#number-of-winners-div').text(number_of_winners);
