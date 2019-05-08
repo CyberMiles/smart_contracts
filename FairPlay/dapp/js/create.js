@@ -21,7 +21,7 @@ $(function () {
              $('.image-upload-wrap').removeClass('image-dropping');
     });
     // Data Picker Initialization
-    $('#cutoff').pickadate();
+    $('.datepicker').pickadate();
     // $('#cutoff').datetimepicker({
     //         minDate: moment().add(1, 'm'),
     //         icons: {
