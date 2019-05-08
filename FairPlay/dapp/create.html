@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/iutoast.css">
     <link rel="stylesheet" href="css/create.css">
@@ -42,6 +46,37 @@
             <label for="desc" data-translate="desc">Description</label>
             <input type="text" class="form-control" id="desc">
             <small id="descHelp" class="form-text text-muted" data-translate="desc_helper">A longer description of the prize, and the purposes and procedures of this drawing.</small>
+        </div>
+        <div id="table" class="table-editable">
+          <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x"
+                aria-hidden="true"></i></a></span>
+          <table class="table table-bordered table-responsive-md table-striped text-center">
+            <tr>
+              <th class="text-center">Shopping Site</th>
+              <th class="text-center">Shopping Link</th>
+              <th class="text-center"></th>
+              
+            </tr>
+        
+            <!-- This is our clonable table line -->
+            <tr>
+              <td class="pt-3-half" placeholder="OpenBay/Amazon/..." contenteditable="true"></td>
+              <td class="pt-3-half" placeholder="https://..." contenteditable="true"></td>
+
+              <td>
+                <span class="table-remove"><i class="fas fa-times"></i></span>
+              </td>
+            </tr>
+     
+            <!-- This is our clonable table line -->
+            <tr class="d-none">
+              <td class="pt-3-half" contenteditable="true" placeholder="OpenBay/Amazon/..."></td>
+              <td class="pt-3-half" contenteditable="true" placeholder="https://..."></td>
+              <td>
+                <span class="table-remove"><i class="fas fa-times fa"></i></span>
+              </td>
+            </tr>
+          </table>
         </div>
         <!--img upload-->
         <div class="form-group">
@@ -102,13 +137,20 @@
         <button type="button" onclick="create()" class="btn btn-dark btn-lg btn-block" data-translate="create_drawing">Create drawing</button>
 </div>
 </body>
-
-<script
+  <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  
+<!-- <script
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> -->
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
