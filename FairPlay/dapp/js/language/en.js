@@ -17,6 +17,7 @@ var EnLanguage = {
     end_time:"End time for the drawing",
     time_eg:"E.g., 04/01/2019 3:14 PM",
     create_drawing:"Create drawing",
+    shopping_platform: "Shopping Platform",
     //create.js
     creating:"Creating contract ... This could take a few minutes!",
     fail_to_create:"Failed to create contract",

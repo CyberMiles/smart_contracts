@@ -117,14 +117,20 @@ var create = function () {
             //          - [2334555](dfd)`
             desc_md = "##### "+lgb["desc"]+"\n\n" 
             desc_md += desc + "\n\n"
-            if (shopping_site.length > 1){
-                desc_md += "##### "+lgb["shopping_url"]+"\n\n"
-                var i;
-                for(i = 0; i < shopping_site.length; i++){
-                    if(shopping_site[i] !== "" && shopping_link[i] !== ""){
-                        desc_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
-                    }
+
+            desc_md += "##### "+lgb["shopping_url"]+"\n\n"
+            
+            shopping_md = ""
+            var i;
+            for(i = 0; i < shopping_site.length; i++){
+                if(shopping_site[i] !== "" && shopping_link[i] !== ""){
+                    shopping_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
                 }
+            }
+            
+            if(shopping_md !== ""){
+                desc_md += "##### "+lgb["shopping_url"]+"\n\n";
+                desc_md += shopping_md;
             }
             console.log(desc_md)
             // desc = "{\"desc\":\"" + desc + "\"}";
