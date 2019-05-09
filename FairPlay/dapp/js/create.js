@@ -118,8 +118,6 @@ var create = function () {
             desc_md = "##### "+lgb["desc"]+"\n\n" 
             desc_md += desc + "\n\n"
 
-            desc_md += "##### "+lgb["shopping_url"]+"\n\n"
-            
             shopping_md = ""
             var i;
             for(i = 0; i < shopping_site.length; i++){
