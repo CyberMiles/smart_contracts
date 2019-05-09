@@ -115,7 +115,7 @@ var create = function () {
             //          - [123](http1)
             //          - [111333](dd1)
             //          - [2334555](dfd)`
-            desc_md = "##### "+lgb["desc"]+"\n\n" 
+            desc_md = "##### Description" + "\n\n" 
             desc_md += desc + "\n\n"
 
             shopping_md = ""
@@ -125,9 +125,9 @@ var create = function () {
                     shopping_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
                 }
             }
-            
+
             if(shopping_md !== ""){
-                desc_md += "##### "+lgb["shopping_url"]+"\n\n";
+                desc_md += "##### Shopping Link" + "\n\n";
                 desc_md += shopping_md;
             }
             console.log(desc_md)

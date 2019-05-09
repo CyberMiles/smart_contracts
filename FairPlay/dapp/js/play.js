@@ -104,6 +104,8 @@ var getInfo = function () {
                     desc_md = r[2]
                     var converter = new showdown.Converter(),
                     desc_html = converter.makeHtml(desc_md);
+                    window.desc_html = desc_html;
+                    console.log(desc_html)
 
                     //foreach i in desc["shopping"]
                     var status = r[0];
