@@ -121,7 +121,9 @@ var create = function () {
                 desc_md += "##### Shopping Link\n\n"
                 var i;
                 for(i = 0; i < shopping_site.length; i++){
-                     desc_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
+                    if(shopping_site[i] !== "" && shopping_link[i] !== ""){
+                        desc_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
+                    }
                 }
             }
             console.log(desc_md)

@@ -17,10 +17,13 @@ var ZhLanguage = {
     end_time:"参与抽奖截止时间",
     time_eg:"如 04/01/2019 3:14 PM",
     create_drawing:"创建抽奖",
+    shopping_link:"商品购买链接(可选)",
     //create.js
     creating:"正在创建合约...这可能要花费几分钟！",
     fail_to_create:"创建合约失败",
     fail_to_upload:"上传失败。请检查文件类型和大小",
+    shopping_link:"奖品购买链接(可选)",
+    shopping_url:"购买链接",
     //play.html
     draw_title:"开奖！",
     end_at:"结束时间",
