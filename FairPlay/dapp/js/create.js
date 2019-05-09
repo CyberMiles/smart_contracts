@@ -115,10 +115,10 @@ var create = function () {
             //          - [123](http1)
             //          - [111333](dd1)
             //          - [2334555](dfd)`
-            desc_md = "##### Description\n\n" 
+            desc_md = "##### "+lgb["desc"]+"\n\n" 
             desc_md += desc + "\n\n"
             if (shopping_site.length > 1){
-                desc_md += "##### Shopping Link\n\n"
+                desc_md += "##### "+lgb["shopping_url"]+"\n\n"
                 var i;
                 for(i = 0; i < shopping_site.length; i++){
                     if(shopping_site[i] !== "" && shopping_link[i] !== ""){
