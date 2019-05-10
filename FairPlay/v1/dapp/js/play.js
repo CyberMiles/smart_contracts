@@ -1,7 +1,7 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
+const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html';
 var webBrowser = new AppLink();
 const contract_address = fun.getParameter("contract");
 var userAddress = '';
@@ -55,7 +55,7 @@ var bindShowShare = function(){
     $("iframe").attr("src", "./share.html?code=" + contract_address)
     $(".share-btn").click(function(){
        $(".share-panel").removeClass("d-none");  
-       $("#share-link").text("https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html?contract="+contract_address);
+       $("#share-link").text("https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract="+contract_address);
     })
 
     var fixed = $(".share-panel")[0];
