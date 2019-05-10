@@ -111,6 +111,8 @@ var getInfo = function () {
                     var status = r[0];
                     $('#title-div').text(r[1]);
                     $('#desc-panel').append(desc_html);
+                    $('#desc-panel > #description').text(lgb['desc'] ||"Description");
+                    $('#desc-panel > #shoppinglink').text(lgb['shopping_platform']||"Shopping Platform");
                     $('#desc-div').text(desc_html);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
