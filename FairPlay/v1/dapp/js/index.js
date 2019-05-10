@@ -1,3 +1,4 @@
+const fun = new MainFun();
 var compare = function (prop, subprop) {
     return function (obj1, obj2) {
         var val1 = obj1[prop][subprop];
