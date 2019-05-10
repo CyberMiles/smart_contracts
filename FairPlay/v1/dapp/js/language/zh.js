@@ -72,7 +72,9 @@ var ZhLanguage = {
     cancelled: "已经取消",
     loading: "加载中 ...",
     processing: "交易处理中 ...",
-    share_tip:"请扫描二维码或复制以下链接："
-    
-
+    share_tip:"请扫描二维码或复制以下链接：",
+    //index.html
+    search_tips:"搜索或输入一个地址",
+    latest_plays:"最新的抽奖",
+    more:"更多"
 }

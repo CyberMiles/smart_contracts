@@ -72,5 +72,9 @@ var EnLanguage = {
     wait: "Wait ...",
     cancelled: "cancelled",
     loading: "loading ...",
-    processing: "processing ..."
+    processing: "processing ...",
+    //index.html
+    search_tips:"search or type an address",
+    latest_plays:"lastest drawing plays",
+    more:"More"
 }
