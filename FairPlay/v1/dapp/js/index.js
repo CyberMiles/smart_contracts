@@ -46,9 +46,24 @@ initCSS = () => {
 }
 
 initInfo = () => {
+     
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
-        renderGiveaways(latestGiveaways);
+        n_items = renderGiveaways(latestGiveaways);
+        // console.log(n_items)
+    });
+    $(".more-plays").click(()=>{
+      var moreitems = 0   
+      var n_itmes = $(".card").length
+      $(".card").each((i, obj)=>{
+        if(!$(obj).hasClass("card-template") && $(obj).hasClass("d-none") && moreitems < 10){
+            $(obj).removeClass("d-none")
+            moreitems ++
+            if(i == n_itmes - 1){
+              $(".more-plays").html(lgb["nomore"]||"No more itmes.")
+            }
+        }
+      });
     });
 }
 
