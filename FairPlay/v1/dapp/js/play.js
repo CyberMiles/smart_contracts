@@ -257,8 +257,27 @@ var getInfo = function () {
                                     console.log(epi);
                                 } else {
                                     var html_old = $('#players-panel-table').html();
-                                    var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
+                                    var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                    if (ownerAddress == userAddress) {
+                                        $(".users-contact").removeClass("d-none");
+                                        if (rpi[4] == null) {
+                                            html_snippet = html_snippet + "</td><td>";
+                                        } else {
+                                            html_snippet = html_snippet + rpi[4] + "</td><td>";
+                                        }
+                                        html_snippet = html_snippet + rpi[3] + "</td></tr>";
+                                    } else {
+                                        if (rpi[4] == null) {
+                                            html_snippet = html_snippet + "</td></tr>";
+                                        } else {
+                                            html_snippet = html_snippet + rpi[4] + "</td></tr>";
+                                        }
+                                    }
                                     $('#players-panel-table').html(html_old + html_snippet);
+
+                                    // var html_old = $('#players-panel-table').html();
+                                    // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
+                                    // $('#players-panel-table').html(html_old + html_snippet);
                                 }
                             });
                         }
