@@ -74,7 +74,22 @@ var ZhLanguage = {
     processing: "交易处理中 ...",
     share_tip:"请扫描二维码或复制以下链接：",
     //index.html
+    index_title:"抽奖游戏",
+    icreated:"我创建的",
+    iparticipated:"我参与的",
+    iwon:"我获奖的",
+    followus:"关注我们",
     search_tips:"搜索或输入一个地址",
     latest_plays:"最新的抽奖",
-    more:"更多"
+    more:"更多",
+    block_height:"块高：",
+    play:"进入",
+    result:"结果",
+    //search results.html
+    search_result:"搜索结果",
+    giveaways_icreated:"我创建的抽奖...",
+    giveaways_iparticipated:"我参与的抽奖...",
+    giveaways_iwon:"我获奖的抽奖...",
+    nomore:"没有更多了"
+
 }

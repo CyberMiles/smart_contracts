@@ -22,9 +22,28 @@ var compare = function (prop, subprop) {
 }
 
 $(document).ready(function () {
+    webBrowser.openBrowser();
+    initLanguage();
+
     initCSS();
     initInfo();
 });
+
+var initLanguage = function () {
+    if (lgb == '' || lgb == null) {
+        return;
+    }
+     $("[data-translate]").each(function(){
+        var key = $(this).data('translate');
+        if(lgb[key]){
+            if(this.tagName.toLowerCase() == "input" || this.tagName.toLowerCase() == "textarea"){
+                $(this).attr("placeholder", lgb[key])
+            }else{
+                $(this).html(lgb[key]);
+            }
+        }
+    });
+}
 
 initCSS = () => {
     $("#sidebar").mCustomScrollbar({
@@ -68,7 +87,7 @@ initCSS = () => {
 
 initInfo = () => {
     
-    $(".self_addr").html(web3.cmt.accounts[0]);
+    $("#self_addr").html(web3.cmt.accounts[0]);
     
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
