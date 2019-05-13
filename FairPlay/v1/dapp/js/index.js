@@ -1,4 +1,8 @@
 const fun = new MainFun();
+const tip = IUToast;
+const lgb = fun.languageChoice();
+const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
+var webBrowser = new AppLink();
 var compare = function (prop, subprop) {
     return function (obj1, obj2) {
         var val1 = obj1[prop][subprop];
@@ -16,11 +20,10 @@ var compare = function (prop, subprop) {
         }            
     } 
 }
+
 $(document).ready(function () {
-    
     initCSS();
     initInfo();
-
 });
 
 initCSS = () => {
@@ -43,10 +46,36 @@ initCSS = () => {
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
+    $('#back-to-top').tooltip('show');
 }
 
 initInfo = () => {
-     
+    web3.cmt.getAccounts(function (e, address) {
+        if (e) {
+            tip.error(lgb.error);
+        } else {
+            userAddress = address.toString();
+            $(".self_addr").html(userAddress)
+        }
+    }
+    
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
         n_items = renderGiveaways(latestGiveaways);
@@ -67,6 +96,3 @@ initInfo = () => {
     });
 }
 
-
-                   
-                    
