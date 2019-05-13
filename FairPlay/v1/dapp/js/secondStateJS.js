@@ -287,8 +287,8 @@ var renderGiveaways = (_hits) =>{
         func_data = value._source.functionData;
         template.find(".prize-img").attr("src",func_data.image_url);
         template.find(".giveaway-title").text(func_data.title);
-        template.find(".block-number").text(lgb["block_height"] || "Block Height:  " + value._source.blockNumber)
-        template.find(".n-winners").text(lgb["n_of_winners"] || "Number of winners:  " + func_data.number_of_winners);
+        template.find(".block-number").text((lgb["block_height"] || "Block Height:  ") + value._source.blockNumber)
+        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners:  ") + func_data.number_of_winners);
 
         
         
@@ -314,7 +314,7 @@ var renderGiveaways = (_hits) =>{
             template.find(".nav-details > a").text(lgb["result"] || "Result")
             template.find(".nav-details").addClass("btn-danger")
         } else if (currentDate < endDate) {
-            template.find(".end-time").text(lgb["end_at"] || "end time: " + endDate)
+            template.find(".end-time").text((lgb["end_at"] || "end time: ") + endDate)
             template.find(".end-time").addClass("current")
             template.find(".nav-details > a").text(lgb["play"] || "Play")
             template.find(".nav-details").addClass("btn-success")
