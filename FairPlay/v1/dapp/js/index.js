@@ -68,7 +68,7 @@ initCSS = () => {
 
 initInfo = () => {
     
-    $(".self_addr").html(web3.eth.accounts[0]);
+    $(".self_addr").html(web3.cmt.accounts[0]);
     
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
