@@ -283,7 +283,6 @@ var renderGiveaways = (_hits) =>{
         else
             template = $(".card-template").clone().removeClass("card-template")
         
-        template = $(".card-template").clone().removeClass("card-template d-none")
         func_data = value._source.functionData;
         template.find(".prize-img").attr("src",func_data.image_url);
         template.find(".giveaway-title").text(func_data.title);
