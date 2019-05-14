@@ -56,15 +56,14 @@ $(document).ready(function() {
     $(".card-tips").html(lgb["giveaways_iwon"] || "Giveaways, I won...")
     $("#IWon").click()
   }else{
-    if(srch_term = getUrlParameter("srch-term")){
-      // if(isAddress(srch_term)){
-        // $("#searchAddressInput").val(srch_term)
-      // }else{
-        $("#searchTextInput").val(srch_term);
-        console.log( $("#searchTextInput").val())
-      // }
-      $("#searchAddressButton").click()
-    } 
+    srch_term = getUrlParameter("srch-term")
+    if(isAddress(srch_term)){
+      $("#searchAddressInput").val(srch_term)
+    }else{
+      $("#searchTextInput").val(srch_term);
+      console.log( $("#searchTextInput").val())
+    }
+    $("#searchAddressButton").click()
   }
 })
 

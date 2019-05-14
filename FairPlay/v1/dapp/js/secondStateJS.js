@@ -290,8 +290,7 @@ var renderGiveaways = (_hits) =>{
         template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners:") + "  " + func_data.number_of_winners);
 
         
-        
-        desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description")[1]
+        desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
 
         
