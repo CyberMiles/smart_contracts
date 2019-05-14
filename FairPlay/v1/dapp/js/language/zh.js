@@ -86,6 +86,7 @@ var ZhLanguage = {
     play:"进入",
     result:"结果",
     myaddr:"我的地址",
+    aboutus:"关于我们",
     //search results.html
     search_result:"搜索结果",
     giveaways_icreated:"我创建的抽奖...",
