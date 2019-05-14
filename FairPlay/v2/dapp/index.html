@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title data-translate="index_title">Prize drawing</title>
+
+
+    <!-- Bootstrap CSS CDN -->
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/iutoast.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120065893-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120065893-13');
+    </script>
+    
+    <!-- Font Awesome JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+       
+
+            <ul class="list-unstyled components">
+                <small data-translate="myaddr" style="padding: 10px;">my address</small>
+                <p id="self_addr">0x12345678abcdefgh12345678abcdefgh</p>
+                <hr class="profile_hr">
+                <li>
+                    <a data-translate="icreated" href="./search-results.html?method=created"><span class="oi oi-pencil" style="padding-right:10px;"></span>I created</a>
+                </li>
+                <li>
+                    <a data-translate="iparticipated" href="./search-results.html?method=participated"><span class="oi oi-person" style="padding-right:10px;"></span>I participated in</a>
+                </li>
+                <li>
+                    <a data-translate="iwon" href="./search-results.html?method=won"><span class="oi oi-briefcase" style="padding-right:10px;"></span>I won</a>
+                </li>
+            </ul>
+            <div class="sidebar-header">
+                <p style="font-size: 16px;" data-translate="followus">follow us
+                <br>Twitter @FairPlayDApp
+                <br>Facebook @FairPlayDApp</p>
+                <p style="font-size: 16px;"><a href="https://blog.cybermiles.io/">About us</a></p>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+            <div class="fairplay_logo">
+                <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=120">
+            </div>
+
+            <div class="container">
+                <form action="./search-results.html" class="navbar-form" role="search">
+                    <div class="input-group add-on">
+                      <input class="form-control" placeholder="search or type an address" data-translate="search_tips" name="srch-term" id="srch-term" type="text">
+                      <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="oi oi-magnifying-glass"></span>
+                      </div>
+                    </div>
+                </form>
+                <div class="card-deck">
+                    <small class="card-tips" data-translate="latest_plays">Latest drawing plays</small>
+                      <div class="card card-template d-none">
+                        <img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title giveaway-title">Play title</h5>
+                          <p class="card-text giveaway-desc" style="font-size: 14px;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <dl>
+                              <dd class="n-winners">number of winners</dd>
+                              <dd class="end-time">end time</dd>
+                          </dl>
+                          <button class="btn btn-success nav-details"><a href="...">play</a></button>
+                        </div>
+                        <div class="card-footer">
+                          <small data-translate="block_height" class="text-muted block-number">block height:</small>
+                        </div>
+                      </div>
+                      
+                </div> 
+                <small class="more-plays" data-translate="more">More</small>             
+            </div>
+        </div>
+        <!-- Dark Overlay element -->
+        <div class="overlay"></div>
+        <div class="create-mine butn"><a href="./create.html"><span class="oi oi-plus 2x"></span></a></div>
+
+    </div>
+
+
+    
+    <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+    
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/secondStateJS.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

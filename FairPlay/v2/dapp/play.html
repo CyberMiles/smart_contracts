@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5cc56bbec78f7000120f0817&product='inline-share-buttons' async='async'></script>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/play.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title data-translate="draw_title">Draw the prize!</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120065893-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120065893-13');
+    </script>
+</head>
+
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<p></p>
+<div class="container" style="display:none" id="info-panel">
+    <div style="text-align:center">
+        <h3 id="title-div">... ...</h3>
+        <p id="image-img"></p>
+    </div>
+
+    <div id="desc-panel">
+        
+    </div>
+<!--     <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Description</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Shopping</a>
+     
+      </div>
+    </nav>
+    <div class="tab-content  border-right border-bottom border-left rounded-bottom" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item lead" id="desc-div">... ...</li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+             <ul class="list-group list-group-flush">
+           
+                <li class="list-group-item">EBay<a href=""><span class="oi oi-external-link"></span></a></li>
+            </ul>
+        </div>
+    </div> -->
+
+
+    <dl class="row" style="margin-top: 20px;">
+        <dt class="col-sm-3" data-translate="creater">Drawing Creator</dt>
+        <dd class="col-sm-9" id="drawing-creater">... ...</dd>
+        <dt class="col-sm-3" data-translate="n_of_winners">Number of winners</dt>
+        <dd class="col-sm-9" id="number-of-winners-div">... ...</dd>
+        <dt class="col-sm-3" data-translate="end_at">End at</dt>
+        <dd class="col-sm-9" id="cutoff-ts-div">... ...</dd>
+    </dl>
+    <hr/>
+</div>
+
+<div class="container" style="display:none" id="play-panel">
+    <h3 align="center" data-translate="enter_drawing">Enter the drawing</h3>
+    <form>
+        <div class="form-row">
+            <input type="text" id="name-field" class="form-control" data-translate="ur_name" placeholder="Your name">
+        </div>
+        <div class="form-row">
+            <label data-translate="contact_msg" style="margin-top: 4px; margin-bottom: 2px; margin-left: 4px;">How do we get in touch if you win?</label>
+        </div>
+        <div class="form-row">
+            <div class="form-group col" style="padding-left: 0px;">
+                <select id="contact-app-field" class="form-control">
+                    <option data-translate="other">Other</option>
+                    <option data-translate="telegram">Telegram</option>
+                    <option data-translate="twitter">Twitter</option>
+                    <option data-translate="facebook">Facebook</option>
+                    <option data-translate="wechat">WeChat</option>
+                    <option data-translate="phone">Phone</option>
+                    <option data-translate="email" selected>Email</option>
+                </select>
+            </div>
+            <div class="form-group col" style="padding-right: 0px;">
+                <input type="text" id="contact-id-field" class="form-control" data-translate="ur_addr" placeholder="Your ID or address">
+            </div>
+        </div>
+        <div class="form-row">
+            <textarea class="form-control" data-translate="leave_msg" id="mesg-field" rows="2" placeholder="Leave a message"></textarea>
+        </div>
+    </form>
+
+    <div class="main-contain main-div-button">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#343a40">
+                <p id="play-submit" class="main-button-font" data-translate="enter" onclick="play()">Enter</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="display:none" id="draw-panel">
+    <h3 data-translate="time_up">The time is up.</h3>
+    <p class="lead" data-translate="draw_msg">
+        Anyone can initiate the prize draw now!
+    </p>
+    
+    <div class="main-contain main-div-button">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#343a40">
+                <p id="draw-submit" class="main-button-font" data-translate="draw" onclick="draw()">Draw</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="display:none" id="ended-panel">
+    <div class="alert alert-secondary" role="alert" data-translate="event_end">
+        This event has ended
+    </div>
+</div>
+    
+<div class="container" style="display:none" id="confirm-ended-panel">
+    <div class="alert alert-success" role="alert" data-translate="thank_msg">
+        Thank you for confirming your prize.
+    </div>
+</div>
+
+<div class="container" style="display:none" id="not-winner-panel">
+    <div class="alert alert-warning" role="alert" data-translate="lose_msg">
+        Sorry you did not win.
+    </div>
+</div>
+
+<div class="container" style="display:none" id="confirm-panel">
+    <h3 data-translate="win_msg">You are one of the winners!</h3>
+    <!-- <p data-translate="confirm_msg" class="lead">Please confirm here after you receive your prize.</p> -->
+    <form>
+        <div class="form-group">
+            <textarea id="confirm-field"  rows="2" class="form-control" data-translate="leave_confirm_msg" placeholder="Leave a confirmation message">
+            </textarea> 
+        </div>
+    </form>
+    
+    <div class="main-contain main-div-button">
+        <div class="main-button-div">
+            <div class="main-button" style="background-color:#343a40">
+                <p id="confirm-submit" data-translate="confirm" class="main-button-font" onclick="confirm()">Confirm</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="display:none" id="winners-panel">
+    <hr/>
+    <h3 align="center" data-translate="winners">Winners</h3>
+    <table class="table">
+        <thead id="winners-panel-table-head">
+            <tr>
+                <th scope="col" data-translate="name">Name</th>
+                <th scope="col" data-translate="comment">Comment</th>
+                <th scope="col" data-translate="contact" class="winner-contact d-none">Contact</th>
+            </tr>
+        </thead>
+        <tbody id="winners-panel-table">
+        </tbody>
+    </table>
+</div>
+
+<div class="container" style="display:none" id="players-panel">
+    <hr/>
+    <h3 align="center" data-translate="all_players">All players</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" data-translate="name">Name</th>
+                <th scope="col" data-translate="note">Note</th>
+                <th scope="col" data-translate="contact" class="users-contact d-none">Contact</th>
+
+            </tr>
+        </thead>
+        <tbody id="players-panel-table">
+        </tbody>
+    </table>
+</div>
+
+<div class="sticky-footer" style="display:none; background-color: white;">
+  <div class="row">   
+    <div class="col-1"></div>
+            <div class="create-btn col-5">
+                 <button type="button" class="col-sm btn btn-dark"><a href="./create.html" data-translate="create_mine">Create my own!</a></button> 
+            </div>
+            <div class="share-btn col-5">
+                <button type="button" class="col-sm btn btn-dark" data-translate="share_play">Share the play!</button> 
+                <!-- <button type="button" class="col-sm btn btn-dark"><a href="./qrcode.html?code=" data-translate="share_play">Share the play!</a></button>  -->
+            </div>   
+
+    <div class="col-1"></div>
+
+    </div>
+</div>
+
+ <div class="share-panel d-none">
+        <span onclick="hideShare()" class="remove-btn oi oi-x"></span>
+        <div class="container">
+            <iframe src="./share.html?code=" scrolling="no"></iframe>
+            <div style="font-size:1.2em;margin: 30px;" data-translate="share_tip">Please share the QR code above or copy the following link to share:</div>
+            <div style="overflow-wrap: break-word;
+            word-wrap: break-word; font-weight: bold; 
+            padding: 5px;
+            outline: thick solid #495057;">
+                <div id="share-link"> ...       
+                </div>
+            </div>
+           
+        
+         </div>
+        
+ </div>
+
+</body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/play.js"></script>
+</html>

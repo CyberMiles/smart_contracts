@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="css/iutoast.css">
+    <title data-translate="share_title">Share this QR Code</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120065893-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120065893-13');
+    </script>
+</head>
+<style type="text/css">
+    
+    #direct-link{
+        overflow-wrap: break-word;
+        word-wrap: break-word;  
+    }
+    
+</style>
+<body class="main-bg">
+        <!-- <a id="downlink" download="sharedrawing.png" href=""> -->
+            <div id="qrcode"></div>
+        <!-- </a> -->
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type='text/javascript' src='js/qrcode.js'></script>
+
+    <script>
+var getUrlParameter = function (name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+$.ajaxPrefilter( function (options) {
+  if (options.crossDomain && jQuery.support.cors) {
+    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+    //options.url = "http://cors.corsproxy.io/url=" + options.url;
+  }
+});
+
+$(function () {
+
+    var link = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract=" + getUrlParameter("code");
+    
+    //generate the short link for the current link
+    var reqLink = 'https://cutt.ly/api/api.php?key=03c2a6a042ffdcccd7a27e0782af36f5b0244&short=' + link;
+
+    const getShortLink = async() => {return await $.getJSON(reqLink)}
+
+    getShortLink().then(res => {
+        $("#pre-load-qr").css("display", "none")
+
+        $("#qr-panel").css("display", "block")
+
+        shortLink = res['url']['shortLink'];
+   
+        const makecode = async() => 
+        {
+            setTimeout(function () {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: shortLink,
+                    width: 160,
+                    height: 160,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+               
+            }, 1);
+        }
+        makecode().then(()=>{
+            // setTimeout(function(){
+            //     downhref = document.getElementsByTagName('img')[0].getAttribute('src');
+            //     document.getElementById("downlink").href = downhref;
+            // }, 3)
+            
+        })
+
+    })
+  
+
+  
+});
+    </script>
+</html>

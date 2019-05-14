@@ -86,16 +86,8 @@ initCSS = () => {
 }
 
 initInfo = () => {
-    web3.cmt.getAccounts(function (e, address) {
-        if (e) {
-            tip.error(lgb["error"] || "There is an error");
-        } else {
-            var userAddress = address.toString();
-            $("#self_addr").html(userAddress);
-        }
-    })
-
-
+    
+    $("#self_addr").html(web3.cmt.accounts[0]);
     
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
