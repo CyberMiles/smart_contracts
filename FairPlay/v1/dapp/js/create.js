@@ -169,11 +169,12 @@ var create = function () {
                                             tip.close();
                                             tip.error("Could not get a contract address");
                                         }
-                                    } else if (result != null && result.status == '0x0') {
-                                        tip.close();
-                                        tip.error(lgb["fail_to_create"] || "Failed to create contract");
-                                        clearInterval(checkTransactionTimer);
-                                    }
+                                    } 
+                                    // else if (result != null && result.status == '0x0') {
+                                    //     tip.close();
+                                    //     tip.error(lgb["fail_to_create"] || "Failed to create contract");
+                                    //     clearInterval(checkTransactionTimer);
+                                    // }
                                 }
                             })
                         }, 3000);
