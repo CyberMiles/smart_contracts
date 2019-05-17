@@ -36,6 +36,9 @@ $(function () {
                 close: 'far fa-times'
             },
     });
+    $("#cutoff").focus(function(){
+        document.activeElement.blur();
+    });
 });
 
 // init language
