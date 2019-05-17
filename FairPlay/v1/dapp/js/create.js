@@ -265,8 +265,21 @@ $('#img-form').ajaxForm({
 
 
 function uploadPic(){
+    $(".image-upload-wrap").css("background-color","#888888")
+    $(".image-upload-wrap").css('border','4px dashed #ffffff') 
     if($("#selected-img").val()){
            console.log("start")
           $("#submit").click()
     }
+}
+
+function changeBoxCSS(){
+ $(".image-upload-wrap").css('background-color','#888888')
+ $(".image-upload-wrap").css('border','4px dashed #ffffff') 
+ $(".image-upload-wrap").css('transition','.5s')
+  setTimeout(function() {
+    $(".image-upload-wrap").css('background-color','transparent') 
+    $(".image-upload-wrap").css('border','4px dashed #888888') 
+
+  }, 500);
 }
