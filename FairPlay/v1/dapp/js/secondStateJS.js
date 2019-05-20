@@ -319,6 +319,8 @@ var renderGiveaways = (_hits) =>{
             template.find(".end-time").addClass("current")
             template.find(".nav-details > a").text("Play")
             template.find(".nav-details").addClass("btn-success")
+            template.find(".tag-font").removeClass("tag-font")
+            
             // template.find(".tag-font").text("ongoing")
             // template.find(".tag-font").addClass("green")
         }
