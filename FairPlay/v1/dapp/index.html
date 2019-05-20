@@ -73,27 +73,31 @@
 
         <!-- Page Content -->
         <div id="content">
-
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-dark">
-                    <i class="fas fa-align-left"></i>
-                </button>
+            <div class="header">
+                <div class="fairplay_logo">
+                    <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=40">
+                </div>
             </div>
-            <div class="fairplay_logo">
-                <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=120">
+
+            <div id="sidebarCollapse" class="btn btn-dark">
+                <i class="fas fa-align-left"></i>
+            </div>
+            
+            <div id="sidebarCollapse" class="sidebarCollapse">
+                <svg style="fill:#757575;width:24px;height:24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M0 0h24v24H0z" fill="none"></path> <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path> </svg>
             </div>
 
             <div class="container">
-                <form action="./search-results.html" class="navbar-form" role="search">
+                <form id="search-panel" action="./search-results.html" class="navbar-form" role="search">
                     <div class="input-group add-on">
-                      <input class="form-control" placeholder="search or type an address" data-translate="search_tips" name="srch-term" id="srch-term" type="text">
+                      <input class="form-control search-box" placeholder="search or type an address" data-translate="search_tips" name="srch-term" id="srch-term" type="text">
                       <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default search-btn" type="submit">
                             <span class="oi oi-magnifying-glass"></span>
                       </div>
                     </div>
                 </form>
+                <a class="btn btn-dark" id="create-btn" href="./create.html"><span class="oi oi-plus x"></span><span>create a new giveaway</span></a>
                 <div class="card-deck">
                     <small class="card-tips" data-translate="latest_plays">Latest drawing plays</small>
                       <div class="card card-template d-none">
@@ -118,7 +122,6 @@
         </div>
         <!-- Dark Overlay element -->
         <div class="overlay"></div>
-        <div class="create-mine butn"><a href="./create.html"><span class="oi oi-plus 2x"></span></a></div>
 
     </div>
 

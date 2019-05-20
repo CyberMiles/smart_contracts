@@ -74,7 +74,7 @@ var EnLanguage = {
     loading: "loading ...",
     processing: "processing ...",
     //index.html
-    search_tips:"search or type an address",
+    search_tips:"keyword, contract/creator address",
     latest_plays:"lastest drawing plays",
     more:"More"
 }
