@@ -217,15 +217,16 @@ a.article:hover {
 #search-panel {
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 3px;
     left: 0;
     z-index: 5;
 }
 
 #create-btn {
-    width: 100%;
-    margin-top: 8px;
+    width: 80%;
+    margin: 20px auto;
     border-radius: 20px;
+    display: block;
     /* height: 0px; */
 }
 
@@ -276,6 +277,24 @@ a span {
     margin: 10px; 
 }
 
+.prize-img-container {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.prize-img{
+    position: absolute;
+}
+
+.nav-details{
+    width: 100%;
+}
+
+.img-filter {
+    filter: opacity(40%)  grayscale(50%);;
+}
+
 .more-plays{
     display: block;
     text-align: center;
@@ -290,6 +309,31 @@ a span {
 .profile_hr{
     border-bottom: 0 solid #e1e1e1;
     margin-left: -10px;
+}
+
+.tag-font{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    border: 2px dotted;
+    padding: 5px;
+    width: fit-content;
+    transform: rotate(30deg);
+    /* overflow: visible; */
+    float: right;
+    position: absolute;
+    z-index: 100;
+    right: -5px;
+    top: 25px;
+}
+
+.red {
+    color: red; 
+}
+
+.green {
+    color: green;
 }
 
 

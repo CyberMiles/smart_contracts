@@ -92,6 +92,8 @@ var ZhLanguage = {
     giveaways_icreated:"我创建的抽奖...",
     giveaways_iparticipated:"我参与的抽奖...",
     giveaways_iwon:"我获奖的抽奖...",
-    nomore:"没有更多了"
+    nomore:"没有更多了",
+    create_new:"创建一个新的抽奖",
+    time_up: "已结束"
 
 }

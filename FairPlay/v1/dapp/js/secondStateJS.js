@@ -282,18 +282,18 @@ var renderGiveaways = (_hits) =>{
             template = $(".card-template").clone().removeClass("card-template d-none")
         else
             template = $(".card-template").clone().removeClass("card-template")
-        
         func_data = value._source.functionData;
         template.find(".prize-img").attr("src",func_data.image_url);
         template.find(".giveaway-title").text(func_data.title);
-        template.find(".block-number").text((lgb["block_height"] || "Block Height:") + "  " + value._source.blockNumber)
-        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners:") + "  " + func_data.number_of_winners);
+        template.find(".block-number").text("Block Height:  " + value._source.blockNumber)
+        template.find(".n-winners").text("Number of winners:  " + func_data.number_of_winners);
 
+        
         
         desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
-
-        
+        console.log(desc_txt)
+        template.find(".rm-giveaway").attr("id", value._source.contractAddress)
         // Expiry time
         var epochRepresentation = value._source.functionData.info[5];
         if (epochRepresentation.toString().length == 10) {
@@ -307,23 +307,29 @@ var renderGiveaways = (_hits) =>{
         var currentDate = new Date();
 
         if (currentDate > endDate) {
-            template.find(".end-time").text((lgb["end_at"] || "end time:") + "  " + endDate)
+            template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("expired")
-            template.find(".nav-details > a").text(lgb["result"] || "Result")
+            template.find(".nav-details > a").text("Result")
             template.find(".nav-details").addClass("btn-danger")
+            template.find(".prize-img").addClass("img-filter")
+            template.find(".tag-font").text(lgb['timeup'] || "time is up")
+            template.find(".tag-font").addClass("red")
         } else if (currentDate < endDate) {
-            template.find(".end-time").text((lgb["end_at"] || "end time:") + "  " + endDate)
+            template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("current")
-            template.find(".nav-details > a").text(lgb["play"] || "Play")
+            template.find(".nav-details > a").text("Play")
             template.find(".nav-details").addClass("btn-success")
-            
+            // template.find(".tag-font").text("ongoing")
+            // template.find(".tag-font").addClass("green")
         }
 
         var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract=" + value._source.contractAddress;
         template.find(".nav-details > a").attr("href", playUrl)
+        template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)
 
     })
+    return _hits.length
 }
 
 

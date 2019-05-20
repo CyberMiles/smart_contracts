@@ -76,5 +76,6 @@ var EnLanguage = {
     //index.html
     search_tips:"keyword, contract/creator address",
     latest_plays:"lastest drawing plays",
-    more:"More"
+    more:"More",
+    create_new: "Create a new giveaway"
 }
