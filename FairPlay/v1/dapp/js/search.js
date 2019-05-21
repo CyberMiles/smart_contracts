@@ -3,14 +3,14 @@ const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
 var webBrowser = new AppLink();
-var getUrlParameter = function (name) {
+const getUrlParameter = function (name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
-var isAddress = function (address) {
+const isAddress = function (address) {
     // function isAddress(address) {
         if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
         // check if it has the basic requirements of an address
@@ -25,7 +25,7 @@ var isAddress = function (address) {
 }
 
 
-var isChecksumAddress = function (address) {
+const isChecksumAddress = function (address) {
     // Check each case
     address = address.replace('0x','');
     var addressHash = web3.sha3(address.toLowerCase());
@@ -38,34 +38,61 @@ var isChecksumAddress = function (address) {
     return true;
 }
 
+const dispatchSearch = async (method) => {
+    if(method == 'created'){
+      $(".card-tips").html(lgb["giveaways_icreated"] || "Giveaways, I created...")
+      const n = await ICreatedButton()
+      if(n){
+        $(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...")        
+      }else{
+        $(".card-tips").html("You haven't created giveaway.")
+        $(".more-plays").addClass("d-none")
+        $("#create-btn").removeClass("d-none")
+      }
+    }else if(method == "participated"){
+      $("#create-btn").addClass("d-none")
 
-$(document).ready(function() {
+      $(".card-tips").html(lgb["giveaways_iparticipated"] || "Giveaways, I participated...")
+      const n = await IParticipatedButton()
+      if(n){
+        $(".card-tips").html(n + lgb["giveaways_iparticipated"] || "Giveaways, I participated..." )        
+      }else{
+        $(".card-tips").html(lgb["try_now"] || "You haven't participated. Why not try now?")
+        $(".more-plays").addClass("d-none")
+        $("#searchAddressInput").val("0x8f5fbb1f077344784347Bee6606df8D2dc8D171A")
+        searchButton();
+      }
+    }else if(method == "won"){
+      $("#create-btn").addClass("d-none")
 
-  webBrowser.openBrowser();
-  initLanguage();
-
-  initBtn();
-  var method = getUrlParameter("method");
-  if(method == 'created'){
-    $(".card-tips").html(lgb["giveaways_icreated"] || "Giveaways, I created...")
-    $("#ICreated").click()
-  }else if(method == "participated"){
-    $(".card-tips").html(lgb["giveaways_iparticipated"] || "Giveaways, I participated...")
-    $("#IParticipated").click()
-  }else if(method == "won"){
-    $(".card-tips").html(lgb["giveaways_iwon"] || "Giveaways, I won...")
-    $("#IWon").click()
-  }else{
-    srch_term = getUrlParameter("srch-term")
-    if(isAddress(srch_term)){
-      $("#searchAddressInput").val(srch_term)
+      $(".card-tips").html(lgb["giveaways_iwon"] || "Giveaways, I won...")
+      const n = await IWonButton()
+      if(n){
+        $(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
+      }else{
+        $(".card-tips").html(lgb["try_again"] || "You haven't created giveaway. Why not try again?")
+        $(".more-plays").addClass("d-none")
+        $("#searchAddressInput").val("0x8f5fbb1f077344784347Bee6606df8D2dc8D171A")
+        searchButton();
+      }
     }else{
-      $("#searchTextInput").val(srch_term);
-      console.log( $("#searchTextInput").val())
+      $("#create-btn").addClass("d-none")
+
+      srch_term = getUrlParameter("srch-term")
+        if(isAddress(srch_term)){
+          $("#searchAddressInput").val(srch_term)
+        }else{
+          $("#searchTextInput").val(srch_term);
+          console.log( $("#searchTextInput").val())
+        }
+        searchButton();
+        // console.log(n)
+        // $("#searchAddressButton").click()
+      
     }
-    $("#searchAddressButton").click()
-  }
-})
+}
+
+
 
 var initLanguage = function () {
     if (lgb == '' || lgb == null) {
@@ -99,3 +126,13 @@ var initBtn = function(){
 
   } 
 
+$(document).ready(function() {
+
+  webBrowser.openBrowser();
+  initLanguage();
+
+  initBtn();
+  var method = getUrlParameter("method");
+  dispatchSearch(method)
+
+})

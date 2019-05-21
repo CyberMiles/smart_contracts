@@ -1,9 +1,10 @@
-var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/fairplay/_search/?size=100"
-var currentAccount = "";
+var publicIp = ""; // This must be an empty string, unless you are hosting this on a public server
+//var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
+ var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/fairplay/_search/?size=100"
+ var currentAccount = "";
+// The above config must be placed in a better system (master config area)
 
-
-$(document).ready(function() {
-    $("#ICreated").click(function() {
+var ICreatedButton = () => {
         async function setUpAndProgress() {
             var originalState = $("#pb.progress-bar").clone();
             $("#pbc").show()
@@ -14,6 +15,7 @@ $(document).ready(function() {
             await web3.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
+           
             $("#pb.progress-bar").attr('style', 'width:100%');
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             var dFunctionDataOwner = {};
@@ -28,15 +30,21 @@ $(document).ready(function() {
             dQuery['query'] = dBool;
             $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
-            var itemArray = getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            $("#pb.progress-bar").replaceWith(originalState.clone());
-        }
-        setUpAndProgress();
-    });
-});
+            // If this is a public website then we need to call ES using Flask
+            if(publicIp){
+                var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            }else{
+                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            }
 
-$(document).ready(function() {
-    $("#IParticipated").click(function() {
+            $("#pb.progress-bar").replaceWith(originalState.clone());
+
+            return itemArray.length;
+        }
+        return setUpAndProgress();
+    }
+
+var IParticipatedButton = () => {
         async function setUpAndProgress() {
             var originalState = $("#pb.progress-bar").clone();
             $("#pbc").show()
@@ -47,10 +55,11 @@ $(document).ready(function() {
             await web3.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
+
             $("#pb.progress-bar").attr('style', 'width:100%');
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             lShould = [];
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 50; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.player_addrs.' + i;
@@ -66,15 +75,22 @@ $(document).ready(function() {
             dQuery['query'] = dBool;
             $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
-            var itemArray = getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            $("#pb.progress-bar").replaceWith(originalState.clone());
-        }
-        setUpAndProgress();
-    });
-});
 
-$(document).ready(function() {
-    $("#IWon").click(function() {
+            // If this is a public website then we need to call ES using Flask
+            if(publicIp){
+                var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            }else{
+                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            }
+
+            $("#pb.progress-bar").replaceWith(originalState.clone());
+
+            return itemArray.length;
+        }
+        return setUpAndProgress();
+    }
+
+var IWonButton = () => {
         async function setUpAndProgress() {
             var originalState = $("#pb.progress-bar").clone();
             $("#pbc").show()
@@ -85,10 +101,11 @@ $(document).ready(function() {
             await web3.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
+            
             $("#pb.progress-bar").attr('style', 'width:100%');
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             lShould = [];
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 50; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.winner_addrs.' + i;
@@ -104,22 +121,33 @@ $(document).ready(function() {
             dQuery['query'] = dBool;
             $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
-            var itemArray = getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            $("#pb.progress-bar").replaceWith(originalState.clone());
-        }
-        setUpAndProgress();
-    });
-});
+            // If this is a public website then we need to call ES using Flask
+            if(publicIp){
+                var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            }else{
+                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            }
 
-$(document).ready(function() {
-    $("#searchAddressButton").click(function() {
+            $("#pb.progress-bar").replaceWith(originalState.clone());
+
+            return itemArray.length;
+        }
+        return setUpAndProgress();
+    }
+
+
+var searchButton =  async () => {
         $('.results').empty()
         var theAddress = $("#searchAddressInput").val();
         var theText = $("#searchTextInput").val();
         //console.log($.trim(theAddress.length));
         if ($.trim(theAddress.length) == "0" && $.trim(theText.length) == "0") {
             //console.log("Address and text are both blank, fetching all results without a filter");
-            getItems(elasticSearchUrl);
+            if(publicIp){
+                getItemsViaFlask(elasticSearchUrl);
+            }else{
+                getItems(elasticSearchUrl);
+            }
         } else if ($.trim(theAddress.length) == "0" && $.trim(theText.length) > "0") {
             var dFields = {};
             var dQueryInner = {};
@@ -132,8 +160,15 @@ $(document).ready(function() {
             dMultiMatch["multi_match"] = dTemp;
             dQueryOuter["query"] = dMultiMatch;
             var jsonString = JSON.stringify(dQueryOuter);
-            var itemArray = getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            //console.log(itemArray);
+                        
+            // If this is a public website then we need to call ES using Flask
+            if(publicIp){
+                var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            }else{
+                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            }
+
+            
         } else if ($.trim(theAddress.length) > "0" && $.trim(theText.length) > "0") {
             var dDesc = {};
             dDesc['desc'] = theText;
@@ -166,7 +201,7 @@ $(document).ready(function() {
             lShould.push(dMatchDesc);
             // Start - Players and Winners
             // Players
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 50; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.player_addrs' + i;
@@ -175,7 +210,7 @@ $(document).ready(function() {
                 lShould.push(dPTemp2);
             }
             // Winners
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 50; i++) {
                 var dWTemp = {};
                 var dWTemp2 = {};
                 var fStringW = 'functionData.player_addrs' + i;
@@ -196,7 +231,14 @@ $(document).ready(function() {
             //console.log(dQuery);
             //console.log(JSON.stringify(dQuery));
             var jsonString = JSON.stringify(dQuery);
-            var itemArray = getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+                        
+            // If this is a public website then we need to call ES using Flask
+            if(publicIp){
+                var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            }else{
+                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            }
+
             //console.log(itemArray);
         } else if ($.trim(theAddress.length) > "0" && $.trim(theText.length) == "0") {
             var dFunctionDataOwner = {};
@@ -216,7 +258,7 @@ $(document).ready(function() {
             lShould.push(dMatchFunctionDataOwner);
             // Start - Players and Winners
             // Players
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 50; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.player_addrs' + i;
@@ -225,7 +267,7 @@ $(document).ready(function() {
                 lShould.push(dPTemp2);
             }
             // Winners
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < 50; i++) {
                 var dWTemp = {};
                 var dWTemp2 = {};
                 var fStringW = 'functionData.winner_addrs' + i;
@@ -246,31 +288,75 @@ $(document).ready(function() {
             //console.log(dQuery);
             //console.log(JSON.stringify(dQuery));
             var jsonString = JSON.stringify(dQuery);
-            var itemArray = getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            
+            // If this is a public website then we need to call ES using Flask
+            if(publicIp){
+                var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            }else{
+                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
+            }
+
             //console.log(itemArray);
         }
+        return itemArray.length;
 
-    });
-});
+    }
 
-function getItemsUsingData(_url, _type, _data, _dataType, _contentType) {
-    $.ajax({
-        url: _url,
-        type: _type,
-        data: _data,
-        dataType: _dataType,
-        contentType: _contentType,
-        success: function(response) {
-            renderGiveaways(response.hits.hits);
-        },
-        error: function(xhr) {
-            console.log("Get items failed");
-        }
-    });
+
+async function getItemsUsingData(_url, _type, _data, _dataType, _contentType) {
+    let response;
+    try {
+        response = await $.ajax({
+            url: _url,
+            type: _type,
+            data: _data,
+            dataType: _dataType,
+            contentType: _contentType,
+        });
+        renderGiveaways(response.hits.hits)
+        return response.hits.hits;
+    } catch (error) {
+        console.error("Get items failed", error);
+    }
+
 }
 
-function getItems(_url) {
-    $.get(_url, function(data, status) {
+async function getItemsUsingDataViaFlask(_data) {
+    theUrlForData1 = publicIp + ":5000/data1";
+    console.log("getItemsUsingDataViaFlask");
+    console.log(theUrlForData1);
+    console.log(_data);
+    let response;
+    try {
+        response = await   $.ajax({
+            url: theUrlForData1,
+            type: "POST",
+            data: _data,
+            dataType: "json",
+            contentType: "application/json",
+        });
+        renderGiveaways(response.hits.hits)
+        return response.hits.hits;
+    } catch (error) {
+        console.error("Get items failed", error);
+    }
+
+  
+}
+
+ function getItems(_url) {
+     $.get(_url, function(data, status) {
+         //console.log(data.hits.hits);
+        renderGiveaways(data.hits.hits);
+     });
+ }
+ 
+function getItemsViaFlask() {
+    theUrlforData2 = publicIp + ":5000/data2";
+    console.log("getItemsViaFlask");
+    console.log(theUrlforData2);
+    console.log("GET");
+    $.get(theUrlforData2, function(data, status) {
         //console.log(data.hits.hits);
         renderGiveaways(data.hits.hits);
     });
@@ -292,21 +378,19 @@ var renderGiveaways = (_hits) =>{
         
         desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
-        console.log(desc_txt)
         template.find(".rm-giveaway").attr("id", value._source.contractAddress)
-        // Expiry time
-        var epochRepresentation = value._source.functionData.info[5];
-        if (epochRepresentation.toString().length == 10) {
-            var endDate = new Date(epochRepresentation * 1000);
-        } else if (epochRepresentation.toString().length == 13) {
-            var endDate = new Date(epochRepresentation);
-        }
+         // Expiry time
+         var epochRepresentation = value._source.functionData.info[5];
+         if (epochRepresentation.toString().length == 10) {
+             var endDate = new Date(epochRepresentation);
+         }
+ 
 
+         // Current time
+         var currentDate = new Date();
+ 
+         if (currentDate > endDate) {
 
-        // Current time
-        var currentDate = new Date();
-
-        if (currentDate > endDate) {
             template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("expired")
             template.find(".nav-details > a").text("Result")
@@ -314,7 +398,8 @@ var renderGiveaways = (_hits) =>{
             template.find(".prize-img").addClass("img-filter")
             template.find(".tag-font").text(lgb['timeup'] || "time is up")
             template.find(".tag-font").addClass("red")
-        } else if (currentDate < endDate) {
+         } else if (currentDate < endDate) {
+
             template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("current")
             template.find(".nav-details > a").text("Play")
@@ -333,7 +418,3 @@ var renderGiveaways = (_hits) =>{
     })
     return _hits.length
 }
-
-
-                    
-       
