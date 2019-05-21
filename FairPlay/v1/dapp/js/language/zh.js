@@ -101,7 +101,8 @@ var ZhLanguage = {
     create_new:"创建一个新的抽奖",
     try_now:"你还没有参加过，现在来参加吧",
     try_again:"你还没有赢过，再试一次吧",
-    time_up: "已结束"
+    time_up: "已结束",
+    no_create: "你还没有创建过抽奖"
 
 
 }

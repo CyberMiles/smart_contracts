@@ -45,7 +45,7 @@ const dispatchSearch = async (method) => {
       if(n){
         $(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...")        
       }else{
-        $(".card-tips").html("You haven't created giveaway.")
+        $(".card-tips").html(lgb["no_create"] || "You haven't created giveaway.")
         $(".more-plays").addClass("d-none")
         $("#create-btn").removeClass("d-none")
       }
@@ -79,15 +79,15 @@ const dispatchSearch = async (method) => {
       $("#create-btn").addClass("d-none")
 
       srch_term = getUrlParameter("srch-term")
-        if(isAddress(srch_term)){
-          $("#searchAddressInput").val(srch_term)
-        }else{
-          $("#searchTextInput").val(srch_term);
-          console.log( $("#searchTextInput").val())
-        }
-        searchButton();
-        // console.log(n)
-        // $("#searchAddressButton").click()
+      if(isAddress(srch_term)){
+        $("#searchAddressInput").val(srch_term)
+      }else{
+        $("#searchTextInput").val(srch_term);
+        console.log( $("#searchTextInput").val())
+      }
+      searchButton();
+      // console.log(n)
+      // $("#searchAddressButton").click()
       
     }
 }
