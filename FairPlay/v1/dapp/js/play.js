@@ -65,7 +65,7 @@ var bindShowShare = function(){
     $(".share-btn").click(()=>{
        $(".share-panel").removeClass("d-none");
        $(".overlay").removeClass("d-none");
-       $(".share-btn").text(lgb["copytxt"] || "copy link")
+       $(".copy-btn").text(lgb["copytxt"] || "copy link")
        
     })
     $(".overlay").click(()=>{
