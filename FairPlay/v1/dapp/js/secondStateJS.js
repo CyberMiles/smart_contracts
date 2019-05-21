@@ -380,12 +380,14 @@ var renderGiveaways = (_hits) =>{
         desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
         template.find(".rm-giveaway").attr("id", value._source.contractAddress)
-         // Expiry time
-         var epochRepresentation = value._source.functionData.info[5];
-         if (epochRepresentation.toString().length == 10) {
-             var endDate = new Date(epochRepresentation);
-         }
- 
+        
+        // Expiry time
+        var epochRepresentation = value._source.functionData.info[5];
+        if (epochRepresentation.toString().length == 10) {
+            var endDate = new Date(epochRepresentation * 1000);
+        } else if (epochRepresentation.toString().length == 13) {
+            var endDate = new Date(epochRepresentation);
+        }
 
          // Current time
          var currentDate = new Date();
