@@ -48,6 +48,7 @@ var initLanguage = function () {
 
 function hideShare(){
      $(".share-panel").addClass("d-none");
+     $(".overlay").addClass("d-none");
 }
 
 function copyLink(){
