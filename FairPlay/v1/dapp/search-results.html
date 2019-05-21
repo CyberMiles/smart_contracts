@@ -42,25 +42,39 @@
         
         <!-- Page Content -->
         <div id="content">
-            <div class="container-fluid">
-                <button type="button" class="btn btn-dark">
-                    <a href="./index.html">
-                    <span class="oi oi-arrow-thick-left"></span></a>
-                </button>
+            <div class="header">
+                <div class="fairplay_logo">
+                    <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=40">
+                </div>
             </div>
-            <div class="fairplay_logo">
-                <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=120">
+
+            <div id="sidebarCollapse" class="sidebarCollapse">
+                <svg style="fill:#757575;width:24px;height:24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M0 0h24v24H0z" fill="none"></path> <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path> </svg>
             </div>
 
             <div class="container">
-                
+                <form id="search-panel" action="./search-results.html" class="navbar-form" role="search">
+                    <div class="input-group add-on">
+                      <input class="form-control search-box" placeholder="search or type an address" data-translate="search_tips" name="srch-term" id="srch-term" type="text">
+                      <div class="input-group-btn">
+                        <button class="btn btn-default btn-dark search-btn" type="submit">
+                            <span class="oi oi-magnifying-glass"></span>
+                      </div>
+                    </div>
+                </form>
+                <a class="btn btn-dark" id="create-btn" href="./create.html"><span class="oi oi-plus x"></span><span data-translate="create_new">create a new giveaway</span></a>
                 <div class="card-deck">
-                    <small class="card-tips" data-translate="search_result">search result</small>
+                    <small class="card-tips" data-translate="latest_plays">Latest drawing plays</small>
                       <div class="card card-template d-none">
-                        <img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap">
+                        <div class="tag-font"></div>  
+                        <div class="prize-img-container">
+                            <a href="" class="giveaway-url"><img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap"></a>  
+
+                        </div>
+                        
                         <div class="card-body">
                           <h5 class="card-title giveaway-title">Play title</h5>
-                          <p class="card-text giveaway-desc" style="font-size: 14px;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <p class="card-text giveaway-desc" style="font-size: 14px;"></p>
                           <dl>
                               <dd class="n-winners">number of winners</dd>
                               <dd class="end-time">end time</dd>
@@ -68,7 +82,7 @@
                           <button class="btn btn-success nav-details"><a href="...">play</a></button>
                         </div>
                         <div class="card-footer">
-                          <small class="text-muted block-number">block number:</small>
+                          <small data-translate="block_height" class="text-muted block-number">block height:</small>
                         </div>
                       </div>
                       
