@@ -109,18 +109,50 @@
         </div>
         <div class="form-group">
           <label for="shopping" data-translate="shopping_link"> Prize Shopping Link</label>
-          <div id="table" class="table-editable">
-            <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus"
-                  aria-hidden="true"></i></a></span>
+          
+            
+            <span class="table-add float-right mb-3 mr-2">
+              <a href="#!" class="text-dark" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+              </a>
+            </span>
+
+            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content purchase-link-panel">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" data-translate="shopping_link">Prize Purchase Link (Optional)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">    
+                            <label data-translate="shopping_platform">Purchase Platform</label>
+                            <input type="text" id="purchase-platform" name="platform" class="form-control" placeholder="OpenBay/Amazon/...">
+                            <small class="text-danger d-none" id="emptytip-platform" data-translate="not_empty">input cannot be empty</small>
+                        </div>
+                        <div class="form-group">
+                            <label data-translate="shopping_url">Purchase Link</label>
+                            <input type="text" id="purchase-link" name="link" class="form-control" placeholder="https://...">
+                            <small class="text-danger d-none"id="emptytip-link" data-translate="not_empty">input cannot be empty</small>
+                        </div>
+                      </div>
+                      <div class="modal-footer"> 
+                        <button type="button" class="btn btn-dark add-purchase" data-translate="add">Add</button>
+                      </div>
+                </div>
+              </div>
+            </div>
+          <div id="purchase_table">
             <table class="table table-bordered table-responsive-md table-striped text-center">
-              <tr>
-                <th class="text-center" data-translate="shopping_platform">Shopping Platform</th>
-                <th class="text-center" data-translate="shopping_url">Shopping Link</th>
+            <!--   <tr>
+                <th class="text-center" data-translate="shopping_platform">Purchase Platform</th>
+                <th class="text-center" data-translate="shopping_url">Purchase Link</th>
                 <th class="text-center"></th>
                 
-              </tr>
+              </tr> -->
           
-              <!-- This is our clonable table line -->
               <tr>
                 <td class="pt-3-half" placeholder="OpenBay/Amazon/..." contenteditable="true"></td>
                 <td class="pt-3-half" placeholder="https://..." contenteditable="true"></td>
@@ -130,7 +162,6 @@
                 </td>
               </tr>
        
-              <!-- This is our clonable table line -->
               <tr class="d-none">
                 <td class="pt-3-half" contenteditable="true" placeholder="OpenBay/Amazon/..."></td>
                 <td class="pt-3-half" contenteditable="true" placeholder="https://..."></td>
@@ -155,6 +186,11 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
 <script src="js/main.js"></script>
 <script src="js/create.js"></script>

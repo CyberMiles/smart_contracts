@@ -20,6 +20,8 @@ var ZhLanguage = {
     shopping_link:"商品购买链接(可选)",
     shopping_platform: "购买平台",
     winner_unit: "人",
+    not_empty: "输入不准为空",
+    add:"添加",
     //create.js
     creating:"正在创建合约...这可能要花费几分钟！",
     fail_to_create:"创建合约失败",

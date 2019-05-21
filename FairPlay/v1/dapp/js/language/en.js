@@ -19,12 +19,13 @@ var EnLanguage = {
     create_drawing:"Create drawing",
     shopping_platform: "Shopping Platform",
     winner_unit: "person(s)",
+    not_empty: "input cannot be empty",
     //create.js
     creating:"Creating contract ... This could take a few minutes!",
     fail_to_create:"Failed to create contract",
     fail_to_upload:"Fail to upload. Please check your size and extension.",
-    shopping_link:"Prize Shopping Link(optional)",
-    shopping_url:"purchase link",
+    shopping_link:"Prize Purchase Link(optional)",
+    shopping_url:"Purchase Link",
     //play.html
     draw_title:"Draw the prize!",
     end_at:"End at",
