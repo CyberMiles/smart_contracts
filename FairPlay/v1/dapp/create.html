@@ -37,13 +37,13 @@
     <h3 data-translate="create_a_new">Create a new prize drawing</h3>
         <div class="form-group">
             <label for="title" data-translate="title">Title</label>
-            <input type="text" class="form-control" id="title">
-            <small id="titleHelp" class="form-text text-muted" data-translate="title_helper">Please provide a short title for your prize drawing.</small>
+            <input type="text" data-translate="title_helper" placeholder="Please provide a short title for your prize drawing." class="form-control" id="title">
+            <!-- <small id="titleHelp" class="form-text text-muted" data-translate="title_helper">Please provide a short title for your prize drawing.</small> -->
         </div>
         <div class="form-group">
             <label for="desc" data-translate="desc">Description</label>
-            <input type="text" class="form-control" id="desc">
-            <small id="descHelp" class="form-text text-muted" data-translate="desc_helper">A longer description of the prize, and the purposes and procedures of this drawing.</small>
+            <textarea type="text" placeholder="A longer description of the prize, and the purposes and procedures of this drawing." rows="2" class="form-control" id="desc"></textarea> 
+            <!-- <small id="descHelp" class="form-text text-muted" data-translate="desc_helper">A longer description of the prize, and the purposes and procedures of this drawing.</small> -->
         </div>
 
 
@@ -94,15 +94,17 @@
         </div>
         <div class="form-group">
             <label for="num" data-translate="n_of_winners">Number of winners</label>
-            <input type="number" class="form-control" id="num">
+            <input type="number" data-translate="number_helper" placeholder="The number of winners to share the prize."  class="form-control winner-number-input" id="num">
+            <input placeholder="person(s)" datatranslate="winner_unit" type="text" class="form-control winner-unit">
+<!-- 
             <small id="numHelp" class="form-text text-muted" data-translate="number_helper">The number of winners to share the prize.</small>
-        </div>
+ -->        </div>
         <div class="form-group">
           
             <div class="col" style="padding-left:0">
                 <label for="cutoff" data-translate="end_time">End time for the drawing</label>
                 <input type="text" class="form-control datetimepicker-input" id="cutoff" data-toggle="datetimepicker"  readonly="true" data-target="#cutoff">
-                <small id="cutoffHelp" class="form-text text-muted" data-translate="time_eg">E.g., 04/01/2019 3:14 PM</small>
+         <!--        <small id="cutoffHelp" class="form-text text-muted" data-translate="time_eg">E.g., 04/01/2019 3:14 PM</small> -->
             </div>
         </div>
         <div class="form-group">

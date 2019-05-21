@@ -18,6 +18,7 @@ var EnLanguage = {
     time_eg:"E.g., 04/01/2019 3:14 PM",
     create_drawing:"Create drawing",
     shopping_platform: "Shopping Platform",
+    winner_unit: "person(s)",
     //create.js
     creating:"Creating contract ... This could take a few minutes!",
     fail_to_create:"Failed to create contract",
@@ -77,5 +78,5 @@ var EnLanguage = {
     search_tips:"keyword, contract/creator address",
     latest_plays:"lastest drawing plays",
     more:"More",
-    create_new: "Create a new giveaway"
+    create_new: "Create a new giveaway",
 }

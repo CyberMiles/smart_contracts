@@ -48,7 +48,7 @@ var initLanguage = function () {
      $("[data-translate]").each(function(){
         var key = $(this).data('translate');
        if(lgb[key]){
-            if(this.tagName.toLowerCase() == "input"){
+            if(this.tagName.toLowerCase() == "input" || this.tagName.toLowerCase() == "textarea"){
                 $(this).attr("placeholder", lgb[key])
             }else{
                 $(this).html(lgb[key]);

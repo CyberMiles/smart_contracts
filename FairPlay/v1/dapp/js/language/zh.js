@@ -19,6 +19,7 @@ var ZhLanguage = {
     create_drawing:"创建抽奖",
     shopping_link:"商品购买链接(可选)",
     shopping_platform: "购买平台",
+    winner_unit: "人",
     //create.js
     creating:"正在创建合约...这可能要花费几分钟！",
     fail_to_create:"创建合约失败",
