@@ -10,7 +10,7 @@ var EnLanguage = {
     img_url:"Image URL",
     select_pic:"Select your picture",
     uploading:"Uploading......",
-    upload_helper:"Upload a feature image that illustrates prize. (Make sure that the extensions are one of them: jpg, jpeg, png, gif, PNG, JPG, JPEG, and the size is less than 2 MB.) ",
+    upload_helper:"Upload a feature image that illustrates prize. (jpg, jpeg, png and the size <= 2 MB.) ",
     url_helper:"The URL to a feature image that illustrates prize.",
     n_of_winners:"Number of winners",
     number_helper:"The number of winners to share the prize.",
@@ -18,7 +18,7 @@ var EnLanguage = {
     time_eg:"E.g., 04/01/2019 3:14 PM",
     create_drawing:"Create drawing",
     shopping_platform: "Shopping Platform",
-    winner_unit: "person(s)",
+    winner_unit: "ppl",
     not_empty: "input cannot be empty",
     //create.js
     creating:"Creating contract ... This could take a few minutes!",

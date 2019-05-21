@@ -10,7 +10,7 @@ var ZhLanguage = {
     img_url:"图片URL",
     select_pic:"选择图片",
     uploading:"正在上传......",
-    upload_helper:"上传一张能够描述奖品的图。（图片类型：jpg, jpeg, png, gif, PNG, JPG, JPEG, 并且图片小于2 MB）",
+    upload_helper:"上传一张能够描述奖品的图。（图片类型：jpg, jpeg, png, 并且图片小于2 MB）",
     url_helper:"描述该奖品图片的URL",
     n_of_winners:"获奖人数",
     number_helper:"获得该奖品的人数",

@@ -111,7 +111,7 @@ var create = function () {
 
             shopping_site = [];
             shopping_link = [];
-            $('#table_purchase').each(function(){
+            $('#purchase_table').each(function(){
                 $(this).find('td').each(function(){
                     td_content = $(this).text()
                     if(i%3 == 1 ){
