@@ -76,6 +76,8 @@ var ZhLanguage = {
     loading: "加载中 ...",
     processing: "交易处理中 ...",
     share_tip:"请扫描二维码或复制以下链接：",
+    copied: "已复制",
+    copytxt: "复制链接",
     //index.html
     index_title:"抽奖游戏",
     icreated:"我创建的",

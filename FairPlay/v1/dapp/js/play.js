@@ -50,12 +50,19 @@ function hideShare(){
      $(".share-panel").addClass("d-none");
 }
 
+function copyLink(){
+    var copyText = document.getElementById("share-link");
+    copyText.select();
+    document.execCommand("copy");
+    $(".copy-btn").text(lgb["copied"] || "copied");
+}
+
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
     $("iframe").attr("src", "./share.html?code=" + contract_address)
     $(".share-btn").click(function(){
        $(".share-panel").removeClass("d-none");  
-       $("#share-link").text("https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract="+contract_address);
+       $("#share-link").val(baseUrl + "?contract="+contract_address);
     })
 
     var fixed = $(".share-panel")[0];
@@ -116,7 +123,7 @@ var getInfo = function () {
                     $('#desc-div').text(desc_html);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
-                    $('#number-of-winners-div').text(number_of_winners);
+                    $('#number-of-winners-div').text(number_of_winners + "  " + (lgb['winner_unit'] || "person"));
                     var cutoff_ts = r[5];
                     $('#cutoff-ts-div').text((new Date(cutoff_ts * 1000)).toLocaleString());
                     $('#drawing-creater').text(ownerAddress);

@@ -30,9 +30,9 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
 <div class="container" style="display:none" id="info-panel">
-    <div style="text-align:center">
-        <h3 id="title-div">... ...</h3>
+    <div>
         <p id="image-img"></p>
+        <h3 id="title-div">... ...</h3>
     </div>
 
     <div id="desc-panel">
@@ -72,7 +72,7 @@
 </div>
 
 <div class="container" style="display:none" id="play-panel">
-    <h3 align="center" data-translate="enter_drawing">Enter the drawing</h3>
+    <h3 data-translate="enter_drawing">Enter the drawing</h3>
     <form>
         <div class="form-row">
             <input type="text" id="name-field" class="form-control" data-translate="ur_name" placeholder="Your name">
@@ -164,7 +164,7 @@
 
 <div class="container" style="display:none" id="winners-panel">
     <hr/>
-    <h3 align="center" data-translate="winners">Winners</h3>
+    <h3 data-translate="winners">Winners</h3>
     <table class="table">
         <thead id="winners-panel-table-head">
             <tr>
@@ -180,7 +180,7 @@
 
 <div class="container" style="display:none" id="players-panel">
     <hr/>
-    <h3 align="center" data-translate="all_players">All players</h3>
+    <h3 data-translate="all_players">All players</h3>
     <table class="table">
         <thead>
             <tr>
@@ -216,16 +216,12 @@
         <div class="container">
             <iframe src="./share.html?code=" scrolling="no"></iframe>
             <div style="font-size:1.2em;margin: 30px;" data-translate="share_tip">Please share the QR code above or copy the following link to share:</div>
-            <div style="overflow-wrap: break-word;
-            word-wrap: break-word; font-weight: bold; 
-            padding: 5px;
-            outline: thick solid #495057;">
-                <div id="share-link"> ...       
-                </div>
-            </div>
-           
+     
+            <textarea id="share-link" readonly type="text" rows="5"></textarea>
+            <a class="copy-btn btn-sm btn-light float-right btn-primary" 
+            onclick="copyLink()" style="margin-bottom: 20px;" data-translate="copytxt">copy link</a>
         
-         </div>
+        </div>
         
  </div>
 
