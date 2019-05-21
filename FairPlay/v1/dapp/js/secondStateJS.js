@@ -1,4 +1,4 @@
-var publicIp = ""; // This must be an empty string, unless you are hosting this on a public server
+var publicIp = "http://13.211.31.225"; // This must be an empty string, unless you are hosting this on a public server
 //var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
  var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/fairplay/_search/?size=100"
  var currentAccount = "";
@@ -393,7 +393,7 @@ var renderGiveaways = (_hits) =>{
 
             template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("expired")
-            template.find(".nav-details > a").text("Result")
+            template.find(".nav-details > a").text(lgb["result"] || "Result")
             template.find(".nav-details").addClass("btn-danger")
             template.find(".prize-img").addClass("img-filter")
             template.find(".tag-font").text(lgb['timeup'] || "time is up")
@@ -402,7 +402,7 @@ var renderGiveaways = (_hits) =>{
 
             template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("current")
-            template.find(".nav-details > a").text("Play")
+            template.find(".nav-details > a").text(lgb["play"] || "Play")
             template.find(".nav-details").addClass("btn-success")
             template.find(".tag-font").removeClass("tag-font")
             
