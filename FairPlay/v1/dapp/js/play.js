@@ -68,6 +68,7 @@ var bindShowShare = function(){
     })
     $(".overlay").click(()=>{
         $(".share-panel").addClass("d-none");
+        $(".overlay").addClass("d-none");
     })
 
     var fixed = $(".share-panel")[0];
