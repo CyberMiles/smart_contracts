@@ -17,6 +17,16 @@ a:active{
     bottom: 0;
 }
 
+.overlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
 .create-btn,.share-btn{
     height: 3.5em;
 }
@@ -27,6 +37,7 @@ a:active{
     overflow: hidden;
     resize: none;
     font-size: 14px;
+    outline: none;
 }
 
 .create-btn{
@@ -49,13 +60,12 @@ a:active{
   width: 100%;
   background: #fff;
   bottom: 0;
-  z-index: 5;
+  z-index: 999;
   scroll-behavior: smooth;
   overflow: scroll;
   background-color: #bdbdbd;
   border-radius: 5px;
   /*max-height: 400px;*/
-
 }
 
 .share-panel > div{

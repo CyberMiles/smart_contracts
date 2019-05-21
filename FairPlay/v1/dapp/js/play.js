@@ -60,9 +60,13 @@ function copyLink(){
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
     $("iframe").attr("src", "./share.html?code=" + contract_address)
-    $(".share-btn").click(function(){
-       $(".share-panel").removeClass("d-none");  
+    $(".share-btn").click(()=>{
+       $(".share-panel").removeClass("d-none");
+       $(".overlay").addClass("active");
        $("#share-link").val(baseUrl + "?contract="+contract_address);
+    })
+    $(".overlay").click(()=>{
+        $(".share-panel").addClass("d-none");
     })
 
     var fixed = $(".share-panel")[0];
