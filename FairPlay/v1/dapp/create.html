@@ -95,8 +95,7 @@
         <div class="form-group">
             <label for="num" data-translate="n_of_winners">Number of winners</label>
             <div class="input-inline">
-                <input type="number" data-translate="number_helper" placeholder="The number of winners to share the prize."  class="form-control winner-number-input" id="num">
-                <input placeholder="person(s)" datatranslate="winner_unit" type="text" class="form-control  winner-unit">
+                <input type="number" data-translate="number_helper" placeholder="The number of winners to share the prize."  class="form-control winner-number-input" id="num"><input disabled placeholder="person(s)" datatranslate="winner_unit" type="text" class="form-control  winner-unit">
             </div>
 <!-- 
             <small id="numHelp" class="form-text text-muted" data-translate="number_helper">The number of winners to share the prize.</small>
@@ -147,28 +146,12 @@
               </div>
             </div>
           <div id="purchase_table">
-            <table class="table table-bordered table-responsive-md table-striped text-center">
-            <!--   <tr>
-                <th class="text-center" data-translate="shopping_platform">Purchase Platform</th>
-                <th class="text-center" data-translate="shopping_url">Purchase Link</th>
-                <th class="text-center"></th>
-                
-              </tr> -->
-          
-              <tr>
-                <td class="pt-3-half" placeholder="OpenBay/Amazon/..." contenteditable="true"></td>
-                <td class="pt-3-half" placeholder="https://..." contenteditable="true"></td>
-
-                <td>
-                  <span class="table-remove"><i class="fas fa-times"></i></span>
-                </td>
-              </tr>
-       
+            <table class="table table-bordered table-striped">
               <tr class="d-none">
-                <td class="pt-3-half" contenteditable="true" placeholder="OpenBay/Amazon/..."></td>
-                <td class="pt-3-half" contenteditable="true" placeholder="https://..."></td>
-                <td>
-                  <span class="table-remove"><i class="fas fa-times fa"></i></span>
+                <td width="30%" class="pt-3-half" ></td>
+                <td width="60%" class="pt-3-half"></td>
+                <td width="10%">
+                  <span class="table-remove"><i class="fas fa-times"></i></span>
                 </td>
               </tr>
             </table>
