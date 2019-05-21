@@ -62,7 +62,7 @@ var bindShowShare = function(){
     $("iframe").attr("src", "./share.html?code=" + contract_address)
     $(".share-btn").click(()=>{
        $(".share-panel").removeClass("d-none");
-       $(".overlay").addClass("active");
+       $(".overlay").removeClass("d-none");
        $("#share-link").val(baseUrl + "?contract="+contract_address);
     })
     $(".overlay").click(()=>{
