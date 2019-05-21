@@ -61,11 +61,12 @@ function copyLink(){
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
     $("iframe").attr("src", "./share.html?code=" + contract_address)
+    $("#share-link").val(baseUrl + "?contract=" + contract_address);
     $(".share-btn").click(()=>{
        $(".share-panel").removeClass("d-none");
        $(".overlay").removeClass("d-none");
-       $(".share-btn").text(lgb[copytxt] || "copy link")
-       $("#share-link").val(baseUrl + "?contract="+contract_address);
+       $(".share-btn").text(lgb["copytxt"] || "copy link")
+       
     })
     $(".overlay").click(()=>{
         $(".share-panel").addClass("d-none");
