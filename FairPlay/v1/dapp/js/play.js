@@ -236,7 +236,7 @@ var getInfo = function () {
                                 console.log(ownerAddress);
                                 console.log(userAddress);
                                 
-                                for (var i = 0; i < winners.length; i++) {
+                                for (let i = 0; i < winners.length; i++) {
                                     thiswinner = winners[i]
                                     instance.playerInfo (thiswinner, (epi, rpi) => {
                                         if (epi) {
