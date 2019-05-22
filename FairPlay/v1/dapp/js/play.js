@@ -222,7 +222,6 @@ var getInfo = function () {
                                 if (winners && winners.length > 0) {
                                     $('#winners-panel').css("display", "block");
                                 }
-                                $('#winners-panel-table').html("");
                                 
                                 console.log(ownerAddress);
                                 console.log(userAddress);
