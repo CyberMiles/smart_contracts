@@ -241,8 +241,8 @@ var getInfo = function () {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
+                                            console.log(winners[i])
                                               winner_row = $("#winners-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
-                                              console.log(winner_row)
                                               winner_row.find(".user-name").text(rpi[2])
                                               winner_row.find(".user-comment").text(rpi[5])
                                               if (ownerAddress == userAddress) {
