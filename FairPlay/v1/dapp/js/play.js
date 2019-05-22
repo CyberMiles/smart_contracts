@@ -242,15 +242,16 @@ var getInfo = function () {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
-                                              console.log(i, winners, winners[i], thiswinner)
+                                              // console.log(winners[i])
+                                              thisAddr = winners[i]
                                               winner_row = $("#winners-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
                                               winner_row.find(".user-name").text(rpi[2])
                                               winner_row.find(".user-comment").text(rpi[5])
                                               if (ownerAddress == userAddress) {
                                                   $(".winner-contact").removeClass("d-none")
                                                   winner_row.find(".user-addr").removeClass("d-none")
-                                                  winner_row.find(".user-addr > a").attr("alt", userAddress)
-                                                  winner_row.find(".user-addr-txt").text(userAddress.slice(0, 4) + "****" + userAddress.slice(-2))
+                                                  winner_row.find(".user-addr > a").attr("alt", thisAddr)
+                                                  winner_row.find(".user-addr-txt").text(thisAddr.slice(0, 4) + "****" + thisAddr.slice(-2))
                                                   winner_row.find(".user-contact").removeClass("d-none")
                                                   winner_row.find(".user-contact").text(rpi[3])
                                               }
