@@ -238,7 +238,8 @@ var getInfo = function () {
                                 
                                 for (var i = 0; i < winners.length; i++) {
                                     thiswinner = winners[i]
-                                    instance.playerInfo (thiswinner, thiswinner => {(epi, rpi) => {
+                                    console.log(thiswinner)
+                                    instance.playerInfo (thiswinner, thiswinner => {(epi, rpi, thiswinner) => {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
