@@ -237,11 +237,11 @@ var getInfo = function () {
                                 console.log(userAddress);
                                 
                                 for (var i = 0; i < winners.length; i++) {
-                                    instance.playerInfo (winners[i], function (epi, rpi) {
+                                    instance.playerInfo (winners[i], function (epi, rpi, thiswinner) {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
-                                            console.log(winners[i])
+                                              console.log(thiswinner)
                                               winner_row = $("#winners-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
                                               winner_row.find(".user-name").text(rpi[2])
                                               winner_row.find(".user-comment").text(rpi[5])
