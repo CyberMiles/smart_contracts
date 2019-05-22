@@ -139,7 +139,7 @@ var IWonButton = () => {
 
 var searchButton =  async () => {
         $('.results').empty()
-        var theAddress = $("#searchAddressInput").val();
+        var theAddress = $("#searchAddressInput").val().toLowerCase();
         var theText = $("#searchTextInput").val();
         //console.log($.trim(theAddress.length));
         if ($.trim(theAddress.length) == "0" && $.trim(theText.length) == "0") {
