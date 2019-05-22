@@ -18,6 +18,9 @@ $(function () {
     // init the abi and bin
     getAbi();
     getBin();
+
+    new ClipboardJS('.copy-btn');
+
     initLanguage();
     bindShowShare();
     
@@ -227,26 +230,42 @@ var getInfo = function () {
                                 for (var i = 0; i < winners.length; i++) {
                                     instance.playerInfo (winners[i], function (epi, rpi) {
                                         if (epi) {
-                                            console.log(epi);
+                                              console.log(epi);
                                         } else {
-                                            var html_old = $('#winners-panel-table').html();
-                                            var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
-                                            if (ownerAddress == userAddress) {
-                                                $(".winner-contact").removeClass("d-none");
-                                                if (rpi[5] == null) {
-                                                    html_snippet = html_snippet + "</td><td>";
-                                                } else {
-                                                    html_snippet = html_snippet + rpi[5] + "</td><td>";
-                                                }
-                                                html_snippet = html_snippet + rpi[3] + "</td></tr>";
-                                            } else {
-                                                if (rpi[5] == null) {
-                                                    html_snippet = html_snippet + "</td></tr>";
-                                                } else {
-                                                    html_snippet = html_snippet + rpi[5] + "</td></tr>";
-                                                }
-                                            }
-                                            $('#winners-panel-table').html(html_old + html_snippet);
+                                              winner_row = $("#winners-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
+                                              console.log(winner_row)
+                                              winner_row.find(".user-name").text(rpi[2])
+                                              winner_row.find(".user-comment").text(rpi[5])
+
+                                              
+                                              if (ownerAddress == userAddress) {
+                                                  $(".winner-contact").removeClass("d-none")
+                                                  winner_row.find(".user-addr").removeClass("d-none")
+                                                  winner_row.find(".user-addr-txt").text(userAddress.slice(0, 4) + "****" + userAddress.slice(-2))
+                                                  winner_row.find(".user-contact").removeClass("d-none")
+                                                  winner_row.find(".user-contact").text(rpi[3])
+                                              }
+                                              $("#winners-panel-table").append(winner_row)
+
+
+                                            // var html_old = $('#winners-panel-table').html();
+                                            // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                            // if (ownerAddress == userAddress) {
+                                            //     $(".winner-contact").removeClass("d-none");
+                                            //     if (rpi[5] == null) {
+                                            //         html_snippet = html_snippet + "</td><td>";
+                                            //     } else {
+                                            //         html_snippet = html_snippet + rpi[5] + "</td><td>";
+                                            //     }
+                                            //     html_snippet = html_snippet + rpi[3] + "</td></tr>";
+                                            // } else {
+                                            //     if (rpi[5] == null) {
+                                            //         html_snippet = html_snippet + "</td></tr>";
+                                            //     } else {
+                                            //         html_snippet = html_snippet + rpi[5] + "</td></tr>";
+                                            //     }
+                                            // }
+                                            // $('#winners-panel-table').html(html_old + html_snippet);
                                         }
                                     });
                                 }
