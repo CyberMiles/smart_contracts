@@ -237,7 +237,7 @@ var getInfo = function () {
                                 console.log(userAddress);
                                 
                                 for (var i = 0; i < winners.length; i++) {
-                                    instance.playerInfo (winners[i], function (epi, rpi, thiswinner) {
+                                    instance.playerInfo (winners[i], function (epi, rpi, thiswinner = winners[i]) {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
@@ -254,26 +254,6 @@ var getInfo = function () {
                                                   winner_row.find(".user-contact").text(rpi[3])
                                               }
                                               $("#winners-panel-table").append(winner_row)
-
-
-                                            // var html_old = $('#winners-panel-table').html();
-                                            // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
-                                            // if (ownerAddress == userAddress) {
-                                            //     $(".winner-contact").removeClass("d-none");
-                                            //     if (rpi[5] == null) {
-                                            //         html_snippet = html_snippet + "</td><td>";
-                                            //     } else {
-                                            //         html_snippet = html_snippet + rpi[5] + "</td><td>";
-                                            //     }
-                                            //     html_snippet = html_snippet + rpi[3] + "</td></tr>";
-                                            // } else {
-                                            //     if (rpi[5] == null) {
-                                            //         html_snippet = html_snippet + "</td></tr>";
-                                            //     } else {
-                                            //         html_snippet = html_snippet + rpi[5] + "</td></tr>";
-                                            //     }
-                                            // }
-                                            // $('#winners-panel-table').html(html_old + html_snippet);
                                         }
                                     });
                                 }
