@@ -69,11 +69,6 @@ var initLinkTb = function(){
     $(this).parents('tr').detach();
     });
 
-    $('#exampleModal').on('hidden.bs.modal', function (e) {
-      $("#emptytip-platform").addClass("d-none")
-      $("#emptytip-link").addClass("d-none")
-    })
-
     $(".add-purchase").click(()=>{
       if($("#purchase-platform").val()===""){
         $("#emptytip-platform").removeClass("d-none")

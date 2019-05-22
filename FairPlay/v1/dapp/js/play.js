@@ -24,6 +24,15 @@ $(function () {
     initLanguage();
     bindShowShare();
     
+    new  ClipboardJS('.cp-addr-btn');
+
+    $('#cp-addr-panel').on('show.bs.modal', function (e) {
+
+        var addr = $(e.relatedTarget).attr("alt");
+        $("#user-addr-input").val(addr)
+    
+    })
+
 
     var interval = setInterval(function () {
         if (abi.length > 0) {
@@ -60,6 +69,12 @@ function copyLink(){
     document.execCommand("copy");
     $(".copy-btn").text(lgb["copied"] || "copied");
 }
+
+function showPlayerAddr(){
+    data-target="#exampleModal"
+}
+
+
 
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
@@ -235,11 +250,10 @@ var getInfo = function () {
                                               console.log(winner_row)
                                               winner_row.find(".user-name").text(rpi[2])
                                               winner_row.find(".user-comment").text(rpi[5])
-
-                                              
                                               if (ownerAddress == userAddress) {
                                                   $(".winner-contact").removeClass("d-none")
                                                   winner_row.find(".user-addr").removeClass("d-none")
+                                                  winner_row.find(".user-addr").attr("alt", userAddress)
                                                   winner_row.find(".user-addr-txt").text(userAddress.slice(0, 4) + "****" + userAddress.slice(-2))
                                                   winner_row.find(".user-contact").removeClass("d-none")
                                                   winner_row.find(".user-contact").text(rpi[3])
