@@ -238,8 +238,7 @@ var getInfo = function () {
                                 
                                 for (var i = 0; i < winners.length; i++) {
                                     thiswinner = winners[i]
-                                    console.log(thiswinner)
-                                    instance.playerInfo (thiswinner, thiswinner => {(epi, rpi) => {
+                                    instance.playerInfo (thiswinner, (epi, rpi, thiswinner) => {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
@@ -257,8 +256,7 @@ var getInfo = function () {
                                               }
                                               $("#winners-panel-table").append(winner_row)
                                         }
-                                    }}
-                                    );
+                                    });
                                 }
                             }
                         });
