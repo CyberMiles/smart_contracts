@@ -242,7 +242,7 @@ var getInfo = function () {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
-                                              console.log(thiswinner)
+                                              console.log(i, winners, winners[i], thiswinner)
                                               winner_row = $("#winners-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
                                               winner_row.find(".user-name").text(rpi[2])
                                               winner_row.find(".user-comment").text(rpi[5])
