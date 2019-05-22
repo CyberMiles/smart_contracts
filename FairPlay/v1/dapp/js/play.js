@@ -237,7 +237,7 @@ var getInfo = function () {
                                 console.log(userAddress);
                                 
                                 for (var i = 0; i < winners.length; i++) {
-                                    instance.playerInfo (winners[i], function (epi, rpi, thiswinner = winners[i]) {
+                                    instance.playerInfo (winners[i], winners[i] => { (epi, rpi, thiswinner = winners[i]) => {
                                         if (epi) {
                                               console.log(epi);
                                         } else {
@@ -255,7 +255,7 @@ var getInfo = function () {
                                               }
                                               $("#winners-panel-table").append(winner_row)
                                         }
-                                    });
+                                    }});
                                 }
                             }
                         });
@@ -274,7 +274,7 @@ var getInfo = function () {
                         $('#players-panel').css("display", "block");
                         $('#players-panel-table').html("");
                         for (var i = 0; i < players.length; i++) {
-                            instance.playerInfo (players[i], function (epi, rpi) {
+                            instance.playerInfo (players[i],    function (epi, rpi) {
                                 if (epi) {
                                     console.log(epi);
                                 } else {
