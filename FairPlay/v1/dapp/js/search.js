@@ -78,9 +78,9 @@ const dispatchSearch = async (method) => {
     }else{
       $("#create-btn").addClass("d-none")
 
-      srch_term = getUrlParameter("srch-term")
+      srch_term = getUrlParameter("srch-term").toLowerCase()
       if(isAddress(srch_term)){
-        $("#searchAddressInput").val(srch_term.toLowerCase())
+        $("#searchAddressInput").val(srch_term)
       }else{
         $("#searchTextInput").val(srch_term);
         console.log( $("#searchTextInput").val())
