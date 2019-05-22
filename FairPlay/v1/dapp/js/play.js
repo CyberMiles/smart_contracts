@@ -70,11 +70,6 @@ function copyLink(){
     $(".copy-btn").text(lgb["copied"] || "copied");
 }
 
-function showPlayerAddr(){
-    data-target="#exampleModal"
-}
-
-
 
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
