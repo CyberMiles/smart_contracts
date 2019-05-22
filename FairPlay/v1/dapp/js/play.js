@@ -248,7 +248,7 @@ var getInfo = function () {
                                               if (ownerAddress == userAddress) {
                                                   $(".winner-contact").removeClass("d-none")
                                                   winner_row.find(".user-addr").removeClass("d-none")
-                                                  winner_row.find(".user-addr").attr("alt", userAddress)
+                                                  winner_row.find(".user-addr > a").attr("alt", userAddress)
                                                   winner_row.find(".user-addr-txt").text(userAddress.slice(0, 4) + "****" + userAddress.slice(-2))
                                                   winner_row.find(".user-contact").removeClass("d-none")
                                                   winner_row.find(".user-contact").text(rpi[3])
