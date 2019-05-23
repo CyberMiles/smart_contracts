@@ -23,7 +23,7 @@ $(function () {
 
 
     share_clipboard.on('success', function(e) {
-        $('.cp-btn').text(lgb["copied"] || "copied")
+        $('.copy-btn').text(lgb["copied"] || "copied")
 
         console.info('Action:', e.action);
         console.info('Text:', e.text);
