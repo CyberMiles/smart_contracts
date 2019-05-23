@@ -274,30 +274,44 @@ var getInfo = function () {
                     var players = r;
                     if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
-                        $('#players-panel-table').html("");
-                        for (var i = 0; i < players.length; i++) {
+                        // $('#players-panel-table').html("");
+                        for (let i = 0; i < players.length; i++) {
                             instance.playerInfo (players[i], function (epi, rpi) {
                                 if (epi) {
                                     console.log(epi);
                                 } else {
-                                    var html_old = $('#players-panel-table').html();
-                                    var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                    thisAddr = players[i]
+                                    player_row = $("#players-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
+                                    player_row.find(".user-name").text(rpi[2])
+                                    player_row.find(".user-note").text(rpi[4])
                                     if (ownerAddress == userAddress) {
-                                        $(".users-contact").removeClass("d-none");
-                                        if (rpi[4] == null) {
-                                            html_snippet = html_snippet + "</td><td>";
-                                        } else {
-                                            html_snippet = html_snippet + rpi[4] + "</td><td>";
-                                        }
-                                        html_snippet = html_snippet + rpi[3] + "</td></tr>";
-                                    } else {
-                                        if (rpi[4] == null) {
-                                            html_snippet = html_snippet + "</td></tr>";
-                                        } else {
-                                            html_snippet = html_snippet + rpi[4] + "</td></tr>";
-                                        }
+                                      $(".users-contact").removeClass("d-none")
+                                      player_row.find(".user-addr").removeClass("d-none")
+                                      player_row.find(".user-addr > a").attr("alt", thisAddr)
+                                      player_row.find(".user-addr-txt").text(thisAddr.slice(0, 4) + "****" + thisAddr.slice(-2))
+                                      player_row.find(".user-contact").removeClass("d-none")
+                                      player_row.find(".user-contact").text(rpi[3])
                                     }
-                                    $('#players-panel-table').html(html_old + html_snippet);
+                                    $("#players-panel-table").append(player_row)
+
+                                    // var html_old = $('#players-panel-table').html();
+                                    // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                    // if (ownerAddress == userAddress) {
+                                    //     $(".users-contact").removeClass("d-none");
+                                    //     if (rpi[4] == null) {
+                                    //         html_snippet = html_snippet + "</td><td>";
+                                    //     } else {
+                                    //         html_snippet = html_snippet + rpi[4] + "</td><td>";
+                                    //     }
+                                    //     html_snippet = html_snippet + rpi[3] + "</td></tr>";
+                                    // } else {
+                                    //     if (rpi[4] == null) {
+                                    //         html_snippet = html_snippet + "</td></tr>";
+                                    //     } else {
+                                    //         html_snippet = html_snippet + rpi[4] + "</td></tr>";
+                                    //     }
+                                    // }
+                                    // $('#players-panel-table').html(html_old + html_snippet);
 
                                     // var html_old = $('#players-panel-table').html();
                                     // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
