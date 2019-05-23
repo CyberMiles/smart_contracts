@@ -52,10 +52,9 @@ $(function () {
     });
 
     $('#cp-addr-panel').on('show.bs.modal', function (e) {
-
         var addr = $(e.relatedTarget).attr("alt");
         $("#user-addr-input").val(addr)
-    
+        $(".cp-addr-btn").text(lgb["copy"] || "copy")
     })
 
 
@@ -103,7 +102,7 @@ var bindShowShare = function(){
     $(".share-btn").click(()=>{
        $(".share-panel").removeClass("d-none");
        $(".overlay").removeClass("d-none");
-       //$(".copy-btn").text(lgb["copytxt"] || "copy link")
+       $(".copy-btn").text(lgb["copytxt"] || "copy link")
        
     })
     $(".overlay").click(()=>{
