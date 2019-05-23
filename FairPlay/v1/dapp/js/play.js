@@ -58,6 +58,10 @@ $(function () {
         $("#user-addr-input").val(addr)
         $(".cp-addr-btn").text(lgb["copy"] || "copy")
     })
+    $('#share-panel').on('show.bs.modal', function (e) {
+        console.log("#share-link").val()
+        $(".copy-btn").text(lgb["copy"] || "copy")
+    })
 
 
     var interval = setInterval(function () {
