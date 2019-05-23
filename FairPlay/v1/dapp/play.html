@@ -28,9 +28,6 @@
 <body class="main-bg">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
-<button class="test-cp-btn" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
-    Copy to clipboard
-</button>
 <div class="container" style="display:none" id="info-panel">
     <div>
         <p id="image-img"></p>
@@ -231,7 +228,8 @@
                  <button type="button" class="col-sm btn btn-dark"><a href="./create.html" data-translate="create_mine">Create my own!</a></button> 
             </div>
             <div class="share-btn col-5">
-                <button type="button" class="col-sm btn btn-dark" data-translate="share_play">Share the play!</button> 
+                <!-- <button type="button" class="col-sm btn btn-dark" data-translate="share_play">Share the play!</button>  -->
+                <a href="#!" class="col-sm btn btn-dark" data-toggle="modal" data-target="#share-panel" data-translate="share_play">Share the play!</a>
                 <!-- <button type="button" class="col-sm btn btn-dark"><a href="./qrcode.html?code=" data-translate="share_play">Share the play!</a></button>  -->
             </div>   
 
@@ -239,10 +237,24 @@
 
     </div>
 </div>
-
+<!-- 
  <div class="share-panel d-none">
         <span onclick="hideShare()" class="remove-btn oi oi-x"></span>
         <div class="container">
+            <iframe src="./share.html?code=" scrolling="no"></iframe>
+            <div style="font-size:1.2em;margin: 30px;" data-translate="share_tip">Please share the QR code above or copy the following link to share:</div>
+     
+            <textarea id="share-link" readonly type="text" rows="5"></textarea>
+            <a class="copy-btn btn-sm btn-light float-right btn-primary" data-clipboard-target="#share-link"   style="margin-bottom: 20px;" data-translate="copytxt">copy link</a>
+        
+        </div>
+        
+ </div> -->
+
+<div class="modal fade" id="share-panel" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content share-content-panel">
+          <div class="container">
             <iframe src="./share.html?code=" scrolling="no"></iframe>
             <div style="font-size:1.2em;margin: 30px;" data-translate="share_tip">Please share the QR code above or copy the following link to share:</div>
      
@@ -251,8 +263,10 @@
             <!-- data-clipboard-target="#share-link" -->
         
         </div>
-        
- </div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay d-none"></div>
 <div class="modal fade" id="cp-addr-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
