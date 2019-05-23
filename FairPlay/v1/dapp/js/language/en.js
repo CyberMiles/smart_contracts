@@ -62,7 +62,7 @@ var EnLanguage = {
     share_title:"Share the QR code",
     share_tip:"Please share the QR code above or copy the following link to share:",
     ur_name:"Your name",
-    ur_addr:"Your Email, Your Facebook ID, etc",
+    ur_addr:"Your Email/Facebook ID/...",
     leave_msg:"Leave a message...",
     leave_confirm_msg:"Leave a confirmation message",
     //qrcode.html
