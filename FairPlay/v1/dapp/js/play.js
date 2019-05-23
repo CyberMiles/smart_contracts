@@ -49,8 +49,8 @@ $(function () {
     });
 
     share_clipboard.on('error', function(e) {
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
+        alert('Action:', e.action);
+        alert('Trigger:', e.trigger);
     });
 
     $('#cp-addr-panel').on('show.bs.modal', function (e) {

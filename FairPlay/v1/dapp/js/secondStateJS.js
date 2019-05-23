@@ -405,7 +405,7 @@ var renderGiveaways = (_hits) =>{
  
          if (currentDate > endDate) {
 
-            template.find(".end-time").text("end time: " + endDate)
+            template.find(".end-time").text((lgb["end_time_short"] || "End Time") +": " + endDate)
             template.find(".end-time").addClass("expired")
             template.find(".nav-details").text(lgb["result"] || "Result")
             template.find(".nav-details").addClass("btn-danger")
