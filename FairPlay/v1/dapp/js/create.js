@@ -59,6 +59,13 @@ var initLanguage = function () {
 
 
 
+function isUrlValid(userInput) {
+    var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}
 
 var initLinkTb = function(){
     
@@ -70,16 +77,18 @@ var initLinkTb = function(){
     });
 
     $(".add-purchase").click(()=>{
+      $("#emptytip-platform").addClass("d-none")
+      $("#emptytip-link").addClass("d-none")
+      $("#invalid-url").addClass("d-none")
+      
       if($("#purchase-platform").val()===""){
         $("#emptytip-platform").removeClass("d-none")
       }
       else if($("#purchase-link").val()===""){
-        $("#invalid-url").addClass("d-none")
         $("#emptytip-link").removeClass("d-none")
 
       }
       else if(!isUrlValid($("#purchase-link").val())){
-        $("#emptytip-link").addClass("d-none")
         $("#invalid-url").removeClass("d-none")
       }
       else{

@@ -377,11 +377,15 @@ var renderGiveaways = (_hits) =>{
         else
             template = $(".card-template").clone().removeClass("card-template")
         func_data = value._source.functionData;
-        template.find(".prize-img").attr("src",func_data.image_url);
+        if(func_data.image_url == ""){
+            template.find(".prize-img-container").detach()
+        }else{
+            template.find(".prize-img").attr("src",func_data.image_url);
+        }
         template.find(".giveaway-title").text(func_data.title);
-        template.find(".n-winners").text("Number of winners:  " + func_data.number_of_winners);
+        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + func_data.number_of_winners);
 
-        template.find(".block-number").text("Block Height:  " + value._source.blockNumber)
+        template.find(".block-number").text((lgb["block_height"] || "Block Height") + ": " + value._source.blockNumber)
         template.find(".dapp-version").text(value._source.dappVersion)
         
         desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
@@ -410,7 +414,7 @@ var renderGiveaways = (_hits) =>{
             template.find(".tag-font").addClass("red")
          } else if (currentDate < endDate) {
 
-            template.find(".end-time").text("end time: " + endDate)
+            template.find(".end-time").text((lgb["end_time_short"] || "End Time") +": " + endDate)
             template.find(".end-time").addClass("current")
             template.find(".nav-details").text(lgb["play"] || "Play")
             template.find(".nav-details").addClass("btn-success")

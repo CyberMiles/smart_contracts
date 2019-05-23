@@ -14,6 +14,7 @@ var EnLanguage = {
     url_helper:"The URL to a feature image that illustrates prize.",
     n_of_winners:"Number of winners",
     number_helper:"The number of winners to share the prize.",
+    end_time_short:"End Time",
     end_time:"End time for the drawing",
     time_eg:"E.g., 04/01/2019 3:14 PM",
     create_drawing:"Create drawing",
