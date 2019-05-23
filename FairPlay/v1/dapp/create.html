@@ -94,7 +94,7 @@
         <div class="form-group">
             <label for="num" data-translate="n_of_winners">Number of winners</label>
             <div class="input-inline">
-                <input type="number" data-translate="number_helper" placeholder="The number of winners to share the prize."  class="form-control winner-number-input" id="num"><input disabled placeholder="ppl" data-ranslate="winner_unit" type="text" class="form-control  winner-unit">
+                <input type="number" data-translate="number_helper" placeholder="The number of winners to share the prize."  class="form-control winner-number-input" id="num"><input disabled placeholder="ppl" data-translate="winner_unit" type="text" class="form-control  winner-unit">
             </div>
 <!-- 
             <small id="numHelp" class="form-text text-muted" data-translate="number_helper">The number of winners to share the prize.</small>
@@ -133,9 +133,10 @@
                             <small class="text-danger d-none" id="emptytip-platform" data-translate="not_empty">input cannot be empty</small>
                         </div>
                         <div class="form-group">
-                            <label data-translate="shopping_url">Purchase Link</label>
-                            <input type="text" id="purchase-link" name="link" class="form-control" placeholder="https://...">
-                            <small class="text-danger d-none"id="emptytip-link" data-translate="not_empty">input cannot be empty</small>
+                            <label>Purchase Link</label>
+                            <input type="text" id="purchase-link" name="link" class="form-control" placeholder="http(s)://...">
+                            <small class="text-danger d-none" id="emptytip-link" data-translate="not_empty">input cannot be empty</small>
+                            <small class="text-danger d-none" id="invalid-url" data-translate="invalid_url">Invalid URL. It should starts with "http(s)://"</small>
                         </div>
                       </div>
                       <div class="modal-footer"> 

@@ -88,7 +88,7 @@ const dispatchSearch = async (method) => {
         console.log( $("#searchTextInput").val())
       }
       const n = await searchButton();
-      $(".card-tips").html(n + (lgb['normal_unit'] || "") + (lgb["search_result"] || "Search Results"))
+      $(".card-tips").html(n + (lgb['normal_unit'] || " ") + (lgb["search_result"] || "Search Results"))
 
       // console.log(n)
       // $("#searchAddressButton").click()      

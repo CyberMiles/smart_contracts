@@ -19,12 +19,37 @@ $(function () {
     getAbi();
     getBin();
 
-    new ClipboardJS('.copy-btn');
+    var share_clipboard = new ClipboardJS('.copy-btn');
+
+
+    share_clipboard.on('success', function(e) {
+        $('.cp-btn').text(lgb["copied"] || "copied")
+
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+
+        e.clearSelection();
+    });
+
+    share_clipboard.on('error', function(e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+
 
     initLanguage();
     bindShowShare();
     
-    new  ClipboardJS('.cp-addr-btn');
+    var addr_clipboard = new ClipboardJS('.cp-addr-btn');
+    addr_clipboard.on('success', function(e) {
+        $('.cp-addr-btn').text(lgb["copied"] || "copied")
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+
+        e.clearSelection();
+    });
 
     $('#cp-addr-panel').on('show.bs.modal', function (e) {
 

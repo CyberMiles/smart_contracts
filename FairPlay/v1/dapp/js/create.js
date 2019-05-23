@@ -73,21 +73,27 @@ var initLinkTb = function(){
       if($("#purchase-platform").val()===""){
         $("#emptytip-platform").removeClass("d-none")
       }
-      if($("#purchase-link").val()===""){
+      else if($("#purchase-link").val()===""){
+        $("#invalid-url").addClass("d-none")
         $("#emptytip-link").removeClass("d-none")
+
+      }
+      else if(!isUrlValid($("#purchase-link").val())){
+        $("#emptytip-link").addClass("d-none")
+        $("#invalid-url").removeClass("d-none")
       }
       else{
-    
         var $clone = $TABLE.find('tr.d-none').clone(true).removeClass('d-none table-line');
         $clone.find('td:eq(0)').text($("#purchase-platform").val())
         $clone.find('td:eq(1)').text($("#purchase-link").val())
         $TABLE.find('table').append($clone);
-        
-        $("#exampleModal").modal("hide")
-        $("#purchase-platform").val("")
-        $("#purchase-link").val("")
+
+          console.log($("#purchase-platform").val())
+          console.log($("#purchase-link").val())
+         $("#exampleModal").modal("hide")
+         $("#purchase-platform").val("")
+         $("#purchase-link").val("")
       }
-      
     })
 }
 
