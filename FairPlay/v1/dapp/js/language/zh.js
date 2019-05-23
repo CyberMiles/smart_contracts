@@ -70,6 +70,7 @@ var ZhLanguage = {
     leave_msg:"说些什么吧...",
     leave_confirm_msg:"获奖了，说些什么吧...",
     creater:"发起人",
+    copy:"复制",
     //play.js
     error: "错误。请再试一次！",
     wait: "上链中 ...",
