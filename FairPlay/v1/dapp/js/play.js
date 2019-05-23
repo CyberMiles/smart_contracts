@@ -34,7 +34,7 @@ $(function () {
 
         e.clearSelection();
     });
-
+    var test-cpboard = new ClipboardJS('.test-cp-btn');
       var share_clipboard = new ClipboardJS('.copy-btn');
 
 
