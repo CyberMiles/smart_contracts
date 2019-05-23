@@ -1,7 +1,13 @@
 var publicIp = "";
 // var publicIp = "http://13.211.31.225"; // This must be an empty string, unless you are hosting this on a public server
 //var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
- var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/fairplay/_search/?size=100"
+ /*this is testnet
+ //var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/fairplay/_search/?size=100"
+ */
+ /*this is mainnet*
+ */
+ var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/mainnetfairplay/_search/?size=100"
+
  var currentAccount = "";
 // The above config must be placed in a better system (master config area)
 
@@ -396,7 +402,7 @@ var renderGiveaways = (_hits) =>{
 
             template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("expired")
-            template.find(".nav-details > a").text(lgb["result"] || "Result")
+            template.find(".nav-details").text(lgb["result"] || "Result")
             template.find(".nav-details").addClass("btn-danger")
             template.find(".prize-img").addClass("img-filter")
             template.find(".tag-font").text(lgb['timeup'] || "time is up")
@@ -405,7 +411,7 @@ var renderGiveaways = (_hits) =>{
 
             template.find(".end-time").text("end time: " + endDate)
             template.find(".end-time").addClass("current")
-            template.find(".nav-details > a").text(lgb["play"] || "Play")
+            template.find(".nav-details").text(lgb["play"] || "Play")
             template.find(".nav-details").addClass("btn-success")
             template.find(".tag-font").removeClass("tag-font")
             
@@ -414,7 +420,7 @@ var renderGiveaways = (_hits) =>{
         }
 
         var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract=" + value._source.contractAddress;
-        template.find(".nav-details > a").attr("href", playUrl)
+        template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)
 
