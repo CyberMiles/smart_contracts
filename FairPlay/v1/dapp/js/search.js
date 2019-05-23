@@ -45,7 +45,10 @@ const dispatchSearch = async (method) => {
       $(".card-tips").html(lgb["giveaways_icreated"] || "Giveaways, I created...")
       const n = await ICreatedButton()
       if(n){
-        //$(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...")        
+        //$(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...") 
+        if(n<=10){
+          $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+        }       
       }else{
         $(".card-tips").html(lgb["no_create"] || "You haven't created giveaway.")
         $(".more-plays").addClass("d-none")
@@ -57,6 +60,9 @@ const dispatchSearch = async (method) => {
       $(".card-tips").html(lgb["giveaways_iparticipated"] || "Giveaways, I participated...")
       const n = await IParticipatedButton()
       if(n){
+        if(n<=10){
+          $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+        } 
         //$(".card-tips").html(n + lgb["giveaways_iparticipated"] || "Giveaways, I participated..." )        
       }else{
         $(".card-tips").html(lgb["try_now"] || "You haven't participated. Why not try now?")
@@ -70,6 +76,9 @@ const dispatchSearch = async (method) => {
       $(".card-tips").html(lgb["giveaways_iwon"] || "Giveaways, I won...")
       const n = await IWonButton()
       if(n){
+        if(n<=10){
+          $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+        } 
         //$(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
       }else{
         $(".card-tips").html(lgb["try_again"] || "You haven't created giveaway. Why not try again?")

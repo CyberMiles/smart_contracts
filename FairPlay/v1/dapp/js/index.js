@@ -82,6 +82,9 @@ initInfo = () => {
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
         n_items = renderGiveaways(latestGiveaways);
+        if (n_items <= 10){
+            $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+        }
         // console.log(n_items)
     });
     $(".more-plays").click(()=>{
