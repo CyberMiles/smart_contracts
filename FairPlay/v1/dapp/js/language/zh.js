@@ -94,9 +94,10 @@ var ZhLanguage = {
     aboutus:"关于我们",
     //search results.html
     search_result:"搜索结果",
-    giveaways_icreated:"个我创建的抽奖...",
-    giveaways_iparticipated:"个我参与的抽奖...",
-    giveaways_iwon:"个我获奖的抽奖...",
+    normal_unit:"个",
+    giveaways_icreated:"我创建的抽奖...",
+    giveaways_iparticipated:"我参与的抽奖...",
+    giveaways_iwon:"我获奖的抽奖...",
     nomore:"没有更多了",
     create_new:"创建一个新的抽奖",
     try_now:"你还没有参加过，现在来参加吧",

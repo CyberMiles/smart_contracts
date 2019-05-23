@@ -40,10 +40,12 @@ const isChecksumAddress = function (address) {
 
 const dispatchSearch = async (method) => {
     if(method == 'created'){
+      $(".card-tips").addClass("normal-font")
+
       $(".card-tips").html(lgb["giveaways_icreated"] || "Giveaways, I created...")
       const n = await ICreatedButton()
       if(n){
-        $(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...")        
+        //$(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...")        
       }else{
         $(".card-tips").html(lgb["no_create"] || "You haven't created giveaway.")
         $(".more-plays").addClass("d-none")
@@ -51,28 +53,28 @@ const dispatchSearch = async (method) => {
       }
     }else if(method == "participated"){
       $("#create-btn").addClass("d-none")
-
+      $(".card-tips").addClass("normal-font")
       $(".card-tips").html(lgb["giveaways_iparticipated"] || "Giveaways, I participated...")
       const n = await IParticipatedButton()
       if(n){
-        $(".card-tips").html(n + lgb["giveaways_iparticipated"] || "Giveaways, I participated..." )        
+        //$(".card-tips").html(n + lgb["giveaways_iparticipated"] || "Giveaways, I participated..." )        
       }else{
         $(".card-tips").html(lgb["try_now"] || "You haven't participated. Why not try now?")
         $(".more-plays").addClass("d-none")
-        $("#searchAddressInput").val("0x8f5fbb1f077344784347Bee6606df8D2dc8D171A")
+        $("#searchAddressInput").val("0x67bc96cb6667Ff38Fd2E308f6781184Bf43B8F7d")
         searchButton();
       }
     }else if(method == "won"){
       $("#create-btn").addClass("d-none")
-
+      $(".card-tips").addClass("normal-font")
       $(".card-tips").html(lgb["giveaways_iwon"] || "Giveaways, I won...")
       const n = await IWonButton()
       if(n){
-        $(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
+        //$(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
       }else{
         $(".card-tips").html(lgb["try_again"] || "You haven't created giveaway. Why not try again?")
         $(".more-plays").addClass("d-none")
-        $("#searchAddressInput").val("0x8f5fbb1f077344784347Bee6606df8D2dc8D171A")
+        $("#searchAddressInput").val("0x67bc96cb6667Ff38Fd2E308f6781184Bf43B8F7d")
         searchButton();
       }
     }else{
@@ -85,10 +87,11 @@ const dispatchSearch = async (method) => {
         $("#searchTextInput").val(srch_term);
         console.log( $("#searchTextInput").val())
       }
-      searchButton();
+      const n = await searchButton();
+      $(".card-tips").html(n + (lgb['normal_unit'] || "") + (lgb["search_result"] || "Search Results"))
+
       // console.log(n)
-      // $("#searchAddressButton").click()
-      
+      // $("#searchAddressButton").click()      
     }
 }
 
