@@ -112,13 +112,13 @@ var bindShowShare = function(){
         $(".overlay").addClass("d-none");
     })
 
-    var fixed = $(".share-panel")[0];
+    // var fixed = $(".share-panel")[0];
 
-    fixed.addEventListener('touchmove', function(e) {
+    // fixed.addEventListener('touchmove', function(e) {
 
-            e.preventDefault();
+    //         e.preventDefault();
 
-    }, false);
+    // }, false);
 }
 
 var getInfo = function () {
