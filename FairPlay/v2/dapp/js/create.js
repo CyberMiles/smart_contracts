@@ -167,9 +167,16 @@ var create = function () {
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();
             
             var contract = web3.cmt.contract(abi);
-            var data = '0x' + contract.new.getData(title, desc_md, image_url, num_of_winners, cutoff_ts, {data: bin.object});
+            //string _title, string _desc, string _image_url, 
+            //uint256 _number_of_winners, uint _cutoff_ts, string _lang_code,
+            //string _tags, string _purchase_links
+            var lang_code = "";
+            var tags = "";
+            var purchase_links = "";
 
-            contract.new([title, desc_md, image_url, num_of_winners, cutoff_ts], {
+            var data = '0x' + contract.new.getData(title, desc_md, image_url, num_of_winners, cutoff_ts, lang_code, tags, purchase_links, {data: bin.object});
+
+            contract.new([title, desc_md, image_url, num_of_winners, cutoff_ts, lang_code, tags, purchase_links], {
                 from: userAddress.toString(),
                 data: data,
                 gas: '9999000',
