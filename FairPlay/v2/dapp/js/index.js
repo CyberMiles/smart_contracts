@@ -65,33 +65,26 @@ initCSS = () => {
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
-
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
-        }
-    });
-    // scroll body to 0px on click
-    $('#back-to-top').click(function () {
-        $('#back-to-top').tooltip('hide');
-        $('body,html').animate({
-            scrollTop: 0
-        }, 800);
-        return false;
-    });
-
-    $('#back-to-top').tooltip('show');
 }
 
 initInfo = () => {
-    
-    $("#self_addr").html(web3.cmt.accounts[0]);
+    web3.cmt.getAccounts(function (e, address) {
+        if (e) {
+            tip.error(lgb["error"] || "There is an error");
+        } else {
+            var userAddress = address.toString();
+            $("#self_addr").html(userAddress);
+        }
+    })
+
+
     
     $.get(elasticSearchUrl, function(data, status) {
         latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
         n_items = renderGiveaways(latestGiveaways);
+        if (n_items <= 10){
+            $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+        }
         // console.log(n_items)
     });
     $(".more-plays").click(()=>{

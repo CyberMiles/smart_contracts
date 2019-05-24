@@ -1,8 +1,26 @@
 body{
     padding-bottom: 70px !important;
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa !important;
 }
-a:active{
-  text-decoration: none;
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+}
+
+#desc-panel >p > a {
+    color: blue;
 }
 .winner-show {
     flex: auto;
@@ -10,15 +28,53 @@ a:active{
     text-align: center;
     margin-top: 15px;
 }
-
+.addr-body{
+  padding: 15px 8px;
+}
+.cp-addr {
+  border-top: 0;
+  padding: 0 5px 5px 0;
+}
+#user-addr-input{
+    width: 100%;
+    font-size: 12px;
+    outline: none;
+    border: 0;
+    text-align: center;
+}
 .sticky-footer{
     width: 100%;
     position: fixed; 
     bottom: 0;
 }
 
+.overlay{
+    top:0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
 .create-btn,.share-btn{
     height: 3.5em;
+}
+
+.share-btn a:focus {
+    color: #fff;
+}
+
+#share-link {
+    width: 100%;
+    background: 100%;
+    border: 0;
+    overflow: hidden;
+    resize: none;
+    font-size: 14px;
+    outline: none;
 }
 
 .create-btn{
@@ -41,13 +97,12 @@ a:active{
   width: 100%;
   background: #fff;
   bottom: 0;
-  z-index: 5;
+  z-index: 999;
   scroll-behavior: smooth;
   overflow: scroll;
   background-color: #bdbdbd;
   border-radius: 5px;
   /*max-height: 400px;*/
-
 }
 
 .share-panel > div{
@@ -87,6 +142,7 @@ a:active{
 #drawing-creater{
     overflow-wrap: break-word;
     word-wrap: break-word;
+    font-size: 14px;
 }
 
 iframe {
@@ -99,7 +155,7 @@ iframe {
 }
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-    font-family: SFProText;
+    /*font-family: SFProText;*/
     font-size: 15px;
     font-weight: normal;
     font-style: normal;

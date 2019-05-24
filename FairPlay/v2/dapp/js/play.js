@@ -18,9 +18,51 @@ $(function () {
     // init the abi and bin
     getAbi();
     getBin();
+
+  
+
+
     initLanguage();
     bindShowShare();
     
+    var addr_clipboard = new ClipboardJS('.cp-addr-btn');
+    addr_clipboard.on('success', function(e) {
+        $('.cp-addr-btn').text(lgb["copied"] || "copied")
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+
+        e.clearSelection();
+    });
+    var test_cpboard = new ClipboardJS('.test-cp-btn');
+      var share_clipboard = new ClipboardJS('.copy-btn');
+
+
+    share_clipboard.on('success', function(e) {
+        $('.copy-btn').text(lgb["copied"] || "copied")
+
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+
+        e.clearSelection();
+    });
+
+    share_clipboard.on('error', function(e) {
+        alert('Action:', e.action);
+        alert('Trigger:', e.trigger);
+    });
+
+    $('#cp-addr-panel').on('show.bs.modal', function (e) {
+        var addr = $(e.relatedTarget).attr("alt");
+        $("#user-addr-input").val(addr)
+        $(".cp-addr-btn").text(lgb["copy"] || "copy")
+    })
+    $('#share-panel').on('show.bs.modal', function (e) {
+        console.log($("#share-link").val())
+        $(".copy-btn").text(lgb["copy"] || "copy")
+    })
+
 
     var interval = setInterval(function () {
         if (abi.length > 0) {
@@ -48,23 +90,39 @@ var initLanguage = function () {
 
 function hideShare(){
      $(".share-panel").addClass("d-none");
+     $(".overlay").addClass("d-none");
 }
+
+function copyLink(){
+    var copyText = document.getElementById("share-link");
+    copyText.select();
+    document.execCommand("copy");
+    $(".copy-btn").text(lgb["copied"] || "copied");
+}
+
 
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
     $("iframe").attr("src", "./share.html?code=" + contract_address)
-    $(".share-btn").click(function(){
-       $(".share-panel").removeClass("d-none");  
-       $("#share-link").text("https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract="+contract_address);
+    $("#share-link").val(baseUrl + "?contract=" + contract_address);
+    // $(".share-btn").click(()=>{
+    //    $(".share-panel").removeClass("d-none");
+    //    $(".overlay").removeClass("d-none");
+    //    $(".copy-btn").text(lgb["copytxt"] || "copy link")
+       
+    // })
+    $(".overlay").click(()=>{
+        $(".share-panel").addClass("d-none");
+        $(".overlay").addClass("d-none");
     })
 
-    var fixed = $(".share-panel")[0];
+    // var fixed = $(".share-panel")[0];
 
-    fixed.addEventListener('touchmove', function(e) {
+    // fixed.addEventListener('touchmove', function(e) {
 
-            e.preventDefault();
+    //         e.preventDefault();
 
-    }, false);
+    // }, false);
 }
 
 var getInfo = function () {
@@ -116,7 +174,7 @@ var getInfo = function () {
                     $('#desc-div').text(desc_html);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
-                    $('#number-of-winners-div').text(number_of_winners);
+                    $('#number-of-winners-div').text(number_of_winners + "  " + (lgb['winner_unit'] || "person"));
                     var cutoff_ts = r[5];
                     $('#cutoff-ts-div').text((new Date(cutoff_ts * 1000)).toLocaleString());
                     $('#drawing-creater').text(ownerAddress);
@@ -204,34 +262,30 @@ var getInfo = function () {
                                 if (winners && winners.length > 0) {
                                     $('#winners-panel').css("display", "block");
                                 }
-                                $('#winners-panel-table').html("");
                                 
                                 console.log(ownerAddress);
                                 console.log(userAddress);
                                 
-                                for (var i = 0; i < winners.length; i++) {
-                                    instance.playerInfo (winners[i], function (epi, rpi) {
+                                for (let i = 0; i < winners.length; i++) {
+                                    thiswinner = winners[i]
+                                    instance.playerInfo (thiswinner, (epi, rpi) => {
                                         if (epi) {
-                                            console.log(epi);
+                                              console.log(epi);
                                         } else {
-                                            var html_old = $('#winners-panel-table').html();
-                                            var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
-                                            if (ownerAddress == userAddress) {
-                                                $(".winner-contact").removeClass("d-none");
-                                                if (rpi[5] == null) {
-                                                    html_snippet = html_snippet + "</td><td>";
-                                                } else {
-                                                    html_snippet = html_snippet + rpi[5] + "</td><td>";
-                                                }
-                                                html_snippet = html_snippet + rpi[3] + "</td></tr>";
-                                            } else {
-                                                if (rpi[5] == null) {
-                                                    html_snippet = html_snippet + "</td></tr>";
-                                                } else {
-                                                    html_snippet = html_snippet + rpi[5] + "</td></tr>";
-                                                }
-                                            }
-                                            $('#winners-panel-table').html(html_old + html_snippet);
+                                              // console.log(winners[i])
+                                              thisAddr = winners[i]
+                                              winner_row = $("#winners-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
+                                              winner_row.find(".user-name").text(rpi[2])
+                                              winner_row.find(".user-comment").text(rpi[5])
+                                              if (ownerAddress == userAddress) {
+                                                  $(".winner-contact").removeClass("d-none")
+                                                  winner_row.find(".user-addr").removeClass("d-none")
+                                                  winner_row.find(".user-addr > a").attr("alt", thisAddr)
+                                                  winner_row.find(".user-addr-txt").text(thisAddr.slice(0, 4) + "****" + thisAddr.slice(-2))
+                                                  winner_row.find(".user-contact").removeClass("d-none")
+                                                  winner_row.find(".user-contact").text(rpi[3])
+                                              }
+                                              $("#winners-panel-table").append(winner_row)
                                         }
                                     });
                                 }
@@ -250,30 +304,44 @@ var getInfo = function () {
                     var players = r;
                     if (players && players.length > 0) {
                         $('#players-panel').css("display", "block");
-                        $('#players-panel-table').html("");
-                        for (var i = 0; i < players.length; i++) {
+                        // $('#players-panel-table').html("");
+                        for (let i = 0; i < players.length; i++) {
                             instance.playerInfo (players[i], function (epi, rpi) {
                                 if (epi) {
                                     console.log(epi);
                                 } else {
-                                    var html_old = $('#players-panel-table').html();
-                                    var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                    thisAddr = players[i]
+                                    player_row = $("#players-panel-table").find("tr.d-none").clone(true).removeClass("d-none")
+                                    player_row.find(".user-name").text(rpi[2])
+                                    player_row.find(".user-note").text(rpi[4])
                                     if (ownerAddress == userAddress) {
-                                        $(".users-contact").removeClass("d-none");
-                                        if (rpi[4] == null) {
-                                            html_snippet = html_snippet + "</td><td>";
-                                        } else {
-                                            html_snippet = html_snippet + rpi[4] + "</td><td>";
-                                        }
-                                        html_snippet = html_snippet + rpi[3] + "</td></tr>";
-                                    } else {
-                                        if (rpi[4] == null) {
-                                            html_snippet = html_snippet + "</td></tr>";
-                                        } else {
-                                            html_snippet = html_snippet + rpi[4] + "</td></tr>";
-                                        }
+                                      $(".users-contact").removeClass("d-none")
+                                      player_row.find(".user-addr").removeClass("d-none")
+                                      player_row.find(".user-addr > a").attr("alt", thisAddr)
+                                      player_row.find(".user-addr-txt").text(thisAddr.slice(0, 4) + "****" + thisAddr.slice(-2))
+                                      player_row.find(".user-contact").removeClass("d-none")
+                                      player_row.find(".user-contact").text(rpi[3])
                                     }
-                                    $('#players-panel-table').html(html_old + html_snippet);
+                                    $("#players-panel-table").append(player_row)
+
+                                    // var html_old = $('#players-panel-table').html();
+                                    // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
+                                    // if (ownerAddress == userAddress) {
+                                    //     $(".users-contact").removeClass("d-none");
+                                    //     if (rpi[4] == null) {
+                                    //         html_snippet = html_snippet + "</td><td>";
+                                    //     } else {
+                                    //         html_snippet = html_snippet + rpi[4] + "</td><td>";
+                                    //     }
+                                    //     html_snippet = html_snippet + rpi[3] + "</td></tr>";
+                                    // } else {
+                                    //     if (rpi[4] == null) {
+                                    //         html_snippet = html_snippet + "</td></tr>";
+                                    //     } else {
+                                    //         html_snippet = html_snippet + rpi[4] + "</td></tr>";
+                                    //     }
+                                    // }
+                                    // $('#players-panel-table').html(html_old + html_snippet);
 
                                     // var html_old = $('#players-panel-table').html();
                                     // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";

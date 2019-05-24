@@ -1,19 +1,9 @@
 
 body {
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif;
+  /*font-family: sans-serif;*/
   background-color: #eeeeee;
   padding-bottom: 70px !important;
-}
-.pt-3-half {
-  padding-top: 1.4rem;
-}
-[contenteditable=true]:empty:before{
-  content: attr(placeholder);
-  display: block; /* For Firefox */
-}
-#table > tbody{
-  width: 100%;
-  display: table;
 }
 
 a,
@@ -22,6 +12,15 @@ a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+}
+
+::placeholder {
+  color: peachpuff;
+  font-size: 13px;
 }
 
 .file-upload {
@@ -82,8 +81,7 @@ a:focus {
   position: relative;
 }
 
-.image-dropping,
-.image-upload-wrap:hover {
+.image-dropping {
   background-color: #888888;
   border: 4px dashed #ffffff;
 }
@@ -124,4 +122,50 @@ a:focus {
 
 #url-input{
   margin-top: 20px;
+}
+
+.input-inline{
+    white-space: nowrap;
+}
+
+.winner-number-input{
+    display: inline-block;
+    width: 80%;
+    border-right-width: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    white-space: normal;
+}
+
+.winner-unit{
+    display: inline-block;
+    width: 20%;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    white-space: normal;
+}
+
+.purchase-link-panel{
+  top: 30%;
+  transform: translate(0, 40%);
+}
+
+.pt-3-half {
+  padding-top: 1.4rem;
+}
+
+#table > tbody{
+  width: 100%;
+  display: table;
+}
+
+#purchase_table table{
+  width: 100%;
+  word-break: break-word;
+}
+
+.modal-footer {
+  border: 0;
+  
 }

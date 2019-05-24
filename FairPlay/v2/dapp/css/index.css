@@ -24,6 +24,11 @@ a:focus {
     transition: all 0.3s;
 }
 
+.container {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
 .navbar {
     padding: 15px 10px;
     background: #fff;
@@ -57,8 +62,8 @@ a:focus {
     left: -250px;
     height: 100vh;
     z-index: 999;
-    background: #343a40;
-    color: #fff;
+    background: #fff;
+    color: rgba(0,0,0,.54);
     transition: all 0.3s;
     overflow-y: scroll;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
@@ -69,11 +74,6 @@ a:focus {
 }
 
 #dismiss {
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    background: #aba1a1bf;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -93,7 +93,7 @@ a:focus {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);;
     z-index: 998;
     opacity: 0;
     transition: all 0.5s ease-in-out;
@@ -110,18 +110,28 @@ a:focus {
 
 #sidebar ul.components {
     padding: 60px 0;
-    border-bottom: 1px solid #47748b;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e1e1;
     overflow-wrap: break-word;
+    padding-left: 5px;
 }
 
 #sidebar ul p {
-    color: #fff;
+    color: rgba(0,0,0,.54);
     padding: 10px;
+}
+
+.sidebar-header > p > svg {
+    fill: rgba(0,0,0,.54);
+    margin-right: 10px;
+    padding-top: 3px;
+    /* margin-top: 5px; */
+    margin-bottom: -3px;
 }
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 15px;
     display: block;
 }
 
@@ -183,12 +193,47 @@ a.article:hover {
 
 #content {
     width: 100%;
-    padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
+    padding-bottom: 20px; 
     top: 0;
     right: 0;
+}
+
+.sidebarCollapse{
+    height: 64px;
+    padding: 18px;
+    width: fit-content;
+}
+
+.search-box {
+    border-radius: 20px 0 0 20px;
+}
+
+.search-btn {
+    border-radius: 0 20px 20px 0;
+}
+
+#search-panel {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3px;
+    left: 0;
+    z-index: 200;
+}
+
+#create-btn {
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 20px;
+    display: block;
+    /* height: 0px; */
+}
+
+a span {
+    margin-left: 5px;
+    margin-right: 5px; 
 }
 
 .add-on .input-group-btn > .btn {
@@ -213,9 +258,17 @@ a.article:hover {
 .fairplay_logo > img {
     display: block;
     margin: auto;
-    padding: 30px;
+    padding: 12px;
 }
 
+.header {
+    height: 64px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -100;
+    left: 0;
+}
 .card-deck {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -223,6 +276,50 @@ a.article:hover {
 
 .card-tips{
     margin: 10px; 
+}
+
+p.card-text.giveaway-desc:before {
+    content: '......';
+    /* float: right; */
+    margin-top: 3.4em;
+    /* margin-right: 5px; */
+    position: absolute;
+}
+
+p.card-text.giveaway-desc {
+    line-height: 1.7em;
+    max-height: 3.4em;
+    overflow: hidden;
+}
+
+.card-footer small {
+    display: inline-block;
+}
+
+.dapp-version {
+    float: right;
+}
+
+.prize-img-container {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.prize-img-container img {
+    top: -40%;
+}
+
+.prize-img{
+    position: absolute;
+}
+
+.nav-details{
+    width: 100%;
+}
+
+.img-filter {
+    filter: opacity(40%)  grayscale(50%);;
 }
 
 .more-plays{
@@ -237,37 +334,40 @@ a.article:hover {
 }
 
 .profile_hr{
-    border-bottom: 1px solid #47748b;
+    border-bottom: 0 solid #e1e1e1;
+    margin-left: -10px;
 }
 
-.butn {
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-  background-image: -o-linear-gradient(top, #3498db, #2980b9);
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 12px 15px 8px 15px;
-  /*padding: 10px 20px 10px 20px;*/
-  text-decoration: none;
+.tag-font{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    border: 2px dotted;
+    padding: 5px;
+    width: fit-content;
+    transform: rotate(30deg);
+    /* overflow: visible; */
+    float: right;
+    position: absolute;
+    z-index: 100;
+    right: -5px;
+    top: 25px;
 }
 
-.butn:hover {
-  background: #3cb0fd;
-  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-  text-decoration: none;
+.red {
+    color: red; 
 }
+
+.green {
+    color: green;
+}
+
 
 .rm-giveaway{
     float: right;
+}
+
+.normal-font{
+    font-size: 1em;
 }

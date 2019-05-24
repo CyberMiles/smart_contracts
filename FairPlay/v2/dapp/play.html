@@ -3,8 +3,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
-<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5cc56bbec78f7000120f0817&product='inline-share-buttons' async='async'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, shrink-to-fit=no,user-scalable=no">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -30,9 +29,9 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <p></p>
 <div class="container" style="display:none" id="info-panel">
-    <div style="text-align:center">
-        <h3 id="title-div">... ...</h3>
+    <div>
         <p id="image-img"></p>
+        <h3 id="title-div">... ...</h3>
     </div>
 
     <div id="desc-panel">
@@ -72,7 +71,7 @@
 </div>
 
 <div class="container" style="display:none" id="play-panel">
-    <h3 align="center" data-translate="enter_drawing">Enter the drawing</h3>
+    <h3 data-translate="enter_drawing">Enter the drawing</h3>
     <form>
         <div class="form-row">
             <input type="text" id="name-field" class="form-control" data-translate="ur_name" placeholder="Your name">
@@ -83,7 +82,7 @@
         <div class="form-row">
             <div class="form-group col" style="padding-left: 0px;">
                 <select id="contact-app-field" class="form-control">
-                    <option data-translate="other">Other</option>
+                    
                     <option data-translate="telegram">Telegram</option>
                     <option data-translate="twitter">Twitter</option>
                     <option data-translate="facebook">Facebook</option>
@@ -93,7 +92,7 @@
                 </select>
             </div>
             <div class="form-group col" style="padding-right: 0px;">
-                <input type="text" id="contact-id-field" class="form-control" data-translate="ur_addr" placeholder="Your ID or address">
+                <input type="text" id="contact-id-field" class="form-control" data-translate="ur_addr" placeholder="Your Email, Your Facebook ID, etc">
             </div>
         </div>
         <div class="form-row">
@@ -148,8 +147,7 @@
     <!-- <p data-translate="confirm_msg" class="lead">Please confirm here after you receive your prize.</p> -->
     <form>
         <div class="form-group">
-            <textarea id="confirm-field"  rows="2" class="form-control" data-translate="leave_confirm_msg" placeholder="Leave a confirmation message">
-            </textarea> 
+            <textarea id="confirm-field"  rows="2" class="form-control" data-translate="leave_confirm_msg" placeholder="Leave a confirmation message"></textarea> 
         </div>
     </form>
     
@@ -164,23 +162,38 @@
 
 <div class="container" style="display:none" id="winners-panel">
     <hr/>
-    <h3 align="center" data-translate="winners">Winners</h3>
+    <h3 data-translate="winners">Winners</h3>
     <table class="table">
         <thead id="winners-panel-table-head">
             <tr>
-                <th scope="col" data-translate="name">Name</th>
+                <th scope="col" data-translate="name">Name
+                </th>
                 <th scope="col" data-translate="comment">Comment</th>
                 <th scope="col" data-translate="contact" class="winner-contact d-none">Contact</th>
             </tr>
         </thead>
         <tbody id="winners-panel-table">
+            <tr class="winner-row d-none">
+                <td>
+                    <span class="user-name">...</span>
+                    <div class="user-addr d-none">
+                        <small class="user-addr-txt">0x12**90</small>
+                        <a href="#!" data-toggle="modal" data-target="#cp-addr-panel">
+                            <span class="oi oi-clipboard" style="padding-left: 5px;"></span>
+                        </a>
+                    </div>
+                </td>
+                <td class="user-comment">...</td>
+                <td class="user-contact d-none"></td>
+            </tr>
+
         </tbody>
     </table>
 </div>
 
 <div class="container" style="display:none" id="players-panel">
     <hr/>
-    <h3 align="center" data-translate="all_players">All players</h3>
+    <h3 data-translate="all_players">All players</h3>
     <table class="table">
         <thead>
             <tr>
@@ -191,6 +204,19 @@
             </tr>
         </thead>
         <tbody id="players-panel-table">
+            <tr class="player-row d-none">
+                <td>
+                    <span class="user-name">...</span>
+                    <div class="user-addr d-none">
+                        <small class="user-addr-txt">0x12**90</small>
+                        <a href="#!" class="text-dark" data-toggle="modal" data-target="#cp-addr-panel">
+                            <span class="oi oi-clipboard" style="padding-left: 5px;"></span>
+                        </a>
+                    </div>
+                </td>
+                <td class="user-note">...</td>
+                <td class="user-contact d-none"></td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -202,7 +228,8 @@
                  <button type="button" class="col-sm btn btn-dark"><a href="./create.html" data-translate="create_mine">Create my own!</a></button> 
             </div>
             <div class="share-btn col-5">
-                <button type="button" class="col-sm btn btn-dark" data-translate="share_play">Share the play!</button> 
+                <!-- <button type="button" class="col-sm btn btn-dark" data-translate="share_play">Share the play!</button>  -->
+                <a href="#!" class="col-sm btn btn-dark" data-toggle="modal" data-target="#share-panel" data-translate="share_play">Share the play!</a>
                 <!-- <button type="button" class="col-sm btn btn-dark"><a href="./qrcode.html?code=" data-translate="share_play">Share the play!</a></button>  -->
             </div>   
 
@@ -210,26 +237,52 @@
 
     </div>
 </div>
-
+<!-- 
  <div class="share-panel d-none">
         <span onclick="hideShare()" class="remove-btn oi oi-x"></span>
         <div class="container">
             <iframe src="./share.html?code=" scrolling="no"></iframe>
             <div style="font-size:1.2em;margin: 30px;" data-translate="share_tip">Please share the QR code above or copy the following link to share:</div>
-            <div style="overflow-wrap: break-word;
-            word-wrap: break-word; font-weight: bold; 
-            padding: 5px;
-            outline: thick solid #495057;">
-                <div id="share-link"> ...       
-                </div>
-            </div>
-           
+     
+            <textarea id="share-link" readonly type="text" rows="5"></textarea>
+            <a class="copy-btn btn-sm btn-light float-right btn-primary" data-clipboard-target="#share-link"   style="margin-bottom: 20px;" data-translate="copytxt">copy link</a>
         
-         </div>
+        </div>
         
- </div>
+ </div> -->
 
+<div class="modal fade" id="share-panel" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content share-content-panel">
+          <div class="container">
+            <iframe src="./share.html?code=" scrolling="no"></iframe>
+            <div style="font-size:1.2em;margin: 30px;" data-translate="share_tip">Please share the QR code above or copy the following link to share:</div>
+     
+            <textarea id="share-link" readonly type="text" rows="5"></textarea>
+            <a class="copy-btn btn btn-light float-right btn-primary" data-clipboard-target="#share-link"  style="margin-bottom: 20px;" data-translate="copytxt">copy link</a>
+            <!-- data-clipboard-target="#share-link" -->
+        
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay d-none"></div>
+<div class="modal fade" id="cp-addr-panel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content purchase-link-panel">
+         
+          <div class="modal-body addr-body">
+              <input type="text" id="user-addr-input" readonly name="user-addr" value="0xabcd">
+          </div>
+          <div class="modal-footer cp-addr"> 
+            <button type="button" class="btn btn-sm btn-dark cp-addr-btn" data-translate="copy" data-clipboard-target="#user-addr-input">Copy</button>
+          </div>
+    </div>
+  </div>
+</div>
 </body>
+<script src="js/clipboard.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/main.js"></script>

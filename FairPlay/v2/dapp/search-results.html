@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, shrink-to-fit=no,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <title data-translate="index_title">Prize drawing</title>
 
 
@@ -53,22 +53,29 @@
             </div>
 
             <div class="container">
-                
                 <div class="card-deck">
-                    <small class="card-tips" data-translate="search_result">search result</small>
+                    <small class="card-tips" data-translate="search_result">Searched Results</small>
+                    <a class="btn btn-dark d-none" id="create-btn" href="./create.html"><span class="oi oi-plus x"></span><span data-translate="create_new">create a new giveaway</span></a>
+                      
                       <div class="card card-template d-none">
-                        <img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap">
+                        <div class="tag-font"></div>  
+                        <div class="prize-img-container">
+                            <a href="" class="giveaway-url"><img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap"></a>  
+
+                        </div>
+                        
                         <div class="card-body">
                           <h5 class="card-title giveaway-title">Play title</h5>
-                          <p class="card-text giveaway-desc" style="font-size: 14px;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <p class="card-text giveaway-desc" style="font-size: 14px;"></p>
                           <dl>
                               <dd class="n-winners">number of winners</dd>
                               <dd class="end-time">end time</dd>
                           </dl>
-                          <button class="btn btn-success nav-details"><a href="...">play</a></button>
+                          <a class="btn btn-success nav-details" href="...">play</a>
                         </div>
                         <div class="card-footer">
-                          <small class="text-muted block-number">block number:</small>
+                          <small data-translate="block_height" class="text-muted block-number">block height:</small>
+                          <small class="text-muted dapp-version">v</small>
                         </div>
                       </div>
                       

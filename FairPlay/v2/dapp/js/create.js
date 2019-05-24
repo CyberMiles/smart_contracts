@@ -23,18 +23,20 @@ $(function () {
     // Data Picker Initialization
     // $('.datepicker').pickadate();
     $('#cutoff').datetimepicker({
-            minDate: moment().add(1, 'm'),
-            icons: {
-                time: 'far fa-clock',
-                date: 'far fa-calendar',
-                up: 'fas fa-arrow-up',
-                down: 'fas fa-arrow-down',
-                previous: 'fas fa-chevron-left',
-                next: 'fas fa-chevron-right',
-                today: 'far fa-calendar-check-o',
-                clear: 'far fa-trash',
-                close: 'far fa-times'
-            },
+        ignoreReadonly: true,
+        defaultDate:moment().add(5, 'm'),
+        minDate: moment().add(1, 'm'),
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+        },
     });
 });
 
@@ -46,7 +48,7 @@ var initLanguage = function () {
      $("[data-translate]").each(function(){
         var key = $(this).data('translate');
        if(lgb[key]){
-            if(this.tagName.toLowerCase() == "input"){
+            if(this.tagName.toLowerCase() == "input" || this.tagName.toLowerCase() == "textarea"){
                 $(this).attr("placeholder", lgb[key])
             }else{
                 $(this).html(lgb[key]);
@@ -55,27 +57,53 @@ var initLanguage = function () {
     });
 }
 
+
+
+function isUrlValid(userInput) {
+    var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}
+
 var initLinkTb = function(){
-    var $TABLE = $('#table');
-    $('.table-add').click(function () {
-    var $clone = $TABLE.find('tr.d-none').clone(true).removeClass('d-none table-line');
-    $TABLE.find('table').append($clone);
-    });
+    
+
+    var $TABLE = $('#purchase_table');
 
     $('.table-remove').click(function () {
     $(this).parents('tr').detach();
     });
 
-    $('.table-up').click(function () {
-    var $row = $(this).parents('tr');
-    if ($row.index() === 1) return; // Don't go above the header
-    $row.prev().before($row.get(0));
-    });
+    $(".add-purchase").click(()=>{
+      $("#emptytip-platform").addClass("d-none")
+      $("#emptytip-link").addClass("d-none")
+      $("#invalid-url").addClass("d-none")
+      
+      if($("#purchase-platform").val()===""){
+        $("#emptytip-platform").removeClass("d-none")
+      }
+      else if($("#purchase-link").val()===""){
+        $("#emptytip-link").removeClass("d-none")
 
-    $('.table-down').click(function () {
-    var $row = $(this).parents('tr');
-    $row.next().after($row.get(0));
-    });
+      }
+      else if(!isUrlValid($("#purchase-link").val())){
+        $("#invalid-url").removeClass("d-none")
+      }
+      else{
+        var $clone = $TABLE.find('tr.d-none').clone(true).removeClass('d-none table-line');
+        $clone.find('td:eq(0)').text($("#purchase-platform").val())
+        $clone.find('td:eq(1)').text($("#purchase-link").val())
+        $TABLE.find('table').append($clone);
+
+          console.log($("#purchase-platform").val())
+          console.log($("#purchase-link").val())
+         $("#exampleModal").modal("hide")
+         $("#purchase-platform").val("")
+         $("#purchase-link").val("")
+      }
+    })
 }
 
 var create = function () {
@@ -93,7 +121,7 @@ var create = function () {
 
             shopping_site = [];
             shopping_link = [];
-            $('#table').each(function(){
+            $('#purchase_table').each(function(){
                 $(this).find('td').each(function(){
                     td_content = $(this).text()
                     if(i%3 == 1 ){
@@ -169,11 +197,12 @@ var create = function () {
                                             tip.close();
                                             tip.error("Could not get a contract address");
                                         }
-                                    } else if (result != null && result.status == '0x0') {
-                                        tip.close();
-                                        tip.error(lgb["fail_to_create"] || "Failed to create contract");
-                                        clearInterval(checkTransactionTimer);
-                                    }
+                                    } 
+                                    // else if (result != null && result.status == '0x0') {
+                                    //     tip.close();
+                                    //     tip.error(lgb["fail_to_create"] || "Failed to create contract");
+                                    //     clearInterval(checkTransactionTimer);
+                                    // }
                                 }
                             })
                         }, 3000);
@@ -264,8 +293,21 @@ $('#img-form').ajaxForm({
 
 
 function uploadPic(){
+    $(".image-upload-wrap").css("background-color","#888888")
+    $(".image-upload-wrap").css('border','4px dashed #ffffff') 
     if($("#selected-img").val()){
            console.log("start")
           $("#submit").click()
     }
+}
+
+function changeBoxCSS(){
+ $(".image-upload-wrap").css('background-color','#888888')
+ $(".image-upload-wrap").css('border','4px dashed #ffffff') 
+ $(".image-upload-wrap").css('transition','.5s')
+  setTimeout(function() {
+    $(".image-upload-wrap").css('background-color','transparent') 
+    $(".image-upload-wrap").css('border','4px dashed #888888') 
+
+  }, 500);
 }

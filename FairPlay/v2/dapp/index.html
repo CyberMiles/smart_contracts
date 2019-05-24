@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, shrink-to-fit=no,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <title data-translate="index_title">Prize drawing</title>
 
 
@@ -43,71 +43,82 @@
         <nav id="sidebar">
 
             <div id="dismiss">
-                <i class="fas fa-arrow-left"></i>
+                <span class="oi oi-x"></span>
             </div>
 
        
 
             <ul class="list-unstyled components">
-                <small data-translate="myaddr" style="padding: 10px;">my address</small>
+                <small data-translate="myaddr" style="padding: 10px;">My Address</small>
                 <p id="self_addr">0x12345678abcdefgh12345678abcdefgh</p>
                 <hr class="profile_hr">
                 <li>
-                    <a data-translate="icreated" href="./search-results.html?method=created"><span class="oi oi-pencil" style="padding-right:10px;"></span>I created</a>
+                    <a  href="./search-results.html?method=created"><span class="oi oi-pencil" style="padding-right:5px;"></span><span data-translate="icreated">I created</span></a>
                 </li>
                 <li>
-                    <a data-translate="iparticipated" href="./search-results.html?method=participated"><span class="oi oi-person" style="padding-right:10px;"></span>I participated in</a>
+                    <a  href="./search-results.html?method=participated"><span class="oi oi-person" style="padding-right:5px;"></span><span data-translate="iparticipated">I participated in</span></a>
                 </li>
                 <li>
-                    <a data-translate="iwon" href="./search-results.html?method=won"><span class="oi oi-briefcase" style="padding-right:10px;"></span>I won</a>
+                    <a  href="./search-results.html?method=won"><span class="oi oi-briefcase" style="padding-right:5px;"></span><span data-translate="iwon">I won</span></a>
+                </li>
+                <hr class="profile_hr">
+                <li>
+                    <a  href="./create.html"><span class="oi oi-plus x" style="padding-right:5px;"></span><span data-translate="create_new">create a new giveaway</span></a>
                 </li>
             </ul>
             <div class="sidebar-header">
-                <p style="font-size: 16px;" data-translate="followus">follow us
-                <br>Twitter @FairPlayDApp
-                <br>Facebook @FairPlayDApp</p>
-                <p style="font-size: 16px;"><a href="https://blog.cybermiles.io/">About us</a></p>
+                <p style="font-size: 15px;"><span data-translate="followus">Follow us</span>
+                <br><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg> @FairPlayDApp
+                <br><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg> @FairPlayDApp</p>
+                <p style="font-size: 15px; position: fixed; bottom: 0;">
+                    <a href="https://blog.cybermiles.io/post/20190502-fairplay-en/" data-translate="aboutus">About us</a></p>
             </div>
         </nav>
 
         <!-- Page Content -->
         <div id="content">
-
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-dark">
-                    <i class="fas fa-align-left"></i>
-                </button>
+            <div class="header">
+                <div class="fairplay_logo">
+                    <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=40">
+                </div>
             </div>
-            <div class="fairplay_logo">
-                <img alt="FairPlay" src="https://flamingtext.com/net-fu/proxy_form.cgi?imageoutput=true&script=horizon&text=FairPlay&doScale=true&scaleWidth=240&scaleHeight=120">
+
+            <div id="sidebarCollapse" class="sidebarCollapse">
+                <svg style="fill:#757575;width:24px;height:24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M0 0h24v24H0z" fill="none"></path> <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path> </svg>
             </div>
 
             <div class="container">
-                <form action="./search-results.html" class="navbar-form" role="search">
+                <form id="search-panel" action="./search-results.html" class="navbar-form" role="search">
                     <div class="input-group add-on">
-                      <input class="form-control" placeholder="search or type an address" data-translate="search_tips" name="srch-term" id="srch-term" type="text">
+                      <input class="form-control search-box" placeholder="search or type an address" data-translate="search_tips" name="srch-term" id="srch-term" type="text">
                       <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default btn-dark search-btn" type="submit">
                             <span class="oi oi-magnifying-glass"></span>
                       </div>
                     </div>
                 </form>
+                <a class="btn btn-dark" id="create-btn" href="./create.html"><span class="oi oi-plus x"></span><span data-translate="create_new">create a new giveaway</span></a>
                 <div class="card-deck">
                     <small class="card-tips" data-translate="latest_plays">Latest drawing plays</small>
                       <div class="card card-template d-none">
-                        <img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap">
+                        <div class="tag-font"></div>  
+                        <div class="prize-img-container">
+                            <a href="" class="giveaway-url"><img class="card-img-top prize-img" src="https://www.google.com/logos/doodles/2019/lucy-wills-131st-birthday-5156345727680512-s.png" alt="Card image cap"></a>  
+
+                        </div>
+                        
                         <div class="card-body">
                           <h5 class="card-title giveaway-title">Play title</h5>
-                          <p class="card-text giveaway-desc" style="font-size: 14px;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <p class="card-text giveaway-desc" style="font-size: 14px;"></p>
                           <dl>
                               <dd class="n-winners">number of winners</dd>
                               <dd class="end-time">end time</dd>
                           </dl>
-                          <button class="btn btn-success nav-details"><a href="...">play</a></button>
+                          <a class="btn btn-success nav-details" href="...">play</a>
                         </div>
                         <div class="card-footer">
                           <small data-translate="block_height" class="text-muted block-number">block height:</small>
+                          <small class="text-muted dapp-version">v</small>
                         </div>
                       </div>
                       
@@ -117,7 +128,6 @@
         </div>
         <!-- Dark Overlay element -->
         <div class="overlay"></div>
-        <div class="create-mine butn"><a href="./create.html"><span class="oi oi-plus 2x"></span></a></div>
 
     </div>
 

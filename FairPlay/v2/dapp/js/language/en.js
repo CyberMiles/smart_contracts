@@ -10,20 +10,23 @@ var EnLanguage = {
     img_url:"Image URL",
     select_pic:"Select your picture",
     uploading:"Uploading......",
-    upload_helper:"Upload a feature image that illustrates prize. (Make sure that the extensions are one of them: jpg, jpeg, png, gif, PNG, JPG, JPEG, and the size is less than 2 MB.) ",
+    upload_helper:"Upload a feature image that illustrates prize. (jpg, jpeg, png and the size <= 2 MB.) ",
     url_helper:"The URL to a feature image that illustrates prize.",
     n_of_winners:"Number of winners",
     number_helper:"The number of winners to share the prize.",
+    end_time_short:"End Time",
     end_time:"End time for the drawing",
     time_eg:"E.g., 04/01/2019 3:14 PM",
     create_drawing:"Create drawing",
     shopping_platform: "Shopping Platform",
+    winner_unit: "ppl",
+    not_empty: "input cannot be empty",
     //create.js
     creating:"Creating contract ... This could take a few minutes!",
     fail_to_create:"Failed to create contract",
     fail_to_upload:"Fail to upload. Please check your size and extension.",
-    shopping_link:"Prize Shopping Link(optional)",
-    shopping_url:"purchase link",
+    shopping_link:"Prize Purchase Link(optional)",
+    shopping_url:"Purchase Link",
     //play.html
     draw_title:"Draw the prize!",
     end_at:"End at",
@@ -60,7 +63,7 @@ var EnLanguage = {
     share_title:"Share the QR code",
     share_tip:"Please share the QR code above or copy the following link to share:",
     ur_name:"Your name",
-    ur_addr:"Your ID or address",
+    ur_addr:"Your Email/Facebook ID/...",
     leave_msg:"Leave a message...",
     leave_confirm_msg:"Leave a confirmation message",
     //qrcode.html
@@ -74,7 +77,8 @@ var EnLanguage = {
     loading: "loading ...",
     processing: "processing ...",
     //index.html
-    search_tips:"search or type an address",
+    search_tips:"keyword, contract/creator address",
     latest_plays:"lastest drawing plays",
-    more:"More"
+    more:"More",
+    create_new: "Create a new giveaway",
 }
