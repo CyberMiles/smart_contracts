@@ -1,16 +1,16 @@
 [
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "winner_addrs",
+		"outputs": [
 			{
-				"name": "_confirm_mesg",
-				"type": "string"
+				"name": "",
+				"type": "address[]"
 			}
 		],
-		"name": "confirm",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -21,76 +21,6 @@
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "kill",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"name": "_contact",
-				"type": "string"
-			},
-			{
-				"name": "_mesg",
-				"type": "string"
-			}
-		],
-		"name": "play",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"name": "_desc",
-				"type": "string"
-			},
-			{
-				"name": "_image_url",
-				"type": "string"
-			},
-			{
-				"name": "_number_of_winners",
-				"type": "uint256"
-			},
-			{
-				"name": "_cutoff_ts",
-				"type": "uint256"
-			},
-			{
-				"name": "_lang_code",
-				"type": "string"
-			},
-			{
-				"name": "_tags",
-				"type": "string"
-			},
-			{
-				"name": "_purchase_links",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"constant": true,
@@ -141,20 +71,6 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "player_addrs",
 		"outputs": [
 			{
@@ -164,6 +80,15 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "kill",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -206,17 +131,92 @@
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_contact",
+				"type": "string"
+			},
+			{
+				"name": "_mesg",
+				"type": "string"
+			}
+		],
+		"name": "play",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
-		"name": "winner_addrs",
+		"name": "owner",
 		"outputs": [
 			{
 				"name": "",
-				"type": "address[]"
+				"type": "address"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_confirm_mesg",
+				"type": "string"
+			}
+		],
+		"name": "confirm",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"name": "_desc",
+				"type": "string"
+			},
+			{
+				"name": "_image_url",
+				"type": "string"
+			},
+			{
+				"name": "_number_of_winners",
+				"type": "uint256"
+			},
+			{
+				"name": "_cutoff_ts",
+				"type": "uint256"
+			},
+			{
+				"name": "_lang_code",
+				"type": "string"
+			},
+			{
+				"name": "_tags",
+				"type": "string"
+			},
+			{
+				"name": "_purchase_links",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	}
 ]
