@@ -110,9 +110,8 @@ contract FairPlay {
         players[msg.sender].confirm_mesg = _confirm_mesg;
     }
 
-    function info () view public returns 
-               (int8,   string, string, string,         string, string,    string,    uint256,           uint) {
-        return (status, title,  desc,   purchase_links, tags,   lang_code, image_url, number_of_winners, cutoff_ts);
+    function info () view public returns (int8, string, string, string, uint256, uint, string, string, string) {
+        return (status, title, desc, image_url, number_of_winners, cutoff_ts, lang_code, tags, purchase_links);
     }
 
     function playerInfo (address _addr) view public returns (bool, uint, string, string, string, string) {
