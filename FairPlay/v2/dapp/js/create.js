@@ -176,15 +176,18 @@ var create = function () {
             
             //Shopping Link (json of purchase_links)
             //purchase_links = "[{\"platform\":\" "+ platform +"\",\"link\":\"" + link + "\"},{\"platform\":\" "+ platform +"\",\"link\":\"" + link + "\"}]"
-            shopping_json = "["
+            shopping_json = ""
             var i;
             for(i = 0; i < shopping_site.length; i++){
                 if(shopping_site[i] !== "" && shopping_link[i] !== ""){
                     shopping_json += "{\"platform\":\" "+ shopping_site[i] +"\",\"link\":\"" + shopping_link[i] + "\"},"
                 }
             }
-            shopping_json = shopping_json.slice(0, -1)
-            shopping_json += "]"
+            if(shopping_json != "")
+            {
+                shopping_json = shopping_json.slice(0, -1)
+                shopping_json = "[" + shopping_json + "]"
+            }
             
             var image_url = $('#img').val();
             var num_of_winners = $('#num').val();
@@ -195,7 +198,7 @@ var create = function () {
             //uint256 _number_of_winners, uint _cutoff_ts, string _lang_code,
             //string _tags, string _purchase_links
             var lang_code = window.language;
-            var tags = getTags();
+            var tags = String(getTags());
             var purchase_links = shopping_json;
 
             var data = '0x' + contract.new.getData(title, desc_md, image_url, num_of_winners, cutoff_ts, lang_code, tags, purchase_links, {data: bin.object});
