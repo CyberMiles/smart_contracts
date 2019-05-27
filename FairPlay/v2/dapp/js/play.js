@@ -163,10 +163,10 @@ var getInfo = function () {
                     console.log(desc_html)
 
                     purchase_json = r[8]
-                    purchase_links = JSON.parse(purchase_json)
                     //v2
                     if(purchase_json != "")
                     {
+                        purchase_links = JSON.parse(purchase_json)
                         $(".purchase-link-panel").removeClass("d-none")
                         purchase_links.forEach(function(item){
                             linkEle = $(".purchase-link-item.d-none").clone(true).removeClass("d-none")
