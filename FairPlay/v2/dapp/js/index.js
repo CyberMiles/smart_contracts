@@ -26,6 +26,7 @@ $(document).ready(function () {
     initLanguage();
 
     initCSS();
+    bindSearch();
     initInfo();
 });
 
@@ -67,7 +68,15 @@ initCSS = () => {
     });
 }
 
-initInfo = () => {
+
+var bindSearch = () => {
+    $(".search-box").click(()=>{
+        window.location.href = "./search.html"
+    })
+}
+
+
+var initInfo = () => {
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error(lgb["error"] || "There is an error");
