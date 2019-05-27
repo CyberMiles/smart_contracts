@@ -162,6 +162,15 @@ var getInfo = function () {
                     window.desc_html = desc_html;
                     console.log(desc_html)
 
+                    
+
+                    var status = r[0];
+                    $('#title-div').text(r[1]);
+                    $('#desc-panel').append(desc_html);
+                    $('#desc-panel > #description').text(lgb['desc'] ||"Description");
+                    //for v1 compatility
+                    $('#desc-panel > #shoppinglink').text(lgb['shopping_platform']||"Shopping Platform");
+                    
                     purchase_json = r[8]
                     //v2
                     if(purchase_json != "")
@@ -172,17 +181,10 @@ var getInfo = function () {
                             linkEle = $(".purchase-link-item.d-none").clone(true).removeClass("d-none")
                             linkEle.find("a").attr("href", item["link"])
                             linkEle.find("a").text(item["platform"])
-                            $(".purchase-link-panel").append(linkEle)
+                            $(".purchase-link-panel").find('ul').append(linkEle)
                         })
                     }
 
-                    var status = r[0];
-                    $('#title-div').text(r[1]);
-                    $('#desc-panel').append(desc_html);
-                    $('#desc-panel > #description').text(lgb['desc'] ||"Description");
-                    //for v1 compatility
-                    $('#desc-panel > #shoppinglink').text(lgb['shopping_platform']||"Shopping Platform");
-                    $('#desc-div').text(desc_html);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');
                     var number_of_winners = r[4];
                     $('#number-of-winners-div').text(number_of_winners + "  " + (lgb['winner_unit'] || "person"));
