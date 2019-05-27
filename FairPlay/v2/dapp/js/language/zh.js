@@ -25,6 +25,7 @@ var ZhLanguage = {
     add:"添加",
     invalid_url:"URL不合法。请输入以http(s)://开头的URL。",
     tags:"标签",
+    tags_helper:"请为抽奖添加标签",
     //create.js
     creating:"正在创建合约...这可能要花费几分钟！",
     fail_to_create:"创建合约失败",
