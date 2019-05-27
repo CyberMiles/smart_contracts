@@ -71,6 +71,24 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     
     <script src="js/main.js"></script>
+    <script>
+        var initLanguage = function () {
+            if (lgb == '' || lgb == null) {
+                return;
+            }
+             $("[data-translate]").each(function(){
+                var key = $(this).data('translate');
+                if(lgb[key]){
+                    if(this.tagName.toLowerCase() == "input" || this.tagName.toLowerCase() == "textarea"){
+                        $(this).attr("placeholder", lgb[key])
+                    }else{
+                        $(this).html(lgb[key]);
+                    }
+                }
+            });
+        }
+        initLanguage();
+    </script>
 </body>
 
 </html>
