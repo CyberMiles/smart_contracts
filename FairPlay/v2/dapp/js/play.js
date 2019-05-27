@@ -170,8 +170,8 @@ var getInfo = function () {
                         $(".purchase-link-panel").removeClass("d-none")
                         purchase_links.forEach(function(item){
                             linkEle = $(".purchase-link-item.d-none").clone(true).removeClass("d-none")
-                            linkEle.attr("src", item["link"])
-                            linkEle.text(item["platform"])
+                            linkEle.find("a").attr("href", item["link"])
+                            linkEle.find("a").text(item["platform"])
                             $(".purchase-link-panel").append(linkEle)
                         })
                     }
