@@ -157,7 +157,7 @@ var getInfo = function () {
                     return;
                 } else {
                     tags_arr = Array(r[7])
-                    tags_arr.each(function(){
+                    tags_arr.forEach(function(){
                         tagItem = $(".tags-item.d-none").clone(true).removeClass("d-none")
                         tagItem.text(this)
                         $("#tags-panel > ul").append(tagItem)
