@@ -13,6 +13,8 @@ $(function () {
     getBin();
     initLanguage();
     initLinkTb();
+    initAddTags();
+
 
     $('.image-upload-wrap').bind('dragover', function () {
              $('.image-upload-wrap').addClass('image-dropping');
@@ -106,6 +108,35 @@ var initLinkTb = function(){
     })
 }
 
+var initAddTags = () => {
+    $(".add-tag").click(()=>{
+        var newTag = $(".input-tag").val()
+        if(newTag != "")
+        {
+            $(".tag-list").removeClass("d-none")
+            $(".input-tag").val("")
+            tagTemplate = $("li.tag-item.d-none").clone(true).removeClass("d-none")
+            tagTemplate.find(".tag-txt").text(newTag)
+            $(".tag-list").append(tagTemplate)
+        }
+        
+    })
+
+    $(".rm-tag").click(() => {
+        var target = $( event.target );
+        target.parents(".tag-item").detach()
+    })
+}
+
+var getTags = () => {
+    var tags = Array()
+    $(".tag-txt").each(function(){
+        tags.push($(this).text())
+    })
+    tags =  tags.slice(1)
+    return tags
+}
+
 var create = function () {
     tip.loading(lgb["creating"] || "Creating contract ... This could take a few minutes!");
     web3.cmt.getAccounts(function (e, address) {
@@ -116,7 +147,7 @@ var create = function () {
             var title = $('#title').val();
             var desc = $('#desc').val();
 
-            //get content from file
+            //create the shopping_site and shopping_link
             i = 1;
 
             shopping_site = [];
@@ -135,33 +166,26 @@ var create = function () {
                 })
             })
 
-            //make the md of desc
+            //make the md of desc 
             //   `    #Description
             //          ddddfdfdf fdf dfdf
             //      
-            //        #Shopping Link
-            //          - [123](http1)
-            //          - [111333](dd1)
-            //          - [2334555](dfd)`
+           
             desc_md = "##### Description" + "\n\n" 
             desc_md += desc + "\n\n"
-
-            shopping_md = ""
+            
+            //Shopping Link (json of purchase_links)
+            //purchase_links = "[{\"platform\":\" "+ platform +"\",\"link\":\"" + link + "\"},{\"platform\":\" "+ platform +"\",\"link\":\"" + link + "\"}]"
+            shopping_json = "["
             var i;
             for(i = 0; i < shopping_site.length; i++){
                 if(shopping_site[i] !== "" && shopping_link[i] !== ""){
-                    shopping_md += "- ["+shopping_site[i]+"]("+ shopping_link[i] +")\n"
+                    shopping_json += "{\"platform\":\" "+ shopping_site[i] +"\",\"link\":\"" + shopping_link[i] + "\"},"
                 }
             }
-
-            if(shopping_md !== ""){
-                desc_md += "##### Shopping Link" + "\n\n";
-                desc_md += shopping_md;
-            }
-            console.log(desc_md)
-            // desc = "{\"desc\":\"" + desc + "\"}";
-            //desc = "{\"desc\":\"" + desc + "\",\"shopping\":[\""+ var1 +"\":\""+ link1 +"\"]}";
-
+            shopping_json = shopping_json.slice(0, -1)
+            shopping_json += "]"
+            
             var image_url = $('#img').val();
             var num_of_winners = $('#num').val();
             var cutoff_ts = $('#cutoff').datetimepicker('date').unix();
@@ -170,9 +194,9 @@ var create = function () {
             //string _title, string _desc, string _image_url, 
             //uint256 _number_of_winners, uint _cutoff_ts, string _lang_code,
             //string _tags, string _purchase_links
-            var lang_code = "";
-            var tags = "";
-            var purchase_links = "";
+            var lang_code = window.language;
+            var tags = getTags();
+            var purchase_links = shopping_json;
 
             var data = '0x' + contract.new.getData(title, desc_md, image_url, num_of_winners, cutoff_ts, lang_code, tags, purchase_links, {data: bin.object});
 

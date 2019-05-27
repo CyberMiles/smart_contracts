@@ -19,9 +19,6 @@ $(function () {
     getAbi();
     getBin();
 
-  
-
-
     initLanguage();
     bindShowShare();
     
@@ -165,11 +162,25 @@ var getInfo = function () {
                     window.desc_html = desc_html;
                     console.log(desc_html)
 
-                    //foreach i in desc["shopping"]
+                    purchase_json = r[8]
+                    purchase_links = JSON.parse(purchase_json)
+                    //v2
+                    if(purchase_json != "")
+                    {
+                        $(".purchase-link-panel").removeClass("d-none")
+                        purchase_links.forEach(function(item){
+                            linkEle = $(".purchase-link-item.d-none").clone(true).removeClass("d-none")
+                            linkEle.attr("src", item["link"])
+                            linkEle.text(item["platform"])
+                            $(".purchase-link-panel").append(linkEle)
+                        })
+                    }
+
                     var status = r[0];
                     $('#title-div').text(r[1]);
                     $('#desc-panel').append(desc_html);
                     $('#desc-panel > #description').text(lgb['desc'] ||"Description");
+                    //for v1 compatility
                     $('#desc-panel > #shoppinglink').text(lgb['shopping_platform']||"Shopping Platform");
                     $('#desc-div').text(desc_html);
                     $('#image-img').html('<img src="' + r[3] + '" class="img-fluid img-thumbnail">');

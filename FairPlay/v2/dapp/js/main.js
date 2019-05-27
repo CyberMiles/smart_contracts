@@ -22,6 +22,7 @@ var MainFun = (function () {
             } else {
                 language = navigator.browserLanguage;
             }
+            window.language = language;
             if (language.indexOf('zh') > -1) {
                  lang_setting.setAttribute('lang', 'zh');
                 lang = ZhLanguage;
