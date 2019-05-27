@@ -156,14 +156,17 @@ var getInfo = function () {
                     tip.error(lgb.error);
                     return;
                 } else {
+                    tags_arr = Array(r[7])
+                    tags_arr.each(function(){
+                        tagItem = $(".tags-item.d-none").clone(true).removeClass("d-none")
+                        tagItem.text(this)
+                        $("#tags-panel > ul").append(tagItem)
+                    })
+
                     desc_md = r[2]
                     var converter = new showdown.Converter(),
                     desc_html = converter.makeHtml(desc_md);
                     window.desc_html = desc_html;
-                    console.log(desc_html)
-
-                    
-
                     var status = r[0];
                     $('#title-div').text(r[1]);
                     $('#desc-panel').append(desc_html);
