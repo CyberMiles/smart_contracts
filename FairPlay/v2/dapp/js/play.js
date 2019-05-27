@@ -156,10 +156,10 @@ var getInfo = function () {
                     tip.error(lgb.error);
                     return;
                 } else {
-                    tags_arr = Array(r[7])
-                    tags_arr.forEach(function(){
+                    tags_arr = r[7].split(",")
+                    tags_arr.forEach(function(tag){
                         tagItem = $(".tags-item.d-none").clone(true).removeClass("d-none")
-                        tagItem.text(this)
+                        tagItem.text(tag)
                         $("#tags-panel > ul").append(tagItem)
                     })
 
