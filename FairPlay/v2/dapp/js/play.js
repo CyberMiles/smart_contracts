@@ -166,7 +166,7 @@ var getInfo = function () {
 
                     var status = r[0];
                     $('#title-div').text(r[1]);
-                    $('#desc-panel').insertBefore(desc_html, $('.purchase-link-panel'));
+                    $('#desc-panel').append(desc_html);
                     $('#desc-panel > #description').text(lgb['desc'] ||"Description");
                     //for v1 compatility
                     $('#desc-panel > #shoppinglink').text(lgb['shopping_platform']||"Shopping Platform");
