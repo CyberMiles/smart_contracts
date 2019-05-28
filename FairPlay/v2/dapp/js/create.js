@@ -298,7 +298,7 @@ $('#img-form').ajaxForm({
         var imgsize = $('#selected-img')[0].files[0].size / 1024 / 1024; // in MB
         console.log(ext, imgsize)
         if (ext=='jpg' || ext=='jpeg' || ext=='png' || ext=='gif' || ext=='PNG' || ext=='JPG' || ext=='JPEG'){
-            if(imgsize <= 3){
+            if(imgsize <= 5){
                 $(".uploading-text").removeClass("d-none");
                 $(".drag-text").addClass("d-none");
 

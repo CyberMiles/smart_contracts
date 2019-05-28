@@ -10,7 +10,7 @@ var EnLanguage = {
     img_url:"Image URL",
     select_pic:"Select your picture",
     uploading:"Uploading......",
-    upload_helper:"Upload a feature image that illustrates prize. (jpg, jpeg, png and the size <= 2 MB.) ",
+    upload_helper:"Upload a feature image that illustrates prize. (jpg, jpeg, png and the size <= 5 MB.) ",
     url_helper:"The URL to a feature image that illustrates prize.",
     n_of_winners:"Number of winners",
     number_helper:"The number of winners to share the prize.",
