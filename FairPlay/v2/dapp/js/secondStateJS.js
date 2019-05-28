@@ -1,4 +1,4 @@
-var publicIp = "";
+var publicIp = "http://52.65.59.207";
 // var publicIp = "http://13.211.31.225"; // This must be an empty string, unless you are hosting this on a public server
 //var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
  /*this is testnet
@@ -7,7 +7,7 @@ var publicIp = "";
  
  /*this is mainnet*
  */
- var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/mainnetfairplay/_search/?size=100"
+ var elasticSearchUrl = "http://52.65.59.207/api/data1"
 
  var currentAccount = "";
 // The above config must be placed in a better system (master config area)
@@ -330,7 +330,7 @@ async function getItemsUsingData(_url, _type, _data, _dataType, _contentType) {
 }
 
 async function getItemsUsingDataViaFlask(_data) {
-    theUrlForData1 = publicIp + ":5000/data1";
+    theUrlForData1 = publicIp + "/api/data1";
     console.log("getItemsUsingDataViaFlask");
     console.log(theUrlForData1);
     console.log(_data);
@@ -343,13 +343,11 @@ async function getItemsUsingDataViaFlask(_data) {
             dataType: "json",
             contentType: "application/json",
         });
-        renderGiveaways(response.hits.hits)
-        return response.hits.hits;
+        renderGiveaways(response)
+        return response;
     } catch (error) {
         console.error("Get items failed", error);
-    }
-
-  
+    }    
 }
 
  function getItems(_url) {
@@ -360,15 +358,31 @@ async function getItemsUsingDataViaFlask(_data) {
  }
  
 function getItemsViaFlask() {
-    theUrlforData2 = publicIp + ":5000/data2";
+    theUrlforData2 = publicIp + "/api/data2";
     console.log("getItemsViaFlask");
     console.log(theUrlforData2);
-    console.log("GET");
-    $.get(theUrlforData2, function(data, status) {
-        //console.log(data.hits.hits);
-        renderGiveaways(data.hits.hits);
-    });
+    console.log("POST");
+    _data = {
+       "query": {
+               "match_all": {}
+       }
+    }
+    var _dataString = JSON.stringify(_data);
+   $.ajax({
+       url: theUrlForData2,
+       type: "POST",
+       data: _dataString,
+       dataType: "json",
+       contentType: "application/json",
+       success: function(response) {
+           renderItems(response);
+       },
+       error: function(xhr) {
+           console.log("Get items failed");
+       }
+   });
 }
+
 
 var renderGiveaways = (_hits) =>{
     $.each(_hits, (index, value)=>{
