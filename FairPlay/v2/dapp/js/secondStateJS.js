@@ -358,9 +358,9 @@ async function getItemsUsingDataViaFlask(_data) {
  }
  
 function getItemsViaFlask() {
-    theUrlforData2 = publicIp + "/api/data2";
+    theUrlForData2 = publicIp + "/api/data2";
     console.log("getItemsViaFlask");
-    console.log(theUrlforData2);
+    console.log(theUrlForData2);
     console.log("POST");
     _data = {
        "query": {
