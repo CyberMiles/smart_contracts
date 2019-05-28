@@ -39,9 +39,30 @@
             margin-left: 0.5rem; 
         }
         .search-bar{
-            position: relative;
-            top: 1rem;
+            margin-top: 1rem;
         }
+        .tags-board {
+            padding: 2rem .5rem 2rem .5rem;
+        }
+        .tags-board ul {
+            padding: 1rem 1rem;
+        }
+        .tags-board li {
+            display: inline-block;
+            padding: .4rem .8rem;
+            border-radius: 2rem;
+            line-height: 2rem;
+            background-color: lightgrey;
+            margin: .5rem;
+        }
+        .clear-history{
+            float: right;
+            top: 4px;
+        }
+        .search-history h5{
+            display: inline-block;
+        }
+
     </style>
 </head>
 
@@ -58,7 +79,37 @@
               </div>
             </div>
         </form>
+    </div>
+    <div class="suggested-tags tags-board">
+        <h5>Find</h5>
+        <ul class="suggestion-list">
+            <li class="tag-item suggestion-tag-item d-none"></li>
+        </ul>
+    </div>
+    <div class="search-history tags-board d-none"> 
+        <h5>History</h5>
+        <span class="oi oi-trash clear-history" data-toggle="modal" data-target="#confirmDelHistory"></span>
+        <ul class="search-history-list">
+            <li class="tag-item search-history-tag-item d-none"></li>
+        </ul>
+    </div>
+
+
+    <!-- confirmDelHistory Modal -->
+    <div class="modal fade" id="confirmDelHistory" tabindex="-1" role="dialog" aria-labelledby="confirmDelHistoryLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p data-translate="confirm-clear">Are you determined to clear the search history?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="confirm-del">Confirm</button>
+          </div>
         </div>
+      </div>
+    </div>
+
 </div>
    
 
@@ -71,24 +122,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     
     <script src="js/main.js"></script>
-    <script>
-        var initLanguage = function () {
-            if (lgb == '' || lgb == null) {
-                return;
-            }
-             $("[data-translate]").each(function(){
-                var key = $(this).data('translate');
-                if(lgb[key]){
-                    if(this.tagName.toLowerCase() == "input" || this.tagName.toLowerCase() == "textarea"){
-                        $(this).attr("placeholder", lgb[key])
-                    }else{
-                        $(this).html(lgb[key]);
-                    }
-                }
-            });
-        }
-        initLanguage();
-    </script>
+    <script src="js/searchBox.js"></script>
 </body>
 
 </html>
