@@ -287,7 +287,7 @@ function removeUpload() {
   $('.file-upload-input').replaceWith($('.file-upload-input').clone());
   $('.file-upload-content').hide();
   $(".uploading-text").addClass("d-none");
-
+  changeBoxCSS()
   $('.image-upload-wrap').show();
 }
 
@@ -327,11 +327,11 @@ $('#img-form').ajaxForm({
 
 
 function uploadPic(){
-    $(".image-upload-wrap").css("background-color","#888888")
-    $(".image-upload-wrap").css('border','4px dashed #ffffff') 
     if($("#selected-img").val()){
-           console.log("start")
-          $("#submit").click()
+        $(".image-upload-wrap").css("background-color","#888888")
+        $(".image-upload-wrap").css('border','4px dashed #ffffff') 
+        console.log("start")
+        $("#submit").click()
     }
 }
 
