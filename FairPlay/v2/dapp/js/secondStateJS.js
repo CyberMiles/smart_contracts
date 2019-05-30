@@ -1,3 +1,11 @@
+$.ajaxPrefilter( function (options) {
+  if (options.crossDomain && jQuery.support.cors) {
+    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+    //options.url = "http://cors.corsproxy.io/url=" + options.url;
+  }
+});
+
 var publicIp = "https://cmt-testnet.search.secondstate.io";
 // var publicIp = "http://13.211.31.225"; // This must be an empty string, unless you are hosting this on a public server
 //var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
