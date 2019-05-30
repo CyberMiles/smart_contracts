@@ -352,7 +352,7 @@ var renderGiveaways = (_hits) =>{
             // template.find(".tag-font").addClass("green")
         }
 
-        var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/play.html?contract=" + value._source.contractAddress;
+        var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/" + value._source.dappVersion + "/dapp/play.html?contract=" + value._source.contractAddress;
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)

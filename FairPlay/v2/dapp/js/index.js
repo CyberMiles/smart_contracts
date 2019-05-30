@@ -82,8 +82,9 @@ async function applyandGetN(items) {
 }
 
 var initInfo =  async () => {
-    $(".more-plays").text(lgb["loading"] || "loading...")
-    
+    $(".loader").removeClass("d-none")
+    $(".more-plays").addClass("d-none")
+
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error(lgb["error"] || "There is an error");
@@ -102,6 +103,10 @@ var initInfo =  async () => {
     var data //undefined (intended to prefill)
     latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
     console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
+    
+    $(".more-plays").removeClass("d-none")
+    $(".loader").addClass("d-none")
+
     if(n_current_giveaway == 0){
         await applyandGetN(latestGiveaways)
     }

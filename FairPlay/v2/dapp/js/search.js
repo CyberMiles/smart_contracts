@@ -39,7 +39,10 @@ const isChecksumAddress = function (address) {
 }
 
 const dispatchSearch = async (method) => {
-    $(".more-plays").text(lgb["loading"]||"Loading...")
+    $(".loader").removeClass("d-none")
+    $(".more-plays").addClass("d-none")
+
+    //$(".more-plays").text(lgb["loading"]||"Loading...")
 
     if(method == 'created'){
       $(".card-tips").addClass("normal-font")
@@ -100,10 +103,12 @@ const dispatchSearch = async (method) => {
       }
       const n = await searchButton();
       $(".card-tips").html(n + (lgb['normal_unit'] || " ") + (lgb["search_result"] || "Search Results"))
-
-      // console.log(n)
-      // $("#searchAddressButton").click()      
+      if(n <= 10){
+        $(".more-plays").text(lgb["nomore"] || "No more items.")
+      }      
     }
+    $(".more-plays").removeClass("d-none")
+    $(".loader").addClass("d-none")
 }
 
 
