@@ -94,8 +94,8 @@ var initInfo =  async () => {
     })
 
     var n_current_giveaway = 0 
-    if(sessionStorage.getItem('latestGiveaways')){
-        arrLG = JSON.parse(sessionStorage.getItem('latestGiveaways'))
+    if(localStorage.getItem('latestGiveaways')){
+        arrLG = JSON.parse(localStorage.getItem('latestGiveaways'))
         n_current_giveaway = await applyandGetN(arrLG)
     }
 
@@ -103,7 +103,7 @@ var initInfo =  async () => {
     latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
     console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
     if(n_current_giveaway == 0){
-        n_current_giveaway = await applyandGetN(latestGiveaways)
+        await applyandGetN(latestGiveaways)
     }
     if(n_current_giveaway >= 10)
     {
@@ -114,8 +114,8 @@ var initInfo =  async () => {
     console.log(latestGiveaways.length, n_current_giveaway)
     if(latestGiveaways.length > n_current_giveaway){
          jsonLG = JSON.stringify(latestGiveaways)
-         sessionStorage.setItem('latestGiveaways', jsonLG);
-         console.log(sessionStorage)
+         localStorage.setItem('latestGiveaways', jsonLG);
+         n_current_giveaway = latestGiveaways.length;
          //reapply new items
          renderGiveaways(latestGiveaways)
     }
