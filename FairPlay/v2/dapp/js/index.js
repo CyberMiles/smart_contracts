@@ -81,7 +81,7 @@ async function applyandGetN(items) {
     return n
 }
 
-var initInfo = () => {
+var initInfo =  async () => {
     $(".more-plays").text(lgb["loading"] || "loading...")
     
     web3.cmt.getAccounts(function (e, address) {
