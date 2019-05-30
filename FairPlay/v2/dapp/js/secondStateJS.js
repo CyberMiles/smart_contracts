@@ -360,7 +360,7 @@ async function getItemsUsingDataViaFlask(_data) {
 async function getItemsViaFlask() {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
-    console.log(theUrlForData2);
+    console.log(theUrlForData);
     console.log("POST");
     _data = {
        "query": {
