@@ -304,19 +304,19 @@ var renderGiveaways = (_hits) =>{
             template = $(".card-template").clone().removeClass("card-template d-none")
         else
             template = $(".card-template").clone().removeClass("card-template")
-        func_data = value._source.functionData;
-        if(func_data.image_url == ""){
+        func_data = value._source.functionData.info;
+        if(func_data[3] == ""){
             template.find(".prize-img-container").detach()
         }else{
-            template.find(".prize-img").attr("src",func_data.image_url);
+            template.find(".prize-img").attr("src",func_data[3]);
         }
-        template.find(".giveaway-title").text(func_data.title);
-        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + func_data.number_of_winners);
+        template.find(".giveaway-title").text(func_data[1]);
+        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + func_data[4]);
 
         template.find(".block-number").text((lgb["block_height"] || "Block Height") + ": " + value._source.blockNumber)
         template.find(".dapp-version").text(value._source.dappVersion)
         
-        desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
+        desc_txt = func_data[2].split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
         template.find(".rm-giveaway").attr("id", value._source.contractAddress)
         

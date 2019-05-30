@@ -82,8 +82,8 @@ async function applyandGetN(items) {
 }
 
 var initInfo =  async () => {
-    $(".loader").removeClass("d-none")
     $(".more-plays").addClass("d-none")
+    $(".loader").removeClass("d-none")
 
     web3.cmt.getAccounts(function (e, address) {
         if (e) {

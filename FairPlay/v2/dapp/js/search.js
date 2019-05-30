@@ -39,8 +39,8 @@ const isChecksumAddress = function (address) {
 }
 
 const dispatchSearch = async (method) => {
-    $(".loader").removeClass("d-none")
     $(".more-plays").addClass("d-none")
+    $(".loader").removeClass("d-none")
 
     //$(".more-plays").text(lgb["loading"]||"Loading...")
 
