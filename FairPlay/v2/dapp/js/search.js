@@ -39,6 +39,8 @@ const isChecksumAddress = function (address) {
 }
 
 const dispatchSearch = async (method) => {
+    $(".more-plays").text(lgb["loading"]||"Loading...")
+
     if(method == 'created'){
       $(".card-tips").addClass("normal-font")
 
