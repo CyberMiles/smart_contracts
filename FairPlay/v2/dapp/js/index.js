@@ -1,7 +1,7 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
+const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/play.html';
 var webBrowser = new AppLink();
 var compare = function (prop, subprop) {
     return function (obj1, obj2) {
@@ -75,8 +75,15 @@ var bindSearch = () => {
     })
 }
 
+async function applyandGetN(items) {
+    n = await renderGiveaways(items);
+    console.log(n)
+    return n
+}
 
 var initInfo = () => {
+    $(".more-plays").text(lgb["loading"] || "loading...")
+    
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error(lgb["error"] || "There is an error");
@@ -86,17 +93,32 @@ var initInfo = () => {
         }
     })
 
+    var n_current_giveaway = 0 
+    if(sessionStorage.getItem('latestGiveaways')){
+        arrLG = JSON.parse(sessionStorage.getItem('latestGiveaways'))
+        n_current_giveaway = await applyandGetN(arrLG)
+    }
 
-    
-    // $.get(elasticSearchUrl, function(data, status) {
-    //     latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
-    //     n_items = renderGiveaways(latestGiveaways);
-    //     if (n_items <= 10){
-    //         $(".more-plays").text(lgb["nomore"]||"No more itmes.")
-    //     }
-    //     // console.log(n_items)
-    // });
-    getItemsViaFlask();
+    var data //undefined (intended to prefill)
+    latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
+    console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
+    if(n_current_giveaway == 0){
+        n_current_giveaway = await applyandGetN(latestGiveaways)
+    }
+    if(n_current_giveaway >= 10)
+    {
+        $(".more-plays").text(lgb["more"] || "More")
+    }else{
+        $(".more-plays").text(lgb["nomore"] || "No more items.")
+    }
+    console.log(latestGiveaways.length, n_current_giveaway)
+    if(latestGiveaways.length > n_current_giveaway){
+         jsonLG = JSON.stringify(latestGiveaways)
+         sessionStorage.setItem('latestGiveaways', jsonLG);
+         //reapply new items
+         renderGiveaways(latestGiveaways)
+    }
+
     $(".more-plays").click(()=>{
       var moreitems = 0   
       var n_itmes = $(".card").length
