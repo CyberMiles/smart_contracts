@@ -12,7 +12,7 @@ var publicIp = "https://cmt-testnet.search.secondstate.io";
 var ICreatedButton = () => {
         async function setUpAndProgress() {
             this.currentAccount = "";
-            await web3.eth.getAccounts((err, accounts) => {
+            await web.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
 
@@ -41,7 +41,7 @@ var IParticipatedButton = () => {
         async function setUpAndProgress() {
             
             this.currentAccount = "";
-            await web3.eth.getAccounts((err, accounts) => {
+            await web.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
 
@@ -75,7 +75,7 @@ var IWonButton = () => {
         async function setUpAndProgress() {
             var originalState = $("#pb.progress-bar").clone();
             this.currentAccount = "";
-            await web3.eth.getAccounts((err, accounts) => {
+            await web.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
             
