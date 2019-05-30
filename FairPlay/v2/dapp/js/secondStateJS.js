@@ -1,4 +1,4 @@
-var publicIp = "http://52.65.59.207";
+var publicIp = "https://cmt-testnet.search.secondstate.io";
 // var publicIp = "http://13.211.31.225"; // This must be an empty string, unless you are hosting this on a public server
 //var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
  /*this is testnet
@@ -315,7 +315,7 @@ async function getItemsUsingData(_url, _type, _data, _dataType, _contentType) {
     let response;
     try {
         response = await $.ajax({
-            url: _url,
+            url:  _url,
             type: _type,
             data: _data,
             dataType: _dataType,
@@ -330,14 +330,14 @@ async function getItemsUsingData(_url, _type, _data, _dataType, _contentType) {
 }
 
 async function getItemsUsingDataViaFlask(_data) {
-    theUrlForData1 = publicIp + "/api/data1";
+    theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsUsingDataViaFlask");
-    console.log(theUrlForData1);
+    console.log(theUrlForData);
     console.log(_data);
     let response;
     try {
         response = await   $.ajax({
-            url: theUrlForData1,
+            url: theUrlForData,
             type: "POST",
             data: _data,
             dataType: "json",
@@ -357,30 +357,31 @@ async function getItemsUsingDataViaFlask(_data) {
      });
  }
  
-function getItemsViaFlask() {
-    theUrlForData2 = publicIp + "/api/data2";
+async function getItemsViaFlask() {
+    theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
     console.log(theUrlForData2);
     console.log("POST");
     _data = {
        "query": {
-               "match_all": {}
+            "match_all": {}
        }
     }
     var _dataString = JSON.stringify(_data);
-   $.ajax({
-       url: theUrlForData2,
-       type: "POST",
-       data: _dataString,
-       dataType: "json",
-       contentType: "application/json",
-       success: function(response) {
-           renderItems(response);
-       },
-       error: function(xhr) {
-           console.log("Get items failed");
-       }
-   });
+    let response;
+    try {
+        response = await $.ajax({
+           url: theUrlForData,
+           type: "POST",
+           data: _dataString,
+           dataType: "json",
+           contentType: "application/json",
+        });
+        renderGiveaways(response)
+        return response;
+    }catch(error){
+       console.log("Get items failed");
+    }
 }
 
 

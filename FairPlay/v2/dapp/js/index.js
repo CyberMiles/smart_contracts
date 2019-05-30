@@ -88,14 +88,15 @@ var initInfo = () => {
 
 
     
-    $.get(elasticSearchUrl, function(data, status) {
-        latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
-        n_items = renderGiveaways(latestGiveaways);
-        if (n_items <= 10){
-            $(".more-plays").text(lgb["nomore"]||"No more itmes.")
-        }
-        // console.log(n_items)
-    });
+    // $.get(elasticSearchUrl, function(data, status) {
+    //     latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
+    //     n_items = renderGiveaways(latestGiveaways);
+    //     if (n_items <= 10){
+    //         $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+    //     }
+    //     // console.log(n_items)
+    // });
+    getItemsViaFlask();
     $(".more-plays").click(()=>{
       var moreitems = 0   
       var n_itmes = $(".card").length
