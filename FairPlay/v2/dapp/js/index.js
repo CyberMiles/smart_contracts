@@ -115,6 +115,7 @@ var initInfo =  async () => {
     if(latestGiveaways.length > n_current_giveaway){
          jsonLG = JSON.stringify(latestGiveaways)
          sessionStorage.setItem('latestGiveaways', jsonLG);
+         console.log(sessionStorage)
          //reapply new items
          renderGiveaways(latestGiveaways)
     }

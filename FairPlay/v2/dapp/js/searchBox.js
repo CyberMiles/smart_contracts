@@ -62,6 +62,7 @@ var initSuggestion = () => {
 }
  
 var bindEvents = ()=>{
+    $(".search-box").focus()
     bindSearchBtn()
     bindSearchTag()
     bindClearHistory()
