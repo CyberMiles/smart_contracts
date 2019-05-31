@@ -3,6 +3,7 @@ const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/play.html';
 var webBrowser = new AppLink();
+
 var compare = function ([prop, subprop]) {
     return function (obj1, obj2) {
         var val1 = obj1[prop][subprop];

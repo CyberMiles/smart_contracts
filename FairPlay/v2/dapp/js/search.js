@@ -170,6 +170,7 @@ var bindClearCreated = () => {
             console.log("error")
             $("#confirmDelCreated").modal("hide")
           }else{
+            $("#" + contract_address).detach()
             $("#confirmDelCreated").modal("hide")
           }
         })

@@ -296,10 +296,38 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
 }
 
 
+var hasBeenDestructed = (addr) => {
+
+}
+
 var renderGiveaways = (_hits) =>{
     //empty all the card except the template
     $(".card").slice(1).detach()
     $.each(_hits, (index, value)=>{
+        var bin = "";
+        $.ajax({
+            url: 'FairPlay.bin',
+            dataType: 'text',
+            sync: true,
+            success: function (data) {
+                bin = JSON.parse(data);
+            }
+        });
+        contract = web3.cmt.contract(abi);
+        instance = contract.at(addr);
+        instance.owner.call (function (e, r) {
+            if (e) {
+                console.log("Destructed. Ignored.");
+            }else{
+                modifyTemplate(index, value);
+            }
+        });
+
+    })
+    return _hits.length
+}
+
+var modifyTemplate = (index, value) => {
         if(index < 10)
             template = $(".card-template").clone().removeClass("card-template d-none")
         else
@@ -358,7 +386,4 @@ var renderGiveaways = (_hits) =>{
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)
-
-    })
-    return _hits.length
 }
