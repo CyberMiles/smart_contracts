@@ -3,6 +3,8 @@ const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
 var webBrowser = new AppLink();
+var abi = "";
+
 const getUrlParameter = function (name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -161,7 +163,6 @@ $('#confirmDelCreated').on('show.bs.modal', function (e) {
 var bindClearCreated = () => {
     $("#confirm-del").click(()=>{
         contract_address = $(".giveaway-to-del").attr("alt")
-        abi = getAbi()
         contract = web3.cmt.contract(abi);
         instance = contract.at(contract_address);
         instance.kill(function(e, r){
@@ -191,7 +192,7 @@ $(document).ready(function() {
 
   webBrowser.openBrowser();
   initLanguage();
-
+  getAbi();
   initBtn();
 
   var method = getUrlParameter("method");
