@@ -99,27 +99,14 @@ function copyLink(){
 
 
 var bindShowShare = function(){
-    //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
     $("iframe").attr("src", "./share.html?code=" + contract_address)
     $("#share-link").val(baseUrl + "?contract=" + contract_address);
-    // $(".share-btn").click(()=>{
-    //    $(".share-panel").removeClass("d-none");
-    //    $(".overlay").removeClass("d-none");
-    //    $(".copy-btn").text(lgb["copytxt"] || "copy link")
-       
-    // })
+    
     $(".overlay").click(()=>{
         $(".share-panel").addClass("d-none");
         $(".overlay").addClass("d-none");
     })
 
-    // var fixed = $(".share-panel")[0];
-
-    // fixed.addEventListener('touchmove', function(e) {
-
-    //         e.preventDefault();
-
-    // }, false);
 }
 
 var getInfo = function () {
@@ -156,6 +143,10 @@ var getInfo = function () {
                     tip.error(lgb.error);
                     return;
                 } else {
+                    if(r[7] == "")
+                    {
+                        $("#tags-panel").addClass("d-none")
+                    }
                     tags_arr = r[7].split(",")
                     tags_arr.forEach(function(tag){
                         tagItem = $(".tags-item.d-none").clone(true).removeClass("d-none")

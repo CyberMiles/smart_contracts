@@ -61,6 +61,9 @@
                         </div>
                         
                         <div class="card-body">
+                          <a class="rm-giveaway d-none" href="#!" data-toggle="modal" data-target="#confirmDelCreated">
+                              <span class="oi oi-trash"></span>
+                          </a>
                           <h5 class="card-title giveaway-title">Play title</h5>
                           <p class="card-text giveaway-desc" style="font-size: 14px;"></p>
                           <dl>
@@ -78,6 +81,20 @@
                 </div> 
                 <small class="more-plays" data-translate="more">More</small>             
             </div>
+        </div>
+        <div class="modal fade" id="confirmDelCreated" tabindex="-1" role="dialog" aria-labelledby="confirmDelCreatedLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <p class="giveaway-to-del"></p>
+                <p data-translate="confirm-clear">Are you determined to delete this giveaway?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-fairplay" id="confirm-del">Confirm</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="ICreated"></div>
         <div id="IParticipated"></div>

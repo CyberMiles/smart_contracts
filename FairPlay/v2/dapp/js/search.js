@@ -48,6 +48,9 @@ const dispatchSearch = async (method) => {
       $(".card-tips").addClass("normal-font")
 
       $(".card-tips").html(lgb["giveaways_icreated"] || "Giveaways, I created...")
+      
+      $(".rm-giveaway").removeClass("d-none")
+
       const n = await ICreatedButton()
       if(n){
         //$(".card-tips").html(n + "  " + lgb["giveaways_icreated"] || "Giveaways, I created...") 
@@ -142,8 +145,46 @@ var initBtn = function(){
         }
       });
     });
+} 
 
-  } 
+$('#confirmDelCreated').on('show.bs.modal', function (e) {
+    var addr = $(e.relatedTarget).attr("alt");
+    var title = $(e.relatedTarget).siblings( ".giveaway-title").text();    
+    console.log("contract to delete:", addr, "tilte", title)
+    $(".giveaway-to-del").text((lgb["title"] || title) + ": " +  title)
+    $(".giveaway-to-del").attr("alt",  addr)
+
+    $("#user-addr-input").val(addr)
+    $(".cp-addr-btn").text(lgb["copy"] || "copy")
+})
+
+var bindClearCreated = () => {
+    $("#confirm-del").click(()=>{
+        contract_address = $(".giveaway-to-del").attr("alt")
+        contract = web3.cmt.contract(abi);
+        instance = contract.at(contract_address);
+        instance.kill(function(e, r){
+          if(e){
+            console.log("error")
+            $("#confirmDelCreated").modal("hide")
+          }else{
+            $("#confirmDelCreated").modal("hide")
+          }
+        })
+    })
+}
+
+var getAbi = function () {
+    $.ajax({
+        url: 'FairPlay.abi',
+        sync: true,
+        dataType: 'text',
+        success: function (data) {
+            abi = JSON.parse(data);
+        }
+    });
+}
+
 
 $(document).ready(function() {
 
@@ -151,7 +192,10 @@ $(document).ready(function() {
   initLanguage();
 
   initBtn();
+
   var method = getUrlParameter("method");
   dispatchSearch(method)
+
+  bindClearCreated();
 
 })

@@ -318,7 +318,7 @@ var renderGiveaways = (_hits) =>{
         
         desc_txt = func_data[2].split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
-        template.find(".rm-giveaway").attr("id", value._source.contractAddress)
+        template.attr("id", value._source.contractAddress)
         
         // Expiry time
         var epochRepresentation = value._source.functionData.info[5];
@@ -351,6 +351,8 @@ var renderGiveaways = (_hits) =>{
             // template.find(".tag-font").text("ongoing")
             // template.find(".tag-font").addClass("green")
         }
+        
+        template.find(".rm-giveaway").attr("alt", value._source.contractAddress)
 
         var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/" + value._source.dappVersion + "/dapp/play.html?contract=" + value._source.contractAddress;
         template.find(".nav-details").attr("href", playUrl)
