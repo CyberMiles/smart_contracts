@@ -304,7 +304,17 @@ var renderGiveaways = (_hits) =>{
     //empty all the card except the template
     $(".card").slice(1).detach()
     $.each(_hits, (index, value)=>{
-        var bin = "";
+        var abi = "";
+
+        $.ajax({
+            url: 'FairPlay.abi',
+            sync: true,
+            dataType: 'text',
+            success: function (data) {
+                abi = JSON.parse(data);
+            }
+        });
+
         $.ajax({
             url: 'FairPlay.bin',
             dataType: 'text',
