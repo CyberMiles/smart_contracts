@@ -1,30 +1,23 @@
-var publicIp = "";
-// var publicIp = "http://13.211.31.225"; // This must be an empty string, unless you are hosting this on a public server
-//var publicIp = "http://54.66.215.89"; // If you are hosting this on a public server, this must be the IP address or Base Domain (including the protocol i.e. http://mysite.com or http://123.456.7.8)
- /*this is testnet
- */
- //var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/fairplay/_search/?size=100"
- 
- /*this is mainnet*
- */
- var elasticSearchUrl = "https://search-smart-contract-search-engine-cdul5cxmqop325ularygq62khi.ap-southeast-2.es.amazonaws.com/mainnetfairplay/_search/?size=100"
+$.ajaxPrefilter( function (options) {
+  if (options.crossDomain && jQuery.support.cors) {
+    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+    //options.url = "http://cors.corsproxy.io/url=" + options.url;
+  }
+});
 
- var currentAccount = "";
+var publicIp = "https://cmt-testnet.search.secondstate.io";
+
+//var publicIp = "https://cmt.search.secondstate.io";
 // The above config must be placed in a better system (master config area)
 
 var ICreatedButton = () => {
         async function setUpAndProgress() {
-            var originalState = $("#pb.progress-bar").clone();
-            $("#pbc").show()
-            $('#collapseAdvancedSearch').removeClass('show');
             this.currentAccount = "";
-            $('.results').empty();
-            $("#pb.progress-bar").attr('style', 'width:25%');
             await web3.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
-           
-            $("#pb.progress-bar").attr('style', 'width:100%');
+
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             var dFunctionDataOwner = {};
             dFunctionDataOwner['functionData.owner'] = this.currentAccount;
@@ -36,35 +29,24 @@ var ICreatedButton = () => {
             dBool['bool'] = dMust;
             var dQuery = {};
             dQuery['query'] = dBool;
-            $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
             // If this is a public website then we need to call ES using Flask
-            if(publicIp){
-                var itemArray = await getItemsUsingDataViaFlask(jsonString);
-            }else{
-                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            }
+            var itemArray = await getItemsUsingDataViaFlask(jsonString);
 
-            $("#pb.progress-bar").replaceWith(originalState.clone());
 
-            return itemArray.length;
+            return Object.keys(itemArray).length;
         }
         return setUpAndProgress();
     }
 
 var IParticipatedButton = () => {
         async function setUpAndProgress() {
-            var originalState = $("#pb.progress-bar").clone();
-            $("#pbc").show()
-            $('#collapseAdvancedSearch').removeClass('show');
+            
             this.currentAccount = "";
-            $('.results').empty();
-            $("#pb.progress-bar").attr('style', 'width:25%');
             await web3.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
 
-            $("#pb.progress-bar").attr('style', 'width:100%');
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             lShould = [];
             for (i = 0; i < 50; i++) {
@@ -81,19 +63,12 @@ var IParticipatedButton = () => {
             dBool['bool'] = dMust;
             var dQuery = {};
             dQuery['query'] = dBool;
-            $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
 
             // If this is a public website then we need to call ES using Flask
-            if(publicIp){
-                var itemArray = await getItemsUsingDataViaFlask(jsonString);
-            }else{
-                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            }
+            var itemArray = await getItemsUsingDataViaFlask(jsonString);
 
-            $("#pb.progress-bar").replaceWith(originalState.clone());
-
-            return itemArray.length;
+            return Object.keys(itemArray).length;
         }
         return setUpAndProgress();
     }
@@ -101,16 +76,11 @@ var IParticipatedButton = () => {
 var IWonButton = () => {
         async function setUpAndProgress() {
             var originalState = $("#pb.progress-bar").clone();
-            $("#pbc").show()
-            $('#collapseAdvancedSearch').removeClass('show');
             this.currentAccount = "";
-            $('.results').empty();
-            $("#pb.progress-bar").attr('style', 'width:25%');
             await web3.cmt.getAccounts((err, accounts) => {
                 this.currentAccount = accounts[0]
             });
             
-            $("#pb.progress-bar").attr('style', 'width:100%');
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             lShould = [];
             for (i = 0; i < 50; i++) {
@@ -130,32 +100,22 @@ var IWonButton = () => {
             $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
             // If this is a public website then we need to call ES using Flask
-            if(publicIp){
-                var itemArray = await getItemsUsingDataViaFlask(jsonString);
-            }else{
-                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            }
+            var itemArray = await getItemsUsingDataViaFlask(jsonString);
 
-            $("#pb.progress-bar").replaceWith(originalState.clone());
-
-            return itemArray.length;
+            return Object.keys(itemArray).length;
         }
         return setUpAndProgress();
     }
 
 
 var searchButton =  async () => {
-        $('.results').empty()
         var theAddress = $("#searchAddressInput").val();
         var theText = $("#searchTextInput").val();
         //console.log($.trim(theAddress.length));
         if ($.trim(theAddress.length) == "0" && $.trim(theText.length) == "0") {
             //console.log("Address and text are both blank, fetching all results without a filter");
-            if(publicIp){
-                getItemsViaFlask(elasticSearchUrl);
-            }else{
-                getItems(elasticSearchUrl);
-            }
+            getItemsViaFlask();
+           
         } else if ($.trim(theAddress.length) == "0" && $.trim(theText.length) > "0") {
             var dFields = {};
             var dQueryInner = {};
@@ -170,11 +130,8 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQueryOuter);
                         
             // If this is a public website then we need to call ES using Flask
-            if(publicIp){
-                var itemArray = await getItemsUsingDataViaFlask(jsonString);
-            }else{
-                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            }
+            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            
 
             
         } else if ($.trim(theAddress.length) > "0" && $.trim(theText.length) > "0") {
@@ -241,12 +198,8 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQuery);
                         
             // If this is a public website then we need to call ES using Flask
-            if(publicIp){
-                var itemArray = await getItemsUsingDataViaFlask(jsonString);
-            }else{
-                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            }
-
+            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+         
             //console.log(itemArray);
         } else if ($.trim(theAddress.length) > "0" && $.trim(theText.length) == "0") {
             var dFunctionDataOwner = {};
@@ -298,99 +251,110 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQuery);
             
             // If this is a public website then we need to call ES using Flask
-            if(publicIp){
-                var itemArray = await getItemsUsingDataViaFlask(jsonString);
-            }else{
-                var itemArray = await getItemsUsingData(elasticSearchUrl, "post", jsonString, "json", "application/json");
-            }
+            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            
 
             //console.log(itemArray);
         }
-        return itemArray.length;
+        return Object.keys(itemArray).length;;
 
     }
-
-
-async function getItemsUsingData(_url, _type, _data, _dataType, _contentType) {
-    let response;
-    try {
-        response = await $.ajax({
-            url: _url,
-            type: _type,
-            data: _data,
-            dataType: _dataType,
-            contentType: _contentType,
-        });
-        renderGiveaways(response.hits.hits)
-        return response.hits.hits;
-    } catch (error) {
-        console.error("Get items failed", error);
-    }
-
-}
 
 async function getItemsUsingDataViaFlask(_data) {
-    theUrlForData1 = publicIp + ":5000/data1";
-    console.log("getItemsUsingDataViaFlask");
-    console.log(theUrlForData1);
-    console.log(_data);
-    let response;
-    try {
-        response = await   $.ajax({
-            url: theUrlForData1,
-            type: "POST",
-            data: _data,
-            dataType: "json",
-            contentType: "application/json",
-        });
-        renderGiveaways(response.hits.hits)
-        return response.hits.hits;
-    } catch (error) {
-        console.error("Get items failed", error);
+    return getItemsViaFlask(_data) 
+}
+ 
+_defaultData = {
+       "query": {
+            "match_all": {}
+       }
     }
+var _defaultDataString = JSON.stringify(_defaultData);
 
-  
+var cmpFunc = () => { }
+
+async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
+    theUrlForData = publicIp + "/api/es_search";
+    console.log("getItemsViaFlask");
+    console.log(theUrlForData);
+    console.log(_data)
+    console.log("POST");
+    
+    let response; //response is an object
+    try {
+        response = await $.ajax({
+           url: theUrlForData,
+           type: "POST",
+           data: _data,
+           dataType: "json",
+           contentType: "application/json",
+        });
+        sortedRes = Object.values(response).sort(compare(params))
+        renderNow ? renderGiveaways(sortedRes) : {};
+        return sortedRes;
+    }catch(error){
+       console.log("Get items failed");
+    }
 }
 
- function getItems(_url) {
-     $.get(_url, function(data, status) {
-         //console.log(data.hits.hits);
-        renderGiveaways(data.hits.hits);
-     });
- }
- 
-function getItemsViaFlask() {
-    theUrlforData2 = publicIp + ":5000/data2";
-    console.log("getItemsViaFlask");
-    console.log(theUrlforData2);
-    console.log("GET");
-    $.get(theUrlforData2, function(data, status) {
-        //console.log(data.hits.hits);
-        renderGiveaways(data.hits.hits);
-    });
+
+var hasBeenDestructed = (addr) => {
+
 }
 
 var renderGiveaways = (_hits) =>{
-    $.each(_hits, (index, value)=>{
+    var abi = "";
+
+    $.ajax({
+        url: 'FairPlay.abi',
+        sync: true,
+        dataType: 'text',
+        success: function (data) {
+            abi = JSON.parse(data);
+            //empty all the card except the template
+            $(".card").slice(1).detach()
+            $.each(_hits, (index, value)=>{
+
+                contract = web3.cmt.contract(abi);
+                instance = contract.at(value._source.contractAddress);
+                instance.owner.call (function (e, r) {
+                    if (e) {
+                        console.log("Destructed. Ignored.");
+                    }else{
+                        if(r !== "0x"){
+                            modifyTemplate(index, value);
+                        }
+                    }
+                });
+
+            })
+        }
+    });
+
+
+    return _hits.length
+}
+
+var modifyTemplate = (index, value) => {
         if(index < 10)
             template = $(".card-template").clone().removeClass("card-template d-none")
         else
             template = $(".card-template").clone().removeClass("card-template")
-        func_data = value._source.functionData;
-        if(func_data.image_url == ""){
+        func_data = value._source.functionData.info;
+        if(func_data[3] == ""){
             template.find(".prize-img-container").detach()
         }else{
-            template.find(".prize-img").attr("src",func_data.image_url);
+            template.find(".prize-img").attr("src",func_data[3]);
         }
-        template.find(".giveaway-title").text(func_data.title);
-        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + func_data.number_of_winners);
+        template.find(".giveaway-title").text(func_data[1]);
+        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + func_data[4]);
 
         template.find(".block-number").text((lgb["block_height"] || "Block Height") + ": " + value._source.blockNumber)
         template.find(".dapp-version").text(value._source.dappVersion)
         
-        desc_txt = func_data.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
+        desc_txt = func_data[2].split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
-        template.find(".rm-giveaway").attr("id", value._source.contractAddress)
+        template.attr("id", value._source.contractAddress)
         
         // Expiry time
         var epochRepresentation = value._source.functionData.info[5];
@@ -423,12 +387,11 @@ var renderGiveaways = (_hits) =>{
             // template.find(".tag-font").text("ongoing")
             // template.find(".tag-font").addClass("green")
         }
+        
+        template.find(".rm-giveaway").attr("alt", value._source.contractAddress)
 
-        var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract=" + value._source.contractAddress;
+        var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/" + value._source.dappVersion + "/dapp/play.html?contract=" + value._source.contractAddress;
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)
-
-    })
-    return _hits.length
 }
