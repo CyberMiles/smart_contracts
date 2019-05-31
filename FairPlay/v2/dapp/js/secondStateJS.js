@@ -319,7 +319,10 @@ var renderGiveaways = (_hits) =>{
                     if (e) {
                         console.log("Destructed. Ignored.");
                     }else{
-                        modifyTemplate(index, value);
+                        console.log(r)
+                        if(r !== "0x"){
+                            modifyTemplate(index, value);
+                        }
                     }
                 });
 
