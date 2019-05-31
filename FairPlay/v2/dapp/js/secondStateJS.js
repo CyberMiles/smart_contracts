@@ -321,6 +321,7 @@ var renderGiveaways = (_hits) =>{
                     }else{
                         console.log(r)
                         if(r !== "0x"){
+                            console.log("!=", r=="0x")
                             modifyTemplate(index, value);
                         }
                     }
