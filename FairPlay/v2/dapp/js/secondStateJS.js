@@ -301,39 +301,33 @@ var hasBeenDestructed = (addr) => {
 }
 
 var renderGiveaways = (_hits) =>{
-    //empty all the card except the template
-    $(".card").slice(1).detach()
-    $.each(_hits, (index, value)=>{
-        var abi = "";
+    var abi = "";
 
-        $.ajax({
-            url: 'FairPlay.abi',
-            sync: true,
-            dataType: 'text',
-            success: function (data) {
-                abi = JSON.parse(data);
-            }
-        });
+    $.ajax({
+        url: 'FairPlay.abi',
+        sync: true,
+        dataType: 'text',
+        success: function (data) {
+            abi = JSON.parse(data);
+            //empty all the card except the template
+            $(".card").slice(1).detach()
+            $.each(_hits, (index, value)=>{
 
-        $.ajax({
-            url: 'FairPlay.bin',
-            dataType: 'text',
-            sync: true,
-            success: function (data) {
-                bin = JSON.parse(data);
-            }
-        });
-        contract = web3.cmt.contract(abi);
-        instance = contract.at(addr);
-        instance.owner.call (function (e, r) {
-            if (e) {
-                console.log("Destructed. Ignored.");
-            }else{
-                modifyTemplate(index, value);
-            }
-        });
+                contract = web3.cmt.contract(abi);
+                instance = contract.at(value._source.contractAddress);
+                instance.owner.call (function (e, r) {
+                    if (e) {
+                        console.log("Destructed. Ignored.");
+                    }else{
+                        modifyTemplate(index, value);
+                    }
+                });
 
-    })
+            })
+        }
+    });
+
+
     return _hits.length
 }
 
