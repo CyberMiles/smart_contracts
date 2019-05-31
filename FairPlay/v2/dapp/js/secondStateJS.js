@@ -6,7 +6,9 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-var publicIp = "https://cmt.search.secondstate.io";
+var publicIp = "https://cmt-testnet.search.secondstate.io";
+
+//var publicIp = "https://cmt.search.secondstate.io";
 // The above config must be placed in a better system (master config area)
 
 var ICreatedButton = () => {
