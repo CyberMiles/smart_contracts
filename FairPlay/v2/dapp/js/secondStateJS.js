@@ -321,9 +321,7 @@ var renderGiveaways = (_hits) =>{
                     if (e) {
                         console.log("Destructed. Ignored.");
                     }else{
-                        console.log(r)
                         if(r !== "0x"){
-                            console.log("!=", r=="0x")
                             modifyTemplate(index, value);
                         }
                     }
