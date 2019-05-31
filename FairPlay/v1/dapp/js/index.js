@@ -3,7 +3,7 @@ const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
 var webBrowser = new AppLink();
-var compare = function (prop, subprop) {
+var compare = function ([prop, subprop]) {
     return function (obj1, obj2) {
         var val1 = obj1[prop][subprop];
         var val2 = obj2[prop][subprop];
@@ -12,15 +12,14 @@ var compare = function (prop, subprop) {
             val2 = Number(val2);
         }
         if (val1 < val2) {
-            return -1;
-        } else if (val1 > val2) {
             return 1;
+        } else if (val1 > val2) {
+            return -1;
         } else {
             return 0;
         }            
     } 
 }
-
 $(document).ready(function () {
     webBrowser.openBrowser();
     initLanguage();
@@ -67,7 +66,16 @@ initCSS = () => {
     });
 }
 
-initInfo = () => {
+async function applyandGetN(items) {
+    n = await renderGiveaways(items);
+    console.log(n)
+    return n
+}
+
+var initInfo =  async () => {
+    $(".more-plays").addClass("d-none")
+    $(".loader").removeClass("d-none")
+
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error(lgb["error"] || "There is an error");
@@ -77,16 +85,37 @@ initInfo = () => {
         }
     })
 
+    var n_current_giveaway = 0 
+    if(localStorage.getItem('latestGiveaways')){
+        arrLG = JSON.parse(localStorage.getItem('latestGiveaways'))
+        n_current_giveaway = await applyandGetN(arrLG)
+    }
 
+    var data //undefined (intended to prefill)
+    latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
+    console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
     
-    $.get(elasticSearchUrl, function(data, status) {
-        latestGiveaways = data.hits.hits.sort(compare("_source","blockNumber")).reverse();
-        n_items = renderGiveaways(latestGiveaways);
-        if (n_items <= 10){
-            $(".more-plays").text(lgb["nomore"]||"No more itmes.")
-        }
-        // console.log(n_items)
-    });
+    $(".more-plays").removeClass("d-none")
+    $(".loader").addClass("d-none")
+
+    if(n_current_giveaway == 0){
+        await applyandGetN(latestGiveaways)
+    }
+    if(n_current_giveaway >= 10)
+    {
+        $(".more-plays").text(lgb["more"] || "More")
+    }else{
+        $(".more-plays").text(lgb["nomore"] || "No more items.")
+    }
+    console.log(latestGiveaways.length, n_current_giveaway)
+    if(latestGiveaways.length > n_current_giveaway){
+         jsonLG = JSON.stringify(latestGiveaways)
+         localStorage.setItem('latestGiveaways', jsonLG);
+         n_current_giveaway = latestGiveaways.length;
+         //reapply new items
+         renderGiveaways(latestGiveaways)
+    }
+
     $(".more-plays").click(()=>{
       var moreitems = 0   
       var n_itmes = $(".card").length
@@ -101,4 +130,3 @@ initInfo = () => {
       });
     });
 }
-
