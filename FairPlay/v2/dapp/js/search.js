@@ -161,6 +161,7 @@ $('#confirmDelCreated').on('show.bs.modal', function (e) {
 var bindClearCreated = () => {
     $("#confirm-del").click(()=>{
         contract_address = $(".giveaway-to-del").attr("alt")
+        abi = getAbi()
         contract = web3.cmt.contract(abi);
         instance = contract.at(contract_address);
         instance.kill(function(e, r){
