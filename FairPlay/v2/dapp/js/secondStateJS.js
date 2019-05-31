@@ -381,7 +381,7 @@ var modifyTemplate = (index, value) => {
             template.find(".end-time").text((lgb["end_time_short"] || "End Time") +": " + endDate)
             template.find(".end-time").addClass("current")
             template.find(".nav-details").text(lgb["play"] || "Play")
-            template.find(".nav-details").addClass("btn-success")
+            template.find(".nav-details").addClass("btn-fairplay-yellow")
             template.find(".tag-font").removeClass("tag-font")
             
             // template.find(".tag-font").text("ongoing")

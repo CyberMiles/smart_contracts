@@ -273,13 +273,13 @@ function imgfrom(imgsource){
     if(imgsource.id == "fromurl"){
         $("#url-input").removeClass("d-none");
         $("#local-input").addClass("d-none");
-        $("#fromurl").addClass("btn-outline-fairplay");
-        $("#fromlocal").removeClass("btn-outline-fairplay");
+        $("#fromurl").addClass("btn-outline-fairplay-lightred");
+        $("#fromlocal").removeClass("btn-outline-fairplay-lightred");
     }else if(imgsource.id == "fromlocal"){
         $("#url-input").addClass("d-none");
         $("#local-input").removeClass("d-none");
-        $("#fromurl").removeClass("btn-outline-fairplay");
-        $("#fromlocal").addClass("btn-outline-fairplay");
+        $("#fromurl").removeClass("btn-outline-fairplay-lightred");
+        $("#fromlocal").addClass("btn-outline-fairplay-lightred");
     }
 }
 
