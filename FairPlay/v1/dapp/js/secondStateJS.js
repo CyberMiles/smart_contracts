@@ -315,7 +315,7 @@ var renderGiveaways = async (_hits) =>{
                     "0x9C5D158e3c51E9eCFfA6770965b8b96E3D16074c",
                     "0xF290D4b07f7c49B44d8e2785595745F5BCfaDb34",
                     "0x18A45abfE471F8A5814e3Aa4Ea4a9C4cC40DCBdf"];
-        real_index = 0
+        let real_index = 0
         $.each(_hits, (index, value)=>{
             if(blacklist.indexOf(value._source.contractAddress) == -1)
             {
