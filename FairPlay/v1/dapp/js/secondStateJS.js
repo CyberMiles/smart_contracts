@@ -114,7 +114,7 @@ var searchButton =  async () => {
         //console.log($.trim(theAddress.length));
         if ($.trim(theAddress.length) == "0" && $.trim(theText.length) == "0") {
             //console.log("Address and text are both blank, fetching all results without a filter");
-            getItemsViaFlask();
+            var itemArray = await getItemsViaFlask();
            
         } else if ($.trim(theAddress.length) == "0" && $.trim(theText.length) > "0") {
             var dFields = {};
@@ -317,6 +317,7 @@ var renderGiveaways = (_hits) =>{
                         "0x9C5D158e3c51E9eCFfA6770965b8b96E3D16074c",
                         "0xF290D4b07f7c49B44d8e2785595745F5BCfaDb34",
                         "0x18A45abfE471F8A5814e3Aa4Ea4a9C4cC40DCBdf"];
+            real_index = 0
             $.each(_hits, (index, value)=>{
                 if(blacklist.indexOf(value._source.contractAddress) == -1)
                 {
@@ -327,17 +328,18 @@ var renderGiveaways = (_hits) =>{
                             console.log("Destructed. Ignored.");
                         }else{
                             if(r !== "0x"){
-                                modifyTemplate(index, value);
+                                modifyTemplate(real_index, value);
                             }
                         }
                     });
+                    real_index++;
                 }
             })
         }
     });
 
-
-    return _hits.length
+    console.log(real_index)
+    return real_index;
 }
 
 var modifyTemplate = (index, value) => {
