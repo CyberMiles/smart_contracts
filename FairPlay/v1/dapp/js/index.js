@@ -67,7 +67,8 @@ initCSS = () => {
 }
 
 async function applyandGetN(items) {
-    n = await renderGiveaways(items);
+    n = items.length
+    await renderGiveaways(items);
     console.log(n)
     return n
 }
