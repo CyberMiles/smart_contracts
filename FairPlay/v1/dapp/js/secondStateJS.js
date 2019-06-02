@@ -297,7 +297,7 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
     }
 }
 
-var renderGiveaways = (_hits) =>{
+var renderGiveaways = async (_hits) =>{
     var abi = "";
 
     let real_length;
@@ -327,10 +327,10 @@ var renderGiveaways = (_hits) =>{
                     }else{
                         if(r !== "0x"){
                             modifyTemplate(real_index, value);
+                            real_index++;
                         }
                     }
                 });
-                real_index++;
             }
         })
         console.log(real_index)
