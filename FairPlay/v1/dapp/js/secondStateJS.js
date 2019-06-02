@@ -6,9 +6,9 @@ $.ajaxPrefilter( function (options) {
   }
 });
 
-var publicIp = "https://cmt-testnet.search.secondstate.io";
+//var publicIp = "https://cmt-testnet.search.secondstate.io";
 
-//var publicIp = "https://cmt.search.secondstate.io";
+var publicIp = "https://cmt.search.secondstate.io";
 // The above config must be placed in a better system (master config area)
 
 var ICreatedButton = () => {
@@ -313,20 +313,21 @@ var renderGiveaways = (_hits) =>{
             abi = JSON.parse(data);
             //empty all the card except the template
             $(".card").slice(1).detach()
+            blaklist = [];
             $.each(_hits, (index, value)=>{
-
-                contract = web3.cmt.contract(abi);
-                instance = contract.at(value._source.contractAddress);
-                instance.owner.call (function (e, r) {
-                    if (e) {
-                        console.log("Destructed. Ignored.");
-                    }else{
-                        if(r !== "0x"){
-                            modifyTemplate(index, value);
+                if(! (value._source.contractAddress in blaklist)){
+                    contract = web3.cmt.contract(abi);
+                    instance = contract.at(value._source.contractAddress);
+                    instance.owner.call (function (e, r) {
+                        if (e) {
+                            console.log("Destructed. Ignored.");
+                        }else{
+                            if(r !== "0x"){
+                                modifyTemplate(index, value);
+                            }
                         }
-                    }
-                });
-
+                    });
+                }
             })
         }
     });
