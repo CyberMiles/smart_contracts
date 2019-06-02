@@ -81,7 +81,7 @@ const dispatchSearch = async (method) => {
         } 
         //$(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
       }else{
-        $(".card-tips").html(lgb["try_again"] || "You haven't created giveaway. Why not try again?")
+        $(".card-tips").html(lgb["try_again"] || "You haven't won. Why not try again?")
         $(".more-plays").addClass("d-none")
         $("#searchAddressInput").val("0x67bc96cb6667Ff38Fd2E308f6781184Bf43B8F7d")
         searchButton();

@@ -313,7 +313,10 @@ var renderGiveaways = (_hits) =>{
             abi = JSON.parse(data);
             //empty all the card except the template
             $(".card").slice(1).detach()
-            blaklist = [];
+            blaklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
+                        "0x9C5D158e3c51E9eCFfA6770965b8b96E3D16074c",
+                        "0xF290D4b07f7c49B44d8e2785595745F5BCfaDb34",
+                        "0x18A45abfE471F8A5814e3Aa4Ea4a9C4cC40DCBdf"];
             $.each(_hits, (index, value)=>{
                 if(! (value._source.contractAddress in blaklist)){
                     contract = web3.cmt.contract(abi);
