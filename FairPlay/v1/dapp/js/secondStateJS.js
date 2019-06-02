@@ -318,7 +318,8 @@ var renderGiveaways = (_hits) =>{
                         "0xF290D4b07f7c49B44d8e2785595745F5BCfaDb34",
                         "0x18A45abfE471F8A5814e3Aa4Ea4a9C4cC40DCBdf"];
             $.each(_hits, (index, value)=>{
-                if(! (value._source.contractAddress in blaklist)){
+                if(blacklist.indexOf(value._source.contractAddress) == -1)
+                {
                     contract = web3.cmt.contract(abi);
                     instance = contract.at(value._source.contractAddress);
                     instance.owner.call (function (e, r) {
