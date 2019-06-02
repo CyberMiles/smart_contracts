@@ -297,49 +297,47 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
     }
 }
 
-
-var hasBeenDestructed = (addr) => {
-
-}
-
 var renderGiveaways = (_hits) =>{
     var abi = "";
 
-    $.ajax({
-        url: 'FairPlay.abi',
-        sync: true,
-        dataType: 'text',
-        success: function (data) {
-            abi = JSON.parse(data);
-            //empty all the card except the template
-            $(".card").slice(1).detach()
-            blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
-                        "0x9C5D158e3c51E9eCFfA6770965b8b96E3D16074c",
-                        "0xF290D4b07f7c49B44d8e2785595745F5BCfaDb34",
-                        "0x18A45abfE471F8A5814e3Aa4Ea4a9C4cC40DCBdf"];
-            real_index = 0
-            $.each(_hits, (index, value)=>{
-                if(blacklist.indexOf(value._source.contractAddress) == -1)
-                {
-                    contract = web3.cmt.contract(abi);
-                    instance = contract.at(value._source.contractAddress);
-                    instance.owner.call (function (e, r) {
-                        if (e) {
-                            console.log("Destructed. Ignored.");
-                        }else{
-                            if(r !== "0x"){
-                                modifyTemplate(real_index, value);
-                            }
-                        }
-                    });
-                    real_index++;
-                }
-            })
-        }
-    });
+    let real_length;
+    try{
+        data = await $.ajax({
+            url: 'FairPlay.abi',
+            sync: true,
+            dataType: 'text',
+        });
 
-    console.log(real_index)
-    return real_index;
+        abi = JSON.parse(data);
+        //empty all the card except the template
+        $(".card").slice(1).detach()
+        blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
+                    "0x9C5D158e3c51E9eCFfA6770965b8b96E3D16074c",
+                    "0xF290D4b07f7c49B44d8e2785595745F5BCfaDb34",
+                    "0x18A45abfE471F8A5814e3Aa4Ea4a9C4cC40DCBdf"];
+        real_index = 0
+        $.each(_hits, (index, value)=>{
+            if(blacklist.indexOf(value._source.contractAddress) == -1)
+            {
+                contract = web3.cmt.contract(abi);
+                instance = contract.at(value._source.contractAddress);
+                instance.owner.call (function (e, r) {
+                    if (e) {
+                        console.log("Destructed. Ignored.");
+                    }else{
+                        if(r !== "0x"){
+                            modifyTemplate(real_index, value);
+                        }
+                    }
+                });
+                real_index++;
+            }
+        })
+        console.log(real_index)
+        return real_index;
+    }catch(error){
+       console.log("Get abi failed");
+    }
 }
 
 var modifyTemplate = (index, value) => {
