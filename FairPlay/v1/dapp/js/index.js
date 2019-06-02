@@ -66,13 +66,6 @@ initCSS = () => {
     });
 }
 
-async function applyandGetN(items) {
-    n = items.length
-    await renderGiveaways(items);
-    console.log(n)
-    return n
-}
-
 var initInfo =  async () => {
     $(".more-plays").addClass("d-none")
     $(".loader").removeClass("d-none")
@@ -89,7 +82,8 @@ var initInfo =  async () => {
     var n_current_giveaway = 0 
     if(localStorage.getItem('latestGiveaways')){
         arrLG = JSON.parse(localStorage.getItem('latestGiveaways'))
-        n_current_giveaway = await applyandGetN(arrLG)
+        n_current_giveaway = arrLG.length
+        await renderGiveaways(arrLG)
     }
 
     var data //undefined (intended to prefill)
@@ -100,7 +94,8 @@ var initInfo =  async () => {
     $(".loader").addClass("d-none")
 
     if(n_current_giveaway == 0){
-        await applyandGetN(latestGiveaways)
+        n_current_giveaway = latestGiveaways.length
+        await renderGiveaways(latestGiveaways)
     }
     if(n_current_giveaway >= 10)
     {
@@ -114,7 +109,7 @@ var initInfo =  async () => {
          localStorage.setItem('latestGiveaways', jsonLG);
          n_current_giveaway = latestGiveaways.length;
          //reapply new items
-         renderGiveaways(latestGiveaways)
+         await renderGiveaways(latestGiveaways)
     }
 
     $(".more-plays").click(()=>{
