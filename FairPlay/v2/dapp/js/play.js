@@ -430,10 +430,27 @@ var play = function () {
                 }
             } else {
                 tip.closeLoad();
-                    
-                setTimeout(function () {
-                    location.reload(true);
-                }, 20 * 1000);
+                //filter to watch all the latest blocks:
+                //https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethfilter
+                //unfortunately, the object passed as parameter seems not work?
+                //so... it might be a little complex
+                filter = web3.cmt.filter("latest")
+                filter.watch(function(error, blockhash){
+                    if (!error){
+                        console.log(blockhash, txhash)
+                        web3.cmt.getBlock(blockhash, function(e,r){
+                            console.log(blockhash, txhash, r.transactions)
+                            if(txhash.indexOf(r.transactions) != -1){
+                                filter.stopWatching()
+                                location.reload(true);
+                            }
+                        });
+                    }
+            });
+
+                // setTimeout(function () {
+                //     location.reload(true);
+                // }, 20 * 1000);
             }
         });
     }
