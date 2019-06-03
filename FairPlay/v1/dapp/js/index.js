@@ -105,13 +105,13 @@ var initInfo =  async () => {
         $(".more-plays").text(lgb["nomore"] || "No more items.")
     }
     console.log(latestGiveaways.length, n_current_giveaway)
-    if(latestGiveaways.length > n_current_giveaway){
+    // if(latestGiveaways.length > n_current_giveaway){
          jsonLG = JSON.stringify(latestGiveaways)
          localStorage.setItem('latestGiveaways', jsonLG);
          n_current_giveaway = latestGiveaways.length;
          //reapply new items
          await renderGiveaways(latestGiveaways)
-    }
+    // }
 
     $(".more-plays").click(()=>{
       var moreitems = 0   
