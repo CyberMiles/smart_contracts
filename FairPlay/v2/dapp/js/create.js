@@ -217,7 +217,7 @@ var create = function () {
                     filter = web3.cmt.filter("latest")
                     filter.watch(function(error, blockhash){
                         if (!error){
-                            txhash = instamce.transactionHash
+                            txhash = instance.transactionHash
                             console.log(blockhash, txhash)
                             web3.cmt.getBlock(blockhash, function(e,r){
                                 console.log(blockhash, txhash, r.transactions)
