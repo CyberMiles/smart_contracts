@@ -273,6 +273,12 @@ var _defaultDataString = JSON.stringify(_defaultData);
 
 var cmpFunc = () => { }
 
+var filterGiveaway = (obj, abi) => {
+    blacklist = ["0xbc88c27Ad36a7B950890917A6592D8597a3C1732"]
+    if(blacklist.indexOf(obj._source.contractAddress) == -1)
+        return obj
+}
+
 async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
@@ -289,7 +295,10 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
            dataType: "json",
            contentType: "application/json",
         });
-        sortedRes = Object.values(response).sort(compare(params))
+
+        filteredRes = Object.values(response).filter(filterGiveaway(obj))
+
+        sortedRes = Object.values(filteredRes).sort(compare(params))
         renderNow ? renderGiveaways(sortedRes) : {};
         return sortedRes;
     }catch(error){
@@ -297,10 +306,6 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
     }
 }
 
-
-var hasBeenDestructed = (addr) => {
-
-}
 
 var renderGiveaways = (_hits) =>{
     var abi = "";
@@ -317,6 +322,7 @@ var renderGiveaways = (_hits) =>{
 
                 contract = web3.cmt.contract(abi);
                 instance = contract.at(value._source.contractAddress);
+                //callback hell =_=||
                 instance.owner.call (function (e, r) {
                     if (e) {
                         console.log("Destructed. Ignored.");
@@ -393,5 +399,18 @@ var modifyTemplate = (index, value) => {
         var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/" + value._source.dappVersion + "/dapp/play.html?contract=" + value._source.contractAddress;
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
+        
+        let difference = 0;
+        let last = 0;
+        const currentHeight = value._source.blockNumber
+        $("card").each((id, card) => {
+            sub = $(card).find(".block-number").text().split(" ")[2] - currentHeight
+            if(sub > 0 && (sub < difference || difference = 0))
+            {
+                difference = sub;
+                last = $(card).attr("id")
+            }
+        })
         $(".card-deck").append(template)
+        $(template).insertAfter( "#" + last );
 }

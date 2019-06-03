@@ -302,7 +302,7 @@ blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
             "0xc23AE6997EaeE221be5c3CfF3bea61A4EEDb5F02",
             "0x4427D1a16A945ac2f2bbeB95Fa5af201b3990000",
             "0xD77ee59879F93abE823d738f8Ef75fD51f8b1A71",
-            "0x3927535c29e88Aa79f1182cd29561c02DD9B3810",
+            "0x3927535c29e88Aa79f1182cd29561c02DD9B3810"
             ];
 
 async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
