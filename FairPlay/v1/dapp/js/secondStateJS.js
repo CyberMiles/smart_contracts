@@ -349,17 +349,7 @@ var renderGiveaways = async (_hits) =>{
         $(".card").slice(1).detach()
 
         $.each(_hits, (index, value)=>{
-            contract = web3.cmt.contract(abi);
-            instance = contract.at(value._source.contractAddress);
-            instance.owner.call (function (e, r) {
-                if (e) {
-                    console.log("Destructed. Ignored.");
-                }else{
-                    if(r !== "0x"){
-                        modifyTemplate(index, value);
-                    }
-                }
-            });
+            modifyTemplate(index, value);
         })
     }catch(error){
        console.log("Get abi failed");
