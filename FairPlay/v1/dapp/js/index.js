@@ -67,6 +67,8 @@ initCSS = () => {
 }
 
 var initInfo =  async () => {
+    $(".more-plays").text(lgb["loading"] || "loading...")
+
     $(".more-plays").addClass("d-none")
     $(".loader").removeClass("d-none")
 

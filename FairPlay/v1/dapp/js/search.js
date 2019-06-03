@@ -39,6 +39,8 @@ const isChecksumAddress = function (address) {
 }
 
 const dispatchSearch = async (method) => {
+    $(".more-plays").text(lgb["loading"] || "loading...")
+
     if(method == 'created'){
       $(".card-tips").addClass("normal-font")
 
@@ -62,7 +64,9 @@ const dispatchSearch = async (method) => {
       if(n){
         if(n<=10){
           $(".more-plays").text(lgb["nomore"]||"No more itmes.")
-        } 
+        } else{
+          $(".more-plays").text(lgb["more"] || "More")
+        }
         //$(".card-tips").html(n + lgb["giveaways_iparticipated"] || "Giveaways, I participated..." )        
       }else{
         $(".card-tips").html(lgb["try_now"] || "You haven't participated. Why not try now?")
@@ -78,7 +82,9 @@ const dispatchSearch = async (method) => {
       if(n){
         if(n<=10){
           $(".more-plays").text(lgb["nomore"]||"No more itmes.")
-        } 
+        } else{
+          $(".more-plays").text(lgb["more"] || "More")
+        }
         //$(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
       }else{
         $(".card-tips").html(lgb["try_again"] || "You haven't won. Why not try again?")
@@ -98,7 +104,11 @@ const dispatchSearch = async (method) => {
       }
       const n = await searchButton();
       $(".card-tips").html(n + (lgb['normal_unit'] || " ") + (lgb["search_result"] || "Search Results"))
-
+      if(n<=10){
+          $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+      } else{
+          $(".more-plays").text(lgb["more"] || "More")
+        }
       // console.log(n)
       // $("#searchAddressButton").click()      
     }
