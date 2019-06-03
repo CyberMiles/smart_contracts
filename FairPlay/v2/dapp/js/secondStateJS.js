@@ -403,7 +403,7 @@ var modifyTemplate = (index, value) => {
         let difference = 0;
         let last = 0;
         const currentHeight = value._source.blockNumber
-        $("card").each((id, card) => {
+        $(".card").each((id, card) => {
             sub = $(card).find(".block-number").text().split(" ")[2] - currentHeight
             if (difference == 0){
                 $(".card-deck").append(template)
