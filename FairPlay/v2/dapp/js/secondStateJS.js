@@ -405,7 +405,7 @@ var modifyTemplate = (index, value) => {
         const currentHeight = value._source.blockNumber
         $("card").each((id, card) => {
             sub = $(card).find(".block-number").text().split(" ")[2] - currentHeight
-            if(sub > 0 && (sub < difference || difference = 0))
+            if(sub > 0 && (sub < difference || difference == 0))
             {
                 difference = sub;
                 last = $(card).attr("id")
