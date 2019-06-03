@@ -417,7 +417,7 @@ var play = function () {
         instance.play(name, contact, mesg, {
             gas: '200000',
             gasPrice: 0
-        }, function (e, result) {
+        }, function (e, txhash) {
             if (e) {
                 if(e.message.includes('User denied transaction signature.') ){
                     tip.error(lgb.cancelled);
