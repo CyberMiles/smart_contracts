@@ -221,9 +221,10 @@ var create = function () {
                             console.log(blockhash, txhash)
                             web3.cmt.getBlock(blockhash, function(e,r){
                                 console.log(blockhash, txhash, r.transactions)
+                                //As the trasaction has been mined, the instance.address is still undefined. So we need to wait for the 
                                 if(instance.address != undefined && txhash.indexOf(r.transactions) != -1){
                                     filter.stopWatching()
-                                    window.location.href = "qrcode.html?code=" + instance.address;
+                                    //window.location.href = "qrcode.html?code=" + instance.address;
                                 }
                             });
                         }
