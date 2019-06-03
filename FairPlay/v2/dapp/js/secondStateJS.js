@@ -273,7 +273,7 @@ var _defaultDataString = JSON.stringify(_defaultData);
 
 var cmpFunc = () => { }
 
-var filterGiveaway = (obj, abi) => {
+var filterGiveaway = (obj) => {
     blacklist = ["0xbc88c27Ad36a7B950890917A6592D8597a3C1732"]
     if(blacklist.indexOf(obj._source.contractAddress) == -1)
         return obj
@@ -296,7 +296,7 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
            contentType: "application/json",
         });
 
-        filteredRes = Object.values(response).filter(filterGiveaway(obj))
+        filteredRes = Object.values(response).filter(filterGiveaway)
 
         sortedRes = Object.values(filteredRes).sort(compare(params))
         renderNow ? renderGiveaways(sortedRes) : {};
