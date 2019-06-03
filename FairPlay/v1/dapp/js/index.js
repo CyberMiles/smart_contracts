@@ -75,7 +75,8 @@ var initInfo =  async () => {
             tip.error(lgb["error"] || "There is an error");
         } else {
             var userAddress = address.toString();
-            $("#self_addr").html(userAddress);
+            var shortAddr = userAddress.substr(0,5) + "***" + userAddress.substr(-3)
+            $("#self_addr").html(shortAddr);
         }
     })
 
