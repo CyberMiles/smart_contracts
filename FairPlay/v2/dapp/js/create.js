@@ -218,7 +218,7 @@ var create = function () {
                     filter.watch(function(error, blockhash){
                         if (!error){
                             txhash = instance.transactionHash
-                            console.log(blockhash, txhash)
+                            console.log(blockhash, txhash, instance)
                             web3.cmt.getBlock(blockhash, function(e,r){
                                 console.log(blockhash, txhash, r.transactions)
                                 //As the trasaction has been mined, the instance.address is still undefined. So we need to wait for the 
