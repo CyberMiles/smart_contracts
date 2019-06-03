@@ -330,29 +330,6 @@ var getInfo = function () {
                                       player_row.find(".user-contact").text(rpi[3])
                                     }
                                     $("#players-panel-table").append(player_row)
-
-                                    // var html_old = $('#players-panel-table').html();
-                                    // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>";
-                                    // if (ownerAddress == userAddress) {
-                                    //     $(".users-contact").removeClass("d-none");
-                                    //     if (rpi[4] == null) {
-                                    //         html_snippet = html_snippet + "</td><td>";
-                                    //     } else {
-                                    //         html_snippet = html_snippet + rpi[4] + "</td><td>";
-                                    //     }
-                                    //     html_snippet = html_snippet + rpi[3] + "</td></tr>";
-                                    // } else {
-                                    //     if (rpi[4] == null) {
-                                    //         html_snippet = html_snippet + "</td></tr>";
-                                    //     } else {
-                                    //         html_snippet = html_snippet + rpi[4] + "</td></tr>";
-                                    //     }
-                                    // }
-                                    // $('#players-panel-table').html(html_old + html_snippet);
-
-                                    // var html_old = $('#players-panel-table').html();
-                                    // var html_snippet = "<tr><td>" + rpi[2] + "</td><td>" + rpi[4] + "</td></tr>";
-                                    // $('#players-panel-table').html(html_old + html_snippet);
                                 }
                             });
                         }
@@ -433,7 +410,7 @@ var play = function () {
                 //filter to watch all the latest blocks:
                 //https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethfilter
                 //unfortunately, the object passed as parameter seems not work?
-                //so... it might be a little complex
+                //so... it might be a little complex in the current way
                 filter = web3.cmt.filter("latest")
                 filter.watch(function(error, blockhash){
                     if (!error){
@@ -446,7 +423,7 @@ var play = function () {
                             }
                         });
                     }
-            });
+                });
 
                 // setTimeout(function () {
                 //     location.reload(true);
@@ -465,7 +442,7 @@ var draw = function () {
     instance.draw({
         gas: '9000000',
         gasPrice: 2000000000
-    }, function (e, result) {
+    }, function (e, txhash) {
         if (e) {
                 console.log(e.code)
             if(e.message.includes('User denied transaction signature.') ){
@@ -480,9 +457,19 @@ var draw = function () {
         } else {
             tip.closeLoad();
                 
-            setTimeout(function () {
-                location.reload(true);
-            }, 20 * 1000);
+            filter = web3.cmt.filter("latest")
+            filter.watch(function(error, blockhash){
+                if (!error){
+                    console.log(blockhash, txhash)
+                    web3.cmt.getBlock(blockhash, function(e,r){
+                        console.log(blockhash, txhash, r.transactions)
+                        if(txhash.indexOf(r.transactions) != -1){
+                            filter.stopWatching()
+                            location.reload(true);
+                        }
+                    });
+                }
+            });
         }
     });
 }
@@ -506,7 +493,7 @@ var confirm = function () {
         instance.confirm(v, {
             gas: '200000',
             gasPrice: 0
-        }, function (e, result) {
+        }, function (e, txhash) {
             if (e) {
                 if(e.message.includes('User denied transaction signature.') ){
                     tip.error(lgb.cancelled);
@@ -519,9 +506,19 @@ var confirm = function () {
             } else {
                 tip.closeLoad();
                     
-                setTimeout(function () {
-                    location.reload(true);
-                }, 20 * 1000);
+                filter = web3.cmt.filter("latest")
+                filter.watch(function(error, blockhash){
+                    if (!error){
+                        console.log(blockhash, txhash)
+                        web3.cmt.getBlock(blockhash, function(e,r){
+                            console.log(blockhash, txhash, r.transactions)
+                            if(txhash.indexOf(r.transactions) != -1){
+                                filter.stopWatching()
+                                location.reload(true);
+                            }
+                        });
+                    }
+                });
             }
         }); 
     }
