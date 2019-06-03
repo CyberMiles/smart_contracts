@@ -69,9 +69,6 @@ initCSS = () => {
 var initInfo =  async () => {
     $(".more-plays").text(lgb["loading"] || "loading...")
 
-    $(".more-plays").addClass("d-none")
-    $(".loader").removeClass("d-none")
-
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             tip.error(lgb["error"] || "There is an error");
@@ -93,8 +90,6 @@ var initInfo =  async () => {
     latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
     console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
     
-    $(".more-plays").removeClass("d-none")
-    $(".loader").addClass("d-none")
 
     if(n_current_giveaway == 0){
         n_current_giveaway = latestGiveaways.length
