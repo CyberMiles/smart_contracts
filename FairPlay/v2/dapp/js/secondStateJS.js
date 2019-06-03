@@ -411,6 +411,6 @@ var modifyTemplate = (index, value) => {
                 last = $(card).attr("id")
             }
         })
-        $(".card-deck").append(template)
+        //$(".card-deck").append(template)
         $(template).insertAfter( "#" + last );
 }
