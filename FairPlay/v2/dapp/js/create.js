@@ -214,33 +214,48 @@ var create = function () {
                     tip.close();
                     tip.error(lgb["fail_to_create"] || "Failed to create contract");
                 } else {
-                    console.log(instance.address);
-                    if (instance.address != undefined) {
-                        window.location.href = "qrcode.html?code=" + instance.address;
-                    } else {
-                        var checkTransactionTimer = setInterval(function () {
-                            web3.cmt.getTransactionReceipt(instance.transactionHash, function (error, result) {
-                                if (!error) {
-                                    if (result != null && result.status == '0x1') {
-                                        clearInterval(checkTransactionTimer);
-                                        if (result.contractAddress != undefined) {
-                                            window.location.href = "qrcode.html?code=" + result.contractAddress;
-                                        } else if (result.address != undefined) {
-                                            window.location.href = "qrcode.html?code=" + result.address;
-                                        } else {
-                                            tip.close();
-                                            tip.error("Could not get a contract address");
-                                        }
-                                    } 
-                                    // else if (result != null && result.status == '0x0') {
-                                    //     tip.close();
-                                    //     tip.error(lgb["fail_to_create"] || "Failed to create contract");
-                                    //     clearInterval(checkTransactionTimer);
-                                    // }
+                    filter = web3.cmt.filter("latest")
+                    filter.watch(function(error, blockhash){
+                        if (!error){
+                            txhash = instamce.transactionHash
+                            console.log(blockhash, txhash)
+                            web3.cmt.getBlock(blockhash, function(e,r){
+                                console.log(blockhash, txhash, r.transactions)
+                                if(txhash.indexOf(r.transactions) != -1){
+                                    filter.stopWatching()
+                                    window.location.href = "qrcode.html?code=" + instance.address;
                                 }
-                            })
-                        }, 3000);
-                    }
+                            });
+                        }
+                    });
+
+                    // console.log(instance.address);
+                    // if (instance.address != undefined) {
+                    //     window.location.href = "qrcode.html?code=" + instance.address;
+                    // } else {
+                    //     var checkTransactionTimer = setInterval(function () {
+                    //         web3.cmt.getTransactionReceipt(instance.transactionHash, function (error, result) {
+                    //             if (!error) {
+                    //                 if (result != null && result.status == '0x1') {
+                    //                     clearInterval(checkTransactionTimer);
+                    //                     if (result.contractAddress != undefined) {
+                    //                         window.location.href = "qrcode.html?code=" + result.contractAddress;
+                    //                     } else if (result.address != undefined) {
+                    //                         window.location.href = "qrcode.html?code=" + result.address;
+                    //                     } else {
+                    //                         tip.close();
+                    //                         tip.error("Could not get a contract address");
+                    //                     }
+                    //                 } 
+                    //                 // else if (result != null && result.status == '0x0') {
+                    //                 //     tip.close();
+                    //                 //     tip.error(lgb["fail_to_create"] || "Failed to create contract");
+                    //                 //     clearInterval(checkTransactionTimer);
+                    //                 // }
+                    //             }
+                    //         })
+                    //     }, 3000);
+                    // }
                 }
             });
         }
