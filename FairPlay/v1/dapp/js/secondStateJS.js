@@ -322,6 +322,18 @@ blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
             "0xd313b0dCAE38Cd39793bdFf34C3a4f7D8D686F79"
             ];
 
+whitelist = ["0x17D5eC999a2cDeE4c5986d5714330D36172355A8",
+             "0x474059cC019815dda16caB69b8c8Bf515E1D20B6",
+             "0xC44C6c73ADf3C64CF22A883a1916a9881F26bDEB",
+             "0x38C90F89D4876739ac910FFF6141895aF74c3805",
+             "0x52d1BE8734Fa89625d4f2c95dc5332d22EbC460D",
+             "0xF11E52672164D469c41E564666C6331b4e8b1ecD",
+             "0x588C0d40A2434f537A1A82bA98CE327C9834a536",
+             "0xaf0E7a84Df990d2BdDed61904828fad2f5442416",
+             "0x0434c1114eE3cA1f67386eBD69480638fc6e72BD"];
+
+
+
 async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
@@ -338,9 +350,13 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
            dataType: "json",
            contentType: "application/json",
         });
+        // filteredRes = Object.values(response).filter(function(obj){
+        // if(blacklist.indexOf(obj._source.contractAddress) == -1)
+        //     return obj
+        // })
         filteredRes = Object.values(response).filter(function(obj){
-        if(blacklist.indexOf(obj._source.contractAddress) == -1)
-            return obj
+            if(whitelist.indexOf(obj._source.contractAddress) != -1)
+                return obj
         })
         sortedRes = Object.values(filteredRes).sort(compare(params))
         renderNow ? renderGiveaways(sortedRes) : {};
