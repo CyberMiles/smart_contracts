@@ -334,7 +334,7 @@ whitelist = ["0x17D5eC999a2cDeE4c5986d5714330D36172355A8",
 
 
 
-async function getItemsViaFlask(_data = _defaultDataString, filter = "blacklist", compare = cmpFunc, params = [], renderNow = true) {
+async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
     console.log(theUrlForData);
@@ -355,6 +355,11 @@ async function getItemsViaFlask(_data = _defaultDataString, filter = "blacklist"
         //     return obj
         // })
         filteredRes = Object.values(response).filter(function(obj){
+            if(whitelist.indexOf(obj._source.contractAddress) != -1)
+              return obj
+        })
+        /*
+        filteredRes = Object.values(response).filter(function(obj){
             if (filter == "whitelist") {
                 if(whitelist.indexOf(obj._source.contractAddress) != -1)
                     return obj
@@ -365,6 +370,7 @@ async function getItemsViaFlask(_data = _defaultDataString, filter = "blacklist"
                 return obj
             }
         })
+        */
         sortedRes = Object.values(filteredRes).sort(compare(params))
         renderNow ? renderGiveaways(sortedRes) : {};
         return sortedRes;
