@@ -307,7 +307,17 @@ blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
             "0xc01204D9297Ebc717b43e385d822F036C5dAB742",
             "0x84d05e3192Ab3ea5C55AaD721C21e8aB6827d337",
             "0x12E8EADf823cdF987F18d8aBB5A3b8C06D4Acd14",
-            "0x892B86C180f5Dd0b5512527B1cD8EDB2238ea627"
+            "0x892B86C180f5Dd0b5512527B1cD8EDB2238ea627",
+            "0xadeC9ca6b970840812295aF05eD63309e9994dd1",
+            "0xc0E6743bf1ec810CDCbe74530166560cF5A159B1",
+            "0x50Da300d6dc63465BAE045483EeAd35B49aCa2C7",
+            "0x1ee6f879D84FeE31488834439E2a243A9Eb72CD7",
+            "0x4FD965011Ec3d06C84e22EC96747C8e3530c25fd",
+            "0x9FDB79aA29aa6f0D541aFC7164d0B03a46536BE1",
+            "0xe61ddb5a154d172A4c53CA05365d0720f256657c",
+            "0x327705097AB01D5f029b01e558df45214DDcc86f",
+            "0x2651a22d33B7c2a5DE2Af94cB83d15a6F4c66d11",
+            "0xb0e36c0b474b6f98436377d198264F35B1f44351"
             ];
 
 async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
