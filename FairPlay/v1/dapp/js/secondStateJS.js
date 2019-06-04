@@ -1,3 +1,4 @@
+/*
 $.ajaxPrefilter( function (options) {
   if (options.crossDomain && jQuery.support.cors) {
     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
@@ -6,6 +7,7 @@ $.ajaxPrefilter( function (options) {
     // options.url = "http://cors.corsproxy.io/url=" + options.url;
   }
 });
+*/
 
 //var publicIp = "https://cmt-testnet.search.secondstate.io";
 
