@@ -334,7 +334,7 @@ whitelist = ["0x17D5eC999a2cDeE4c5986d5714330D36172355A8",
 
 
 
-async function getItemsViaFlask(_data = _defaultDataString, filter = "whitelist", compare = cmpFunc, params = [], renderNow = true) {
+async function getItemsViaFlask(_data = _defaultDataString, filter = "blacklist", compare = cmpFunc, params = [], renderNow = true) {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
     console.log(theUrlForData);
