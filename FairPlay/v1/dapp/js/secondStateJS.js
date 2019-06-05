@@ -1,4 +1,4 @@
-/*
+T/*
 $.ajaxPrefilter( function (options) {
   if (options.crossDomain && jQuery.support.cors) {
     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
@@ -324,7 +324,7 @@ blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
             ];
 
 whitelist = ["0x17D5eC999a2cDeE4c5986d5714330D36172355A8",
-             "0x454024a14970c336109d0284a85ba253033a2d72",
+             "0x454024A14970c336109D0284a85BA253033A2D72",
              "0x474059cC019815dda16caB69b8c8Bf515E1D20B6",
              "0xC44C6c73ADf3C64CF22A883a1916a9881F26bDEB",
              "0x38C90F89D4876739ac910FFF6141895aF74c3805",
