@@ -87,7 +87,7 @@ var ZhLanguage = {
     iparticipated:"我参与的",
     iwon:"我获奖的",
     followus:"关注我们",
-    search_tips:"关键词/合约地址/发起人账号",
+    search_tips:"关键词",
     latest_plays:"最新的抽奖",
     more:"更多",
     block_height:"块高",
@@ -107,6 +107,4 @@ var ZhLanguage = {
     try_again:"你还没有赢过，再试一次吧",
     time_up: "已结束",
     no_create: "你还没有创建过抽奖"
-
-
 }
