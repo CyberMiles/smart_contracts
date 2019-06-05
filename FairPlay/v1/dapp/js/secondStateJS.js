@@ -1,4 +1,4 @@
-T/*
+/*
 $.ajaxPrefilter( function (options) {
   if (options.crossDomain && jQuery.support.cors) {
     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
