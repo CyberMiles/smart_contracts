@@ -77,7 +77,7 @@ var EnLanguage = {
     loading: "loading ...",
     processing: "processing ...",
     //index.html
-    search_tips:"",
+    search_tips:"Keyword",
     latest_plays:"lastest giveaways",
     more:"More",
     create_new: "Create a new giveaway",
