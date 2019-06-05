@@ -10,7 +10,6 @@ $.ajaxPrefilter( function (options) {
 */
 
 //var publicIp = "https://cmt-testnet.search.secondstate.io";
-
 var publicIp = "https://cmt.search.secondstate.io";
 // The above config must be placed in a better system (master config area)
 
@@ -360,19 +359,6 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
             if(whitelist.indexOf(obj._source.contractAddress) != -1)
               return obj
         })
-        /*
-        filteredRes = Object.values(response).filter(function(obj){
-            if (filter == "whitelist") {
-                if(whitelist.indexOf(obj._source.contractAddress) != -1)
-                    return obj
-            } else if (filter == "blacklist") {
-                if(blacklist.indexOf(obj._source.contractAddress) == -1)
-                    return obj
-            } else {
-                return obj
-            }
-        })
-        */
         sortedRes = Object.values(filteredRes).sort(compare(params))
         renderNow ? renderGiveaways(sortedRes) : {};
         return sortedRes;
