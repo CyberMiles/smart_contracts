@@ -3,23 +3,7 @@ const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
 var webBrowser = new AppLink();
-var compare = function ([prop, subprop]) {
-    return function (obj1, obj2) {
-        var val1 = obj1[prop][subprop];
-        var val2 = obj2[prop][subprop];
-        if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
-            val1 = Number(val1);
-            val2 = Number(val2);
-        }
-        if (val1 < val2) {
-            return 1;
-        } else if (val1 > val2) {
-            return -1;
-        } else {
-            return 0;
-        }            
-    } 
-}
+
 $(document).ready(function () {
     webBrowser.openBrowser();
     initLanguage();
@@ -86,8 +70,7 @@ var initInfo =  async () => {
         await renderGiveaways(arrLG)
     }
 
-    var data //undefined (intended to prefill)
-    latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
+    latestGiveaways = await getItemsViaFlask({_compare: compare, _cmpParams: ["_source","blockNumber"], _renderNow: false});
     console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
     
 

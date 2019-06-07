@@ -33,7 +33,7 @@ var ICreatedButton = () => {
             dQuery['query'] = dBool;
             var jsonString = JSON.stringify(dQuery);
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString, _filtered: false});
 
 
             return Object.keys(itemArray).length;
@@ -51,7 +51,7 @@ var IParticipatedButton = () => {
 
             await new Promise((resolve, reject) => setTimeout(resolve, 1500));
             lShould = [];
-            for (i = 0; i < 50; i++) {
+            for (i = 0; i < 150; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.player_addrs.' + i;
@@ -68,7 +68,7 @@ var IParticipatedButton = () => {
             var jsonString = JSON.stringify(dQuery);
 
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString, _filtered: false});
 
             return Object.keys(itemArray).length;
         }
@@ -102,7 +102,7 @@ var IWonButton = () => {
             $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString, _filtered: false});
 
             return Object.keys(itemArray).length;
         }
@@ -116,7 +116,7 @@ var searchButton =  async () => {
         //console.log($.trim(theAddress.length));
         if ($.trim(theAddress.length) == "0" && $.trim(theText.length) == "0") {
             //console.log("Address and text are both blank, fetching all results without a filter");
-            var itemArray = await getItemsViaFlask();
+            var itemArray = await getItemsViaFlask({});
            
         } else if ($.trim(theAddress.length) == "0" && $.trim(theText.length) > "0") {
             var dFields = {};
@@ -132,7 +132,7 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQueryOuter);
                         
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
             
 
             
@@ -168,7 +168,7 @@ var searchButton =  async () => {
             lShould.push(dMatchDesc);
             // Start - Players and Winners
             // Players
-            for (i = 0; i < 50; i++) {
+            for (i = 0; i < 150; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.player_addrs' + i;
@@ -200,7 +200,7 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQuery);
                         
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
          
             //console.log(itemArray);
         } else if ($.trim(theAddress.length) > "0" && $.trim(theText.length) == "0") {
@@ -221,7 +221,7 @@ var searchButton =  async () => {
             lShould.push(dMatchFunctionDataOwner);
             // Start - Players and Winners
             // Players
-            for (i = 0; i < 50; i++) {
+            for (i = 0; i < 150; i++) {
                 var dPTemp = {};
                 var dPTemp2 = {};
                 var fString = 'functionData.player_addrs' + i;
@@ -253,7 +253,7 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQuery);
             
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
             
 
             //console.log(itemArray);
@@ -262,10 +262,6 @@ var searchButton =  async () => {
 
     }
 
-async function getItemsUsingDataViaFlask(_data) {
-    return getItemsViaFlask(_data) 
-}
- 
 _defaultData = {
        "query": {
             "match_all": {}
@@ -320,7 +316,18 @@ blacklist = ["0xFb1072dA1f6123fa389B6385D5AB7D1cd4BDe509",
             "0x327705097AB01D5f029b01e558df45214DDcc86f",
             "0x2651a22d33B7c2a5DE2Af94cB83d15a6F4c66d11",
             "0xb0e36c0b474b6f98436377d198264F35B1f44351",
-            "0xd313b0dCAE38Cd39793bdFf34C3a4f7D8D686F79"
+            "0xd313b0dCAE38Cd39793bdFf34C3a4f7D8D686F79",
+            "0x710c1e655B6d48D60C5DDDefCDb689215181a069",
+            "0xA6067F20349B0A9A7E0656E6C3733C239b81e549",
+            "0xa230A257721ec256847f714CE842222e150060aa",
+            "0x0259499CaAb090dB7b7b402D596E9B1B1AEd90A5",
+            "0xD8DDbAc78734E86980FA9d64e1854CEaE9ed038F",
+            "0xB74E4CD3c18b4c6ED1D8745dC9c7A21D5e14cbBB",
+            "0x2166C3ef2e262Ffd2F871838095Eff1966080764",
+            "0x2Fa031CC4608997f84241CA2931D1024Ed020F63",
+            "0xe5509bE1e9326AD12BC442B4ee810C49849a22A9",
+            "0x87c9d3E1aFFF9030294eD97578026eFF88BE45bF",
+            "0x2cc02732D757DC0801Cdab5685bb2c0f29d27a76"
             ];
 
 whitelist = ["0x17D5eC999a2cDeE4c5986d5714330D36172355A8",
@@ -337,7 +344,7 @@ whitelist = ["0x17D5eC999a2cDeE4c5986d5714330D36172355A8",
 
 
 
-async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
+async function getItemsViaFlask({_data = _defaultDataString, _compare = cmpFunc, _cmpParams = [], _renderNow = true, _filtered = true}) {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
     console.log(theUrlForData);
@@ -353,16 +360,33 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
            dataType: "json",
            contentType: "application/json",
         });
-        // filteredRes = Object.values(response).filter(function(obj){
-        // if(blacklist.indexOf(obj._source.contractAddress) == -1)
-        //     return obj
-        // })
+
+        //whether filtered or unfilterd, first remove the elements in blacklist
         filteredRes = Object.values(response).filter(function(obj){
-            if(whitelist.indexOf(obj._source.contractAddress) != -1)
-              return obj
+            var lowerCaseBlacklist = blacklist.map(function (addr) {
+              return addr.toLowerCase()
+            });
+            if(lowerCaseBlacklist.indexOf(obj._source.contractAddress.toLowerCase()) == -1)
+                return obj
         })
-        sortedRes = Object.values(filteredRes).sort(compare(params))
-        renderNow ? renderGiveaways(sortedRes) : {};
+
+        if(_filtered)
+        {
+            // filteredRes = Object.values(response).filter(function(obj){
+            // if(blacklist.indexOf(obj._source.contractAddress) == -1)
+            //     return obj
+            // })
+            filteredRes = filteredRes.filter(function(obj){
+                var lowerCaseWhitelist = whitelist.map(function (addr) {
+                      return addr.toLowerCase()
+                });
+                if(lowerCaseWhitelist.indexOf(obj._source.contractAddress.toLowerCase()) != -1)
+                  return obj
+            })
+        }
+        
+        sortedRes = Object.values(filteredRes).sort(_compare(_cmpParams))
+        _renderNow ? renderGiveaways(sortedRes) : {};
         return sortedRes;
     }catch(error){
        console.log("Get items failed");
@@ -451,4 +475,24 @@ var modifyTemplate = (index, value) => {
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)
+}
+
+
+//=====================//
+var compare = function ([prop, subprop]) {
+    return function (obj1, obj2) {
+        var val1 = obj1[prop][subprop];
+        var val2 = obj2[prop][subprop];
+        if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
+            val1 = Number(val1);
+            val2 = Number(val2);
+        }
+        if (val1 < val2) {
+            return 1;
+        } else if (val1 > val2) {
+            return -1;
+        } else {
+            return 0;
+        }            
+    } 
 }

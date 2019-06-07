@@ -92,7 +92,22 @@ const dispatchSearch = async (method) => {
         $("#searchAddressInput").val("0x67bc96cb6667Ff38Fd2E308f6781184Bf43B8F7d")
         searchButton();
       }
-    }else{
+    }else if(method == "unfiltered"){
+      $("#create-btn").addClass("d-none")
+      $(".card-tips").addClass("normal-font")
+      $(".card-tips").html(lgb["giveaways_unfiltered"] || "All giveaways...")
+      allGiveaways = await getItemsViaFlask({_compare: compare, _cmpParams: ["_source","blockNumber"], _filtered: false});
+      const n = allGiveaways.length;
+      if(n){
+        if(n<=10){
+          $(".more-plays").text(lgb["nomore"]||"No more itmes.")
+        } else{
+          $(".more-plays").text(lgb["more"] || "More")
+        }
+        //$(".card-tips").html(n + "  " + lgb["giveaways_iwon"] || "Giveaways, I won...")        
+      }
+    }
+    else{
       $("#create-btn").addClass("d-none")
 
       srch_term = getUrlParameter("srch-term").toLowerCase()
