@@ -7,6 +7,7 @@ var webBrowser = new AppLink();
 $(document).ready(function () {
     webBrowser.openBrowser();
     initLanguage();
+    $(".search-box").val("")
 
     initCSS();
     initInfo();
