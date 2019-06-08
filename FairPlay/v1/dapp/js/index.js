@@ -30,7 +30,7 @@ var setupCaseWeb3 = () => {
         $(".sidebar-header").css("margin-top","50px")
         $(".sidebar-header>p").css("position","relative")
         $("#sidebar ul").hide()
-        $("#create-btn").append("<div><small>open in cmt wallet</small></div>")
+        $("#create-btn").append("<div><small>" + (lgb['go_open'] || "open in cmt wallet") + "</small></div>")
 
     }
 }

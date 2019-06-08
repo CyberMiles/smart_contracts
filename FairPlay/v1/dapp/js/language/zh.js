@@ -97,6 +97,7 @@ var ZhLanguage = {
     go_play:"在CMT Wallet中参加",
     result:"结果",
     see_result:"在CMT Wallet中查看结果",
+    go_open:"在CMT Wallet中打开",
     myaddr:"我的地址",
     aboutus:"关于我们",
     //search results.html
