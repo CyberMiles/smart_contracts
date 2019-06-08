@@ -5,13 +5,35 @@ const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play
 var webBrowser = new AppLink();
 
 $(document).ready(function () {
-    webBrowser.openBrowser();
+    // webBrowser.openBrowser();
+    setupCaseWeb3();
     initLanguage();
     $(".search-box").val("")
-
     initCSS();
     initInfo();
 });
+
+var setupCaseWeb3 = () => {
+    try{
+        web3.cmt.getAccounts(function (e, address) {
+            if (e) {
+                tip.error(lgb["error"] || "There is an error");
+            } else {
+                var userAddress = address.toString();
+                var shortAddr = userAddress.substr(0,5) + "***" + userAddress.substr(-3)
+                $("#self_addr").html(shortAddr);
+            }
+        })
+    }catch(e){
+        console.log("no web3")
+        $(".tab-btns").hide()
+        $(".sidebar-header").css("margin-top","50px")
+        $(".sidebar-header>p").css("position","relative")
+        $("#sidebar ul").hide()
+        $("#create-btn").append("<div><small>open in cmt wallet</small></div>")
+
+    }
+}
 
 var initLanguage = function () {
     if (lgb == '' || lgb == null) {
@@ -54,16 +76,7 @@ initCSS = () => {
 var initInfo =  async () => {
     $(".more-plays").text(lgb["loading"] || "loading...")
 
-    web3.cmt.getAccounts(function (e, address) {
-        if (e) {
-            tip.error(lgb["error"] || "There is an error");
-        } else {
-            var userAddress = address.toString();
-            var shortAddr = userAddress.substr(0,5) + "***" + userAddress.substr(-3)
-            $("#self_addr").html(shortAddr);
-        }
-    })
-
+    
     var n_current_giveaway = 0 
     if(localStorage.getItem('latestGiveaways')){
         arrLG = JSON.parse(localStorage.getItem('latestGiveaways'))

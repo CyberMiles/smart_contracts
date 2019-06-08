@@ -2,7 +2,7 @@ const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
-var webBrowser = new AppLink();
+// var webBrowser = new AppLink();
 const getUrlParameter = function (name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -165,7 +165,7 @@ var initBtn = function(){
 
 $(document).ready(function() {
 
-  webBrowser.openBrowser();
+  // webBrowser.openBrowser();
   initLanguage();
 
   initBtn();

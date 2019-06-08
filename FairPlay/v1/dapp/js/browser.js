@@ -71,8 +71,12 @@ var AppLink = (function () {
         var shareLinkMsg = "Please Copy the Share Link and open in the Browser ！";
         // agent is mobile
         try {
-            // alert("get web3.cmt");
+            // there is web3
             web3.cmt
+            //
+            if (web3.currentProvider.host == "https://rpc.cybermiles.io:8545"){
+                throw 'No Private Web3 Error'
+            }
         } catch (e) {
             if (agent.indexOf('iPad') != -1 || agent.indexOf('iPhone') != -1 || agent.indexOf('Android') != -1) {
                 // 微信、QQ 直接跳 钱包下载页面

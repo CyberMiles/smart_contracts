@@ -2,7 +2,7 @@ const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
 const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html';
-var webBrowser = new AppLink();
+const webBrowser = new AppLink();
 const contract_address = fun.getParameter("contract");
 var userAddress = '';
 var ownerAddress = '';
@@ -10,20 +10,18 @@ var abi = '';
 var bin = '';
 var contract = '';
 var instance = '';  // contract instance
+var setWeb3 = true
 
 $(function () {
     window.lgb = lgb;
-    webBrowser.openBrowser();
-    tip.loading(lgb["loading"] || "Loading ...");
-    // init the abi and bin
+    initLanguage();
+
+    setupCaseWeb3();
+        // init the abi and bin
     getAbi();
     getBin();
-
-  
-
-
-    initLanguage();
     bindShowShare();
+    tip.loading(lgb["loading"] || "Loading ...");
     
     var addr_clipboard = new ClipboardJS('.cp-addr-btn');
     addr_clipboard.on('success', function(e) {
@@ -71,6 +69,32 @@ $(function () {
         }
     }, 50);
 });
+
+var setupCaseWeb3 = function () {
+    try{
+        web3.cmt
+    }catch(e){
+        setWeb3 = false
+        var Web3 = require("web3-cmt")
+        web3 = new Web3(new Web3.providers.HttpProvider("https://rpc.cybermiles.io:8545"))
+        console.log("web3")
+
+        $("#draw-submit").html(lgb["cmt_draw"]||"Open in CMT Wallet to draw.")
+        $("#draw-submit").removeAttr("data-translate")
+        $("#draw-submit").removeAttr("onclick")
+        $("#draw-submit").click(function(){
+            webBrowser.openBrowser();
+        })
+
+        $("#play-panel .form-control").attr("disabled", true);
+        $("#play-submit").html(lgb["go_play"]||"Open in CMT Wallet to play.")
+        $("#play-submit").removeAttr("data-translate")
+        $("#play-submit").removeAttr("onclick")
+        $("#play-submit").click(function(){
+            webBrowser.openBrowser();
+        })
+    }
+}
 
 var initLanguage = function () {
     if (lgb == '' || lgb == null) {
@@ -205,7 +229,7 @@ var getInfo = function () {
                                     
                                     if (contact == null || contact == "") {
                                         // show empty play form
-                                        $('#play-submit').text(lgb["enter"]);
+                                        setWeb3 ? $('#play-submit').text(lgb["enter"]) : {};
                                     } else {
 
                                         // Show prefilled play form
@@ -220,7 +244,7 @@ var getInfo = function () {
                                         $("#contact-app-field").attr("disabled", true);
                                         $("#mesg-field").attr("disabled", true);
                                         
-                                        $('#play-submit').text(lgb["update"]);
+                                        setWeb3 ? $('#play-submit').text(lgb["update"]) : {};
                                     }
                                 } else {
                                     // Show drawing form
