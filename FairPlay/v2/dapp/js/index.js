@@ -1,26 +1,8 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/play.html';
+var baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/';
 var webBrowser = new AppLink();
-
-var compare = function ([prop, subprop]) {
-    return function (obj1, obj2) {
-        var val1 = obj1[prop][subprop];
-        var val2 = obj2[prop][subprop];
-        if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
-            val1 = Number(val1);
-            val2 = Number(val2);
-        }
-        if (val1 < val2) {
-            return 1;
-        } else if (val1 > val2) {
-            return -1;
-        } else {
-            return 0;
-        }            
-    } 
-}
 
 $(document).ready(function () {
     webBrowser.openBrowser();
@@ -48,6 +30,13 @@ var initLanguage = function () {
 }
 
 initCSS = () => {
+    $(".create-btn").attr("href", baseUrl + "create.html")
+    $(".result-won").attr("href", baseUrl + "search-results.html?method=won")
+    $(".result-participated").attr("href", baseUrl + "search-results.html?method=participated")
+    $(".result-created").attr("href", baseUrl + "search-results.html?method=created")
+    $(".result-unfiltered").attr("href", baseUrl + "search-results.html?method=unfiltered")
+    $("#search-panel").attr("action", baseUrl + "search-results.html")
+
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
@@ -76,12 +65,6 @@ var bindSearch = () => {
     })
 }
 
-async function applyandGetN(items) {
-    n = await renderGiveaways(items);
-    console.log(n)
-    return n
-}
-
 var initInfo =  async () => {
     $(".more-plays").addClass("d-none")
     $(".loader").removeClass("d-none")
@@ -99,18 +82,19 @@ var initInfo =  async () => {
     var n_current_giveaway = 0 
     if(localStorage.getItem('latestGiveaways')){
         arrLG = JSON.parse(localStorage.getItem('latestGiveaways'))
-        n_current_giveaway = await applyandGetN(arrLG)
+        n_current_giveaway = arrLG.length
+        await renderGiveaways(arrLG)
     }
 
-    var data //undefined (intended to prefill)
-    latestGiveaways = await getItemsViaFlask(data, compare, ["_source","blockNumber"], false);
+    latestGiveaways = await getItemsViaFlask({_renderNow: false, _filtered: false});
     console.log(latestGiveaways, latestGiveaways.length, n_current_giveaway)
     
     $(".more-plays").removeClass("d-none")
     $(".loader").addClass("d-none")
 
     if(n_current_giveaway == 0){
-        await applyandGetN(latestGiveaways)
+        n_current_giveaway = latestGiveaways.length
+        await renderGiveaways(latestGiveaways)
     }
     if(n_current_giveaway >= 10)
     {

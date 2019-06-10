@@ -1,7 +1,7 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
+var baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/';
 var webBrowser = new AppLink();
 var abi = "";
 
@@ -134,6 +134,7 @@ var initLanguage = function () {
     });
 }
 var initBtn = function(){
+    $("#create-btn").attr("href", baseUrl + "create.html")
     $(".more-plays").click(()=>{
       var moreitems = 0   
       var n_itmes = $(".card").length

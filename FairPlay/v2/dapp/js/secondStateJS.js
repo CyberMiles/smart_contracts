@@ -1,10 +1,10 @@
-$.ajaxPrefilter( function (options) {
-  if (options.crossDomain && jQuery.support.cors) {
-    var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-    options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-    //options.url = "http://cors.corsproxy.io/url=" + options.url;
-  }
-});
+// $.ajaxPrefilter( function (options) {
+//   if (options.crossDomain && jQuery.support.cors) {
+//     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+//     options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+//     //options.url = "http://cors.corsproxy.io/url=" + options.url;
+//   }
+// });
 
 var publicIp = "https://cmt-testnet.search.secondstate.io";
 
@@ -31,10 +31,10 @@ var ICreatedButton = () => {
             dQuery['query'] = dBool;
             var jsonString = JSON.stringify(dQuery);
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
 
 
-            return Object.keys(itemArray).length;
+            return itemArray.length;
         }
         return setUpAndProgress();
     }
@@ -66,9 +66,9 @@ var IParticipatedButton = () => {
             var jsonString = JSON.stringify(dQuery);
 
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
 
-            return Object.keys(itemArray).length;
+            return itemArray.length;
         }
         return setUpAndProgress();
     }
@@ -100,9 +100,9 @@ var IWonButton = () => {
             $("#pbc").hide('slow');
             var jsonString = JSON.stringify(dQuery);
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
 
-            return Object.keys(itemArray).length;
+            return itemArray.length;
         }
         return setUpAndProgress();
     }
@@ -130,7 +130,7 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQueryOuter);
                         
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
             
 
             
@@ -198,7 +198,7 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQuery);
                         
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
          
             //console.log(itemArray);
         } else if ($.trim(theAddress.length) > "0" && $.trim(theText.length) == "0") {
@@ -251,18 +251,15 @@ var searchButton =  async () => {
             var jsonString = JSON.stringify(dQuery);
             
             // If this is a public website then we need to call ES using Flask
-            var itemArray = await getItemsUsingDataViaFlask(jsonString);
+            var itemArray = await getItemsViaFlask({_data: jsonString});
             
 
             //console.log(itemArray);
         }
-        return Object.keys(itemArray).length;;
+        return itemArray.length;;
 
     }
 
-async function getItemsUsingDataViaFlask(_data) {
-    return getItemsViaFlask(_data) 
-}
  
 _defaultData = {
        "query": {
@@ -271,15 +268,57 @@ _defaultData = {
     }
 var _defaultDataString = JSON.stringify(_defaultData);
 
-var cmpFunc = () => { }
+var giveawayPreFilter = (obj) => {
+    if(obj._source.hasOwnProperty('contractAddress')){
+        blacklist = ["0xbc88c27Ad36a7B950890917A6592D8597a3C1732"]
 
-var filterGiveaway = (obj) => {
-    blacklist = ["0xbc88c27Ad36a7B950890917A6592D8597a3C1732"]
-    if(blacklist.indexOf(obj._source.contractAddress) == -1)
-        return obj
+        var lowerCaseBlacklist = blacklist.map(function (addr) {
+          return addr.toLowerCase()
+        });
+        if(lowerCaseBlacklist.indexOf(obj._source.contractAddress.toLowerCase()) == -1)
+            return obj
+    }
+    
 }
 
-async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, params = [], renderNow = true) {
+var giveawayRulesFilter = (obj) => {
+    whitelist = ["0xbE221B62527E42969A694502a3b1358E6B9CF1dF"]
+    var lowerCaseWhitelist = whitelist.map(function (addr) {
+          return addr.toLowerCase()
+    });
+    if(lowerCaseWhitelist.indexOf(obj._source.contractAddress.toLowerCase()) != -1)
+      return obj
+}
+
+var restructure = async (giveawayArr) => {
+    customedArr = []
+    $.each(giveawayArr, (index, value) => {
+        dappVersion = ""
+       if (value._source.abiSha3BytecodeSha3 == "0x39e76f559313a52e86c540b63ec64fbf1c88624855ad60cc0380c0d7d47aed4b"){
+            dappVersion = "v1";
+        }
+        else if (value._source.abiSha3BytecodeSha3 == "0x82069af99bd87d7c8271916cd33cff9f6176d1bb6da18a75379107df30da6fc5") {
+            dappVersion = "v2";
+        }
+        // console.log(value._source.abiSha3BytecodeSha3)
+        func_data = value._source.functionData.info;
+
+        newGiveaway = {
+            dappVersion: dappVersion,
+            title: func_data[1],
+            desc: func_data[2],
+            imgUrl: func_data[3],
+            nWinners: func_data[4],
+            drawDate: func_data[5],
+            contractAddress: value._source.contractAddress,
+            blockNumber: value._source.blockNumber
+        }
+        customedArr.push(newGiveaway)
+    })
+    return customedArr;   
+}
+
+async function getItemsViaFlask({_data = _defaultDataString, _renderNow = true, _filtered = false}) {
     theUrlForData = publicIp + "/api/es_search";
     console.log("getItemsViaFlask");
     console.log(theUrlForData);
@@ -296,13 +335,20 @@ async function getItemsViaFlask(_data = _defaultDataString, compare = cmpFunc, p
            contentType: "application/json",
         });
 
-        filteredRes = Object.values(response).filter(filterGiveaway)
+        console.log(Object.values(response))
+        //whether filtered or unfilterd, first remove the elements in blacklist
+        prefilteredRes = (Object.values(response)).filter(giveawayPreFilter)
 
-        sortedRes = Object.values(filteredRes).sort(compare(params))
-        renderNow ? renderGiveaways(sortedRes) : {};
-        return sortedRes;
+        _filtered ? filteredRes = prefilteredRes.filter(giveawayRulesFilter) : filteredRes = prefilteredRes
+
+        customedRes = await restructure(filteredRes)
+
+        _renderNow ? renderGiveaways(customedRes) : {};
+
+        return customedRes;
+
     }catch(error){
-       console.log("Get items failed");
+       console.log(error, "Get items failed");
     }
 }
 
@@ -319,10 +365,9 @@ var renderGiveaways = (_hits) =>{
             //empty all the card except the template
             $(".card").slice(1).detach()
             $.each(_hits, (index, value)=>{
-
                 contract = web3.cmt.contract(abi);
-                instance = contract.at(value._source.contractAddress);
-                //callback hell =_=||
+                instance = contract.at(value.contractAddress);
+                //callback hell =_=|| in web3 callback you don't know when it will be done!
                 instance.owner.call (function (e, r) {
                     if (e) {
                         console.log("Destructed. Ignored.");
@@ -341,29 +386,31 @@ var renderGiveaways = (_hits) =>{
     return _hits.length
 }
 
-var modifyTemplate = (index, value) => {
+var modifyTemplate = (index, item) => {
+        var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/"
+        var relativePlayUrl = "/dapp/play.html?contract="
         if(index < 10)
             template = $(".card-template").clone().removeClass("card-template d-none")
         else
             template = $(".card-template").clone().removeClass("card-template")
-        func_data = value._source.functionData.info;
-        if(func_data[3] == ""){
+
+        if(item.imgUrl == ""){
             template.find(".prize-img-container").detach()
         }else{
-            template.find(".prize-img").attr("src",func_data[3]);
+            template.find(".prize-img").attr("src",item.imgUrl);
         }
-        template.find(".giveaway-title").text(func_data[1]);
-        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + func_data[4]);
+        template.find(".giveaway-title").text(item.title);
+        template.find(".n-winners").text((lgb["n_of_winners"] || "Number of winners") + ":  " + item.nWinners);
 
-        template.find(".block-number").text((lgb["block_height"] || "Block Height") + ": " + value._source.blockNumber)
-        template.find(".dapp-version").text(value._source.dappVersion)
+        template.find(".block-number").text((lgb["block_height"] || "Block Height") + ": " + item.blockNumber)
+        template.find(".dapp-version").text(item.dappVersion)
         
-        desc_txt = func_data[2].split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
+        desc_txt = item.desc.split("##### Shopping Link")[0].split("##### Description").filter(Boolean)[0]
         template.find(".giveaway-desc").text(desc_txt);
-        template.attr("id", value._source.contractAddress)
+        template.attr("id", item.contractAddress)
         
         // Expiry time
-        var epochRepresentation = value._source.functionData.info[5];
+        var epochRepresentation = item.drawDate;
         if (epochRepresentation.toString().length == 10) {
             var endDate = new Date(epochRepresentation * 1000);
         } else if (epochRepresentation.toString().length == 13) {
@@ -394,15 +441,19 @@ var modifyTemplate = (index, value) => {
             // template.find(".tag-font").addClass("green")
         }
         
-        template.find(".rm-giveaway").attr("alt", value._source.contractAddress)
+        if(item.dappVersion == "v1"){
+            template.find(".rm-giveaway").detach()
+        }else{
+            template.find(".rm-giveaway").attr("alt", item.contractAddress)
+        }
 
-        var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/" + value._source.dappVersion + "/dapp/play.html?contract=" + value._source.contractAddress;
+        var playUrl = baseUrl + item.dappVersion + relativePlayUrl + item.contractAddress;
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         
         let difference = 0;
         let last = 0;
-        const currentHeight = value._source.blockNumber
+        const currentHeight = item.blockNumber
         $(".card").each((id, card) => {
             sub = $(card).find(".block-number").text().split(" ")[2] - currentHeight
             if (difference == 0){

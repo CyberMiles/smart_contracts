@@ -54,10 +54,21 @@ $.ajaxPrefilter( function (options) {
     //options.url = "http://cors.corsproxy.io/url=" + options.url;
   }
 });
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/"
 
 $(function () {
+    var link = baseUrl + "play.html?contract=" + getUrlParameter("code");
 
-    var link = "https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/play.html?contract=" + getUrlParameter("code");
+    //first make a qr code of long url
+    new QRCode(document.getElementById("qrcode"), {
+        text: link,
+        width: 160,
+        height: 160,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
     
     //generate the short link for the current link
     var reqLink = 'https://cutt.ly/api/api.php?key=03c2a6a042ffdcccd7a27e0782af36f5b0244&short=' + link;
@@ -73,6 +84,7 @@ $(function () {
    
         const makecode = async() => 
         {
+            $("#qrcode").empty()
             setTimeout(function () {
                 new QRCode(document.getElementById("qrcode"), {
                     text: shortLink,

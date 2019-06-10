@@ -1,6 +1,6 @@
 const fun = new MainFun();
 const lgb = fun.languageChoice();
-const baseURL = "https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/"
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/"
 
 $(()=>{
     init();
@@ -13,6 +13,7 @@ var init = ()=>{
 }
 
 var initPage = () => {
+    $(".form-search-result").attr("action", baseUrl + "search-results.html")
     initLanguage();
     initHerstory();
     initSuggestion();
