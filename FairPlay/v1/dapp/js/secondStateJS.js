@@ -1,5 +1,5 @@
-var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/"
-var relativePlayUrl = "/dapp/play.html?contract="
+// var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/"
+// var relativePlayUrl = "/dapp/play.html?contract="
 /*
 $.ajaxPrefilter( function (options) {
   if (options.crossDomain && jQuery.support.cors) {
@@ -420,6 +420,8 @@ var renderGiveaways = async (_hits) =>{
 }
 
 var modifyTemplate = (index, value) => {
+        var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/"
+        var relativePlayUrl = "/dapp/play.html?contract="
         if(index < 10)
             template = $(".card-template").clone().removeClass("card-template d-none")
         else
