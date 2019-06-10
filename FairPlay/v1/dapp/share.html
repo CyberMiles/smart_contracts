@@ -40,6 +40,8 @@
     <script type='text/javascript' src='js/qrcode.js'></script>
 
     <script>
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/"
+
 var getUrlParameter = function (name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -54,9 +56,8 @@ $.ajaxPrefilter( function (options) {
     //options.url = "http://cors.corsproxy.io/url=" + options.url;
   }
 });
-var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html"
 $(function () {
-    var link = baseUrl + "?contract=" + getUrlParameter("code");
+    var link = baseUrl + "play.html?contract=" + getUrlParameter("code");
 
     //first make a qr code of long url
     new QRCode(document.getElementById("qrcode"), {
@@ -96,13 +97,6 @@ $(function () {
                
             }, 1);
         }
-        makecode().then(()=>{
-            // setTimeout(function(){
-            //     downhref = document.getElementsByTagName('img')[0].getAttribute('src');
-            //     document.getElementById("downlink").href = downhref;
-            // }, 3)
-            
-        })
 
     })
   

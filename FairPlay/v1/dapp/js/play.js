@@ -24,6 +24,7 @@ $(function () {
     tip.loading(lgb["loading"] || "Loading ...");
     
     $(".create-btn a").attr("href", baseUrl + "create.html")
+    $(".href-index").attr("href", baseUrl + "index.html")
 
     var addr_clipboard = new ClipboardJS('.cp-addr-btn');
     addr_clipboard.on('success', function(e) {

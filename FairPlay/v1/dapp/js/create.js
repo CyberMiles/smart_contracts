@@ -14,7 +14,8 @@ $(function () {
     getBin();
     initLanguage();
     initLinkTb();
-
+    $(".href-index").attr("href", baseUrl + "index.html")
+    
     $('.image-upload-wrap').bind('dragover', function () {
              $('.image-upload-wrap').addClass('image-dropping');
     });

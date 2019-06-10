@@ -14,6 +14,7 @@ var init = ()=>{
 
 var initPage = () => {
     $(".form-search-result").attr("action", baseUrl + "search-results.html")
+    $(".href-index").attr("href", baseUrl + "index.html")
     initLanguage();
     initHerstory();
     initSuggestion();

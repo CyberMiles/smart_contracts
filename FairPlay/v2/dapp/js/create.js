@@ -4,7 +4,7 @@ const lgb = fun.languageChoice();
 var webBrowser = new AppLink();
 var abi = '';
 var bin = '';
-var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/"
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v2/dapp/"
 
 $(function () {
     window.lgb = lgb;
@@ -16,6 +16,7 @@ $(function () {
     initLinkTb();
     initAddTags();
 
+    $(".href-index").attr("href", baseUrl + "index.html")
 
     $('.image-upload-wrap').bind('dragover', function () {
              $('.image-upload-wrap').addClass('image-dropping');

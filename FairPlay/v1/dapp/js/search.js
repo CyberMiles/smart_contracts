@@ -148,6 +148,8 @@ var initLanguage = function () {
 }
 var initBtn = function(){
     $("#create-btn").attr("href", baseUrl + "create.html")
+    $(".href-index").attr("href", baseUrl + "index.html")
+    
     $(".more-plays").click(()=>{
       var moreitems = 0   
       var n_itmes = $(".card").length
