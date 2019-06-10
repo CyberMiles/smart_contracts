@@ -1,7 +1,7 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html';
+const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/';
 const webBrowser = new AppLink();
 const contract_address = fun.getParameter("contract");
 var userAddress = '';
@@ -23,6 +23,8 @@ $(function () {
     bindShowShare();
     tip.loading(lgb["loading"] || "Loading ...");
     
+    $(".create-btn a").attr("href", baseUrl + "create.html")
+
     var addr_clipboard = new ClipboardJS('.cp-addr-btn');
     addr_clipboard.on('success', function(e) {
         $('.cp-addr-btn').text(lgb["copied"] || "copied")
@@ -127,8 +129,8 @@ function copyLink(){
 
 var bindShowShare = function(){
     //noD$(".share-btn")isplay = ['xing', 'print', 'vk'];
-    $("iframe").attr("src", "./share.html?code=" + contract_address)
-    $("#share-link").val(baseUrl + "?contract=" + contract_address);
+    $("iframe").attr("src", baseUrl + "share.html?code=" + contract_address)
+    $("#share-link").val(baseUrl + "play.html?contract=" + contract_address);
     // $(".share-btn").click(()=>{
     //    $(".share-panel").removeClass("d-none");
     //    $(".overlay").removeClass("d-none");

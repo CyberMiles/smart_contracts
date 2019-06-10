@@ -1,11 +1,10 @@
 const fun = new MainFun();
 const tip = IUToast;
 const lgb = fun.languageChoice();
-const baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/dapp/play.html';
-var webBrowser = new AppLink();
+var baseUrl = 'https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/';
+
 
 $(document).ready(function () {
-    // webBrowser.openBrowser();
     setupCaseWeb3();
     initLanguage();
     $(".search-box").val("")
@@ -52,6 +51,13 @@ var initLanguage = function () {
 }
 
 initCSS = () => {
+    $(".create-btn").attr("href", baseUrl + "create.html")
+    $(".result-won").attr("href", baseUrl + "search-results.html?method=won")
+    $(".result-participated").attr("href", baseUrl + "search-results.html?method=participated")
+    $(".result-created").attr("href", baseUrl + "search-results.html?method=created")
+    $(".result-unfiltered").attr("href", baseUrl + "search-results.html?method=unfiltered")
+    $("#search-panel").attr("action", baseUrl + "search-results.html")
+
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });

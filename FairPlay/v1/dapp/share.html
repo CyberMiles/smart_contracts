@@ -54,9 +54,9 @@ $.ajaxPrefilter( function (options) {
     //options.url = "http://cors.corsproxy.io/url=" + options.url;
   }
 });
-
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html"
 $(function () {
-    var link = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/play.html?contract=" + getUrlParameter("code");
+    var link = baseUrl + "?contract=" + getUrlParameter("code");
 
     //first make a qr code of long url
     new QRCode(document.getElementById("qrcode"), {

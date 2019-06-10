@@ -1,3 +1,5 @@
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/"
+var relativePlayUrl = "/dapp/play.html?contract="
 /*
 $.ajaxPrefilter( function (options) {
   if (options.crossDomain && jQuery.support.cors) {
@@ -479,7 +481,7 @@ var modifyTemplate = (index, value) => {
         
         template.find(".rm-giveaway").attr("alt", value._source.contractAddress)
 
-        var playUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/" + value._source.dappVersion + "/dapp/play.html?contract=" + value._source.contractAddress;
+        var playUrl = baseUrl + value._source.dappVersion + relativePlayUrl + value._source.contractAddress;
         template.find(".nav-details").attr("href", playUrl)
         template.find(".giveaway-url").attr("href", playUrl)
         $(".card-deck").append(template)

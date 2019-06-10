@@ -4,6 +4,7 @@ const lgb = fun.languageChoice();
 var webBrowser = new AppLink();
 var abi = '';
 var bin = '';
+var baseUrl = "https://cybermiles.github.io/smart_contracts/FairPlay/v1/dapp/"
 
 $(function () {
     window.lgb = lgb;
@@ -182,7 +183,7 @@ var create = function () {
                 } else {
                     console.log(instance.address);
                     if (instance.address != undefined) {
-                        window.location.href = "qrcode.html?code=" + instance.address;
+                        window.location.href = baseUrl + "qrcode.html?code=" + instance.address;
                     } else {
                         var checkTransactionTimer = setInterval(function () {
                             web3.cmt.getTransactionReceipt(instance.transactionHash, function (error, result) {
@@ -190,9 +191,9 @@ var create = function () {
                                     if (result != null && result.status == '0x1') {
                                         clearInterval(checkTransactionTimer);
                                         if (result.contractAddress != undefined) {
-                                            window.location.href = "qrcode.html?code=" + result.contractAddress;
+                                            window.location.href = baseUrl + "qrcode.html?code=" + result.contractAddress;
                                         } else if (result.address != undefined) {
-                                            window.location.href = "qrcode.html?code=" + result.address;
+                                            window.location.href = baseUrl + "qrcode.html?code=" + result.address;
                                         } else {
                                             tip.close();
                                             tip.error("Could not get a contract address");
