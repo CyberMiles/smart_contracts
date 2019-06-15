@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, shrink-to-fit=no,user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+
+    <link rel="stylesheet" href="css/iutoast.css">
+    <link rel="stylesheet" href="css/create.css">
+
+    <title data-translate="create_title">Create a prize drawing</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120065893-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120065893-13');
+    </script>
+</head>
+    
+<body class="main-bg">
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<a type="button" class="btn btn-dark" href="./index.html">
+    <span class="oi oi-arrow-thick-left"></span></a>
+</a>
+<div class="container" id="create-panel">
+    <h3 data-translate="create_a_new">Create a new prize drawing</h3>
+        <div class="form-group">
+            <label for="title" data-translate="title">Title</label>
+            <input type="text" data-translate="title_helper" placeholder="Please provide a short title for your prize drawing." class="form-control" id="title">
+            <!-- <small id="titleHelp" class="form-text text-muted" data-translate="title_helper">Please provide a short title for your prize drawing.</small> -->
+        </div>
+        <div class="form-group">
+            <label for="desc" data-translate="desc">Description</label>
+            <textarea type="text" data-translate="desc_helper" placeholder="A longer description of the prize, and the purposes and procedures of this drawing." rows="2" class="form-control" id="desc"></textarea> 
+            <!-- <small id="descHelp" class="form-text text-muted" data-translate="desc_helper">A longer description of the prize, and the purposes and procedures of this drawing.</small> -->
+        </div>
+
+
+
+        <!--img upload-->
+        <div class="form-group">
+            <div class="btn-group btn-group-toggle img-btns" data-toggle="buttons">
+              <label class="btn btn-outline-dark active" id="fromlocal" onclick="imgfrom(this);" data-translate="select_local">
+                <input type="radio" name="img-options" id="option2" autocomplete="off" > Select from local
+              </label>
+              <label class="btn btn-outline-dark" id="fromurl" onclick="imgfrom(this);" data-translate="img_url">
+                <input type="radio" name="img-options" id="option1" autocomplete="off" checked="" >  Image URL
+              </label>
+            </div>
+            <!--upload img from local-->
+            <div id="local-input">
+                <form id="img-form" method="post" action="https://api.cloudinary.com/v1_1/dgvnn4efo/image/upload" enctype="multipart/form-data" >
+                  <fieldset>
+                     <p>
+                      <input type="text" name="upload_preset" value="fairplay" style="display: none">
+                    </p>
+                    <div class="image-upload-wrap">
+                    <label>
+                     <input id="selected-img" class="file-upload-input" type="file" name="file" accept="image/*" onchange="uploadPic()" onclick="changeBoxCSS();"></label>
+                    <div class="drag-text">
+                      <h3 data-translate="select_pic">Select your picture</h3>
+                    </div>
+                   <div class="uploading-text d-none">
+                      <h3 data-translate="uploading">Uploading......</h3>
+                    </div>
+                  </div>
+                  <input type="submit" id="submit" value="Submit Comment" style="display: none" /> 
+                  <div class="file-upload-content">
+                    <img id="uploaded" class="file-upload-image img-fluid img-thumbnail src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <span onclick="removeUpload()" class="remove-btn oi oi-x"></span>
+                    </div>
+                  </div>
+                   <small id="uploadimgHelp" class="form-text text-muted" data-translate="upload_helper">Upload a feature image that illustrates prize. (Make sure that the extensions are one of them: jpg, jpeg, png, gif, PNG, JPG, JPEG, and the size is less than 2 MB.) </small>
+                  </fieldset>
+                </form>
+            </div>
+            <!--upload img from url-->
+            <div id="url-input" class="d-none">
+                <input type="text" class="form-control" id="img" placeholder="http://">
+                <small id="imgHelp" class="form-text text-muted" data-translate="url_helper">The URL to a feature image that illustrates prize.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="num" data-translate="n_of_winners">Number of winners</label>
+            <div class="input-inline">
+                <input type="number" data-translate="number_helper" placeholder="The number of winners to share the prize."  class="form-control winner-number-input" id="num"><input disabled placeholder="ppl" data-translate="winner_unit" type="text" class="form-control  winner-unit">
+            </div>
+<!-- 
+            <small id="numHelp" class="form-text text-muted" data-translate="number_helper">The number of winners to share the prize.</small>
+ -->        </div>
+        <div class="form-group">
+          
+            <div class="col" style="padding:0">
+                <label for="cutoff" data-translate="end_time">End time for the drawing</label>
+                <input type="text" class="form-control datetimepicker-input" id="cutoff" data-toggle="datetimepicker"  readonly="true" data-target="#cutoff">
+         <!--        <small id="cutoffHelp" class="form-text text-muted" data-translate="time_eg">E.g., 04/01/2019 3:14 PM</small> -->
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="shopping" data-translate="shopping_link"> Prize Shopping Link</label>
+          
+            
+            <span class="table-add float-right mb-3 mr-2">
+              <a href="#!" class="text-dark" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+              </a>
+            </span>
+
+            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content purchase-link-panel">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" data-translate="shopping_link">Prize Purchase Link (Optional)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">    
+                            <label data-translate="shopping_platform">Purchase Platform</label>
+                            <input type="text" id="purchase-platform" name="platform" class="form-control" placeholder="OpenBay/Amazon/...">
+                            <small class="text-danger d-none" id="emptytip-platform" data-translate="not_empty">input cannot be empty</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Purchase Link</label>
+                            <input type="text" id="purchase-link" name="link" class="form-control" placeholder="http(s)://...">
+                            <small class="text-danger d-none" id="emptytip-link" data-translate="not_empty">input cannot be empty</small>
+                            <small class="text-danger d-none" id="invalid-url" data-translate="invalid_url">Invalid URL. It should starts with "http(s)://"</small>
+                        </div>
+                      </div>
+                      <div class="modal-footer"> 
+                        <button type="button" class="btn-sm btn-dark add-purchase" data-translate="add">Add</button>
+                      </div>
+                </div>
+              </div>
+            </div>
+          <div id="purchase_table">
+            <table class="table table-bordered table-striped">
+              <tr class="d-none">
+                <td width="30%" class="pt-3-half" ></td>
+                <td width="60%" class="pt-3-half"></td>
+                <td width="10%">
+                  <span class="table-remove"><i class="fas fa-times"></i></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <button type="button" onclick="create()" class="btn btn-dark btn-lg btn-block" data-translate="create_drawing">Create drawing</button>
+</div>
+</body>
+
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script src="js/main.js"></script>
+<script src="js/create.js"></script>
+</html>
