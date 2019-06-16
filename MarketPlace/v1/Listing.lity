@@ -98,8 +98,26 @@ contract Listing {
     function getPrice(uint index) public view returns(address, uint) {
         return (prices[index].crc20, prices[index].amount);
     }
+    
+    function buyWithCMT (string _name, string _contact, string _mesg) payable public {
+        require(status == 1);
 
-    function buy (address _crc20, string _name, string _contact, string _mesg) payable public {
+        Price memory price;
+        uint i = 0;
+        for (i=0; i<prices.length; i++) {
+            if (prices[i].crc20 == address(0)) {
+                price = prices[i];
+            }
+        }
+        require (price.amount > 0);
+        require (msg.value >= price.amount);
+
+        buyer = Buyer (msg.sender, now, 0, false, "", _name, _contact, _mesg, price.crc20, price.amount);
+        status = 2;
+    }
+    
+    function buyWithCRC20 (address _crc20, string _name, string _contact, string _mesg) public {
+        require(_crc20 != address(0));
         require(status == 1);
 
         Price memory price;
@@ -111,14 +129,8 @@ contract Listing {
         }
         require (price.amount > 0);
 
-        if (_crc20 == address(0)) {
-            // CMT
-            require (msg.value >= price.amount);
-        } else {
-            // CRC20
-            ICRC20 token = ICRC20(_crc20);
-            require(token.transferFrom(msg.sender, this, price.amount));
-        }
+        ICRC20 token = ICRC20(_crc20);
+        require(token.transferFrom(msg.sender, address(this), price.amount));
 
         buyer = Buyer (msg.sender, now, 0, false, "", _name, _contact, _mesg, price.crc20, price.amount);
         status = 2;
