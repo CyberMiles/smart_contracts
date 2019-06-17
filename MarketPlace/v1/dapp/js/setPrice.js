@@ -42,7 +42,7 @@ var getInfo = function () {
                     console.log(e);
                     return;
                 } else {
-                    int i = 0;
+                    var i = 0;
                     for (i = 0; i < r[0]; i++) {
                         instance.getPrice (i, function (e_price, r_price) {
                             if (e_price) {
