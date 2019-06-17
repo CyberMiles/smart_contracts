@@ -74,7 +74,7 @@ var getInfo = function () {
 
                     $('#escrow').text(r[4]);
 
-                    int i = 0;
+                    var i = 0;
                     for (i = 0; i < r[5]; i++) {
                         instance.getImage (i, function (e_img, r_img) {
                             if (e_img) {
