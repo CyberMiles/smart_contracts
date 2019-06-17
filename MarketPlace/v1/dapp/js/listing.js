@@ -36,6 +36,9 @@ var getInfo = function () {
     $('#sold-panel').css("display", "none");
     $('#seller-panel').css("display", "none");
 
+    $('#addImage-link').attr("href", "addImage.html?contract=" + contract_address);
+    $('#setPrice-link').attr("href", "setPrice.html?contract=" + contract_address);
+
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             console.log(e);
@@ -64,6 +67,7 @@ var getInfo = function () {
                     $('#title-div').text(r[1]);
                     $('#desc-panel').text(r[2]);
 
+                    $('#creator').text(r[3]);
                     ownerAddress = r[3].toString();
                     if (userAddress == ownerAddress) {
                         if (status == 1 || status == 2) {
