@@ -68,34 +68,20 @@
     </form>
 
     <div>
-        <div class="main-button-div">
-            <div class="main-button" style="background-color:#343a40">
-                <p id="buy-submit" class="main-button-font" onclick="buy()">Buy</p>
-            </div>
-        </div>
+        <button id="buy-submit" class="btn btn-primary" onclick="buy()">Buy</button>
     </div>
 </div>
 
 <div class="container" style="display:none" id="dispute-panel">
     <div>
-        <div class="main-button-div">
-            <div class="main-button" style="background-color:#343a40">
-                <p id="close-submit" class="main-button-font" onclick="closeByBuyer()">I received it</p>
-            </div>
-            <div class="main-button" style="background-color:#343a40">
-                <p id="dispute-submit" class="main-button-font" onclick="dispute()">I want to dispute it</p>
-            </div>
-        </div>
+        <button id="close-submit" class="btn btn-primary" onclick="closeByBuyer()">I received it</button>
+        <button id="dispute-submit" class="btn btn-primary" onclick="dispute()">I want to dispute it</button>
     </div>
 </div>
 
 <div class="container" style="display:none" id="resolve-panel">
     <div>
-        <div class="main-button-div">
-            <div class="main-button" style="background-color:#343a40">
-                <p id="resolve-submit" class="main-button-font" onclick="resolve()">The dispute is resolved</p>
-            </div>
-        </div>
+        <button id="resolve-submit" class="btn btn-primary" onclick="resolve()">The dispute is resolved</button>
     </div>
 </div>
 
@@ -114,16 +100,12 @@
 
 <div class="container" style="display:none" id="seller-panel">
     <div>
-        <div class="main-button-div">
-            <div class="main-button" style="background-color:#343a40">
-                <a class="main-button-font" href="" id="addImage-link">Add product image</a>
-                <a class="main-button-font" href="" id="setPrice-link">Add or update price</a>
-            </div>
-            <div class="main-button" style="background-color:#343a40">
-                <p id="refund-submit" class="main-button-font" onclick="refund()">Refund buyer</p>
-                <p id="close-submit" class="main-button-font" onclick="closeBySeller()">Receive fund</p>
-            </div>
-        </div>
+        <a href="" id="addImage-link">Add product image</a>
+        <a href="" id="setPrice-link">Add or update price</a>
+    </div>
+    <div>
+        <button id="refund-submit" class="btn btn-primary" onclick="refund()">Refund buyer</button>
+        <button id="close-submit" class="btn btn-primary" onclick="closeBySeller()">Receive fund</button>
     </div>
 </div>
 
