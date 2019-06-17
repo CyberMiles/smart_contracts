@@ -136,7 +136,7 @@ contract Listing {
         status = 2;
     }
 
-    function close () external onlyOwner {
+    function closeBySeller () external onlyOwner {
         require (status == 2);
         require (buyer.amount > 0);
         require (buyer.dispute == false);
@@ -147,6 +147,21 @@ contract Listing {
             ICRC20 token = ICRC20(buyer.crc20);
             token.transfer(address(this), buyer.amount);
         }
+        buyer.ts_sold = now;
+        status = 3;
+    }
+    
+    function closeByBuyer () public {
+        require (status == 2);
+        require (buyer.amount > 0);
+        require (buyer.addr == msg.sender);
+        if (buyer.crc20 == address(0)) {
+            address(this).transfer(buyer.amount);
+        } else {
+            ICRC20 token = ICRC20(buyer.crc20);
+            token.transfer(address(this), buyer.amount);
+        }
+        buyer.dispute = false;
         buyer.ts_sold = now;
         status = 3;
     }
