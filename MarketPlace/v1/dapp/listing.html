@@ -24,7 +24,7 @@
 
     <dl class="row" style="margin-top: 20px;">
         <dt class="col-sm-3">Creator</dt>
-        <dd class="col-sm-9" id="creater">... ...</dd>
+        <dd class="col-sm-9" id="creator">... ...</dd>
         <dt class="col-sm-3">Escrow time (s)</dt>
         <dd class="col-sm-9" id="escrow">... ...</dd>
     </dl>
@@ -35,21 +35,21 @@
     <h3>Buy</h3>
     <form>
         <div class="form-row">
-            <input type="text" id="name-field" class="form-control" data-translate="ur_name" placeholder="Your name">
-        </div>
-        <div class="form-row">
-            <label data-translate="contact_msg" style="margin-top: 4px; margin-bottom: 2px; margin-left: 4px;">How do the seller get in touch to arrange delivery?</label>
+            <input type="text" id="name-field" class="form-control" placeholder="Your name">
         </div>
         <div class="form-row">
             <div class="form-group" style="padding-left: 0px;">
+                How do you pay?
                 <select id="prices-select" class="form-control">
                 </select>
             </div>
         </div>
         <div class="form-row">
+            <label style="margin-top: 4px; margin-bottom: 2px; margin-left: 4px;">How do the seller get in touch to arrange delivery?</label>
+        </div>
+        <div class="form-row">
             <div class="form-group col" style="padding-left: 0px;">
                 <select id="contact-app-field" class="form-control">
-                    
                     <option data-translate="telegram">Telegram</option>
                     <option data-translate="twitter">Twitter</option>
                     <option data-translate="facebook">Facebook</option>
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="form-row">
-            <textarea class="form-control" data-translate="leave_msg" id="mesg-field" rows="2" placeholder="Leave a message"></textarea>
+            <textarea class="form-control" id="mesg-field" rows="2" placeholder="Leave a message"></textarea>
         </div>
     </form>
 

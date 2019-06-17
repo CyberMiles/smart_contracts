@@ -100,7 +100,7 @@ var getInfo = function () {
                                 } else if (token_crc20 == "0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a") {
                                     token_name = "OPB";
                                 }
-                                $('#prices-select').append($("<option></option>").attr("value",token_crc20).text(token_name));  
+                                $('#prices-select').append($("<option></option>").attr("value",token_crc20).text(tokens[token_crc20] + " " + token_name));  
                             }
                         }); // getPrice
                     }
