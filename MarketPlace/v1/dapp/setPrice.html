@@ -10,33 +10,30 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
 
-    <title>New listing</title>
+    <title>Set Price</title>
 </head>
     
 <body>
 <div class="container">
-    <h3>Create a new listing</h3>
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title">
+    <h3>Current Prices</h3>
+    <table>
+        <tbody id="prices-tbody"></tbody>
+    </table>
+
+    <h3>Set Price</h3>
+        <div class="form-row">
+            <div class="form-group" style="padding-left: 0px;">
+                <select id="crc20-select" class="form-control">
+                    <option value="0x0000000000000000000000000000000000000000">CMT</option>
+                    <option value="0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a">OPB (USD)</option>
+                </select>
+            </div>
         </div>
         <div class="form-group">
-            <label for="desc">Description</label>
-            <input type="text" class="form-control" id="desc">
-        </div>
-        <div class="form-group">
-            <label for="imageUrl">Image Url</label>
-            <input type="text" class="form-control" id="imageUrl">
-        </div>
-        <div class="form-group">
-            <label for="escrow">Escrow period (s)</label>
-            <input type="number" class="form-control" id="escrow">
-        </div>
-        <div class="form-group">
-            <label for="amount">Price (USD)</label>
+            <label for="amount">Price</label>
             <input type="number" class="form-control" id="amount">
         </div>
-        <button type="button" onclick="create()" class="btn btn-dark btn-lg btn-block">Create a listing</button>
+        <button type="button" onclick="setPrice()" class="btn btn-dark btn-lg btn-block">Set</button>
 </div>
 </body>
 
@@ -50,5 +47,5 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<script src="js/create.js"></script>
+<script src="js/setPrice.js"></script>
 </html>
