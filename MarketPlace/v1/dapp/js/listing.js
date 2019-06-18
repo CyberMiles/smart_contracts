@@ -192,6 +192,8 @@ var buy = function () {
         } else {
             var contract_crc20 = web3.cmt.contract(abi_crc20);
             var instance_crc20 = contract_crc20.at(crc20);
+            console.log(contract_address);
+            console.log(tokens[crc20]);
             instance_crc20.approve(contract_address, tokens[crc20], {
                 gas: '200000',
                 gasPrice: 0
