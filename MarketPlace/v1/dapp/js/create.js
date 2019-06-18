@@ -16,11 +16,13 @@ var create = function () {
             var desc = $('#desc').val();
             var imageUrl = $('#imageUrl').val();
             var escrow = $('#escrow').val();
+            var tags = $('#tags').val();
+            var categories = $('#categories').val();
             var crc20 = "0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a";
             var amount = parseInt(parseFloat($('#amount').val()) * 100); // the OPB is 2 decimals
 
             var contract = web3.cmt.contract(abi);
-            var data = '0x' + contract.new.getData(title, desc, imageUrl, escrow, crc20, amount, {data: bin.object});
+            var data = '0x' + contract.new.getData(title, desc, tags, catagories, imageUrl, escrow, crc20, amount, {data: bin.object});
 
             contract.new([title, desc, imageUrl, escrow, crc20, amount], {
                 from: userAddress.toString(),

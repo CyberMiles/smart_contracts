@@ -39,6 +39,8 @@ contract Listing {
     int8 public status; // 0: stopped; 1: open for buyers; 2: buyer in escrow; 3: closed
     string public title;
     string public desc;
+    string public tags;
+    string public categories;
     string [] image_urls;
     uint public escrow_period;
 
@@ -47,13 +49,15 @@ contract Listing {
         _;
     }
 
-    constructor (string _title, string _desc, string _image_url, uint _escrow_period, address _crc20, uint _amount) public {
+    constructor (string _title, string _desc, string _tags, string _categories, string _image_url, uint _escrow_period, address _crc20, uint _amount) public {
 
         require(_amount > 0);
 
         owner = msg.sender;
         title = _title;
         desc = _desc;
+        tags = _tags;
+        categories = _categories;
         image_urls.push(_image_url);
         escrow_period = _escrow_period;
         prices.push(Price(_crc20, _amount));
@@ -61,7 +65,28 @@ contract Listing {
         status = 1;
     }
 
+    function setTitle (string _title) external onlyOwner {
+        require(status == 0 || status == 1);
+        title = _title;
+    }
+    
+    function setDesc (string _desc) external onlyOwner {
+        require(status == 0 || status == 1);
+        desc = _desc;
+    }
+    
+    function setTags (string _tags) external onlyOwner {
+        require(status == 0 || status == 1);
+        tags = _tags;
+    }
+    
+    function setCategories (string _categories) external onlyOwner {
+        require(status == 0 || status == 1);
+        categories = _categories;
+    }
+
     function addImage (string _image_url) external onlyOwner {
+        require(status == 0 || status == 1);
         image_urls.push(_image_url);
     }
 
@@ -72,10 +97,14 @@ contract Listing {
     function getImage(uint index) public view returns(string) {
         return (image_urls[index]);
     }
+    
+    function setImage (string _image_url, uint index) external onlyOwner {
+        require(status == 0 || status == 1);
+        image_urls[index] = _image_url;
+    }
 
     function setPrice (address _crc20, uint _amount) external onlyOwner {
-        
-        require(status == 1);
+        require(status == 0 || status == 1);
 
         bool needUpdate = false;
         uint i = 0;
