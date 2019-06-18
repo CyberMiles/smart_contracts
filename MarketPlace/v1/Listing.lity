@@ -141,7 +141,7 @@ contract Listing {
         require (buyer.amount > 0);
         require (buyer.dispute == false);
         require (buyer.ts_escrow + escrow_period < now);
-        if (buyer.crc20 == address(0)) {
+        if (buyer.crc20 == 0x0000000000000000000000000000000000000000) {
             owner.transfer(buyer.amount);
         } else {
             ICRC20 token = ICRC20(buyer.crc20);
@@ -155,7 +155,7 @@ contract Listing {
         require (status == 2);
         require (buyer.amount > 0);
         require (buyer.addr == msg.sender);
-        if (buyer.crc20 == address(0)) {
+        if (buyer.crc20 == 0x0000000000000000000000000000000000000000) {
             owner.transfer(buyer.amount);
         } else {
             ICRC20 token = ICRC20(buyer.crc20);
@@ -169,7 +169,7 @@ contract Listing {
     function refund () external onlyOwner {
         require (status == 2);
         require (buyer.amount > 0);
-        if (buyer.crc20 == address(0)) {
+        if (buyer.crc20 == 0x0000000000000000000000000000000000000000) {
             buyer.addr.transfer(buyer.amount);
         } else {
             ICRC20 token = ICRC20(buyer.crc20);
@@ -215,7 +215,7 @@ contract Listing {
         ICRC20 token = ICRC20(buyer.crc20);
         if (buyer_wins) {
             // Transfer fund to buyer now
-            if (buyer.crc20 == address(0)) {
+            if (buyer.crc20 == 0x0000000000000000000000000000000000000000) {
                 buyer.addr.transfer(buyer.amount);
             } else {
                 token.transfer(buyer.addr, buyer.amount);
@@ -223,10 +223,10 @@ contract Listing {
             status = 1;
         } else {
             // Transfer fund to seller now
-            if (buyer.crc20 == address(0)) {
-                address(this).transfer(buyer.amount);
+            if (buyer.crc20 == 0x0000000000000000000000000000000000000000) {
+                owner.transfer(buyer.amount);
             } else {
-                token.transfer(address(this), buyer.amount);
+                token.transfer(owner, buyer.amount);
             }
             status = 3;
         }
