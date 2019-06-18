@@ -51,13 +51,16 @@ var getInfo = function () {
                                 var token_name = "Unknown";
                                 var token_crc20 = r_price[0].toString();
                                 var amount = r_price[1];
+                                var token_amount = "";
 
                                 if (token_crc20 == "0x0000000000000000000000000000000000000000") {
                                     token_name = "CMT";
+                                    token_amount = web3.utils.fromWei(amount);
                                 } else if (token_crc20 == "0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a") {
                                     token_name = "OPB";
+                                    token_amount = (parseInt(amount) / 100).toString();
                                 }
-                                $('#prices-tbody').append("<tr><td>" + token_name + "</td><td>" + amount + "</td></tr>");  
+                                $('#prices-tbody').append("<tr><td>" + token_name + "</td><td>" + token_amount + "</td></tr>");  
                             }
                         }); // getPrice
                     }
@@ -91,7 +94,14 @@ var getBin = function () {
 
 var setPrice = function () {
     var crc20 = $("#crc20-select").val();
-    var amount = $('#amount').val();
+    var token_amount = $('#amount').val();
+    var amount = "";
+
+    if (crc20 == "0x0000000000000000000000000000000000000000") {
+        amount = web3.utils.toWei(token_amount);
+    } else if (crc20 == "0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a") {
+        amount = parseInt(parseFloat(token_amount) * 100);
+    }
 
     instance.setPrice (crc20, amount, {
         gas: '400000',

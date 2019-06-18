@@ -17,7 +17,7 @@ var create = function () {
             var imageUrl = $('#imageUrl').val();
             var escrow = $('#escrow').val();
             var crc20 = "0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a";
-            var amount = $('#amount').val();
+            var amount = parseInt(parseFloat($('#amount').val()) * 100); // the OPB is 2 decimals
 
             var contract = web3.cmt.contract(abi);
             var data = '0x' + contract.new.getData(title, desc, imageUrl, escrow, crc20, amount, {data: bin.object});

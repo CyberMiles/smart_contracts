@@ -114,13 +114,16 @@ var getInfo = function () {
                                 var token_name = "Unknown";
                                 var token_crc20 = r_price[0].toString();
                                 tokens[token_crc20] = r_price[1];
+                                var token_amount = "";
 
                                 if (token_crc20 == "0x0000000000000000000000000000000000000000") {
                                     token_name = "CMT";
+                                    token_amount = web3.utils.fromWei(tokens[token_crc20]);
                                 } else if (token_crc20 == "0xce9a6ec5f153b87ad0f05915c85dbd3a0f6ed99a") {
                                     token_name = "OPB";
+                                    token_amount = (parseInt(tokens[token_crc20]) / 100).toString();
                                 }
-                                $('#prices-select').append($("<option></option>").attr("value",token_crc20).text(tokens[token_crc20] + " " + token_name));  
+                                $('#prices-select').append($("<option></option>").attr("value",token_crc20).text(token_amount + " " + token_name));  
                             }
                         }); // getPrice
                     }
