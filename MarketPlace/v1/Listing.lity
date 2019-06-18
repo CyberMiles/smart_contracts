@@ -142,10 +142,10 @@ contract Listing {
         require (buyer.dispute == false);
         require (buyer.ts_escrow + escrow_period < now);
         if (buyer.crc20 == address(0)) {
-            address(this).transfer(buyer.amount);
+            owner.transfer(buyer.amount);
         } else {
             ICRC20 token = ICRC20(buyer.crc20);
-            token.transfer(address(this), buyer.amount);
+            token.transfer(owner, buyer.amount);
         }
         buyer.ts_sold = now;
         status = 3;
@@ -156,10 +156,10 @@ contract Listing {
         require (buyer.amount > 0);
         require (buyer.addr == msg.sender);
         if (buyer.crc20 == address(0)) {
-            address(this).transfer(buyer.amount);
+            owner.transfer(buyer.amount);
         } else {
             ICRC20 token = ICRC20(buyer.crc20);
-            token.transfer(address(this), buyer.amount);
+            token.transfer(owner, buyer.amount);
         }
         buyer.dispute = false;
         buyer.ts_sold = now;
