@@ -8,6 +8,7 @@ var getUrlParameter = function (name) {
 const contract_address = getUrlParameter("contract");
 var userAddress = '';
 var ownerAddress = '';
+var buyerAddress = '';
 var abi = '';
 var abi_crc20 = '';
 var bin = '';
@@ -36,9 +37,6 @@ var getInfo = function () {
     $('#sold-panel').css("display", "none");
     $('#seller-panel').css("display", "none");
 
-    $('#addImage-link').attr("href", "addImage.html?contract=" + contract_address);
-    $('#setPrice-link').attr("href", "setPrice.html?contract=" + contract_address);
-
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             console.log(e);
@@ -51,35 +49,53 @@ var getInfo = function () {
             instance.info (function (e, r) {
                 if (e) {
                     console.log(e);
-                    return;
                 } else {
                     var status = r[0];
+                    $('#title-div').text(r[1]);
+                    $('#desc-panel').text(r[2]);
+                    $('#escrow').text(r[3]);
+                    var imagesCount = r[4];
+                    var pricesCount = r[5];
+                    ownerAddress = r[6].toString();
+                    buyerAddress = r[7].toString();
+
+                    $('#creator').text(ownerAddress);
+
                     if (status == 1) {
                         $('#buy-panel').css("display", "block");
                     } else if (status == 2) {
-                        $('#escrowed-panel').css("display", "block");
-                        $('#dispute-panel').css("display", "block");
-                        $('#resolve-panel').css("display", "block");
+                        if (buyerAddress != userAddress) {
+                            $('#escrowed-panel').css("display", "block");
+                        }
                     } else if (status == 3) {
                         $('#sold-panel').css("display", "block");
                     }
 
-                    $('#title-div').text(r[1]);
-                    $('#desc-panel').text(r[2]);
-
-                    $('#creator').text(r[3]);
-                    ownerAddress = r[3].toString();
                     if (userAddress == ownerAddress) {
                         if (status == 1 || status == 2) {
                             $('#seller-panel').css("display", "block");
-                            // TODO: Fill in buyerInfo and buyerPayInfo
                         }
                     }
 
-                    $('#escrow').text(r[4]);
+                    instance.buyerInfo (function (be, br) {
+                        if (be) {
+                            console.log(be);
+                        } else {
+                            var dispute = br[3];
+                            // TODO: Fill in seller panel
+                            if (buyerAddress == userAddress && status == 2) {
+                                // TODO: allow user to update info
+                                if (dispute) {
+                                    $('#dispute-panel').css("display", "block");
+                                } else {
+                                    $('#resolve-panel').css("display", "block");
+                                }
+                            }            
+                        }
+                    });
 
                     var i = 0;
-                    for (i = 0; i < r[5]; i++) {
+                    for (i = 0; i < imagesCount; i++) {
                         instance.getImage (i, function (e_img, r_img) {
                             if (e_img) {
                                 console.log(e_img);
@@ -90,7 +106,7 @@ var getInfo = function () {
                     }
 
                     var price_options = "";
-                    for (i = 0; i < r[6]; i++) {
+                    for (i = 0; i < pricesCount; i++) {
                         instance.getPrice (i, function (e_price, r_price) {
                             if (e_price) {
                                 console.log(e_price);
@@ -226,3 +242,57 @@ var closeByBuyer = function () {
         }
     });
 }
+
+var refund = function () {
+    instance.refund ({
+        gas: '400000',
+        gasPrice: 0
+    }, function (e, result) {
+        if (e) {
+            console.log(e);
+        } else {
+            setTimeout(function () {
+                window.location.reload(true);
+            }, 20 * 1000);
+        }
+    });
+}
+
+var resolve = function () {
+    instance.resolve ({
+        gas: '400000',
+        gasPrice: 0
+    }, function (e, result) {
+        if (e) {
+            console.log(e);
+        } else {
+            setTimeout(function () {
+                window.location.reload(true);
+            }, 20 * 1000);
+        }
+    });
+}
+
+var dispute = function () {
+    instance.dispute ("TODO: add reason from UI", {
+        gas: '400000',
+        gasPrice: 0
+    }, function (e, result) {
+        if (e) {
+            console.log(e);
+        } else {
+            setTimeout(function () {
+                window.location.reload(true);
+            }, 20 * 1000);
+        }
+    });
+}
+
+var addImage = function () {
+    window.location = "addImage.html?contract=" + contract_address;
+}
+
+var setPrice = function () {
+    window.location = "setPrice.html?contract=" + contract_address;
+}
+
