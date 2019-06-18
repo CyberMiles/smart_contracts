@@ -187,8 +187,8 @@ var buy = function () {
                 }
             }); // buyWithCMT
         } else {
-            contract_crc20 = web3.cmt.contract(abi_crc20);
-            instance_crc20 = contract_crc20.at(crc20);
+            var contract_crc20 = web3.cmt.contract(abi_crc20);
+            var instance_crc20 = contract_crc20.at(crc20);
             instance_crc20.approve(contract_address, tokens[crc20], {
                 gas: '200000',
                 gasPrice: 0
