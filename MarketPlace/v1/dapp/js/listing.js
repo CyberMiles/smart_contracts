@@ -192,8 +192,6 @@ var buy = function () {
         } else {
             var contract_crc20 = web3.cmt.contract(abi_crc20);
             var instance_crc20 = contract_crc20.at(crc20);
-            console.log(contract_address);
-            console.log(parseInt(tokens[crc20]));
             instance_crc20.approve(contract_address, parseInt(tokens[crc20]), {
                 gas: '200000',
                 gasPrice: 0
@@ -202,7 +200,7 @@ var buy = function () {
                     console.log(error);
                 } else {
                     instance.buyWithCRC20(crc20, name, contact, mesg, {
-                        gas: '200000',
+                        gas: '400000',
                         gasPrice: 0
                     }, function (e, r) {
                         if (e) {
