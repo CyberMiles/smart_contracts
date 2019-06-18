@@ -86,9 +86,9 @@ var getInfo = function () {
                             if (buyerAddress == userAddress && status == 2) {
                                 // TODO: allow user to update info
                                 if (dispute) {
-                                    $('#dispute-panel').css("display", "block");
-                                } else {
                                     $('#resolve-panel').css("display", "block");
+                                } else {
+                                    $('#dispute-panel').css("display", "block");
                                 }
                             }            
                         }
@@ -188,7 +188,7 @@ var buy = function () {
             }); // buyWithCMT
         } else {
             contract_crc20 = web3.cmt.contract(abi_crc20);
-            instance_crc20 = contract.at(crc20);
+            instance_crc20 = contract_crc20.at(crc20);
             instance_crc20.approve(contract_address, tokens[crc20], {
                 gas: '200000',
                 gasPrice: 0

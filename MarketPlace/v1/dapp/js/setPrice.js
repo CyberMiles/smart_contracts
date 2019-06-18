@@ -101,7 +101,7 @@ var setPrice = function () {
             console.log(e);
         } else {
             setTimeout(function () {
-                window.location.reload(true);
+                window.location = "listing.html?contract=" + contract_address;
             }, 20 * 1000);
         }
     });
