@@ -243,16 +243,12 @@ contract Listing {
         status = 1;
     }
 
-    function info () view public returns (int8, string, string, uint, uint, uint, uint) {
-        return (status, title, desc, escrow_period, image_urls.length, prices.length, buyer.ts_escrow);
+    function info () view public returns (int8, string, string, uint, uint, uint, address, address) {
+        return (status, title, desc, escrow_period, image_urls.length, prices.length, owner, buyer.addr);
     }
 
-    function buyerInfo () view public returns (address, bool, string, string, string, string) {
-        return (buyer.addr, buyer.dispute, buyer.dispute_reason, buyer.name, buyer.contact, buyer.mesg);
-    }
-
-    function buyerPayInfo () view public returns (address, uint, uint, address, uint) {
-        return (buyer.addr, buyer.ts_escrow, buyer.ts_sold, buyer.crc20, buyer.amount);
+    function buyerInfo () view public returns (address, uint, uint, bool, string, string, string, string, address, uint) {
+        return (buyer.addr, buyer.ts_escrow, buyer.ts_sold, buyer.dispute, buyer.dispute_reason, buyer.name, buyer.contact, buyer.mesg, buyer.crc20, buyer.amount);
     }
 
     function kill() public onlyOwner {
