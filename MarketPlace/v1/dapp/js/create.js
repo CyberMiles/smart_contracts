@@ -22,7 +22,7 @@ var create = function () {
             var amount = parseInt(parseFloat($('#amount').val()) * 100); // the OPB is 2 decimals
 
             var contract = web3.cmt.contract(abi);
-            var data = '0x' + contract.new.getData(title, desc, tags, catagories, imageUrl, escrow, crc20, amount, {data: bin.object});
+            var data = '0x' + contract.new.getData(title, desc, tags, categories, imageUrl, escrow, crc20, amount, {data: bin.object});
 
             contract.new([title, desc, imageUrl, escrow, crc20, amount], {
                 from: userAddress.toString(),
