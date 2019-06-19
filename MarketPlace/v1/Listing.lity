@@ -41,8 +41,10 @@ contract Listing {
     string public desc;
     string public tags;
     string public categories;
-    string [] image_urls;
     uint public escrow_period;
+    string [] image_urls;
+    
+    string public seller_mesg;
 
     modifier onlyOwner() {
         assert(msg.sender == owner);
@@ -50,7 +52,6 @@ contract Listing {
     }
 
     constructor (string _title, string _desc, string _tags, string _categories, string _image_url, uint _escrow_period, address _crc20, uint _amount) public {
-
         require(_amount > 0);
 
         owner = msg.sender;
@@ -63,6 +64,15 @@ contract Listing {
         prices.push(Price(_crc20, _amount));
 
         status = 1;
+    }
+    
+    function updateListing (string _title, string _desc, string _tags, string _categories, uint _escrow_period) external onlyOwner {
+        require(status == 0 || status == 1);
+        title = _title;
+        desc = _desc;
+        tags = _tags;
+        categories = _categories;
+        escrow_period = _escrow_period;
     }
 
     function setTitle (string _title) external onlyOwner {
@@ -83,6 +93,15 @@ contract Listing {
     function setCategories (string _categories) external onlyOwner {
         require(status == 0 || status == 1);
         categories = _categories;
+    }
+    
+    function setEscrowPeriod (uint _escrow_period) external onlyOwner {
+        require(status == 0 || status == 1);
+        escrow_period = _escrow_period;
+    }
+    
+    function setSellerMesg (string _seller_mesg) external onlyOwner {
+        seller_mesg = _seller_mesg;
     }
 
     function addImage (string _image_url) external onlyOwner {
